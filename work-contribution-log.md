@@ -20,7 +20,7 @@ The course asks for this log to be updated every week with each member's contrib
 | Report editing and verification | Updated the report with current product/research comparisons, cited implementation precedents, and marked unbuilt capabilities as proposals rather than results. | Jayesh Bansal | 22 Oct 2026 | Pending member confirmation |
 | Presentation | Prepared the Milestone 1 slide deck. | Vikas | 22 Oct 2026 | Vikas |
 | Feasibility review and data check | Checked the plan against each milestone's requirements. Counted the available data with the iNaturalist API (27 Indian species with at least 200 CC-licensed research-grade observations each), located the released PLOS baseline model, the Open Images snake boxes and the WHO species categories, and found no public species-labelled snake video. | Puneet Bajaj | 22 Oct 2026 | Pending member confirmation |
-| Report and slide revision | Added scope, stakeholders and measurable targets for the M1 rubric, the species table, the grouped-split and video-clip plan, and the detector, tracker and classifier architecture. Corrected the PLOS first author, replaced slide figures and chart values that had no source, matched the slide claims to the report, and added a slide on scope, stakeholders and targets. | Puneet Bajaj | 22 Oct 2026 | Pending member confirmation |
+| Report and slide revision | Added scope, stakeholders and measurable targets for the M1 rubric, the species table, real data samples and two output mockups, the grouped-split and video-clip plan, the Kaggle and Colab compute plan, and the detector, tracker and classifier architecture. Corrected the PLOS first author, replaced slide figures and chart values that had no source, matched the slide claims to the report, and added a slide on scope, stakeholders and targets. | Puneet Bajaj | 22 Oct 2026 | Pending member confirmation |
 | Repository documentation | Wrote the README, extended `.gitignore` to keep data and model files out of git, and fixed the links in this log. | Puneet Bajaj | 22 Oct 2026 | Pending member confirmation |
 
 ### Member contribution summary
@@ -29,7 +29,18 @@ The course asks for this log to be updated every week with each member's contrib
 |---|---|---|---|
 | Jayesh Bansal | Project report | [project-report.md](documentation/milestone%201/project-report.md) | Jayesh Bansal |
 | Vikas | Presentation preparation | [SerpentGuard_AI_Group5_Presentation.pptx](documentation/milestone%201/assets/SerpentGuard_AI_Group5_Presentation.pptx) | Vikas |
-| Puneet Bajaj | Repository setup; feasibility and data check; report sections 1, 3, 5, 6 and 9 and the references; slide revision; README | [project-report.md](documentation/milestone%201/project-report.md), [README.md](README.md) | Puneet Bajaj |
+| Puneet Bajaj | Repository setup; feasibility and data check; report sections 1, 3, 5, 6, 7 and 9 and the references; data samples and output mockups; slide revision; README | [project-report.md](documentation/milestone%201/project-report.md), [README.md](README.md) | Puneet Bajaj |
 | Manas Rastogi | To be filled in by Manas |  |  |
 
-All members must also sign the acknowledgment page at the end of the [Milestone 1 project report](documentation/milestone%201/project-report.md).
+All members must also sign the acknowledgment page at the end of the [Milestone 1 project report](documentation/milestone%201/project-report.md) and the last slide of the presentation.
+
+## Team review and acknowledgment
+
+By signing, each member confirms that they have reviewed this log, that their own entries are accurate, and that they agree with the submission.
+
+| Team member name | Roll Number | Signature / acknowledgment | Date |
+|---|---|---|---|
+| Jayesh Bansal | 24f100185 |  |  |
+| Vikas | 23f3001800 |  |  |
+| Puneet Bajaj | 23f3002416 | Puneet Bajaj | 22/10/2026 |
+| Manas Rastogi |  |  |  |

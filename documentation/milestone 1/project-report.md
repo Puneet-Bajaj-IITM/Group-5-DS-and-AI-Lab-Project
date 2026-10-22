@@ -19,7 +19,7 @@ SerpentGuard AI is a two-stage vision system. It finds a snake in a photo or a l
 | Two input modes that share the same models: a still photo, and a live camera feed processed frame by frame | Bite diagnosis, dosing, treatment advice, or any claim that an area is safe |
 | Top-3 species, calibrated confidence, an explicit "uncertain" state, and each candidate's WHO medical-importance category | Generated (LLM) text. All safety text is fixed and quoted from official sources |
 | Optional coarse location (Indian state) used to re-rank candidates | Letting location override what the image shows |
-| A web demo on Hugging Face Spaces for the course, and an offline on-device export benchmarked on one phone | A mobile app published to an app store |
+| A demo interface for the course (section 5.1), and an offline on-device export benchmarked on one phone | A mobile app published to an app store |
 
 ### 1.2 Stakeholders
 
@@ -71,9 +71,14 @@ For detection, two studies report YOLO-based snake detectors. Naresh et al. (202
 
 ## 3. Data samples and data plan
 
-The sample panel below is the augmentation figure from the open-access PLOS snake-recognition study. It shows two snake photographs (top and bottom rows) next to transformed versions used for training augmentation. The original caption credits the source observations to chiuluan (iNaturalist 207060926) and Alex Karasoulos (iNaturalist 207359674), both marked CC-BY in the article. They are examples from the literature, not files from our training set. [Original Figure 2 and attribution](https://journals.plos.org/plosntds/article/figure?id=10.1371/journal.pntd.0010647.g002)
+### Data samples
 
-![Two snake source photographs and augmented views from the PLOS study's Figure 2](assets/snakeclef_samples.png)
+Two photos from the dataset we plan to use: research-grade iNaturalist observations from India with CC BY licences. They show one of the lookalike pairs the system must separate: the cobra is WHO Category 1, and the rat snake is not WHO-listed.
+
+| Spectacled cobra (*Naja naja*), class 3 | Oriental rat snake (*Ptyas mucosa*), class 2 |
+|---|---|
+| <img src="assets/sample_naja_naja_inat84964394.jpg" alt="Spectacled cobra with raised hood showing the spectacle mark" width="300"> | <img src="assets/sample_ptyas_mucosa_inat212098553.jpg" alt="Oriental rat snake resting on a branch" width="400"> |
+| © Chayant Gonsalves, CC BY, [iNaturalist 84964394](https://www.inaturalist.org/observations/84964394) | © Surabhi Srivastava, CC BY, [iNaturalist 212098553](https://www.inaturalist.org/observations/212098553) |
 
 ### 3.1 How much data is available
 
@@ -122,7 +127,7 @@ To check the method, we queried a US-only rattlesnake (*Crotalus atrox*), which 
 | Species classifier | iNaturalist research-grade observations from India with CC-licensed photos [16] | Set per photo: CC0, CC-BY or CC-BY-NC(-SA). Non-commercial academic use | Train, validation and test splits. The repository holds a manifest (observation id, photo id, licence, URL); images are downloaded by script and never committed |
 | Pre-training or extra data | SnakeCLEF 2024 training set: 1,784 species, about 17 GB at 500 px or 4.5 GB at 240 px [18] | The page states no licence; to be confirmed before use | Optional. Deduplicate against our test set by observation id |
 | Published baseline | Bolon et al. 2022 ViT (ONNX, 1.13 GB) with its released data and code [2] | BSD-3-Clause | Run on our test images (section 6) |
-| Snake detector | Open Images V7, where `Snake` is a boxable class (`/m/078jl`) [17], plus Roboflow Universe community sets [19] | Open Images is CC BY 4.0; Roboflow varies by project | Train the single-class detector, with non-snake scenes as negatives |
+| Snake detector | Open Images V7, where `Snake` is a boxable class (`/m/078jl`) [17]; its validation and test splits alone hold 309 snake boxes on 295 images, and the much larger training split will be counted at Milestone 2. Plus Roboflow Universe community sets [19] | Open Images annotations are CC BY 4.0 and its images are listed as CC BY 2.0 [17]; Roboflow varies by project | Train the single-class detector, with non-snake scenes as negatives |
 | Medical importance | WHO SEARO 2016 guidelines, India box on PDF p. 87 [15] | WHO publication | Per-species category used in metrics O2 and O3 |
 | Live video evaluation | We found no public species-labelled snake video set; Wikimedia Commons has 0 to 2 videos for each species we checked | None | Build our own clips (section 3.4) |
 
@@ -136,7 +141,10 @@ No herpetologist reviewer is confirmed, so our labels are iNaturalist research g
 
 A video is a sequence of images, so the same detector and classifier run on every frame and we do not train a separate video model. We need video data only to evaluate live behaviour: how stable the label is, how long the first label takes, and how often the system raises a false alarm. We will build three clip sets, all from test-split images so nothing leaks from training:
 
-1. Synthetic clips. Each test photo becomes a 10-second, 15 FPS clip with a random camera path (pan, zoom, rotation, hand shake), motion blur, low-light and noise simulation, JPEG compression, and leaf-shaped masks covering 30% to 70% of the snake. The clip keeps the photo's label, and every generation parameter is logged and seeded.
+1. Synthetic clips. We take 20 test photos per species (540 clips, about 81,000 frames) and turn each into a 10-second, 15 FPS clip with a random camera path (pan, zoom, rotation, hand shake), motion blur, low-light and noise simulation, JPEG compression, and leaf-shaped masks covering 30% to 70% of the snake. The clip keeps the photo's label, and every generation parameter is logged and seeded. The figure below, from the PLOS study, shows the kind of transforms involved: two iNaturalist photos (by chiuluan, iNaturalist 207060926, and Alex Karasoulos, iNaturalist 207359674, both CC BY) next to augmented versions. [Original Figure 2 and attribution](https://journals.plos.org/plosntds/article/figure?id=10.1371/journal.pntd.0010647.g002)
+
+   ![Two snake photographs and augmented views from the PLOS study's Figure 2](assets/snakeclef_samples.png)
+
 2. Re-captured clips. Team members film test photos on a screen with a moving phone, which adds real sensor noise and the autofocus and exposure changes that synthetic warps miss.
 3. No-snake clips built from Open Images scenes without snakes, to measure false alarms.
 
@@ -144,7 +152,7 @@ Neither synthetic nor re-captured clips show a snake actually moving. We will re
 
 ### 3.5 Data risks
 
-Disputed or mis-identified taxa, rare classes, geographic and platform bias, repeated images of the same individual, captive snakes, taxonomic renames (for example *Xenochrophis* to *Fowlea* and *Trimeresurus* to *Craspedocephalus*), photos with several snakes, obscured coordinates (12% of sampled observations) and the mix of licences. The Milestone 2 data report will include a check for each.
+Disputed or mis-identified taxa, rare classes, geographic and platform bias, repeated images of the same individual, captive snakes, taxonomic renames (for example *Xenochrophis* to *Fowlea* and *Trimeresurus* to *Craspedocephalus*), photos with several snakes, obscured coordinates (12% of sampled observations) and the mix of licences. Research grade applies to the observation, not to each photo: the first of five photos in [iNaturalist 251871933](https://www.inaturalist.org/observations/251871933), a research-grade *Ptyas mucosa*, shows a shed skin, which a per-photo dataset would label as the species. The Milestone 2 data report will include a check for each risk.
 
 ## 4. Existing solutions and comparison
 
@@ -153,6 +161,7 @@ Disputed or mis-identified taxa, rare classes, geographic and platform bias, rep
 | Google Search / Google Lens | A camera or uploaded image starts a visual search that returns visually similar pages; Lens can identify plants and animals | Fast, with a broad index; works from a camera or an image | Search matches are not a calibrated classifier with a fixed snake label set. Results vary with the web, there is no measured abstention or risk score, and it needs internet [6] |
 | Gemini Live | Users share a camera feed and ask spoken questions | Natural, interactive live-camera help | General-purpose answers that have not been evaluated on regional snakes. Needs a live connection [7] |
 | ChatGPT camera/video | Voice mode supports camera and video sharing in supported mobile apps | Conversational follow-up and broad image understanding | Not trained or calibrated for our class list, and a direct answer can sound confident without any validation [8] |
+| iNaturalist and Seek | Upload or point a camera at an organism and get ranked species suggestions from a model trained on iNaturalist records [5] | Covers Indian snakes, with a large community that confirms identifications | A general wildlife tool built for biodiversity records; we found no published accuracy for Indian snakes, and it is not designed for safety decisions |
 | Direct response from a general LLM | The user describes the snake or uploads an image | No setup, and it explains its reasoning | No fixed label set, no reproducible score, and no reliable way to tell real uncertainty from a plausible guess. Useful as a qualitative comparison only |
 | Global PLOS ViT (Bolon et al. 2022) | A 772-species classifier with optional geography | 92.2% macro-F1 on its benchmark; weights and code released under BSD-3 | The ONNX model is about 1.1 GB, too large for a phone; trained mostly on North American photos; not tested on Indian field photos [2] |
 | SnakeCLEF challenge systems | Shared datasets and held-out evaluation, with a 2023 and 2024 focus on medically important scenarios including India | Reproducible research setup; DINOv2 features explored, with released code [12] | Evaluated on static photos on a server GPU and not designed for live, on-device video |
@@ -188,7 +197,28 @@ photo or camera frame ──► YOLOv8n snake detector (1 class, int8 for edge)
 - Calibration and abstention: temperature scaling on the validation split [20]. The system shows a label only when the smoothed top-1 probability passes a threshold set on validation data to meet the O4 coverage target.
 - Location (optional): candidates are re-ranked by how often each species appears in each state, counted on the training split only.
 - Safety knowledge base: species facts and first-aid text quoted word for word from official sources such as WHO SEARO 2016 [15], always shown with the source. The system generates no text, and "no snake detected" is never shown as "safe".
-- Deployment: a Gradio app on Hugging Face Spaces with photo upload and webcam streaming, which meets the Milestone 6 requirement. As a stretch goal, both models are exported to TFLite or ONNX int8 and benchmarked on one Android phone (O7).
+- Deployment: a Gradio demo interface with photo upload and webcam input, which meets the Milestone 6 requirement (section 5.1 covers where it runs). As a stretch goal, both models are exported to TFLite or ONNX int8 and benchmarked on one Android phone (O7).
+
+### 5.1 Compute plan: Kaggle and Colab only
+
+We have no paid compute, so every step must fit the free tiers of Kaggle and Google Colab. Neither publishes a fixed quota. Third-party summaries from 2026 report about 30 GPU hours per week per Kaggle account (one P100 or two T4s), 12-hour Kaggle GPU sessions that can run in the background, and Colab T4 sessions of up to 12 hours with a 90-minute idle timeout and no guaranteed GPU [25, 26]. We will use Kaggle as the main platform and Colab as a backup, and keep the prepared dataset as a private Kaggle Dataset so both can load it.
+
+| Step | Where | Estimated cost |
+|---|---|---|
+| Build the manifest (about 120 iNaturalist API requests) and download about 36,000 photos (about 4 GB at 500 px) | Kaggle or Colab with internet on | Under an hour of CPU time. The API asks for at most 60 requests per minute [16]; photos come from the public `inaturalist-open-data` bucket, not the API |
+| Deduplicate, split, check leakage, generate 540 synthetic clips | Kaggle CPU | About an hour |
+| Train classifiers (about 25,000 training images, around 30 epochs per run) | Kaggle T4/P100 | About 0.5 to 1.5 GPU hours per run, so 10 to 15 runs need 10 to 20 GPU hours |
+| Train the YOLOv8n detector | Kaggle T4 | About 1 to 2 GPU hours |
+| Run the PLOS ViT baseline (1.13 GB ONNX) on about 5,400 test images | Kaggle T4 with ONNX Runtime | Minutes |
+| Run detector, tracker and classifier on the 540 clips | Kaggle T4 | Under an hour |
+| Export int8 TFLite/ONNX models | Colab | Minutes |
+
+These GPU figures are our estimates, not measurements: they assume a T4 trains these small models at a few hundred images per second, and we will measure the real rate in Milestone 3. Even at double the estimate, the total stays under one account's weekly quota, and the team has four accounts.
+
+Two things cannot run on Kaggle or Colab alone:
+
+- The live webcam demo. A notebook cannot use the viewer's camera as a stream, so the demo runs as a Gradio app on a team member's laptop (CPU), which is also where O6 is measured. YOLOv8n's published CPU time is 80.4 ms per 640-pixel frame [22]; at a 320 to 416-pixel input and with the classifier run on tracked crops, 10 FPS is a reasonable target, to be confirmed in Milestone 3. For a hosted link, Hugging Face now requires a paid plan for new Gradio Spaces on CPU, but free accounts can host up to 2 Gradio Spaces on ZeroGPU, and static Spaces are free [27]. We will use a ZeroGPU Space for the photo demo, or a free static Space that runs the ONNX models in the browser.
+- The phone benchmark (O7) needs an Android phone. If MobileViT does not convert cleanly to TFLite, we will export a MobileNetV3 classifier for the phone build and report the accuracy difference.
 
 ## 6. Baselines and evaluation plan
 
@@ -214,57 +244,55 @@ We have no measured project result yet. At Milestones 3 and 4 we will measure th
 
 For every run we record the split manifest, class counts, library versions and random seeds.
 
-### 6.3 Metrics
+### 6.3 How we plan to improve on the baselines
+
+Each step below is tested as an ablation on the same locked test set, so we can say which change moved which metric:
+
+1. Transfer learning from ImageNet-pretrained backbones, with class-balanced sampling or loss weighting for the rarer species.
+2. Augmentation that keeps diagnostic patterns intact: lighting, crop, rotation, blur and compression, but no colour shifts strong enough to change banding.
+3. Cropping to the detector's box before classification, compared with classifying the full image.
+4. Location re-ranking, used only when a state is known.
+5. Temperature scaling and a reject option, so low-confidence and out-of-list snakes come back as "uncertain" or "unknown".
+6. Full fine-tuning against LoRA for MobileViT, and int8 quantization checked separately on rare classes and on calibration.
+
+### 6.4 Current results compared with our expected results
+
+| Measure | Best current result we found | What we expect |
+|---|---|---|
+| Species identification | 92.2% macro-F1 on 772 species with about 386k photos [2]; 0.83 F1 on 45 species, falling to 0.73 on expert-labelled private photos [3] | Macro-F1 ≥ 0.80 on 27 Indian species with about 36k photos (O1). Lower than the global model, which has ten times more data, but measured on Indian, post-2021 photos it has never seen |
+| Snake detection | 87% to 88% precision [13, 14] | Precision and recall ≥ 0.90 (O5) |
+| Dangerous-species safety | Not reported by the YOLO detection papers [13, 14]; weighted in SnakeCLEF scoring [4] | Recall ≥ 0.95 on WHO Category 1 and 2 species; ≤ 2% of them labelled as not-listed (O2, O3) |
+| Calibrated abstention | Not reported in the detection papers [13, 14] | ECE ≤ 0.05, error ≤ 5% at 80% coverage (O4) |
+| Speed and size | 142 FPS for YOLOv8-Nano on a GPU [14]; the global ViT model file is about 1.1 GB [2] | ≥ 10 FPS on a laptop CPU (O6); both models ≤ 25 MB on a phone (O7) |
+| Live video | No published clip-level results found for snake ID | ≤ 1 label flip per 10-second clip and a first stable label within 2 s (O6) |
+
+### 6.5 Metrics
 
 Top-1 and top-3 accuracy, macro-F1, balanced accuracy, per-class precision and recall, the confusion matrix, ECE with a reliability diagram, the risk-coverage curve, recall on medically important species, and the rate at which dangerous snakes are labelled as not-listed species. For the detector we report precision, recall and mAP@0.5. For video we report clip-level accuracy, label flips per clip, time to the first stable label and false alarms per minute. For deployment we report FPS, median and p95 latency, and model size. Headline metrics come with bootstrap 95% confidence intervals.
 
-### 6.4 Evaluation protocol
+### 6.6 Evaluation protocol
 
 1. Every model is scored on the same locked, grouped test set (section 3.3), stratified by species, region, image quality and WHO category.
 2. Location ablation: image only, image with the correct state, and image with a missing or wrong state.
 3. Video: the synthetic, re-captured and no-snake clips from section 3.4, comparing single-frame decisions with temporal smoothing. Adjacent frames never count as independent test samples.
-4. General-purpose tools: we send a fixed, stratified 100-image subset to two multimodal LLM APIs (Gemini and GPT) with a fixed prompt that asks for the top 3 from our 27-species list or "unknown". We run Google Lens by hand on 30 of those images. Gemini Live and ChatGPT camera mode give no reproducible ranked output, so we record them only as a qualitative demo. For each tool we log the version, date and prompt, and we estimate the API cost before running.
+4. Market tools, all on the same fixed, stratified 100-image subset. iNaturalist's identification suggestions, the closest existing product, return a ranked species list for an uploaded photo, so we record top-1 and top-3 agreement with our labels; we also try Seek, iNaturalist's camera app, by hand on 30 of the images. We send the 100 images to two multimodal LLM APIs (Gemini and GPT) with a fixed prompt that asks for the top 3 from our 27-species list or "unknown", and run Google Lens by hand on 30. Gemini Live and ChatGPT camera mode give no reproducible ranked output, so we record them only as a qualitative demo. For each tool we log the version, date and prompt, and we estimate any API cost before running. Test images uploaded to iNaturalist after 2021 may already be in iNaturalist's own training data, so its scores are an upper bound, and we report them that way.
 5. Error analysis on a stratified sample of failures, uncertain predictions and high-risk predictions, checked by the team against field-guide characters and, if possible, by an expert.
 
 ## 7. Expected product outputs (illustrative mockups)
 
-These are mock outputs for the proposed interface, not predictions from a trained model.
+These two mockups show what the finished system should return. The photos are real samples from our planned dataset, but the boxes, scores and labels are placeholders we drew by hand, not predictions from a trained model.
 
 ### Example A: confident, in-scope photo
 
-```text
-┌──────────────────────────────────────────────┐
-│ Snake detected                                │
-│                                              │
-│ 1. Candidate species A                 0.82  │
-│ 2. Candidate species B                 0.11  │
-│ 3. Candidate species C                 0.04  │
-│                                              │
-│ WHO category (India): shown per candidate     │
-│ Visual cues: band pattern; head/body shape    │
-│ Keep a safe distance. [Official guidance]     │
-│ [View species notes] [Report a correction]    │
-└──────────────────────────────────────────────┘
-```
+![Mockup of a confident result: a box around a spectacled cobra and a panel with the top-3 species, scores, WHO category and a safety note](assets/output_mockup_confident.png)
 
-The percentages are placeholders. A real release shows verified common and scientific names and sourced distinguishing features.
+The detector draws a box around the snake and the classifier lists the top three species with calibrated scores. The panel gives the WHO category of the top candidate, the visual cue behind it, and a link to official guidance. Live video shows the same panel for each tracked snake, updated from the smoothed scores of recent frames.
 
-### Example B: uncertain or unsupported image
+### Example B: uncertain image
 
-```text
-┌──────────────────────────────────────────────┐
-│ No reliable species-level match               │
-│                                              │
-│ Best supported level: Genus / Unknown         │
-│ Top candidates are visually similar.          │
-│ Confidence is below the display threshold.    │
-│                                              │
-│ Please do not handle the snake.               │
-│ [Retake from a safe distance] [See guidance]  │
-└──────────────────────────────────────────────┘
-```
+![Mockup of an uncertain result: a box around a cobra partly hidden in grass and a panel saying no reliable species match](assets/output_mockup_uncertain.png)
 
-"See guidance" shows only text quoted from official sources, with the source named, and the model never presents a low-confidence guess as certain.
+When the snake is partly hidden or the top candidates are close, the system shows that it found a snake but will not name the species. It asks the user to keep away and retake the photo from a safe distance. "See official guidance" shows only text quoted from official sources, with the source named.
 
 ## 8. Gaps, opportunities, and project response
 
@@ -289,8 +317,8 @@ Snake classification has been done at global scale and in mobile and video proto
 | M2 Dataset (29 Oct) | Download and manifest scripts, EDA notebook, grouped splits, leakage check, WHO labels, synthetic-clip generator | The leakage script reports 0 overlaps and the class-count table matches the manifest |
 | M3 Architecture (5 Nov) | The detector, tracker and classifier pipeline run end to end on a data subset and on one synthetic clip | One command produces labelled frames and metrics on the subset |
 | M4 Training (19 Nov) | Baselines, MobileViT full fine-tuning against LoRA, augmentation and regularisation sweeps, detector training | A hyperparameter table with at least 6 runs, with checkpoints and configs saved |
-| M5 Evaluation (26 Nov) | All metrics in section 6.3 against targets O1 to O8, the PLOS baseline, and error analysis | Every target reported as met or missed, with confidence intervals |
-| M6 Deployment (10 Dec) | Hugging Face Space (photo and webcam), offline export benchmark, documentation | A public Space link and a latency table from one phone |
+| M5 Evaluation (26 Nov) | All metrics in section 6.5 against targets O1 to O8, the PLOS baseline, and error analysis | Every target reported as met or missed, with confidence intervals |
+| M6 Deployment (10 Dec) | Gradio demo (laptop for live video, a free Hugging Face Space for photos), offline export benchmark, documentation | A working demo link and a latency table from one phone |
 
 ## References
 
@@ -318,6 +346,9 @@ Snake classification has been done at global scale and in mobile and video proto
 22. Ultralytics, [YOLO multi-object tracking](https://docs.ultralytics.com/modes/track/).
 23. Mehta S., Rastegari M. (2022). [MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer](https://arxiv.org/abs/2110.02178). ICLR.
 24. Hu E. J. et al. (2021). [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685).
+25. GPU Per Hour (21 September 2026). [Free Cloud GPUs in 2026: What Works and What Closed](https://gpuperhour.com/blog/free-cloud-gpus-and-credits). Third-party summary of Kaggle's notebook limits; Kaggle does not publish a fixed weekly quota.
+26. Spheron (2026). [Google Colab alternatives: 8 GPU clouds compared](https://www.spheron.network/blog/google-colab-alternatives-8-gpu-clouds-compared-2026/). Third-party summary of Colab free-tier limits.
+27. Hugging Face, [Spaces overview](https://huggingface.co/docs/hub/en/spaces-overview), accessed 22 October 2026 (paid plan needed for new Gradio and Docker Spaces; up to 2 free Gradio Spaces on ZeroGPU; static Spaces free).
 
 <div style="page-break-before: always"></div>
 
