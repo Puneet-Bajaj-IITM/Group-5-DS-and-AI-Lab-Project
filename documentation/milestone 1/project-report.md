@@ -130,12 +130,19 @@ To check the method, we queried a US-only rattlesnake (*Crotalus atrox*), which 
 
 | Task | Source | Licence / terms | Use |
 |---|---|---|---|
-| Species classifier | iNaturalist research-grade observations from India with CC-licensed photos [16] | Set per photo: CC0, CC-BY or CC-BY-NC(-SA). Non-commercial academic use | Train, validation and test splits. The repository holds a manifest (observation id, photo id, licence, URL); images are downloaded by script and never committed |
-| Pre-training or extra data | SnakeCLEF 2024 training set: 1,784 species, about 17 GB at 500 px or 4.5 GB at 240 px [18] | The page states no licence; to be confirmed before use | Optional. Deduplicate against our test set by observation id |
+| Species classifier (primary) | iNaturalist research-grade observations of Indian snakes, filtered by each photo's licence [16] | Check the photo licence, not just the observation licence; record attribution and honor NC, SA and ND terms. The open-data bucket provides photo files and attribution metadata [34] | Best current fit for species labels and India coverage. Keep the existing grouped splits; never redistribute the image collection without checking each licence |
+| General snake segmentation | Open Images V7 `Snake` instances (MID `/m/078jl`), which is included in its official segmentation-class list [17, 33] | Google licenses annotations CC BY 4.0; images are listed as CC BY 2.0, but Google asks users to verify each image's licence [17] | Strong candidate for real, human-corrected snake masks and detector warm-up. Generic global images, no species-level labels; inventory mask counts and image locations before use |
+| Indian field-image evaluation / possible training supplement | Manna et al. 2026 describe 1,494 images from 20 Indian species; the paper says a minimal dataset is on OSF [32] | Confirm OSF file access, per-image rights, consent/privacy limits and permitted reuse with the authors before training or redistribution | Useful candidate for a separate real-world robustness evaluation if permission is clear. Labels are described as venomous/non-venomous, so do not infer species labels from the paper's species list |
+| Indian venomous/non-venomous image archive | Indian-Snakes-Dataset on Zenodo, 429.1 MB [35] | Landing page does not expose a clear dataset licence; inspect repository files and obtain permission if unclear | Candidate for a label/format audit only. Do not merge into training until species labels, image provenance, duplicates and reuse rights are verified |
+| Pre-training or extra data | SnakeCLEF 2024 training set [18] | Dataset page does not state an image licence; obtain/verify the competition terms before download or use | Optional species-classification supplement after permission and deduplication against our locked test set |
 | Published baseline | Bolon et al. 2022 ViT (ONNX, 1.13 GB) with its released data and code [2] | BSD-3-Clause | Run on our test images (section 6) |
-| Snake detector | Open Images V7, where `Snake` is a boxable class (`/m/078jl`) [17]; its validation and test splits alone hold 309 snake boxes on 295 images, and the much larger training split will be counted at Milestone 2. Plus Roboflow Universe community sets [19] | Open Images annotations are CC BY 4.0 and its images are listed as CC BY 2.0 [17]; Roboflow varies by project | Train the single-class detector, with non-snake scenes as negatives |
+| Snake localization and masks | Open Images V7 boxes and instance masks for the generic `Snake` class (`/m/078jl`) [17, 33] | Verify each image's source licence; annotation licence is CC BY 4.0 [17] | Use for generic snake localization/segmentation pretraining and detector baselines, not Indian species claims. Roboflow community sets [19] remain per-project licence gated |
 | Medical importance | WHO SEARO 2016 guidelines, India box on PDF p. 87 [15] | WHO publication | Per-species category used in metrics O2 and O3 |
 | Live video evaluation | We found no public species-labelled snake video set; Wikimedia Commons has 0 to 2 videos for each species we checked | None | Build our own clips (section 3.4) |
+
+**Recommendation from the online source check (29 October 2026):** keep licensed Indian iNaturalist photos as the species-classification backbone; add the subset of Open Images V7 with generic snake masks for supervised segmentation pretraining; then generate candidate masks on licensed Indian classifier photos with SAM and manually audit a stratified sample. Open Images is the only source found here with snake masks already attached, but those masks do not supply Indian provenance or species IDs. Treat the Manna/OSF and Zenodo Indian collections as gated audit/evaluation candidates until access, image-level rights and label granularity are confirmed. Do not use SnakeCLEF 2024 images until its dataset terms have been verified.
+
+Before committing to a merged dataset, build a source inventory with counts by species/class, country, mask/box availability, licence, split, and duplicate group. Check exact Open Images Snake mask counts from `masks_data.csv`; the 350-class segmentation set is a subset of the 600 box classes, and class availability alone does not establish how many usable images there are. Keep source-specific evaluation slices so broader global data cannot hide weak Indian performance.
 
 ### 3.3 Splits and leakage control
 
@@ -205,14 +212,14 @@ The architecture is under investigation following the review. The proposed main 
 ```text
 photo or video frame
   -> compact shared encoder
-  -> snake mask head (SAM-generated masks supervise training; SAM is not required on device)
+  -> snake mask head (Open Images masks plus audited SAM candidate masks supervise training; SAM is not required on device)
   -> mask-guided species / genus / danger heads
   -> calibrated confidence; unsupported or low-confidence result = "unknown"
   -> for video, aggregate frame predictions (majority vote baseline; temporal mask reuse under study)
   -> fixed offline safety guidance and optional SOS actions
 ```
 
-- Segmentation supervision: investigate Meta Segment Anything (SAM) to generate candidate snake masks for training photos, with a manually reviewed sample and quality report. SAM is a training-time annotation aid, not the proposed phone model.
+- Segmentation supervision: use verified Open Images Snake instance masks where available and investigate Meta Segment Anything (SAM) to generate candidate masks on licensed Indian species photos. SAM masks are pseudo-labels, not ground truth: manually inspect a stratified sample and report mask quality by source, scene and occlusion. SAM is a training-time annotation aid, not the proposed phone model.
 - Student model: train a custom compact shared encoder and segmentation/species heads; MobileViT (“mobile with” in the meeting notes) is one candidate encoder, alongside lightweight segmentation baselines. YOLOv8n-seg remains a baseline rather than the proposed primary approach.
 - Dataset: merge compatible, licensed subsets from multiple datasets, deduplicate and retain provenance and licence metadata. The initial 27-species collection is not a claim of adequate coverage of India's roughly 300–400+ species; supported coverage and rare-class performance will be reported explicitly.
 - Video: process frames and use majority vote as the initial temporal baseline; assess tracking or mask reuse only if it fits the edge budget.
@@ -386,6 +393,9 @@ Snake classification, camera input and YOLO-based detection are established dire
 30. The Reptile Database, [*Daboia russelii* species account](https://reptile-database.reptarium.cz/species?genus=Daboia&species=russelii), accessed 22 October 2026.
 31. Joseph J. K. et al. (2007). [First authenticated cases of life-threatening envenoming by the hump-nosed pit viper (*Hypnale hypnale*) in India](https://doi.org/10.1016/j.trstmh.2006.03.008). *Transactions of the Royal Society of Tropical Medicine and Hygiene* 101(1): 85-90.
 32. Manna I. I. A. et al. (2026). [Development of a deep learning based framework for classification of Indian venomous snakes integrated with explainable artificial intelligence for primary and emergency care providers](https://doi.org/10.1371/journal.pntd.0014147). *PLOS Neglected Tropical Diseases* 20(6): e0014147.
+33. Google Open Images V7, [official segmentation class list](https://storage.googleapis.com/openimages/v7/oidv7-classes-segmentation.txt) and [download documentation](https://storage.googleapis.com/openimages/web/download_v7.html). The list includes Snake MID `/m/078jl`; counts must be calculated from the mask metadata before selecting a subset.
+34. iNaturalist, [open-data photo download and attribution instructions](https://github.com/inaturalist/inaturalist-open-data/blob/main/README.md), accessed 29 October 2026. Photo licensing is per image and must be honored individually.
+35. Sunil A. (2020). [Indian-Snakes-Dataset v1.0.0](https://doi.org/10.5281/zenodo.4266398), Zenodo. The record describes venomous/non-venomous Indian-subcontinent images; a clear dataset reuse licence was not visible on the landing page when checked 29 October 2026.
 
 <div style="page-break-before: always"></div>
 
