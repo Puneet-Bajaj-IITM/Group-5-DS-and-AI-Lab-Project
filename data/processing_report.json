@@ -1,27 +1,63 @@
 {
- "minutes": 15.0,
  "input_rows": 181503,
- "status": {
-  "kept": 181231,
-  "near_duplicate": 272
+ "removed_by_licence": {
+  "all-rights-reserved": 56739,
+  "cc-by-nc-nd": 2902,
+  "cc-by-nd": 111
  },
- "near_duplicates_by_split": {
-  "val": 164,
-  "test_extra": 75,
-  "test": 33
+ "near_copies_removed_by_split": {
+  "val": 105,
+  "test_extra": 55,
+  "test": 25
  },
- "sha1_mismatches_among_kept": 0,
+ "near_copy_bits": 4,
+ "species_moved_to_unknown_pool": [
+  "Ahaetulla flavescens",
+  "Boiga gocool",
+  "Boiga quincunciata",
+  "Boiga westermanni",
+  "Bungarus lividus",
+  "Bungarus sindanus",
+  "Craspedocephalus peltopelor",
+  "Hebius clerki",
+  "Hydrophis caerulescens",
+  "Hydrophis fasciatus",
+  "Melanophidium bilineatum",
+  "Melanophidium punctatum",
+  "Oligodon juglandifer",
+  "Oligodon venustus",
+  "Platyceps ladacensis",
+  "Sibynophis sagittarius",
+  "Trimeresurus uetzi",
+  "Trimerodytes yunnanensis",
+  "Uropeltis jerdoni",
+  "Uropeltis maculata",
+  "Uropeltis myhendrae",
+  "Uropeltis shorttii",
+  "Xenochrophis cerasogaster",
+  "Xylophis captaini"
+ ],
+ "photos_moved_to_unknown_pool": 367,
+ "sha1_mismatches": 0,
  "kept_by_split": {
-  "train": 129241,
-  "val": 25639,
-  "test_extra": 18390,
-  "test": 7305,
-  "unknown_pool": 656
+  "train": 85067,
+  "val": 17151,
+  "test_extra": 13389,
+  "test": 5144,
+  "unknown_pool": 815
  },
- "classes": 208,
+ "photos": 121566,
+ "classes": 184,
  "classes_by_tier": {
-  "tier2": 140,
-  "tier1": 68
+  "tier2": 128,
+  "tier1": 56
+ },
+ "licences": {
+  "cc-by-nc": 101321,
+  "cc-by": 14961,
+  "cc-by-nc-sa": 2628,
+  "cc0": 1471,
+  "cc-by-sa": 1185
  },
  "leakage": {
   "observer_id_in_more_than_one_of_train_val_testfold": 0,
@@ -29,5 +65,5 @@
   "sha1_in_more_than_one_of_train_val_testfold": 0,
   "phash_in_more_than_one_of_train_val_testfold": 0
  },
- "bytes_zip": 24400780204
+ "bytes_zip": 16397363123
 }

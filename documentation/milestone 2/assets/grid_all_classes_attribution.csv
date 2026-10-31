@@ -1,209 +1,185 @@
-tile,row,column,species,photographer_credit,license,source
-0,1,1,Indotyphlops braminus,"(c) Usha Godwin, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/390584247
-1,1,2,Ahaetulla prasina,"(c) Giry Marhento, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/298096020
-2,1,3,Ptyas mucosa,"(c) 達, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/309918590
-3,1,4,Protobothrops mucrosquamatus,"(c) CY Wu, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/392350307
-4,1,5,Fowlea piscator,"(c) renjus box, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/283322597
-5,1,6,Psammodynastes pulverulentus,"(c) Yui Hong Chiu, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/345400350
-6,1,7,Chrysopelea ornata,"(c) Nate and Melissa, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/349193143
-7,1,8,Malayopython reticulatus,"(c) riccardocavalcante, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/145477343
-8,1,9,Amphiesma stolatum,"(c) Balakrishnan Ram, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/53449508
-9,1,10,Ptyas korros,"(c) wei-fun_chiang, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/156876574
-10,1,11,Naja naja,"(c) Prosenjit Dawn, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/191652977
-11,1,12,Elaphe taeniura,"(c) Modest_Reindeer, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/387449537
-12,1,13,Python bivittatus,"(c) jbvangoethem, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/370429798
-13,1,14,Laticauda colubrina,"(c) Martin Grimm, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/873619
-14,1,15,Craspedocephalus malabaricus,"(c) dannymaximus, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/227750425
-15,1,16,Rhabdophis helleri,"(c) tianji12138, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/374913878
-16,2,1,Xenopeltis unicolor,"(c) muangpaisuetrong, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/89453445
-17,2,2,Echis carinatus,"(c) Anirudh Singh, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/371536332
-18,2,3,Daboia russelii,"(c) Osanda Madhusith Gamage, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/90009408
-19,2,4,Lycodon aulicus,"(c) vinolperera, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/242209522
-20,2,5,Dendrelaphis tristis,"(c) Piyush Marwadi, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/357862712
-21,2,6,Coelognathus radiatus,"(c) Mukti Aryo, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/137757655
-22,2,7,Gonyosoma oxycephalum,"(c) Desita Dyah D A Kusumaningrum, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/192076188
-23,2,8,Coelognathus helena,"(c) Anoop Nair, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/184886842
-24,2,9,Bungarus fasciatus,"(c) 遊星, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/323012545
-25,2,10,Craspedocephalus gramineus,"(c) Srujan Ogale, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/169335024
-26,2,11,Bungarus caeruleus,"(c) Rahul Garfield, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/407070035
-27,2,12,Python molurus,"(c) dannymaximus, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/251529265
-28,2,13,Oreocryptophis porphyraceus,"(c) 遊星, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/307325466
-29,2,14,Hypnale hypnale,"(c) Ashwin A, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/231410176
-30,2,15,Hydrophis platurus,"(c) Valentina, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/256344957
-31,2,16,Oligodon taeniolatus,"(c) jayaprakash Singha, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/264890216
-32,3,1,Pareas carinatus,"(c) Andiansah Rahmat Mukorobin, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/253999343
-33,3,2,Xenochrophis trianguligerus,"(c) Daniel Antelo, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/407182709
-34,3,3,Ahaetulla oxyrhynca,"(c) Pratik Modi, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/349989387
-35,3,4,Eryx conicus,"(c) Aditya Satish, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/338092835
-36,3,5,Boiga multomaculata,"(c) will_hickling99, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/323940532
-37,3,6,Naja kaouthia,"(c) pavelkornev, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/301427399
-38,3,7,Macrovipera lebetinus,"(c) vil05, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/189674360
-39,3,8,Coelognathus flavolineatus,"(c) timatkov, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/404262018
-40,3,9,Ahaetulla borealis,"(c) anujherp, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/214539792
-41,3,10,Laticauda laticaudata,"(c) 龔峰榆, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/141042366
-42,3,11,Enhydris enhydris,"(c) Briyan Dimas Prabowo, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/347942385
-43,3,12,Psammophis schokari,"(c) anujherp, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/150924327
-44,3,13,Ophiophagus hannah,"(c) Luan Mai Sy, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/366186693
-45,3,14,Lycodon travancoricus,"(c) Ramit Singal, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/278895632
-46,3,15,Lycodon fasciolatus,"(c) Pranav Chandra Bose, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/92688309
-47,3,16,Boiga cyanea,"(c) herpingvietnam, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/41143056
-48,4,1,Pseudoxenodon macrops,"(c) Jigu, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/282331556
-49,4,2,Oligodon arnensis,"(c) rahuldefine, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/59432788
-50,4,3,Boiga trigonata,"(c) Hopeland, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/102803438
-51,4,4,Euprepiophis mandarinus,"(c) zhongf, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/351054398
-52,4,5,Rhabdophis plumbicolor,"(c) sreyarth, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/400753389
-53,4,6,Eryx johnii,"(c) Prashanth, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/247303181
-54,4,7,Sahyadriophis beddomei,"(c) ispywithmyshuttereye, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/333160635
-55,4,8,Ahaetulla farnsworthi,"(c) Chethan Rao, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/395153981
-56,4,9,Acrochordus granulatus,"(c) Ja Re, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/342515518
-57,4,10,Boiga forsteni,"(c) Chandramani Jadhav, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/307640810
-58,4,11,Hypsiscopus plumbeus,"(c) Samuel GUIRAUDOU, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/201574899
-59,4,12,Lycodon striatus,"(c) Rajendra Kamble, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/258735633
-60,4,13,Hydrophis schistosus,"(c) AKASH MHADGUT, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/140956160
-61,4,14,Platyceps rhodorachis,"(c) Theo Busschau, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/258542943
-62,4,15,Dendrelaphis chairecacos,"(c) Paulmathi Vinod, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/248404630
-63,4,16,Spalerosophis diadema,"(c) زين _النجم, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/156788152
-64,5,1,Atretium schistosum,"(c) priyanshu NARJARY, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/408632790
-65,5,2,Protobothrops jerdonii,"(c) johnallcock, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/20526841
-66,5,3,Dendrelaphis cyanochloris,"(c) Gc Gan, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/23040596
-67,5,4,Ahaetulla malabarica,"(c) Kenz, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/166737792
-68,5,5,Lycodon fasciatus,"(c) esoue, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/406765858
-69,5,6,Boiga nuchalis,"(c) alexisgreenwood, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/335464877
-70,5,7,Cerberus rynchops,"(c) Russell Cardozo, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/379033882
-71,5,8,Fordonia leucobalia,"(c) Donna Schakelaar, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/156215678
-72,5,9,Sibynophis collaris,"(c) chintan sheth, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/334510787
-73,5,10,Dendrelaphis subocularis,"(c) Bagus Kelana Pangestu, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/192829244
-74,5,11,Gonyosoma frenatum,"(c) 小翰, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/342735342
-75,5,12,Boiga siamensis,"(c) bangtran, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/1673956
-76,5,13,Eryx whitakeri,"(c) Anshul Sinari, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/333942126
-77,5,14,Trimeresurus erythrurus,"(c) Karim Imran, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/379583821
-78,5,15,Oligodon tillacki,"(c) aadit pranjale, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/304896456
-79,5,16,Calliophis nigrescens,"(c) dharmeshah, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/95650510
-80,6,1,Grypotyphlops acutus,"(c) Siya ul haque, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/281803879
-81,6,2,Ovophis monticola,"(c) Subhadra Devi, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/120093845
-82,6,3,Boiga beddomei,"(c) Advait Marathe, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/395519931
-83,6,4,Oligodon cinereus,"(c) quy_hoang, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/369927568
-84,6,5,Craspedocephalus anamallensis,"(c) rajesh rocky, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/150622132
-85,6,6,Boiga thackerayi,"(c) 360pixual, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/238451818
-86,6,7,Oligodon russelius,"(c) Altamash Mohammad, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/394727198
-87,6,8,Ahaetulla isabellina,"(c) Akhil MA, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/319183676
-88,6,9,Craspedocephalus macrolepis,"(c) Akshay Bhandari, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/350189377
-89,6,10,Dendrelaphis proarchos,"(c) hlwammoeaung, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/331354370
-90,6,11,Sibynophis subpunctatus,"(c) Karthik, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/35567976
-91,6,12,Amphiesma monticola,"(c) dannymaximus, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/302557841
-92,6,13,Gerarda prevostiana,"(c) sofiagglad, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/237123721
-93,6,14,Dendrelaphis girii,"(c) risonkj, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/45245651
-94,6,15,Boiga flaviviridis,"(c) chintan sheth, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/114626291
-95,6,16,Hydrophis curtus,"(c) elawrey, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/232609888
-96,7,1,Dendrelaphis grandoculis,"(c) dannymaximus, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/238390875
-97,7,2,Uropeltis phipsonii,"(c) Shree Dave, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/303382426
-98,7,3,Uropeltis macrolepis,"(c) Rajendra Kamble, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/246179230
-99,7,4,Gloydius himalayanus,"(c) Ahmed Junaid, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/335594872
-100,7,5,Hydrophis ornatus,"(c) momaz, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/131430388
-101,7,6,Hydrophis stokesii,"(c) Zaire Schutte, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/246873706
-102,7,7,Craspedocephalus travancoricus,"(c) Ahirbudhnyan M, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/136552235
-103,7,8,Platyceps plinii,"(c) Ronith Urs, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/296296180
-104,7,9,Ophiophagus kaalinga,"(c) Ashwin Viswanathan, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/33591184
-105,7,10,Ahaetulla sahyadrensis,"(c) Hopeland, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/78198893
-106,7,11,Hydrophis cyanocinctus,"(c) knotsnake, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/238366698
-107,7,12,Ptyas nigromarginata,"(c) kovacs-jc, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/222183281
-108,7,13,Trimeresurus andersonii,"(c) Sangik Datta, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/253495564
-109,7,14,Rhabdophis himalayanus,"(c) anujherp, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/241254455
-110,7,15,Trimeresurus septentrionalis,"(c) aary, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/131982767
-111,7,16,Lycodon nympha,"(c) Hopeland, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/142222810
-112,8,1,Hydrophis lapemoides,"(c) Lawrence Haselmaier, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/109215586
-113,8,2,Elaphe hodgsonii,"(c) Ramesh Kathariya, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/357982139
-114,8,3,Xylophis perroteti,"(c) Siya ul haque, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/225887885
-115,8,4,Trimeresurus popeiorum,"(c) shyamkumar puravankara, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/324136110
-116,8,5,Pseudoindotyphlops porrectus,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/148750123
-117,8,6,Dendrelaphis bifrenalis,"(c) Nathen Muckatira, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/409625063
-118,8,7,Oligodon albocinctus,"(c) Priya Singh, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/197610206
-119,8,8,Sinomicrurus macclellandi,"(c) shaunplumtree, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/351361320
-120,8,9,Herpetoreas platyceps,"(c) Tarun Meena, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/223525055
-121,8,10,Bungarus niger,"(c) Ramit Singal, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/289513629
-122,8,11,Argyrophis diardii,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/179621112
-123,8,12,Calliophis melanurus,"(c) Riyan Konkath, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/290356286
-124,8,13,Fowlea tytleri,"(c) Bijoy Venugopal, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/207494940
-125,8,14,Dendrelaphis ashoki,"(c) Anoop Nair, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/324117135
-126,8,15,Rhabdophis leonardi,"(c) relifenai, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/410454781
-127,8,16,Dendrelaphis andamanensis,"(c) varnika, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/182031945
-128,9,1,Chrysopelea taprobanica,"(c) Russell, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/240971426
-129,9,2,Melanophidium wynaudense,"(c) Vojtěch Víta, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/146389575
-130,9,3,Lycodon septentrionalis,"(c) Jigu, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/281768431
-131,9,4,Pareas monticola,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/147701050
-132,9,5,Trimeresurus salazar,"(c) sangitasubramani, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/33354464
-133,9,6,Calliophis bibroni,"(c) shirazminikkan, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/210922139
-134,9,7,Uropeltis ellioti,"(c) Biswajit Harpal, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/305274853
-135,9,8,Dieurostus dussumieri,"(c) anilamanalil, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/37273073
-136,9,9,Lycodon jara,"(c) Elangbam Premjit Singh, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/231621949
-137,9,10,Elaphe cantoris,no rights reserved,cc0,https://www.inaturalist.org/observations/408579789
-138,9,11,Sahyadriophis uttaraghati,"(c) angda_pandey, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/387901531
-139,9,12,Boiga multifasciata,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/148335081
-140,9,13,Melanophidium khairei,"(c) Abhisheka Krishnagopal, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/29635814
-141,9,14,Platyplectrurus madurensis,"(c) Aravind_PS, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/173891358
-142,9,15,Platyceps ventromaculatus,"(c) Abhishek Narayanan, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/133492
-143,9,16,Lycodon hypsirhinoides,"(c) Aditya Gadkari, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/198689366
-144,10,1,Ahaetulla dispar,"(c) Subash, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/289746854
-145,10,2,Oligodon affinis,"(c) Chandu, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/354091476
-146,10,3,Hebius khasiensis,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/33145744
-147,10,4,Lycodon flavicollis,"(c) Karthik, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/334468156
-148,10,5,Oligodon cyclurus,"(c) nscimyanmar, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/192792148
-149,10,6,Rhabdops aquaticus,"(c) Varad Giri, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/73375285
-150,10,7,Hydrophis spiralis,"(c) Chandra sekhar, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/319280965
-151,10,8,Gongylosoma calamaria,"(c) shashtika, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/385542576
-152,10,9,Plectrurus perroteti,"(c) Ramit Singal, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/277671096
-153,10,10,Uropeltis ocellata,"(c) rajesh rocky, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/409924652
-154,10,11,Ahaetulla anomala,"(c) Tuhin Samanta, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/194896781
-155,10,12,Rhinophis melanoleucus,"(c) Aswin KS, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/407431560
-156,10,13,Lycodon zawi,"(c) onkar07, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/372856433
-157,10,14,Uropeltis ceylanica,"(c) Chandu, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/370524069
-158,10,15,Naja oxiana,"(c) elmurod, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/159598945
-159,10,16,Hydrophis fasciatus,"(c) fhadlikennedi, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/24876878
-160,11,1,Rhinophis karinthandani,"(c) Nachikethan VM, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/331925324
-161,11,2,Lycodon bicolor,"(c) Azan Khan, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/92941112
-162,11,3,Rhabdophis bindi,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/147691930
-163,11,4,Boiga andamanensis,"(c) saraptor, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/358803262
-164,11,5,Psammophis leithii,"(c) Daniel Liepack, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/69874737
-165,11,6,Bungarus andamanensis,"(c) Milan Sojitra, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/356457472
-166,11,7,Trimeresurus medoensis,"(c) 通通, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/110570750
-167,11,8,Ferania sieboldii,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/182343251
-168,11,9,Platyceps bholanathi,"(c) laharimeni, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/103467274
-169,11,10,Rhabdops olivaceus,"(c) Chandu, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/373566529
-170,11,11,Spalerosophis atriceps,"(c) Sambhava Jain, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/393365602
-171,11,12,Platyceps gracilis,"(c) Pratham Tiwari, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/186882616
-172,11,13,Xylophis captaini,"(c) renjus box, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/51342018
-173,11,14,Boiga stoliczkae,"(c) chintan sheth, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/113207566
-174,11,15,Psammophis longifrons,"(c) falcoani, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/118751602
-175,11,16,Ahaetulla laudankia,"(c) kishore T, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/96472488
-176,12,1,Boiga dightoni,"(c) Ronith Urs, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/333282250
-177,12,2,Archelaphe bella,"(c) Mạnh Hùng, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/269436339
-178,12,3,Ovophis zayuensis,"(c) higherordeaberration, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/200645432
-179,12,4,Ahaetulla perroteti,"(c) Dev Bagdi, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/190786733
-180,12,5,Trimeresurus uetzi,"(c) Ashwin Viswanathan, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/367374524
-181,12,6,Bungarus bungaroides,"(c) chintan sheth, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/97230656
-182,12,7,Boiga quincunciata,"(c) Mittal Gala, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/406784255
-183,12,8,Uropeltis myhendrae,"(c) S. Prasanth Narayanan, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/392026391
-184,12,9,Sibynophis sagittarius,"(c) JJR Naturalists, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/308407189
-185,12,10,Boiga westermanni,"(c) Dr. Chinmay kishor Pathak, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/167050506
-186,12,11,Gongylosoma scriptum,"(c) Korakoch Pobprasert, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/202632717
-187,12,12,Uropeltis jerdoni,"(c) Aditya Bari, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/294339855
-188,12,13,Melanophidium punctatum,"(c) ethan joe, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/391372075
-189,12,14,Bungarus walli,"(c) Md. Sabbir Ahammed, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/323766247
-190,12,15,Platyceps josephi,"(c) Vadivukkarasi, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/335031139
-191,12,16,Hydrophis caerulescens,"(c) Gaurav Patil, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/163291816
-192,13,1,Xenochrophis cerasogaster,"(c) Md. Zaber Ansary, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/42322645
-193,13,2,Trimerodytes yunnanensis,"(c) ymr1230, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/28784247
-194,13,3,Psammophis condanarus,"(c) Aditya Satish, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/201561942
-195,13,4,Uropeltis maculata,"(c) Hareesha A S, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/313301150
-196,13,5,Wallaceophis gujaratensis,"(c) Viral joshi, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/166119923
-197,13,6,Bungarus sindanus,"(c) Vibhav Chaugule, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/90138144
-198,13,7,Hebius clerki,no rights reserved,cc0,https://www.inaturalist.org/observations/408472635
-199,13,8,Craspedocephalus peltopelor,"(c) Sreejith Allipra, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/35574590
-200,13,9,Ahaetulla flavescens,"(c) chintan sheth, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/289348102
-201,13,10,Melanophidium bilineatum,"(c) Chandu, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/384816863
-202,13,11,Oligodon venustus,"(c) Siva Naturewild, some rights reserved (CC BY)",cc-by,https://www.inaturalist.org/observations/241714582
-203,13,12,Uropeltis shorttii,"(c) Bala Subramanian, some rights reserved (CC BY-SA)",cc-by-sa,https://www.inaturalist.org/observations/56408244
-204,13,13,Oligodon juglandifer,"(c) 徐Kai, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/180390750
-205,13,14,Bungarus lividus,"(c) Mạnh Hùng, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/242895939
-206,13,15,Boiga gocool,"(c) Abhishek Narayanan, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/128929
-207,13,16,Platyceps ladacensis,"(c) Kulbhushansingh Suryawanshi, some rights reserved (CC BY-NC)",cc-by-nc,https://www.inaturalist.org/observations/166261869
+row,species,license,attribution,url
+35151,Indotyphlops braminus,cc-by-nc,"(c) Usha Godwin, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/715586778/medium.jpg
+114891,Ahaetulla prasina,cc-by-nc,"(c) Giry Marhento, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/536919609/medium.jpg
+9846,Ptyas mucosa,cc-by-nc,"(c) 達, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/559310539/medium.jpg
+101134,Protobothrops mucrosquamatus,cc-by-nc,"(c) CY Wu, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/719025698/medium.jpg
+2970,Fowlea piscator,cc-by,"(c) renjus box, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/509083131/medium.jpg
+74740,Psammodynastes pulverulentus,cc-by-nc,"(c) Yui Hong Chiu, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/629459654/medium.jpg
+57013,Chrysopelea ornata,cc-by-nc,"(c) Nate and Melissa, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/636964684/medium.jpg
+102414,Malayopython reticulatus,cc-by-nc,"(c) riccardocavalcante, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/252944407/medium.jpeg
+12201,Naja naja,cc-by-nc,"(c) Balakrishnan Ram, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/104216882/medium.jpeg
+80245,Ptyas korros,cc-by-nc,"(c) wei-fun_chiang, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/271307761/medium.jpg
+17539,Amphiesma stolatum,cc-by-nc,"(c) serena0065, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/309575268/medium.jpg
+93136,Elaphe taeniura,cc-by,"(c) Modest_Reindeer, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/709488580/medium.jpg
+63368,Python bivittatus,cc-by-nc,"(c) jbvangoethem, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/676700005/medium.jpg
+76369,Laticauda colubrina,cc-by-nc,"(c) Martin Grimm, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/1109064/medium.jpg
+67550,Rhabdophis helleri,cc-by-nc,"(c) rainyang, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/463882499/medium.jpg
+16425,Craspedocephalus malabaricus,cc-by-nc,"(c) Chandu, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/645987248/medium.jpg
+41239,Echis carinatus,cc-by,"(c) Hopeland, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/176371321/medium.jpeg
+20708,Daboia russelii,cc-by-nc,"(c) Shinoy Joseph Sabu, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/650205597/medium.jpg
+22477,Lycodon aulicus,cc-by,"(c) Viral joshi, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/126283371/medium.jpg
+106332,Xenopeltis unicolor,cc-by-nc,"(c) manutsanan, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/463951151/medium.jpg
+40726,Dendrelaphis tristis,cc-by,"(c) Piyush Marwadi, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/652759391/medium.jpg
+94215,Gonyosoma oxycephalum,cc-by-nc,"(c) Sam Hambly, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/297722960/medium.jpeg
+36311,Craspedocephalus gramineus,cc-by-nc-sa,"(c) Vivek.N.Rathod, some rights reserved (CC BY-NC-SA)",https://inaturalist-open-data.s3.amazonaws.com/photos/318370023/medium.jpeg
+59197,Bungarus fasciatus,cc-by-nc,"(c) Abinash Biswal, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/233270638/medium.jpeg
+21964,Coelognathus helena,cc-by-nc,"(c) Kartik Sundar, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/591568150/medium.jpg
+68749,Coelognathus radiatus,cc-by-nc,"(c) robotpie, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/213308471/medium.jpg
+38379,Python molurus,cc-by,"(c) Suhas Saya, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/753355189/medium.jpg
+84082,Oreocryptophis porphyraceus,cc-by-nc,"(c) obitog, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/522713533/medium.jpg
+87911,Hydrophis platurus,cc-by-nc,"(c) Ricardo Arredondo T., some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/353596116/medium.jpeg
+38989,Bungarus caeruleus,cc-by,"(c) Karthik Thrikkadeeri, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/467853572/medium.jpeg
+44296,Hypnale hypnale,cc-by-nc,"(c) vinolperera, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/431786483/medium.jpeg
+46116,Ahaetulla oxyrhynca,cc-by-nc-sa,"(c) Vivek.N.Rathod, some rights reserved (CC BY-NC-SA)",https://inaturalist-open-data.s3.amazonaws.com/photos/471204145/medium.jpeg
+43261,Oligodon taeniolatus,cc-by,"(c) parithi, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/460183099/medium.jpg
+120818,Macrovipera lebetinus,cc-by-nc,"(c) vil05, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/749630783/medium.jpg
+109654,Xenochrophis trianguligerus,cc-by-nc,"(c) mukri_reptile, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/600615586/medium.jpg
+118957,Pareas carinatus,cc-by,"(c) Jay Paroline, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/628060058/medium.jpg
+108642,Laticauda laticaudata,cc-by,"(c) Mickey Wu, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/552211499/medium.jpg
+83240,Boiga multomaculata,cc-by-nc,"(c) Achmad Fauzan, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/507628140/medium.jpg
+95693,Coelognathus flavolineatus,cc-by,"(c) Lawrence Hylton, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/310269940/medium.jpeg
+45538,Eryx conicus,cc-by-nc,"(c) Omkar S Damle, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/748356946/medium.jpg
+64373,Naja kaouthia,cc-by-nc,"(c) Subhayan Biswas, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/460388752/medium.jpeg
+46742,Ahaetulla borealis,cc-by-sa,"(c) Bala Subramanian, some rights reserved (CC BY-SA)",https://inaturalist-open-data.s3.amazonaws.com/photos/229498442/medium.jpeg
+90612,Psammophis schokari,cc-by-nc,"(c) Noam morad, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/671167906/medium.jpg
+47422,Lycodon travancoricus,cc-by,"(c) Prashanth N S, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/205985272/medium.jpg
+66415,Enhydris enhydris,cc-by-nc,"(c) Anik Biswas, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/645367749/medium.jpg
+70489,Pseudoxenodon macrops,cc-by-nc,"(c) sixgrowmushroom, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/638004121/medium.jpg
+48072,Lycodon fasciolatus,cc-by,"(c) Pranav Chandra Bose, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/153506287/medium.jpeg
+64790,Ophiophagus hannah,cc-by-nc,"(c) memneker, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/55239784/medium.jpg
+85305,Boiga cyanea,cc-by-nc,"(c) Daniel Liepack, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/378651519/medium.jpeg
+50048,Oligodon arnensis,cc-by-nc,"(c) rahuldefine, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/94964426/medium.jpg
+119237,Euprepiophis mandarinus,cc-by-nc,"(c) Lisa Howes, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/341223011/medium.jpeg
+49780,Boiga trigonata,cc-by-nc,"(c) Chandu, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/485139159/medium.jpeg
+51540,Eryx johnii,cc-by-nc,"(c) Naveen, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/726918575/medium.jpg
+50831,Sahyadriophis beddomei,cc-by-nc,"(c) Kiron Vijay, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/434254157/medium.jpg
+49404,Rhabdophis plumbicolor,cc-by-nc,"(c) KARTHIKEYAN R, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/659094135/medium.jpg
+48984,Ahaetulla farnsworthi,cc-by-nc,"(c) Chethan Rao, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/726802689/medium.jpg
+53294,Dendrelaphis chairecacos,cc-by,"(c) Vinayak Patil, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/726298927/medium.jpg
+86023,Acrochordus granulatus,cc-by-nc,"(c) Lewis Rowell, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/487041466/medium.jpeg
+53785,Atretium schistosum,cc-by-nc-sa,"(c) Aniruddha Singhamahapatra, some rights reserved (CC BY-NC-SA)",https://inaturalist-open-data.s3.amazonaws.com/photos/342699828/medium.jpeg
+89214,Protobothrops jerdonii,cc-by-nc,"(c) vivi1874, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/568197780/medium.jpg
+105357,Platyceps rhodorachis,cc-by-nc,"(c) Lorenz Seebauer, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/244529181/medium.jpeg
+107283,Spalerosophis diadema,cc-by-nc,"(c) JP, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/366301247/medium.jpeg
+104959,Hypsiscopus plumbeus,cc-by-nc,"(c) Akmal Idham, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/328468913/medium.jpeg
+51953,Hydrophis schistosus,cc-by-nc,"(c) Cleopas Lobo, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/235528939/medium.jpeg
+51866,Lycodon striatus,cc-by,"(c) Shikha Sreenivas, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/752274004/medium.jpg
+52483,Ahaetulla malabarica,cc-by-nc,"(c) Nitin Ravikanthachari, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/65354613/medium.jpg
+52237,Boiga forsteni,cc-by-nc,"(c) Daniel Liepack, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/211066525/medium.jpg
+53411,Boiga nuchalis,cc-by-nc,"(c) Ashwin Narayanan, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/252594249/medium.jpeg
+93731,Dendrelaphis cyanochloris,cc-by,"(c) chintan sheth, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/723430406/medium.jpg
+107640,Gonyosoma frenatum,cc-by-nc,"(c) 遊星, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/688597781/medium.jpg
+87028,Boiga siamensis,cc-by-nc,"(c) Woraphot Bunkhwamdi, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/656992819/medium.jpg
+75876,Sibynophis collaris,cc-by-nc,"(c) Jigme Tshelthrim Wangyal, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/187240164/medium.jpg
+95362,Lycodon fasciatus,cc-by-nc,"(c) Christopher Mitchell, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/721973269/medium.jpg
+54044,Craspedocephalus anamallensis,cc-by-sa,"(c) Divya Mudappa, some rights reserved (CC BY-SA)",https://inaturalist-open-data.s3.amazonaws.com/photos/391736667/medium.jpg
+58526,Eryx whitakeri,cc-by-nc,"(c) Aditya Satish, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/464157218/medium.jpeg
+63786,Trimeresurus erythrurus,cc-by-nc-sa,"(c) Vijay Anand Ismavel, some rights reserved (CC BY-NC-SA)",https://inaturalist-open-data.s3.amazonaws.com/photos/860188/medium.jpg
+60293,Cerberus rynchops,cc-by-nc,"(c) Aditya Satish, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/587385628/medium.jpg
+58140,Calliophis nigrescens,cc-by-nc,"(c) Anubhav Agarwal, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/590380585/medium.jpg
+60677,Boiga thackerayi,cc-by-nc,"(c) Shivani Manivannan, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/522405958/medium.jpg
+107841,Fordonia leucobalia,cc-by-nc,"(c) Zainudin Basriansyah Akar, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/173340928/medium.jpeg
+58302,Craspedocephalus macrolepis,cc-by-nc,"(c) Kannan Raja, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/536358181/medium.jpg
+65528,Dendrelaphis proarchos,cc-by-nc,"(c) Smritirekha Bortamuly, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/243192205/medium.jpeg
+52973,Oligodon tillacki,cc-by-nc,"(c) Rahul Garfield, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/747946636/medium.jpg
+57750,Oligodon russelius,cc-by-nc,"(c) Abhishek Pathak, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/672684731/medium.jpg
+89751,Oligodon cinereus,cc-by-nc,"(c) mapor, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/151593506/medium.jpg
+70878,Ovophis monticola,cc-by-nc,"(c) goong, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/471857100/medium.jpeg
+118230,Dendrelaphis subocularis,cc-by-nc,"(c) phunganhTuan, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/700231611/medium.jpg
+60933,Grypotyphlops acutus,cc-by-nc,"(c) Daulat Pardhi, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/665094867/medium.jpg
+61257,Dendrelaphis girii,cc-by,"(c) Ramit Singal, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/469491547/medium.jpg
+69893,Boiga flaviviridis,cc-by,"(c) Tom Field, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/403283575/medium.jpg
+57783,Boiga beddomei,cc-by-nc,"(c) Anil Kumar Verma, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/82436618/medium.jpg
+58770,Amphiesma monticola,cc-by-nc,"(c) dannymaximus, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/545280982/medium.jpg
+60445,Sibynophis subpunctatus,cc-by,"(c) Jigu, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/352338965/medium.jpeg
+82471,Hydrophis curtus,cc-by-nc,"(c) quantumdeep, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/123691179/medium.jpeg
+60986,Ahaetulla isabellina,cc-by,"(c) Hopeland, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/126913827/medium.jpeg
+65780,Dendrelaphis grandoculis,cc-by-nc,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/307292480/medium.jpeg
+79208,Gerarda prevostiana,cc-by-nc,"(c) Rui, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/536495083/medium.jpg
+119795,Hydrophis ornatus,cc-by-nc,"(c) momaz, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/223665814/medium.jpg
+63730,Uropeltis macrolepis,cc-by-nc,"(c) Rajendra Kamble, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/439431284/medium.jpeg
+121049,Hydrophis stokesii,cc-by-nc,"(c) Lee Cornish, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/716526837/medium.jpg
+88723,Trimeresurus popeiorum,cc-by-nc,"(c) esoue, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/747378350/medium.jpg
+120856,Hydrophis lapemoides,cc-by-nc,"(c) Lawrence Haselmaier, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/183871962/medium.jpeg
+70028,Gloydius himalayanus,cc-by,"(c) Ramnarayan K, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/433114072/medium.jpg
+85702,Ptyas nigromarginata,cc-by-nc,"(c) Ankita, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/543296040/medium.jpg
+78683,Lycodon nympha,cc-by,"(c) Hopeland, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/243796124/medium.jpeg
+78564,Xylophis perroteti,cc0,no rights reserved,https://inaturalist-open-data.s3.amazonaws.com/photos/266179660/medium.jpeg
+71031,Craspedocephalus travancoricus,cc-by,"(c) Ahirbudhnyan M, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/238119268/medium.jpeg
+76126,Ahaetulla sahyadrensis,cc-by,"(c) Hopeland, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/245512296/medium.jpeg
+69714,Ophiophagus kaalinga,cc-by,"(c) Viral joshi, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/174796818/medium.jpg
+65392,Platyceps plinii,cc-by,"(c) Ashwin Viswanathan, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/179270726/medium.jpeg
+76286,Trimeresurus septentrionalis,cc-by-nc,"(c) aary, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/224692639/medium.jpg
+86162,Rhabdophis himalayanus,cc-by-nc,"(c) wuyuxuan, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/288834470/medium.jpg
+89614,Rhabdophis leonardi,cc-by-nc-sa,"(c) Shuangqi Liu, some rights reserved (CC BY-NC-SA)",https://inaturalist-open-data.s3.amazonaws.com/photos/407738325/medium.jpeg
+86562,Hydrophis cyanocinctus,cc-by-nc,"(c) Alexius, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/460377662/medium.jpeg
+88792,Argyrophis diardii,cc-by-nc,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/313472564/medium.jpeg
+78976,Oligodon albocinctus,cc-by-nc,"(c) Priya Singh, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/348092268/medium.jpeg
+84841,Bungarus niger,cc-by-nc,"(c) Safayat Hossain, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/496880331/medium.jpeg
+90820,Pseudoindotyphlops porrectus,cc-by-nc,"(c) Anirudh Singh, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/724727153/medium.jpg
+82411,Elaphe hodgsonii,cc-by,"(c) Karthik Thrikkadeeri, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/360820171/medium.jpeg
+70734,Trimeresurus andersonii,cc-by-nc,"(c) Sangik Datta, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/453908317/medium.jpeg
+71114,Fowlea tytleri,cc-by-nc,"(c) Kevin George, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/289360541/medium.jpeg
+84918,Dieurostus dussumieri,cc-by,"(c) Ahirbudhnyan M, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/427069800/medium.jpg
+82330,Melanophidium wynaudense,cc-by-nc,"(c) Vojtěch Víta, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/251668596/medium.jpeg
+105226,Dendrelaphis bifrenalis,cc-by-nc,"(c) Thuvarahan, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/627523463/medium.jpg
+86708,Sinomicrurus macclellandi,cc-by-nc,"(c) mayoh, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/601267720/medium.jpg
+66571,Uropeltis phipsonii,cc-by-nc,"(c) Rajendra Kamble, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/565743849/medium.jpg
+87129,Pareas monticola,cc-by-nc,"(c) aravindhankp, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/739757341/medium.jpg
+87281,Lycodon septentrionalis,cc-by-nc,"(c) higherordeaberration, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/356639679/medium.jpg
+82144,Lycodon jara,cc-by-nc,"(c) Biswas Sajib, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/615162937/medium.jpg
+88980,Chrysopelea taprobanica,cc-by-nc,"(c) Gokul, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/345244212/medium.jpeg
+78807,Sahyadriophis uttaraghati,cc-by-nc,"(c) Chethan Rao, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/226919935/medium.jpeg
+79049,Dendrelaphis andamanensis,cc-by,"(c) Prathamesh Khedwan, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/339828464/medium.jpeg
+86255,Herpetoreas platyceps,cc-by-nc,"(c) Jigme Tshelthrim Wangyal, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/197113218/medium.jpg
+82201,Melanophidium khairei,cc-by-nc,"(c) Vikrant Kumar, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/227403407/medium.jpg
+79301,Dendrelaphis ashoki,cc-by-sa,"(c) Vikas D Prasad, some rights reserved (CC BY-SA)",https://inaturalist-open-data.s3.amazonaws.com/photos/689476435/medium.jpg
+76204,Calliophis melanurus,cc-by-nc,"(c) Saurabh Kininge, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/121763090/medium.jpeg
+78921,Ahaetulla dispar,cc-by-nc,"(c) Avinash Bhagat, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/437864988/medium.jpg
+86379,Platyplectrurus madurensis,cc-by-nc,"(c) Subash, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/527009014/medium.jpg
+85049,Platyceps ventromaculatus,cc-by-nc,"(c) Ameer Alí, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/710407520/medium.jpg
+82254,Trimeresurus salazar,cc-by-nc,"(c) SP CHOUDHARY, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/318756662/medium.jpeg
+107734,Hebius khasiensis,cc-by-nc,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/52019580/medium.jpeg
+86477,Boiga multifasciata,cc-by-sa,"(c) Gannu03, some rights reserved (CC BY-SA)",https://inaturalist-open-data.s3.amazonaws.com/photos/532976875/medium.jpg
+86582,Gongylosoma calamaria,cc-by-nc,"(c) Bijoy Venugopal, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/21056872/medium.jpg
+86410,Uropeltis ocellata,cc-by,"(c) Srivatsan Ramkumar, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/585957258/medium.jpg
+88918,Lycodon zawi,cc-by-nc,"(c) Rajib Rudra Tariang, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/325250049/medium.jpeg
+85794,Elaphe cantoris,cc-by-nc,"(c) ashlight, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/695509274/medium.jpg
+87233,Ahaetulla anomala,cc-by-nc,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/112965271/medium.jpeg
+78878,Calliophis bibroni,cc-by-nc,"(c) dannymaximus, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/684568686/medium.jpg
+82658,Oligodon affinis,cc-by-nc,"(c) Hejil Ben George, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/486606717/medium.jpeg
+79315,Lycodon hypsirhinoides,cc-by-nc,"(c) udaymondal, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/180561853/medium.jpg
+119732,Naja oxiana,cc-by-nc,"(c) timoteo_b, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/681642320/medium.jpg
+96270,Lycodon bicolor,cc-by-nc,"(c) feruz_shodmonov, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/669007354/medium.jpg
+84970,Rhabdops aquaticus,cc-by-nc,"(c) Sarvadaman Kulkarni, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/382939060/medium.jpeg
+89568,Hydrophis spiralis,cc-by-nc,"(c) Bharath Ravikumar, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/746306093/medium.jpg
+84775,Uropeltis ellioti,cc-by-nc,"(c) Samar Ahmad, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/441585156/medium.jpeg
+89704,Psammophis leithii,cc-by-nc,"(c) Mudassar Basri, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/623220591/medium.jpg
+82718,Lycodon flavicollis,cc-by-nc,"(c) Soumyajit Singh, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/734781688/medium.jpg
+87210,Platyceps bholanathi,cc-by-nc,"(c) thulasiram1172, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/510433016/medium.jpg
+86772,Plectrurus perroteti,cc-by,"(c) Siya ul haque, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/454362231/medium.jpeg
+107439,Oligodon cyclurus,cc-by-nc,"(c) Jaydev mandal, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/149811038/medium.jpeg
+96293,Boiga stoliczkae,cc-by-nc,"(c) chintan sheth, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/191282620/medium.jpg
+89358,Ahaetulla laudankia,cc-by-nc,"(c) kishore T, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/160267465/medium.jpg
+88542,Uropeltis ceylanica,cc-by,"(c) Srinivasan Kasinathan, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/681270113/medium.jpg
+88598,Spalerosophis atriceps,cc-by-nc,"(c) Sambhava Jain, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/721008363/medium.jpg
+108893,Archelaphe bella,cc-by-nc,"(c) Sourav Halder, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/331699554/medium.jpg
+89937,Ahaetulla perroteti,cc-by-nc,"(c) Dev Bagdi, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/390690222/medium.jpeg
+95123,Ovophis zayuensis,cc-by-nc,"(c) 通通, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/183583033/medium.jpeg
+87135,Boiga andamanensis,cc-by-nc,"(c) Avinash Bhagat, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/330343026/medium.jpg
+89512,Rhabdophis bindi,cc-by-nc,"(c) Rajib Rudra Tariang, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/178249375/medium.jpeg
+89410,Boiga dightoni,cc-by,"(c) Ronith Urs, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/605039580/medium.jpg
+88897,Psammophis longifrons,cc-by-nc,"(c) Pravin vishe (Murbad), some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/557434907/medium.jpg
+88618,Ferania sieboldii,cc-by-nc,"(c) Jonathan Hakim, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/331964700/medium.jpeg
+86651,Rhabdops olivaceus,cc-by-nc,"(c) Akshay Bhandari, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/639533049/medium.jpg
+121072,Gongylosoma scriptum,cc-by-nc,"(c) Alexander Gregory Mason, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/208495464/medium.jpeg
+89451,Bungarus bungaroides,cc-by-nc,"(c) chintan sheth, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/161664883/medium.jpg
+107799,Bungarus walli,cc-by-nc,"(c) Md. Sabbir Ahammed, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/585891327/medium.jpg
+90862,Psammophis condanarus,cc-by,"(c) Maya Lodhiyal, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/425475907/medium.jpeg
+89482,Trimeresurus medoensis,cc-by-nc,"(c) jabooo, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/531164251/medium.jpg
+105255,Wallaceophis gujaratensis,cc-by,"(c) Viral joshi, some rights reserved (CC BY)",https://inaturalist-open-data.s3.amazonaws.com/photos/126282853/medium.jpg
+87165,Bungarus andamanensis,cc-by-nc,"(c) Daniel Liepack, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/254847497/medium.jpg
+86752,Rhinophis melanoleucus,cc-by-nc,"(c) M. Hariprasad, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/700676028/medium.jpg
+86310,Platyceps gracilis,cc-by-nc,"(c) Mayuresh Kulkarni, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/26069875/medium.jpg
+88869,Rhinophis karinthandani,cc-by-nc,"(c) RENJITH RV, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/746924549/medium.jpg
+90736,Platyceps josephi,cc-by-nc,"(c) Vadivukkarasi, some rights reserved (CC BY-NC)",https://inaturalist-open-data.s3.amazonaws.com/photos/608553250/medium.jpg
