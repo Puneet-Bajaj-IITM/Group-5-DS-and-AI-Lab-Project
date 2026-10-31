@@ -23,7 +23,7 @@ The course asks for this log to be updated every week with each member's contrib
 | Extended sources plan | Researched and documented all additional data sources beyond iNaturalist: SnakeCLEF 2021/2023/2024, Open Images V7, GBIF India, Roboflow Universe, India-specific Kaggle datasets. Created notebooks 08 and 09 for extended data pull and cross-source deduplication. | Manas Rastogi | 29 Oct 2026 | Manas Rastogi |
 | Notebook fixes and runs | Made notebooks 06, 08 and 09 run on the real datasets (class ids from `classes.csv`, photo and mask paths, WHO ids, the whole photo as model input, real duplicate checks against all our photos) and ran all three on Kaggle; built the private datasets `serpentguard-extended-sources` (2,038 extra photos, 296 Open Images snake masks) and `serpentguard-extended-combined` (1,771 checked photos, not merged into the main dataset) | Puneet Bajaj | 30 Oct 2026 | |
 | Licence-clean dataset | After the review, removed all-rights-reserved and no-derivatives photos and near copies, and rebuilt the main dataset as the private `serpentguard-indian-snakes-clean` (121,566 photos, 184 classes) | Puneet Bajaj | 31 Oct 2026 | |
-| Preprocessing and EDA update | Added exposure correction, photographer and class caps, camera-style augmentation and a valid-mask flag to notebook 06; shortened the notebooks; added `07_eda_findings`; rewrote the Milestone 2 report | Puneet Bajaj | 31 Oct 2026 | |
+| Preprocessing and EDA update | Added exposure correction, photographer and class caps, camera-style augmentation and a valid-mask flag to notebook 06; shortened the notebooks; added `07_eda_findings`; re-ran the full EDA on the clean dataset; rewrote the Milestone 2 report | Puneet Bajaj | 31 Oct 2026 | |
 
 ### Member contribution summary
 
@@ -40,7 +40,7 @@ The course asks for this log to be updated every week with each member's contrib
 |---|---|---|---|
 | Jayesh Bansal | 24f100185 | | |
 | Vikas | 23f3001800 | | |
-| Puneet Bajaj | 23f3002416 | | |
+| Puneet Bajaj | 23f3002416 | Puneet Bajaj | 31/10/2026 |
 | Manas Rastogi | 22f3001477 | | |
 
 ## Week 1: 18 to 22 October 2026 (Milestone 1, problem definition and literature review)

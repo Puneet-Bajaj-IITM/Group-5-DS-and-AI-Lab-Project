@@ -15,13 +15,13 @@ Each notebook attaches its inputs by handle, does one job and saves its output a
 | 09 | [`09_combine_and_reclean`](09_combine_and_reclean.ipynb) | 03, 08 | `serpentguard-extended-combined` | CPU | about 5 min |
 | | [`load_dataset_example`](load_dataset_example.ipynb) | 03 | nothing; the starting point for a new notebook | CPU | a minute |
 
-The full exploratory analysis is [`Group 5 - 2026T3 - DSAI Lab.ipynb`](../Group%205%20-%202026T3%20-%20DSAI%20Lab.ipynb) in the repository root. It ran before the licence filter.
+The full exploratory analysis is [`Group 5 - 2026T3 - DSAI Lab.ipynb`](../Group%205%20-%202026T3%20-%20DSAI%20Lab.ipynb) in the repository root. It was run on the clean dataset on 31 October 2026.
 
 The team's datasets are private and owned by `puneetbajajiitm`. Ask the team to add your Kaggle username.
 
 Notes:
 
-- Notebooks 03, 06 and 07 are saved with the outputs of their 31 October 2026 runs on the clean dataset. Notebooks 08 and 09 keep their 30 October outputs, and their photos aren't in the main dataset.
+- Notebooks 03, 06 and 07 and the full analysis are saved with the outputs of their 31 October 2026 runs on the clean dataset. Notebooks 08 and 09 keep their 30 October outputs, and their photos aren't in the main dataset.
 - Notebook 02 pins scikit-learn 1.9.1, because `StratifiedGroupKFold` assigns folds differently between releases.
 - Scheduled Kaggle runs can only read attached datasets, so attach each one before you save and run.
 - Always take class ids from `classes.csv`. `val/` and `test/` lack some species folders, so plain `ImageFolder` would mislabel photos.

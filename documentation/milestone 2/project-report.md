@@ -63,7 +63,7 @@ Each notebook attaches its inputs by handle, does one job and saves a private da
 | 5 | Prepare for training | [`06_segmentation_preprocessing`](../../notebooks/06_segmentation_preprocessing.ipynb) | Exposure, cropping, resizing, augmentation, balancing, PyTorch loaders | a few min |
 | 6 | Understand the data | [`07_eda_findings`](../../notebooks/07_eda_findings.ipynb) | The main findings and plots in this report | 4 min |
 
-The full exploratory analysis, with embeddings and photo-quality checks, is [`Group 5 - 2026T3 - DSAI Lab.ipynb`](../../Group%205%20-%202026T3%20-%20DSAI%20Lab.ipynb). It ran before the licence filter, so its counts are higher than the ones here.
+The full exploratory analysis, with embeddings and photo-quality checks, is [`Group 5 - 2026T3 - DSAI Lab.ipynb`](../../Group%205%20-%202026T3%20-%20DSAI%20Lab.ipynb), run on the clean dataset. It recomputes the dataset's figures as it goes, and all 87 of its checks pass.
 
 ## 3. Cleaning
 
@@ -168,11 +168,29 @@ The plots and numbers come from [`07_eda_findings`](../../notebooks/07_eda_findi
 
 <img src="assets/photos_per_split.png" alt="Photos per split, split by taken in India or outside" width="600">
 
+<img src="assets/eda_india_map.png" alt="Map of photo locations inside India, with WHO-listed species marked" width="420">
+
 <img src="assets/photographers_per_class.png" alt="Number of classes by how many training photographers they have" width="600">
 
 <img src="assets/snake_size.png" alt="Snake length as a share of the photo" width="600">
 
-**From the full analysis, before the licence filter:** once species was removed, a simple classifier on image embeddings couldn't separate the splits (AUC 0.54 for val, 0.51 for test, 0.49 for test_extra), which doesn't prove there is no shift. For 6 of 9 lookalike pairs, the named lookalike was among the 5 nearest species. All nine pairs have test photos on both sides, at least 58 per side, after the filter. A label-checking classifier reached only 24.8% accuracy, so we use its list to choose photos to hand-check and delete nothing automatically.
+### From the full analysis
+
+- **Splits look alike in content.** Once species is removed, a simple classifier on DINOv2 image embeddings barely separates train from val (AUC 0.53), test (0.50) or test_extra (0.56). This doesn't prove there is no shift.
+- **The embeddings follow taxonomy.** The closest photo from another photographer is the same genus 35.7% of the time, against 3.0% by chance, so genus and family heads have something to learn from.
+- **Near copies are gone.** Only 9 photos have a match from another photographer at similarity 0.9 or more, and none reaches 0.95.
+- **Labels can't be auto-corrected.** A label-checking classifier reached only 25.9% accuracy, so we use its list to choose photos to hand-check and delete nothing automatically.
+- **Photo quality differs little by danger level**, as the plot below shows. Dropping dark, overexposed, blurry and tiny photos would remove 9.8% of the sample and 12.7% of Category 2, which is why we correct exposure and keep them.
+
+<img src="assets/eda_embeddings.png" alt="Map of photo embeddings coloured by WHO category, split and country" width="760">
+
+<img src="assets/eda_quality_by_who.png" alt="Brightness, contrast, colourfulness, sharpness, saturation and short side by WHO category" width="640">
+
+### Lookalikes
+
+We studied nine pairs that join a WHO-listed species with a not-listed lookalike. All nine have test photos on both sides, at least 58 per side, so each mix-up can be measured in both directions. In the embeddings, 4 of the 9 named lookalikes are among the 5 nearest of 183 species. For 15 of the 16 dangerous species, the closest not-listed species isn't on our list at all, so nine pairs is only a start.
+
+<img src="assets/eda_lookalikes.png" alt="Training and test photos for each lookalike pair" width="640">
 
 ## 6. Preprocessing
 
@@ -375,5 +393,5 @@ Each team member signs one row after the review. By signing, each member confirm
 |---|---|---|---|
 | Jayesh Bansal | 24f100185 | | |
 | Vikas | 23f3001800 | | |
-| Puneet Bajaj | 23f3002416 | | |
+| Puneet Bajaj | 23f3002416 | Puneet Bajaj | 31/10/2026 |
 | Manas Rastogi | 22f3001477 | | |
