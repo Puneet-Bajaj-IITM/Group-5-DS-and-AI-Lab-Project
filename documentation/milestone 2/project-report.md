@@ -330,7 +330,7 @@ Each team member signs one row after the review. By signing, each member confirm
 
 | Team member name | Roll Number | Signature / acknowledgment | Date |
 |---|---|---|---|
-| Jayesh Bansal | 24f100185 | | |
-| Vikas | 23f3001800 | | |
+| Jayesh Bansal | 24f100185 | ![Jayesh Bansal](https://drive.google.com/uc?export=download&id=1imepTm_t9vgJVL367tWU-LPYcLq9Zet0) | 31/10/2026 |
+| Vikas | 23f3001800 | Vikas | 31/10/2026 |
 | Puneet Bajaj | 23f3002416 | Puneet Bajaj | 31/10/2026 |
-| Manas Rastogi | 22f3001477 | | |
+| Manas Rastogi | 22f3001477 | ![Manas Rastogi](https://drive.google.com/uc?export=download&id=1j9vC0yjI-eb3lGfETUdnK3GAXq77__lT) | 31/10/2026 |
