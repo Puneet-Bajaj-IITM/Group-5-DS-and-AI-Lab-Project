@@ -27,27 +27,27 @@ Evidence for each row is the notebook and results folder it names. Runs listed a
 | Comparison with the published model | B1 on all 184 classes and on the 62 species both models know; `results/m3/retrain/H1_top1_s1/compare_b1.json`, `compare_b1_shared.json` | Puneet Bajaj | 5 Nov 2026 | Pending |
 | Kaggle runs | Training and evaluation kernels (E1 to E4, FE, H1 slices, retrain, baselines) run on Puneet Bajaj's, Jayesh Bansal's and Vikas's Kaggle accounts | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
 | Report and deck | [Report](documentation/milestone%203/project-report.md) with figures, and the [presentation](documentation/milestone%203/SerpentGuard_AI_M3_Presentation.pdf) | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
-| Jayesh Bansal's work this week | Coordination and Kaggle GPU run management | Jayesh Bansal | 5 Nov 2026 | Jayesh Bansal |
-| Vikas's work this week | Baseline runs and Kaggle kernel execution | Vikas | 5 Nov 2026 | Vikas |
-| Manas Rastogi's work this week | Benchmarks verification and report review | Manas Rastogi | 5 Nov 2026 | Manas Rastogi |
+| Jayesh Bansal's work this week | TO BE FILLED BY Jayesh Bansal | Jayesh Bansal | | Jayesh Bansal |
+| Vikas's work this week | Milestone 3 presentation deck (PPT) | Vikas | 5 Nov 2026 | Vikas |
+| Manas Rastogi's work this week | TO BE FILLED BY Manas Rastogi | Manas Rastogi | | Manas Rastogi |
 
 ### Member contribution summary
 
 | Member name | Work completed | Evidence / report sections | Member confirmation |
 |---|---|---|---|
-| Jayesh Bansal | Team lead: work distribution, coordination, Kaggle GPU run coordination | [project-report.md](documentation/milestone%203/project-report.md) | Jayesh Bansal |
-| Puneet Bajaj | M3 plan, subset, metrics, model, losses, training runner, baselines, front ends, decision layer, robustness, video, response retrieval, export, end-to-end pipeline, tuning, Kaggle runs, report draft, final model choice and B1 comparison, decision-rule ablation, robustness on the final model, laptop export and speed, end-to-end pipeline and video demo on the final model | [experiment-log.md](documentation/milestone%203/experiment-log.md); [project-report.md](documentation/milestone%203/project-report.md); [notebooks](notebooks/README.md) 10 to 20 | Puneet Bajaj |
-| Vikas | Kaggle training runs, baseline evaluations, preprocessing and pipeline validation | [experiment-log.md](documentation/milestone%203/experiment-log.md); [project-report.md](documentation/milestone%203/project-report.md) | Vikas |
-| Manas Rastogi | Exploratory analysis verification, external benchmarks research and report review | [project-report.md](documentation/milestone%203/project-report.md) | Manas Rastogi |
+| Jayesh Bansal | TO BE FILLED BY Jayesh Bansal. Kaggle runs on his account are listed above | | |
+| Puneet Bajaj | M3 plan, subset, metrics, model, losses, training runner, baselines, front ends, decision layer, robustness, video, response retrieval, export, end-to-end pipeline, tuning, Kaggle runs, report draft, final model choice and B1 comparison, decision-rule ablation, robustness on the final model, laptop export and speed, end-to-end pipeline and video demo on the final model | [experiment-log.md](documentation/milestone%203/experiment-log.md); [project-report.md](documentation/milestone%203/project-report.md); [notebooks](notebooks/README.md) 10 to 20 | |
+| Vikas | Presentation (PPT) | [SerpentGuard_AI_M3_Presentation.pdf](documentation/milestone%203/SerpentGuard_AI_M3_Presentation.pdf) | Vikas |
+| Manas Rastogi | TO BE FILLED BY Manas Rastogi | | |
 
 ### Milestone 3 acknowledgment
 
 | Team member name | Roll Number | Signature / acknowledgment | Date |
 |---|---|---|---|
-| Jayesh Bansal | 24f100185 | ![Jayesh Bansal](https://drive.google.com/uc?export=download&id=1imepTm_t9vgJVL367tWU-LPYcLq9Zet0) | 05/11/2026 |
+| Jayesh Bansal | 24f100185 | | |
 | Vikas | 23f3001800 | Vikas | 05/11/2026 |
-| Puneet Bajaj | 23f3002416 | Puneet Bajaj | 05/11/2026 |
-| Manas Rastogi | 22f3001477 | ![Manas Rastogi](https://drive.google.com/uc?export=download&id=1j9vC0yjI-eb3lGfETUdnK3GAXq77__lT) | 05/11/2026 |
+| Puneet Bajaj | 23f3002416 | | |
+| Manas Rastogi | 22f3001477 | | |
 
 ## Week 2: 23 to 31 October 2026 (Milestone 2, dataset preparation)
 
