@@ -712,7 +712,12 @@ The code is in `src/serpentguard/`, with tests in `tests/`; each run's settings 
 
 ## Team contributions
 
-> **PENDING (signatures):** one row per member, from the week 3 entries in the [work contribution log](../../work-contribution-log.md), filled at the team review with the signatures below.
+| Member | Work this milestone |
+|---|---|
+| Puneet Bajaj | Pipeline implementation, baselines, model training, tuning, export, video demo, report and presentation |
+| Vikas | Kaggle training runs, baseline evaluations, preprocessing and pipeline validation |
+| Manas Rastogi | Exploratory analysis verification, external benchmarks research and report review |
+| Jayesh Bansal | Team lead: work distribution, coordination, Kaggle GPU run coordination |
 
 <div style="page-break-before: always"></div>
 
@@ -722,7 +727,7 @@ Each team member signs one row after the review. By signing, each member confirm
 
 | Team member name | Roll Number | Signature / acknowledgment | Date |
 |---|---|---|---|
-| Jayesh Bansal | 24f100185 | PENDING | PENDING |
-| Vikas | 23f3001800 | PENDING | PENDING |
-| Puneet Bajaj | 23f3002416 | PENDING | PENDING |
-| Manas Rastogi | 22f3001477 | PENDING | PENDING |
+| Jayesh Bansal | 24f100185 | ![Jayesh Bansal](https://drive.google.com/uc?export=download&id=1imepTm_t9vgJVL367tWU-LPYcLq9Zet0) | 05/11/2026 |
+| Vikas | 23f3001800 | Vikas | 05/11/2026 |
+| Puneet Bajaj | 23f3002416 | Puneet Bajaj | 05/11/2026 |
+| Manas Rastogi | 22f3001477 | ![Manas Rastogi](https://drive.google.com/uc?export=download&id=1j9vC0yjI-eb3lGfETUdnK3GAXq77__lT) | 05/11/2026 |
