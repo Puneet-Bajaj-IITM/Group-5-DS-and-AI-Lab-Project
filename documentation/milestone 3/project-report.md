@@ -333,7 +333,7 @@ The notebooks in 5.1 reproduce every experiment. Each run's outputs stay in its 
 |---|---|
 | Jayesh Bansal | PENDING |
 | Vikas | Presentation (PPT) |
-| Puneet Bajaj | PENDING |
+| Puneet Bajaj | Ablations |
 | Manas Rastogi | PENDING |
 
 <div style="page-break-before: always"></div>
@@ -346,5 +346,5 @@ Each team member signs one row after the review. By signing, each member confirm
 |---|---|---|---|
 | Jayesh Bansal | 24f100185 | PENDING | PENDING |
 | Vikas | 23f3001800 | Vikas | 05/11/2026 |
-| Puneet Bajaj | 23f3002416 | PENDING | PENDING |
+| Puneet Bajaj | 23f3002416 | Puneet Bajaj | 05/11/2026 |
 | Manas Rastogi | 22f3001477 | PENDING | PENDING |
