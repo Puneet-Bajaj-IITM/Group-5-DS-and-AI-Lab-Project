@@ -5,6 +5,51 @@ Team: Group 5, DS and AI Lab Project. Team lead Jayesh Bansal; members Vikas, Pu
 
 The course asks for this log to be updated every week with each member's contributions. Add each new week above the previous one. Members check their own rows, and everyone also signs the acknowledgment page of each milestone report.
 
+## Week 3: 1 to 7 November 2026 (Milestone 3, model selection, baselines, tuning, end-to-end pipeline)
+
+### Contribution entries
+
+Evidence for each row is the notebook it names, saved with the outputs of its run. Runs listed as on another member's Kaggle account were run there; the account owner is named only as the account, not as the author.
+
+| Work item | Contribution / evidence | Contributor(s) | Date or period | Reviewed / confirmed by |
+|---|---|---|---|---|
+| Candidate subset | 16.4% subset stratified by class and photographer (13,925 photos, all 184 classes), calibration set and hand-check sample; [notebook 10](notebooks/10_m3_subset.ipynb) | Puneet Bajaj | 4 Nov 2026 | Pending |
+| Package, model and training | `serpentguard` package: metrics, SnakeID (three mobile encoders with ArcFace, genus, family and WHO heads), losses and the training runner; [notebook 12](notebooks/12_m3_train.ipynb) | Puneet Bajaj | 4 Nov 2026 | Pending |
+| Baselines | B0 to B5 before any training, including the published SnakeCLEF 2021 model and BioCLIP zero-shot; [notebook 11](notebooks/11_m3_baselines.ipynb) | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
+| Encoder, head and loss comparison | E1 to E4 and the N0 noise floor; [notebook 12](notebooks/12_m3_train.ipynb), all runs in [notebook 21](notebooks/21_m3_summary.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Front end | S1 segmenters, D1 detector and the FE crop and mask ablation; [notebook 13](notebooks/13_m3_frontends.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Tuning and retrain | H1 random search over 24 trials, then the top three configurations retrained at seeds 1, 2 and 42 (N1); [notebook 14](notebooks/14_m3_tuning.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Decision layer | Verdict rules with thresholds fitted on the calibration set to the lower bound of 95% WHO recall, and the DR0 to DR4 decision-rule study; [notebook 19](notebooks/19_m3_decision.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Few-shot enrolment and retrieval | K1 enrolment of new species from a few photos; Q1 retrieval of WHO first-aid passages with 60 draft questions; [notebook 16](notebooks/16_m3_response.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Robustness and video | R1 blanked-snake and swapped-background checks; V1 on 200 synthetic clips with frame voting; [notebook 17](notebooks/17_m3_robustness.ipynb), [notebook 18](notebooks/18_m3_video.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Export and speed | X1 ONNX export, fp16 and int8 variants, laptop latency and package size; [notebook 20](notebooks/20_m3_x1.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| End-to-end pipeline and demo | P1 from a photo or clip to the verdict, species and WHO passages, the video demo, and the detector padding fix; [notebook 15](notebooks/15_m3_end_to_end.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Comparison with the published model | B1 on all 184 classes and on the 62 species both models know; [notebook 21](notebooks/21_m3_summary.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Code clean-up and run outputs | `serpentguard` cut to the code the notebooks use; notebooks 10 to 21 saved with the outputs of their runs; [notebook 21](notebooks/21_m3_summary.ipynb) puts every run in one table | Puneet Bajaj | 6 Nov 2026 | Pending |
+| Kaggle runs | Training and evaluation kernels (E1 to E4, FE, H1 slices, retrain, baselines) run on Puneet Bajaj's, Jayesh Bansal's and Vikas's Kaggle accounts | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
+| Report and deck | [Report](documentation/milestone%203/project-report.md) with figures, and the [presentation](documentation/milestone%203/SerpentGuard_AI_M3_Presentation.pdf) | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
+| Jayesh Bansal's work this week | TO BE FILLED BY Jayesh Bansal | Jayesh Bansal | | Jayesh Bansal |
+| Vikas's work this week | Milestone 3 presentation deck (PPT) | Vikas | 5 Nov 2026 | Vikas |
+| Manas Rastogi's work this week | TO BE FILLED BY Manas Rastogi | Manas Rastogi | | Manas Rastogi |
+
+### Member contribution summary
+
+| Member name | Work completed | Evidence / report sections | Member confirmation |
+|---|---|---|---|
+| Jayesh Bansal | TO BE FILLED BY Jayesh Bansal. Kaggle runs on his account are listed above | | |
+| Puneet Bajaj | Subset, model and training code, baselines, front end, tuning and retrain, decision layer, few-shot enrolment, retrieval, robustness, video, export and speed, end-to-end pipeline and demo, report and deck | [project-report.md](documentation/milestone%203/project-report.md) | |
+| Vikas | Presentation (PPT) | [SerpentGuard_AI_M3_Presentation.pdf](documentation/milestone%203/SerpentGuard_AI_M3_Presentation.pdf) | Vikas |
+| Manas Rastogi | TO BE FILLED BY Manas Rastogi | | |
+
+### Milestone 3 acknowledgment
+
+| Team member name | Roll Number | Signature / acknowledgment | Date |
+|---|---|---|---|
+| Jayesh Bansal | 24f100185 | | |
+| Vikas | 23f3001800 | Vikas | 05/11/2026 |
+| Puneet Bajaj | 23f3002416 | | |
+| Manas Rastogi | 22f3001477 | | |
+
 ## Week 2: 23 to 31 October 2026 (Milestone 2, dataset preparation)
 
 ### Contribution entries
@@ -17,7 +62,7 @@ The course asks for this log to be updated every week with each member's contrib
 | Reproducibility | Wrote the notebook chain in [`notebooks/`](notebooks/README.md) (01 raw build, 02 split, 03 process, plus a loader for EDA and training); checked that it rebuilds the processed dataset exactly, and pinned scikit-learn so the split reproduces | Puneet Bajaj | 29 Oct 2026 | Jayesh Bansal |
 | Report | Milestone 2 report sections 1 to 4 and 6 to 8 (dataset documentation, splits, folder structure, reproducibility) | Puneet Bajaj, Jayesh Bansal | 29 Oct 2026 | Jayesh Bansal |
 | Snake masks | Built [`notebooks/04_sam_masks.ipynb`](notebooks/04_sam_masks.ipynb) (Grounding DINO and SAM 2.1); ran a 500-photo pilot through four versions (hand removal, single-box rule, quality flags, two-GPU speed-up), then masked all 129,241 training photos in six shards on three team accounts and merged them into a private dataset | Puneet Bajaj | 29–30 Oct 2026 | Jayesh Bansal |
-| Presentation | Prepared the Milestone 2 dataset presentation slides ([`SerpentGuard_AI_Milestone2_Dataset_Presentation.pdf`](documentation/milestone%202/SerpentGuard_AI_Milestone2_Dataset_Presentation.pdf)) | Vikas | 29 Oct 2026 | Vikas |
+| Presentation | Prepared the Milestone 2 dataset presentation slides ([`SerpentGuard_AI_M2_Presentation.pdf`](documentation/milestone%202/SerpentGuard_AI_M2_Presentation.pdf)) | Vikas | 29 Oct 2026 | Vikas |
 | Preprocessing pipeline | Built SAM mask-guided foreground extraction (soft-dimming and hard-masking), aspect-ratio-preserving letterbox resizing (320x320), tier-aware joint augmentation (Albumentations), and the PyTorch multi-task dataset and class-balanced DataLoader ([`notebooks/06_segmentation_preprocessing.ipynb`](notebooks/06_segmentation_preprocessing.ipynb)) | Vikas | 30 Oct 2026 | Vikas |
 | EDA notebook | Wrote and published comprehensive 18-section EDA notebook covering species distribution, WHO categories, split balance, image quality, geographic distribution, temporal patterns, observer diversity, family taxonomy, excluded photos, lookalike pairs, and class imbalance analysis. Pushed to Kaggle notebook wreckermoon/group-5-2026t3-dsai-lab. | Manas Rastogi | 29 Oct 2026 | Manas Rastogi |
 | Extended sources plan | Researched and documented all additional data sources beyond iNaturalist: SnakeCLEF 2021/2023/2024, Open Images V7, GBIF India, Roboflow Universe, India-specific Kaggle datasets. Created notebooks 08 and 09 for extended data pull and cross-source deduplication. | Manas Rastogi | 29 Oct 2026 | Manas Rastogi |
@@ -31,7 +76,7 @@ The course asks for this log to be updated every week with each member's contrib
 |---|---|---|---|
 | Jayesh Bansal | Team lead: coordination and distributing the work | | Jayesh Bansal |
 | Puneet Bajaj | Data collection, cleaning, splits, licence filter, Kaggle datasets, mask pipeline, notebooks 01 to 05 and 07, fixes to 06, 08 and 09, report | [notebooks](notebooks/README.md); [report](documentation/milestone%202/project-report.md) | Puneet Bajaj |
-| Vikas | Presentation preparation; SAM segmentation preprocessing pipeline, multi-task dataset and data loader | [SerpentGuard_AI_Milestone2_Dataset_Presentation.pdf](documentation/milestone%202/SerpentGuard_AI_Milestone2_Dataset_Presentation.pdf); [06_segmentation_preprocessing.ipynb](notebooks/06_segmentation_preprocessing.ipynb); report section 5.2 | Vikas |
+| Vikas | Presentation preparation; SAM segmentation preprocessing pipeline, multi-task dataset and data loader | [SerpentGuard_AI_M2_Presentation.pdf](documentation/milestone%202/SerpentGuard_AI_M2_Presentation.pdf); [06_segmentation_preprocessing.ipynb](notebooks/06_segmentation_preprocessing.ipynb); report section 5.2 | Vikas |
 | Manas Rastogi | EDA notebook (18 sections); extended sources discovery and notebooks 08+09 | wreckermoon/group-5-2026t3-dsai-lab on Kaggle; notebooks/08_extended_sources.ipynb; notebooks/09_combine_and_reclean.ipynb | Manas Rastogi |
 
 ### Milestone 2 acknowledgment

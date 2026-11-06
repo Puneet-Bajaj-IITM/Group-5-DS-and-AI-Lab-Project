@@ -1,0 +1,185 @@
+species,family,genus,who_category,dangerous,basis,source,note
+Indotyphlops braminus,Typhlopidae,Indotyphlops,not_listed,False,none,classes.csv,
+Ahaetulla prasina,Colubridae,Ahaetulla,not_listed,False,none,classes.csv,
+Ptyas mucosa,Colubridae,Ptyas,not_listed,False,none,classes.csv,
+Protobothrops mucrosquamatus,Viperidae,Protobothrops,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Fowlea piscator,Colubridae,Fowlea,not_listed,False,none,classes.csv,
+Psammodynastes pulverulentus,Psammodynastidae,Psammodynastes,not_listed,False,none,classes.csv,
+Chrysopelea ornata,Colubridae,Chrysopelea,not_listed,False,none,classes.csv,
+Malayopython reticulatus,Pythonidae,Malayopython,not_listed,False,none,classes.csv,
+Naja naja,Elapidae,Naja,1,True,who_category_1,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 1
+Ptyas korros,Colubridae,Ptyas,not_listed,False,none,classes.csv,
+Amphiesma stolatum,Colubridae,Amphiesma,not_listed,False,none,classes.csv,
+Elaphe taeniura,Colubridae,Elaphe,not_listed,False,none,classes.csv,
+Python bivittatus,Pythonidae,Python,not_listed,False,none,classes.csv,
+Laticauda colubrina,Elapidae,Laticauda,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Rhabdophis helleri,Colubridae,Rhabdophis,not_listed,True,who_guideline_named,"WHO SEARO 2016, PDF pp. 65, 30 (printed pp. 62, 27)","named as Rhabdophis subminiatus, which R. helleri was split from"
+Craspedocephalus malabaricus,Viperidae,Craspedocephalus,2,True,who_category_2,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 2; listed as Trimeresurus (Craspedocephalus) malabaricus
+Echis carinatus,Viperidae,Echis,1,True,who_category_1,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 1
+Daboia russelii,Viperidae,Daboia,1,True,who_category_1,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 1
+Lycodon aulicus,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Xenopeltis unicolor,Xenopeltidae,Xenopeltis,not_listed,False,none,classes.csv,
+Dendrelaphis tristis,Colubridae,Dendrelaphis,not_listed,False,none,classes.csv,
+Gonyosoma oxycephalum,Colubridae,Gonyosoma,not_listed,False,none,classes.csv,
+Craspedocephalus gramineus,Viperidae,Craspedocephalus,2,True,who_category_2,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 2; listed as Trimeresurus (Craspedocephalus) gramineus
+Bungarus fasciatus,Elapidae,Bungarus,2,True,who_category_2,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 2
+Coelognathus helena,Colubridae,Coelognathus,not_listed,False,none,classes.csv,
+Coelognathus radiatus,Colubridae,Coelognathus,not_listed,False,none,classes.csv,
+Python molurus,Pythonidae,Python,not_listed,False,none,classes.csv,
+Oreocryptophis porphyraceus,Colubridae,Oreocryptophis,not_listed,False,none,classes.csv,
+Hydrophis platurus,Elapidae,Hydrophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Bungarus caeruleus,Elapidae,Bungarus,1,True,who_category_1,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 1
+Hypnale hypnale,Viperidae,Hypnale,1,True,who_category_1,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 1
+Ahaetulla oxyrhynca,Colubridae,Ahaetulla,not_listed,False,none,classes.csv,
+Oligodon taeniolatus,Colubridae,Oligodon,not_listed,False,none,classes.csv,
+Macrovipera lebetinus,Viperidae,Macrovipera,2,True,who_category_2,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 2; listed as Macrovipera lebetina
+Xenochrophis trianguligerus,Colubridae,Xenochrophis,not_listed,False,none,classes.csv,
+Pareas carinatus,Pareidae,Pareas,not_listed,False,none,classes.csv,
+Laticauda laticaudata,Elapidae,Laticauda,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Boiga multomaculata,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Coelognathus flavolineatus,Colubridae,Coelognathus,not_listed,False,none,classes.csv,
+Eryx conicus,Boidae,Eryx,not_listed,False,none,classes.csv,
+Naja kaouthia,Elapidae,Naja,1,True,who_category_1,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 1
+Ahaetulla borealis,Colubridae,Ahaetulla,not_listed,False,none,classes.csv,
+Psammophis schokari,Psammophiidae,Psammophis,not_listed,False,none,classes.csv,
+Lycodon travancoricus,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Enhydris enhydris,Homalopsidae,Enhydris,not_listed,False,none,classes.csv,
+Pseudoxenodon macrops,Colubridae,Pseudoxenodon,not_listed,False,none,classes.csv,
+Lycodon fasciolatus,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Ophiophagus hannah,Elapidae,Ophiophagus,2,True,who_category_2,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 2
+Boiga cyanea,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Oligodon arnensis,Colubridae,Oligodon,not_listed,False,none,classes.csv,
+Euprepiophis mandarinus,Colubridae,Euprepiophis,not_listed,False,none,classes.csv,
+Boiga trigonata,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Eryx johnii,Boidae,Eryx,not_listed,False,none,classes.csv,
+Sahyadriophis beddomei,Colubridae,Sahyadriophis,not_listed,False,none,classes.csv,
+Rhabdophis plumbicolor,Colubridae,Rhabdophis,not_listed,True,who_guideline_named,"WHO SEARO 2016, PDF pp. 65, 30 (printed pp. 62, 27)",genus named through R. subminiatus and R. tigrinus; this species not named
+Ahaetulla farnsworthi,Colubridae,Ahaetulla,not_listed,False,none,classes.csv,
+Dendrelaphis chairecacos,Colubridae,Dendrelaphis,not_listed,False,none,classes.csv,
+Acrochordus granulatus,Acrochordidae,Acrochordus,not_listed,False,none,classes.csv,
+Atretium schistosum,Colubridae,Atretium,not_listed,False,none,classes.csv,
+Protobothrops jerdonii,Viperidae,Protobothrops,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Platyceps rhodorachis,Colubridae,Platyceps,not_listed,False,none,classes.csv,
+Spalerosophis diadema,Colubridae,Spalerosophis,not_listed,False,none,classes.csv,
+Hypsiscopus plumbeus,Homalopsidae,Hypsiscopus,not_listed,False,none,classes.csv,
+Hydrophis schistosus,Elapidae,Hydrophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Lycodon striatus,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Ahaetulla malabarica,Colubridae,Ahaetulla,not_listed,False,none,classes.csv,
+Boiga forsteni,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Boiga nuchalis,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Dendrelaphis cyanochloris,Colubridae,Dendrelaphis,not_listed,False,none,classes.csv,
+Gonyosoma frenatum,Colubridae,Gonyosoma,not_listed,False,none,classes.csv,
+Boiga siamensis,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Sibynophis collaris,Colubridae,Sibynophis,not_listed,False,none,classes.csv,
+Lycodon fasciatus,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Craspedocephalus anamallensis,Viperidae,Craspedocephalus,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Eryx whitakeri,Boidae,Eryx,not_listed,False,none,classes.csv,
+Trimeresurus erythrurus,Viperidae,Trimeresurus,2,True,who_category_2,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 2
+Cerberus rynchops,Homalopsidae,Cerberus,not_listed,False,none,classes.csv,
+Calliophis nigrescens,Elapidae,Calliophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Boiga thackerayi,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Fordonia leucobalia,Homalopsidae,Fordonia,not_listed,False,none,classes.csv,
+Craspedocephalus macrolepis,Viperidae,Craspedocephalus,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Dendrelaphis proarchos,Colubridae,Dendrelaphis,not_listed,False,none,classes.csv,
+Oligodon tillacki,Colubridae,Oligodon,not_listed,False,none,classes.csv,
+Oligodon russelius,Colubridae,Oligodon,not_listed,False,none,classes.csv,
+Oligodon cinereus,Colubridae,Oligodon,not_listed,False,none,classes.csv,
+Ovophis monticola,Viperidae,Ovophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Dendrelaphis subocularis,Colubridae,Dendrelaphis,not_listed,False,none,classes.csv,
+Grypotyphlops acutus,Typhlopidae,Grypotyphlops,not_listed,False,none,classes.csv,
+Dendrelaphis girii,Colubridae,Dendrelaphis,not_listed,False,none,classes.csv,
+Boiga flaviviridis,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Boiga beddomei,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Amphiesma monticola,Colubridae,Amphiesma,not_listed,False,none,classes.csv,
+Sibynophis subpunctatus,Colubridae,Sibynophis,not_listed,False,none,classes.csv,
+Hydrophis curtus,Elapidae,Hydrophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Ahaetulla isabellina,Colubridae,Ahaetulla,not_listed,False,none,classes.csv,
+Dendrelaphis grandoculis,Colubridae,Dendrelaphis,not_listed,False,none,classes.csv,
+Gerarda prevostiana,Homalopsidae,Gerarda,not_listed,False,none,classes.csv,
+Hydrophis ornatus,Elapidae,Hydrophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Uropeltis macrolepis,Uropeltidae,Uropeltis,not_listed,False,none,classes.csv,
+Hydrophis stokesii,Elapidae,Hydrophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Trimeresurus popeiorum,Viperidae,Trimeresurus,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Hydrophis lapemoides,Elapidae,Hydrophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Gloydius himalayanus,Viperidae,Gloydius,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Ptyas nigromarginata,Colubridae,Ptyas,not_listed,False,none,classes.csv,
+Lycodon nympha,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Xylophis perroteti,Pareidae,Xylophis,not_listed,False,none,classes.csv,
+Craspedocephalus travancoricus,Viperidae,Craspedocephalus,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Ahaetulla sahyadrensis,Colubridae,Ahaetulla,not_listed,False,none,classes.csv,
+Ophiophagus kaalinga,Elapidae,Ophiophagus,2,True,who_category_2,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)","India Category 2; listed as Ophiophagus hannah, which O. kaalinga was later split from"
+Platyceps plinii,Colubridae,Platyceps,not_listed,False,none,classes.csv,
+Trimeresurus septentrionalis,Viperidae,Trimeresurus,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Rhabdophis himalayanus,Colubridae,Rhabdophis,not_listed,True,who_guideline_named,"WHO SEARO 2016, PDF pp. 65, 30 (printed pp. 62, 27)",genus named through R. subminiatus and R. tigrinus; this species not named
+Rhabdophis leonardi,Colubridae,Rhabdophis,not_listed,True,who_guideline_named,"WHO SEARO 2016, PDF pp. 65, 30 (printed pp. 62, 27)",genus named through R. subminiatus and R. tigrinus; this species not named
+Hydrophis cyanocinctus,Elapidae,Hydrophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Argyrophis diardii,Typhlopidae,Argyrophis,not_listed,False,none,classes.csv,
+Oligodon albocinctus,Colubridae,Oligodon,not_listed,False,none,classes.csv,
+Bungarus niger,Elapidae,Bungarus,2,True,who_category_2,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 2
+Pseudoindotyphlops porrectus,Typhlopidae,Pseudoindotyphlops,not_listed,False,none,classes.csv,
+Elaphe hodgsonii,Colubridae,Elaphe,not_listed,False,none,classes.csv,
+Trimeresurus andersonii,Viperidae,Trimeresurus,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Fowlea tytleri,Colubridae,Fowlea,not_listed,False,none,classes.csv,
+Dieurostus dussumieri,Homalopsidae,Dieurostus,not_listed,False,none,classes.csv,
+Melanophidium wynaudense,Uropeltidae,Melanophidium,not_listed,False,none,classes.csv,
+Dendrelaphis bifrenalis,Colubridae,Dendrelaphis,not_listed,False,none,classes.csv,
+Sinomicrurus macclellandi,Elapidae,Sinomicrurus,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Uropeltis phipsonii,Uropeltidae,Uropeltis,not_listed,False,none,classes.csv,
+Pareas monticola,Pareidae,Pareas,not_listed,False,none,classes.csv,
+Lycodon septentrionalis,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Lycodon jara,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Chrysopelea taprobanica,Colubridae,Chrysopelea,not_listed,False,none,classes.csv,
+Sahyadriophis uttaraghati,Colubridae,Sahyadriophis,not_listed,False,none,classes.csv,
+Dendrelaphis andamanensis,Colubridae,Dendrelaphis,not_listed,False,none,classes.csv,
+Herpetoreas platyceps,Colubridae,Herpetoreas,not_listed,False,none,classes.csv,
+Melanophidium khairei,Uropeltidae,Melanophidium,not_listed,False,none,classes.csv,
+Dendrelaphis ashoki,Colubridae,Dendrelaphis,not_listed,False,none,classes.csv,
+Calliophis melanurus,Elapidae,Calliophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Ahaetulla dispar,Colubridae,Ahaetulla,not_listed,False,none,classes.csv,
+Platyplectrurus madurensis,Uropeltidae,Platyplectrurus,not_listed,False,none,classes.csv,
+Platyceps ventromaculatus,Colubridae,Platyceps,not_listed,False,none,classes.csv,
+Trimeresurus salazar,Viperidae,Trimeresurus,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Hebius khasiensis,Colubridae,Hebius,not_listed,False,none,classes.csv,
+Boiga multifasciata,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Gongylosoma calamaria,Colubridae,Gongylosoma,not_listed,False,none,classes.csv,
+Uropeltis ocellata,Uropeltidae,Uropeltis,not_listed,False,none,classes.csv,
+Lycodon zawi,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Elaphe cantoris,Colubridae,Elaphe,not_listed,False,none,classes.csv,
+Ahaetulla anomala,Colubridae,Ahaetulla,not_listed,False,none,classes.csv,
+Calliophis bibroni,Elapidae,Calliophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Oligodon affinis,Colubridae,Oligodon,not_listed,False,none,classes.csv,
+Lycodon hypsirhinoides,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Naja oxiana,Elapidae,Naja,2,True,who_category_2,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 2
+Lycodon bicolor,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Rhabdops aquaticus,Colubridae,Rhabdops,not_listed,False,none,classes.csv,
+Hydrophis spiralis,Elapidae,Hydrophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Uropeltis ellioti,Uropeltidae,Uropeltis,not_listed,False,none,classes.csv,
+Psammophis leithii,Psammophiidae,Psammophis,not_listed,False,none,classes.csv,
+Lycodon flavicollis,Colubridae,Lycodon,not_listed,False,none,classes.csv,
+Platyceps bholanathi,Colubridae,Platyceps,not_listed,False,none,classes.csv,
+Plectrurus perroteti,Uropeltidae,Plectrurus,not_listed,False,none,classes.csv,
+Oligodon cyclurus,Colubridae,Oligodon,not_listed,False,none,classes.csv,
+Boiga stoliczkae,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Ahaetulla laudankia,Colubridae,Ahaetulla,not_listed,False,none,classes.csv,
+Uropeltis ceylanica,Uropeltidae,Uropeltis,not_listed,False,none,classes.csv,
+Spalerosophis atriceps,Colubridae,Spalerosophis,not_listed,False,none,classes.csv,
+Archelaphe bella,Colubridae,Archelaphe,not_listed,False,none,classes.csv,
+Ahaetulla perroteti,Colubridae,Ahaetulla,not_listed,False,none,classes.csv,
+Ovophis zayuensis,Viperidae,Ovophis,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Boiga andamanensis,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Rhabdophis bindi,Colubridae,Rhabdophis,not_listed,True,who_guideline_named,"WHO SEARO 2016, PDF pp. 65, 30 (printed pp. 62, 27)",genus named through R. subminiatus and R. tigrinus; this species not named
+Boiga dightoni,Colubridae,Boiga,not_listed,False,none,classes.csv,
+Psammophis longifrons,Psammophiidae,Psammophis,not_listed,False,none,classes.csv,
+Ferania sieboldii,Homalopsidae,Ferania,not_listed,False,none,classes.csv,
+Rhabdops olivaceus,Colubridae,Rhabdops,not_listed,False,none,classes.csv,
+Gongylosoma scriptum,Colubridae,Gongylosoma,not_listed,False,none,classes.csv,
+Bungarus bungaroides,Elapidae,Bungarus,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Bungarus walli,Elapidae,Bungarus,2,True,who_category_2,"WHO SEARO 2016, PDF p. 87 (printed p. 84), India lists; categories defined PDF p. 84 (printed p. 81)",India Category 2
+Psammophis condanarus,Psammophiidae,Psammophis,not_listed,False,none,classes.csv,
+Trimeresurus medoensis,Viperidae,Trimeresurus,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Viperidae, not in the WHO category lists"
+Wallaceophis gujaratensis,Colubridae,Wallaceophis,not_listed,False,none,classes.csv,
+Bungarus andamanensis,Elapidae,Bungarus,not_listed,True,venomous_family,"WHO SEARO 2016, PDF p. 30 (printed p. 27), venomous families; family from classes.csv","Elapidae, not in the WHO category lists"
+Rhinophis melanoleucus,Uropeltidae,Rhinophis,not_listed,False,none,classes.csv,
+Platyceps gracilis,Colubridae,Platyceps,not_listed,False,none,classes.csv,
+Rhinophis karinthandani,Uropeltidae,Rhinophis,not_listed,False,none,classes.csv,
+Platyceps josephi,Colubridae,Platyceps,not_listed,False,none,classes.csv,

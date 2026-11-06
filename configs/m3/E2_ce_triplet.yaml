@@ -1,0 +1,19 @@
+# E2: E1 winner MobileViT-S, CE plus batch-hard triplet on the P x K sampler
+run_id: E2_ce_triplet
+encoder: mobilevit_s
+head: linear
+losses: [ce, triplet]
+sampler: pk
+front_end: F0
+pooling: gap
+mask_head: false
+hierarchy: true
+input_size: 320
+epochs: 20
+lr: 3.0e-4
+weight_decay: 0.05
+batch_size: 64
+seed: 42
+eval_every: 2
+warmup_epochs: 1
+subset_path: /kaggle/input/serpentguard-m3-subset/subset.csv

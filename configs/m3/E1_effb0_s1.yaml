@@ -1,0 +1,19 @@
+# E1 seed check: E1_effb0 with seed 1, run alongside E1 so the encoder comparison has a seed spread (counts as N0 if EfficientNet-B0 wins)
+run_id: E1_effb0_s1
+encoder: efficientnet_b0
+head: linear
+losses: [ce]
+sampler: weighted
+front_end: F0
+pooling: gap
+mask_head: false
+hierarchy: true
+input_size: 320
+epochs: 20
+lr: 3.0e-4
+weight_decay: 0.05
+batch_size: 64
+seed: 1
+eval_every: 2
+warmup_epochs: 1
+subset_path: /kaggle/input/serpentguard-m3-subset/subset.csv

@@ -1,0 +1,19 @@
+# E2: does the face-recognition head help? E1 winner MobileViT-S with an ArcFace head
+run_id: E2_arcface
+encoder: mobilevit_s
+head: arcface
+losses: [arcface]
+sampler: weighted
+front_end: F0
+pooling: gap
+mask_head: false
+hierarchy: true
+input_size: 320
+epochs: 20
+lr: 3.0e-4
+weight_decay: 0.05
+batch_size: 64
+seed: 42
+eval_every: 2
+warmup_epochs: 1
+subset_path: /kaggle/input/serpentguard-m3-subset/subset.csv

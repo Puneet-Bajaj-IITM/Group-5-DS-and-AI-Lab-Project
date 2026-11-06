@@ -1,0 +1,61 @@
+id,question,style,verdict,species,reason,topic,gold_ids,status
+V01,The app just said dangerous for the snake that bit my father. What do we do this minute?,verdict,dangerous,Naja naja,,first_aid,who-110-01;who-119-04;who-119-03,DRAFT
+V02,"It says Russell's viper, dangerous. My son was bitten on the foot. How do we get him to hospital?",verdict,dangerous,Daboia russelii,,transport,who-120-05;who-120-04;who-110-01,DRAFT
+V03,Screen says common krait and dangerous. She looks fine and says it doesn't hurt. Is she okay?,verdict,dangerous,Bungarus caeruleus,,symptoms,who-097-07,DRAFT
+V04,The result is saw-scaled viper. What does this snake look like so I know it was the one?,verdict,dangerous,Echis carinatus,,species,card-016;who-054-02;who-070-01,DRAFT
+V05,"App says not on the WHO list, rat snake. Can I just ignore the bite?",verdict,not_listed,Ptyas mucosa,,species,card-002;who-110-01,DRAFT
+V06,"It says checkered keelback, not on the WHO list. Should I still go to the clinic?",verdict,not_listed,Fowlea piscator,,species,card-004;who-031-01,DRAFT
+V07,The app says no snake found but something bit me in the grass. What now?,verdict,unknown,,no_snake,first_aid,who-110-01;who-098-02;who-119-04,DRAFT
+V08,"It says the photo is too dark. I was bitten anyway, what should I do?",verdict,unknown,,poor_image,first_aid,who-110-01;who-119-04;who-119-03,DRAFT
+V09,It can't decide between two species. Should I treat it as a dangerous bite?,verdict,unknown,,unclear_between_species,first_aid,who-110-01;who-098-02,DRAFT
+V10,"Cobra, dangerous it says. Do I need to tie something tight above the bite?",verdict,dangerous,Naja naja,,do_not,who-110-02;who-120-02;who-118-04,DRAFT
+V11,It says hump-nosed pit viper. Will the normal antivenom at the hospital work?,verdict,dangerous,Hypnale hypnale,,species,card-030,DRAFT
+V12,"Krait, dangerous. He was asleep on the floor when it happened. How could he not feel it?",verdict,dangerous,Bungarus caeruleus,,symptoms,who-097-07;who-023-02,DRAFT
+V13,"Says Indian wolf snake, not listed. Isn't that the one that looks like a krait?",verdict,not_listed,Lycodon aulicus,,species,card-018;who-067-02,DRAFT
+V14,Russell's viper result. Should we try to kill it and bring it along?,verdict,dangerous,Daboia russelii,,do_not,who-119-02;who-110-01,DRAFT
+V15,"It says Indian rock python, not listed. Is a python bite something to worry about?",verdict,not_listed,Python molurus,,species,card-026;who-067-03;who-031-01,DRAFT
+V16,The app says Malabar pit viper. How do I tell it apart from the hump-nosed one?,verdict,dangerous,Craspedocephalus malabaricus,,species,card-015;card-030,DRAFT
+V17,It says unlike any species it knows. Is the bite dangerous or not?,verdict,unknown,,unfamiliar,first_aid,who-098-02;who-110-01,DRAFT
+V18,"Monocled cobra, dangerous. It sprayed something into my eyes. What do I do?",verdict,dangerous,Naja kaouthia,,eye,who-167-02,DRAFT
+V19,"Common cat snake, not listed. Can its bite still cause swelling?",verdict,not_listed,Boiga trigonata,,species,who-066-01;who-030-04,DRAFT
+V20,"Saw-scaled viper. We are two hours from the nearest hospital, how should we carry her?",verdict,dangerous,Echis carinatus,,transport,who-120-05;who-119-01,DRAFT
+K01,Should I use a tourniquet on her leg?,keyword,dangerous,Naja naja,,do_not,who-110-02;who-120-02;who-118-04;who-120-03,DRAFT
+K02,Is it okay to suck out the venom from the bite?,keyword,dangerous,Daboia russelii,,do_not,who-118-04,DRAFT
+K03,Can I put ice packs on the bite?,keyword,dangerous,Echis carinatus,,do_not,who-118-04,DRAFT
+K04,Should we make an incision at the bite?,keyword,unknown,,unclear_between_species,do_not,who-118-04;who-120-02,DRAFT
+K05,Can the hospital tell which snake it was from a mobile phone photo?,keyword,unknown,,poor_image,identification,who-119-02;who-031-02;who-098-01;who-110-01,DRAFT
+K06,What is the recovery position and why use it after a bite?,keyword,dangerous,Bungarus caeruleus,,first_aid,who-119-04;who-120-05;who-110-01,DRAFT
+K07,How do I apply a pressure pad?,keyword,dangerous,Naja naja,,first_aid,who-198-02;who-198-04;who-119-05;who-120-01;who-110-02,DRAFT
+K08,Does a mosquito net over the bed keep snakes away at night?,keyword,not_listed,Ptyas mucosa,,prevention,who-023-03;who-022-01,DRAFT
+K09,What is a dry bite?,keyword,dangerous,Echis carinatus,,symptoms,who-119-03;who-031-05,DRAFT
+K10,A spitting cobra got venom in his eyes. How do we wash them?,keyword,dangerous,Naja kaouthia,,eye,who-167-02;who-167-07,DRAFT
+K11,Is there an emergency helpline number in India for a snakebite?,keyword,dangerous,Daboia russelii,,transport,who-120-04,DRAFT
+K12,What does a loreal scale tell me about the snake?,keyword,not_listed,Ptyas mucosa,,identification,who-034-01;who-034-02;who-034-03,DRAFT
+K13,Do kraits bite people sleeping on the floor at night?,keyword,dangerous,Bungarus caeruleus,,prevention,who-023-02;who-097-07;who-022-04,DRAFT
+K14,Should I wear boots when working in the rice fields?,keyword,not_listed,Fowlea piscator,,prevention,who-024-02;who-024-03;who-025-03;who-022-01,DRAFT
+K15,The snake charmer in our village lets kids touch his cobra. Is that okay?,keyword,dangerous,Naja naja,,prevention,who-025-02,DRAFT
+K16,"What are the signs of envenoming around the bite, like swelling or blisters?",keyword,dangerous,Daboia russelii,,symptoms,who-098-03;who-097-07,DRAFT
+K17,"After discharge, when should we come back for the follow-up appointment to check on her progress?",keyword,dangerous,Hypnale hypnale,,aftercare,who-166-04;who-166-03,DRAFT
+K18,Can a dead snake's severed head still bite?,keyword,dangerous,Naja naja,,first_aid,who-119-02;who-024-04,DRAFT
+K19,Which snakes have a heat-sensitive pit near the eye?,keyword,dangerous,Craspedocephalus gramineus,,identification,who-030-03;card-022;card-054,DRAFT
+K20,What does a banded krait look like with its black and yellow bands?,keyword,dangerous,Bungarus fasciatus,,species,who-044-01;who-070-01,DRAFT
+P01,Something with fangs got my ankle in the field and I am panicking. How do I settle down?,paraphrase,unknown,,no_snake,first_aid,who-119-03;who-110-01,DRAFT
+P02,It got my hand. Is it fine if I stroll over to the highway to hitch a ride?,paraphrase,dangerous,Echis carinatus,,first_aid,who-119-04;who-120-05,DRAFT
+P03,My grandmother wants to slice the spot open and drain it. Good idea?,paraphrase,dangerous,Daboia russelii,,do_not,who-118-04;who-120-02,DRAFT
+P04,The village healer wants to smear leaves and ointment on it instead of seeing a doctor. Should we let him?,paraphrase,unknown,,unclear_between_species,do_not,who-118-04;who-120-02,DRAFT
+P05,How can I stop these creatures from coming into our hut?,paraphrase,not_listed,Ptyas mucosa,,prevention,who-023-02;who-023-04;who-022-01,DRAFT
+P06,Is there any spray or powder that drives them off for good?,paraphrase,not_listed,Lycodon aulicus,,prevention,who-023-03,DRAFT
+P07,Will my brother die from this? He's terrified.,paraphrase,dangerous,Naja naja,,first_aid,who-119-03;who-166-03,DRAFT
+P08,Her leg is puffing up and going purple where it got her. Is that normal?,paraphrase,dangerous,Daboia russelii,,symptoms,who-098-03;who-097-07,DRAFT
+P09,Nobody here knows what kind it was. Who could recognise it from a camera shot?,paraphrase,unknown,,poor_image,identification,who-031-02;who-119-02;who-098-01,DRAFT
+P10,Our child seemed fine at bedtime and now her lids hang half shut and her words come out mumbled. Could something have got her in the night?,paraphrase,unknown,,no_snake,symptoms,who-102-01;who-103-01;who-105-02;who-097-07;who-023-02,DRAFT
+P11,Should I chase it and whack it with a stick until it stops moving so the doctors know what it was?,paraphrase,dangerous,Naja naja,,do_not,who-119-02;who-110-01,DRAFT
+P12,We live far from town with no car. How do we get him out of here?,paraphrase,dangerous,Bungarus caeruleus,,transport,who-120-05;who-119-01,DRAFT
+P13,It shot something into his face and he can't stop blinking and crying. What helps?,paraphrase,dangerous,Naja naja,,eye,who-167-02;who-107-01;who-107-03,DRAFT
+P14,Will wrapping a strip of cloth hard around the arm keep the poison from climbing?,paraphrase,dangerous,Echis carinatus,,do_not,who-120-02;who-110-02;who-118-04,DRAFT
+P15,How can I tell if the one in our yard is the kind that stands tall and puffs out a wide collar when angry?,paraphrase,not_listed,Ptyas mucosa,,identification,who-070-01;who-030-02,DRAFT
+P16,I heard that sometimes nothing gets injected. So can we just stay home and watch him?,paraphrase,dangerous,Hypnale hypnale,,transport,who-120-05;who-110-01,DRAFT
+P17,The doctors say she can go back to the village tomorrow. What should we watch for?,paraphrase,dangerous,Daboia russelii,,aftercare,who-166-03;who-166-04;who-167-01,DRAFT
+P18,How do I keep his arm completely still using sticks and cloth from the house?,paraphrase,dangerous,Echis carinatus,,first_aid,who-119-04;who-199-03,DRAFT
+P19,The monsoon has just arrived near our paddy. Should we be extra watchful outdoors?,paraphrase,not_listed,Fowlea piscator,,prevention,who-022-05;who-023-01;who-024-04,DRAFT
+P20,It was chunky with brown ring blotches along its length and it puffed as loud as a pressure cooker. What was it?,paraphrase,unknown,,unfamiliar,species,who-070-01;card-017,DRAFT

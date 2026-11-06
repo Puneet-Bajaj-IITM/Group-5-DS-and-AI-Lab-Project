@@ -25,3 +25,22 @@ Notes:
 - Notebook 02 pins scikit-learn 1.9.1, because `StratifiedGroupKFold` assigns folds differently between releases.
 - Scheduled Kaggle runs can only read attached datasets, so attach each one before you save and run.
 - Always take class ids from `classes.csv`. `val/` and `test/` lack some species folders, so plain `ImageFolder` would mislabel photos.
+
+## Milestone 3
+
+The M3 notebooks find the team's datasets the same way. Several also read another notebook's Kaggle output, so declare that kernel as a source; each notebook's first cell says which. Each notebook is saved with the outputs of its run, and its result files stay in that run's Kaggle output. The repo keeps only the few files another notebook reads (`results/m3/q1/retrieval.csv`, `results/m3/x1_laptop/package.csv`, `results/m3/final/H1_top1_s1/decision_metrics.json`) and notebook 21's tables in `results/m3/summary/`.
+
+| # | Notebook | Answers | Runs on |
+|---|---|---|---|
+| 10 | [`10_m3_subset`](10_m3_subset.ipynb) | the candidate subset and calibration set | CPU |
+| 11 | [`11_m3_baselines`](11_m3_baselines.ipynb) | B0 to B5, C1, K1 enrolment | GPU T4, internet on |
+| 12 | [`12_m3_train`](12_m3_train.ipynb) | E1 to E4, N0, FE, K1, the H1 retrains, N1 | GPU T4 x2, internet on |
+| 13 | [`13_m3_frontends`](13_m3_frontends.ipynb) | S1, D1 | GPU T4 x2, internet on |
+| 14 | [`14_m3_tuning`](14_m3_tuning.ipynb) | H1 | GPU T4 x2, internet on |
+| 15 | [`15_m3_end_to_end`](15_m3_end_to_end.ipynb) | P1 and the video demo | local CPU |
+| 16 | [`16_m3_response`](16_m3_response.ipynb) | Q1 | local CPU |
+| 17 | [`17_m3_robustness`](17_m3_robustness.ipynb) | R1 | GPU T4, internet on |
+| 18 | [`18_m3_video`](18_m3_video.ipynb) | V1 | GPU T4, internet on |
+| 19 | [`19_m3_decision`](19_m3_decision.ipynb) | the verdicts, U1 and the decision-rule study | CPU, internet on |
+| 20 | [`20_m3_x1`](20_m3_x1.ipynb) | X1 on the laptop CPU (or a Kaggle CPU) | local CPU |
+| 21 | [`21_m3_summary`](21_m3_summary.ipynb) | every run's results in one table, with a plot | local CPU |

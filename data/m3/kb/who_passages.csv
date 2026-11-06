@@ -1,0 +1,169 @@
+id,page,printed_page,start,end,section,heading,topic,kind,sha256
+who-022-01,22,19,37,885,2,prevention essentials,prevention,paragraph,2e2badfb0f9cc9ca
+who-022-02,22,19,886,1278,2,prevention essentials,prevention,paragraph,f33fa27b7a59ce3f
+who-022-03,22,19,1281,2113,2.1,lowering the risk of bites,prevention,heading,a969ddc3a166690c
+who-022-04,22,19,2114,2460,2.1,lowering the risk of bites,prevention,heading,79344ee9954e2fa6
+who-022-05,22,19,2461,2582,2.1,lowering the risk of bites,prevention,paragraph,d425e2e8e3c77156
+who-023-01,23,20,3,192,2.1,lowering the risk of bites,prevention,paragraph,5da876bd5f5597cb
+who-023-02,23,20,193,934,2.1,lowering the risk of bites,prevention,paragraph,61ee4c6d332c6774
+who-023-03,23,20,935,1476,2.1,lowering the risk of bites,prevention,paragraph,558d7b934b354f43
+who-023-04,23,20,1477,1823,2.1,lowering the risk of bites,prevention,paragraph,fc4c05aa211e5c63
+who-023-05,23,20,1824,2593,2.1,lowering the risk of bites,prevention,figure,625572d86c485862
+who-023-06,23,20,2594,2798,2.1,lowering the risk of bites,prevention,figure,eff63c6a70554778
+who-024-01,24,21,14,308,2.1,lowering the risk of bites,prevention,paragraph,3689fc6b7a4ef29f
+who-024-02,24,21,309,1178,2.1,lowering the risk of bites,prevention,paragraph,53d54a2553a3f5c1
+who-024-03,24,21,1179,1834,2.1,lowering the risk of bites,prevention,paragraph,85d479ece1d56242
+who-024-04,24,21,1835,2627,2.1,lowering the risk of bites,prevention,paragraph,b3d64ceac753063c
+who-024-05,24,21,2628,2977,2.1,lowering the risk of bites,prevention,paragraph,241bf9942205889b
+who-024-06,24,21,2978,3398,2.1,lowering the risk of bites,prevention,paragraph,97a792a4623778c3
+who-025-01,25,22,3,338,2.1,lowering the risk of bites,prevention,paragraph,240670b02597e311
+who-025-02,25,22,339,1202,2.1,lowering the risk of bites,prevention,paragraph,5a5d99e335303cb2
+who-025-03,25,22,1203,1564,2.1,lowering the risk of bites,prevention,paragraph,6464f3b5091425e5
+who-025-04,25,22,1565,2381,2.2,community education,prevention,heading,9d743f4fa1b8d82c
+who-025-05,25,22,2382,3136,2.2,community education,prevention,heading,c3a616838681404d
+who-030-01,30,27,119,814,3,venomous snake essentials,snakes,paragraph,01076bdf938f8ef3
+who-030-02,30,27,815,1263,3,venomous snake essentials,snakes,paragraph,0f7d0ff7fe9449eb
+who-030-03,30,27,1264,1869,3,venomous snake essentials,snakes,paragraph,1be194b59b8530d0
+who-030-04,30,27,1870,2068,3,venomous snake essentials,snakes,paragraph,2c5b86bf021d0f7a
+who-031-01,31,28,3,292,3,venomous snake essentials,snakes,paragraph,a23a3df4ce9417f9
+who-031-02,31,28,293,587,3,venomous snake essentials,snakes,paragraph,c812643dfcdd2a59
+who-031-03,31,28,588,1451,3,venomous snake essentials,snakes,paragraph,6736de2140706b7b
+who-031-04,31,28,1452,1983,3,venomous snake essentials,snakes,paragraph,35d0123b606281fb
+who-031-05,31,28,1984,2691,3,venomous snake essentials,snakes,paragraph,7eb532ca49f8f96a
+who-031-06,31,28,2692,3186,3,venomous snake essentials,snakes,paragraph,89bce360ff73e916
+who-033-01,33,30,3,275,3.1,fangs and venom glands,snakes,paragraph,c407e869c685e25c
+who-033-02,33,30,276,410,3.1,fangs and venom glands,snakes,paragraph,6832c0b7851c4ab2
+who-033-03,33,30,411,685,3.2.1,species of concern,snakes,heading,a5b803b215961179
+who-033-04,33,30,686,808,3.2.1,species of concern,snakes,figure,49df661e0196e028
+who-033-05,33,30,809,947,3.2.1,species of concern,snakes,figure,5d54c94a95b9c596
+who-033-06,33,30,948,1068,3.2.1,species of concern,snakes,figure,2227c65514445abf
+who-034-01,34,31,107,543,3.2.1,species of concern,snakes,paragraph,25624e3245505a77
+who-034-02,34,31,544,677,3.2.1,species of concern,snakes,bullet,d716bf1fc0b914f9
+who-034-03,34,31,678,1568,3.2.1,species of concern,snakes,bullet,47ef55012a40df26
+who-036-01,36,33,107,262,3.2.1,species of concern,snakes,figure,12022a321f3d9b06
+who-037-01,37,34,3,76,3.2.1,species of concern,snakes,figure,8d6eccdc66c23ac5
+who-038-01,38,35,107,321,3.2.1,species of concern,snakes,figure,ad523441e6a8c7c4
+who-041-01,41,38,3,81,3.2.1,species of concern,snakes,figure,8f058802cd843c87
+who-041-02,41,38,82,401,3.2.1,species of concern,snakes,paragraph,7e0c84258f4dc479
+who-042-01,42,39,107,283,3.2.1,species of concern,snakes,figure,df77fb7c590f7b7b
+who-042-02,42,39,284,450,3.2.1,species of concern,snakes,figure,98e443be3cc0caa7
+who-044-01,44,41,107,289,3.2.1,species of concern,snakes,figure,8259a2fd4f24bddd
+who-044-02,44,41,290,370,3.2.1,species of concern,snakes,figure,649b34039618c83a
+who-045-01,45,42,3,74,3.2.1,species of concern,snakes,figure,46238bfc2ff82f07
+who-045-02,45,42,75,151,3.2.1,species of concern,snakes,figure,6dface56814bcbfd
+who-045-03,45,42,152,315,3.2.1,species of concern,snakes,figure,8ec9bd308d20c187
+who-052-01,52,49,107,297,3.2.1,species of concern,snakes,figure,6ad3757142356130
+who-053-01,53,50,3,718,3.2.1,species of concern,snakes,paragraph,87306d9e336e1d66
+who-053-02,53,50,719,1068,3.2.1,species of concern,snakes,paragraph,f543632d39402958
+who-053-03,53,50,1069,1298,3.2.1,species of concern,snakes,paragraph,4bc68aa0f60fee57
+who-053-04,53,50,1299,2163,3.2.1,species of concern,snakes,paragraph,a869e65ed4084a56
+who-053-05,53,50,2164,2821,3.2.1,species of concern,snakes,paragraph,1dc11eb74ea1bfba
+who-054-01,54,51,107,316,3.2.1,species of concern,snakes,figure,81736be33a1f1b91
+who-054-02,54,51,317,569,3.2.1,species of concern,snakes,figure,af8834de70c8d254
+who-055-01,55,52,3,96,3.2.1,species of concern,snakes,figure,60bbaa98289e34b6
+who-055-02,55,52,97,291,3.2.1,species of concern,snakes,figure,230e64872d26d728
+who-055-03,55,52,292,372,3.2.1,species of concern,snakes,figure,d0a9d6ca648d0ee1
+who-055-04,55,52,373,458,3.2.1,species of concern,snakes,figure,d9ce081b9ec8823c
+who-057-01,57,54,3,98,3.2.1,species of concern,snakes,figure,f1ccfc3e6791dcaa
+who-058-01,58,55,107,213,3.2.1,species of concern,snakes,figure,ec4f4a9376df6bb1
+who-058-02,58,55,214,343,3.2.1,species of concern,snakes,figure,39973aafb9cb68c9
+who-065-01,65,62,3,512,3.2.2,other dangerous species,snakes,heading,a54236db079cc42e
+who-065-02,65,62,513,606,3.2.2,other dangerous species,snakes,figure,06f26669575f0ec9
+who-065-03,65,62,607,716,3.2.2,other dangerous species,snakes,figure,6921435e2aa1acea
+who-066-01,66,63,107,683,3.2.2,other dangerous species,snakes,paragraph,e5961fa488320346
+who-066-02,66,63,684,755,3.2.2,other dangerous species,snakes,figure,25855d799835f2f3
+who-066-03,66,63,756,841,3.2.2,other dangerous species,snakes,figure,2bbe4e3cc8dbc4b7
+who-067-01,67,64,3,284,3.2.3,snakes without venom,snakes,heading,58fd005c80b3114d
+who-067-02,67,64,285,957,3.2.3,snakes without venom,snakes,paragraph,3d9fc93a59144387
+who-067-03,67,64,958,1219,3.2.3,snakes without venom,snakes,paragraph,3f107e56fc5fdc39
+who-067-04,67,64,1220,1294,3.2.3,snakes without venom,snakes,figure,0a8f0d53a3dc3e5e
+who-067-05,67,64,1295,1362,3.2.3,snakes without venom,snakes,figure,b609cc211b0c6a01
+who-068-01,68,65,107,206,3.2.3,snakes without venom,snakes,figure,25bcb1deced707a0
+who-068-02,68,65,207,271,3.2.3,snakes without venom,snakes,figure,4f08133ceabc4131
+who-068-03,68,65,272,360,3.2.3,snakes without venom,snakes,figure,f37b1a87f3134607
+who-068-04,68,65,361,431,3.2.3,snakes without venom,snakes,figure,d09b7aaa6cfec5f6
+who-069-01,69,66,3,157,3.2.3,snakes without venom,snakes,figure,ec8a3d040b40d95f
+who-069-02,69,66,158,219,3.2.3,snakes without venom,snakes,figure,dd579af973aa3bfa
+who-070-01,70,67,995,1742,3.3,telling snakes apart,identification,heading,d5dbf38ed93138b1
+who-097-01,97,94,3,275,5,clinical effects,symptoms,paragraph,634e6664c0688180
+who-097-02,97,94,276,485,5,clinical effects,symptoms,paragraph,83ca9364b7e01e72
+who-097-03,97,94,486,793,5,clinical effects,symptoms,paragraph,5e3036219e884241
+who-097-04,97,94,794,980,5,clinical effects,symptoms,paragraph,9331e6277b7c97d8
+who-097-05,97,94,981,1811,5.1,no venom injected,symptoms,heading,46b0b01eff5cf7f4
+who-097-06,97,94,1812,2422,5.1,no venom injected,symptoms,paragraph,f9393e8806096fa9
+who-097-07,97,94,2456,3331,5.2.1,early signs,symptoms,heading,23b87243a9b6605f
+who-098-01,98,95,33,668,5.2.2,patterns of envenoming,symptoms,heading,8a1e398936b10e96
+who-098-02,98,95,669,943,5.2.2,patterns of envenoming,symptoms,heading,e319158257f8138c
+who-098-03,98,95,944,1293,5.2.3,signs at the bite,symptoms,list,9dfe00cce0eace1d
+who-098-04,98,95,1294,1811,5.2.3,signs at the bite,symptoms,figure,739e32b20e43c8f2
+who-099-01,99,96,3,140,5.2.3,signs at the bite,symptoms,figure,aab9aba2a2dc4bf9
+who-099-02,99,96,141,265,5.2.3,signs at the bite,symptoms,figure,df054d2c4d43d904
+who-099-03,99,96,266,480,5.2.3,signs at the bite,symptoms,figure,51da6b744e3f52da
+who-099-04,99,96,489,805,5.2.4,signs across the body,symptoms,paragraph,651753b03d66bcb9
+who-099-05,99,96,806,1228,5.2.4,signs across the body,symptoms,paragraph,73d8b51d09eb744e
+who-100-01,100,97,33,690,5.2.4,signs across the body,symptoms,paragraph,b4e48ecaf5c94d0a
+who-100-02,100,97,691,831,5.2.4,signs across the body,symptoms,figure,75511dcac2c8e3f5
+who-100-03,100,97,832,1014,5.2.4,signs across the body,symptoms,figure,e448a9e97f859415
+who-100-04,100,97,1015,1240,5.2.4,signs across the body,symptoms,figure,88fdeb43da8c5339
+who-102-01,102,99,37,520,5.2.4,signs across the body,symptoms,paragraph,3941e159486241b7
+who-102-02,102,99,521,691,5.2.4,signs across the body,symptoms,figure,494e10338c7f398d
+who-102-03,102,99,692,911,5.2.4,signs across the body,symptoms,figure,ff9c7274fd72991d
+who-103-01,103,100,4,223,5.2.4,signs across the body,symptoms,paragraph,61a5d2dcc9fec3f1
+who-103-02,103,100,224,718,5.2.4,signs across the body,symptoms,paragraph,4ff280b1c7247bc5
+who-103-03,103,100,719,1282,5.2.4,signs across the body,symptoms,paragraph,baa98136d02c0345
+who-104-01,104,101,34,526,5.2.4,signs across the body,symptoms,figure,c888d39760e2c3c2
+who-104-02,104,101,527,1014,5.2.4,signs across the body,symptoms,paragraph,5750097e20babc10
+who-104-03,104,101,1015,1104,5.3,symptom patterns by snake,symptoms,heading,e907be2efc47b5e7
+who-104-04,104,101,1105,1797,5.3,symptom patterns by snake,symptoms,paragraph,82681e04bd718eb5
+who-104-05,104,101,1798,2125,5.3,symptom patterns by snake,symptoms,paragraph,7da184ebad3421ea
+who-105-01,105,102,4,628,5.3,symptom patterns by snake,symptoms,paragraph,1e536b48af1ee3da
+who-105-02,105,102,629,1254,5.3,symptom patterns by snake,symptoms,paragraph,f7f7c2039a13c122
+who-105-03,105,102,1255,1813,5.4,lasting harm,aftercare,heading,41221339054a3ee6
+who-105-04,105,102,1814,2131,5.4,lasting harm,aftercare,figure,e3dd2cba1391e417
+who-106-01,106,103,34,347,5.4,lasting harm,aftercare,paragraph,5c4adcafb81f202c
+who-106-02,106,103,348,1074,5.4,lasting harm,aftercare,paragraph,62bb268491e545dc
+who-106-03,106,103,1075,1243,5.4,lasting harm,aftercare,paragraph,77d8c700afb06eee
+who-107-01,107,104,1244,1809,5.6,venom in the eyes,eye,heading,73a316fbe0704d89
+who-107-02,107,104,1810,1966,5.6,venom in the eyes,eye,figure,13be822fdf937279
+who-107-03,107,104,1967,2264,5.6,venom in the eyes,eye,paragraph,18db85fbe16491ab
+who-110-01,110,107,100,910,6,management essentials,first_aid,paragraph,995f2cee1cb6ccc8
+who-110-02,110,107,911,1105,6,management essentials,first_aid,paragraph,286e014193485415
+who-110-03,110,107,1106,1422,6,management essentials,first_aid,paragraph,563daacc817f8e19
+who-110-04,110,107,1423,1683,6,management essentials,first_aid,paragraph,f0c042481f418f4c
+who-110-05,110,107,1684,2380,6,management essentials,first_aid,paragraph,f7b6b6e9d6b79dfa
+who-118-01,118,115,48,415,6,management essentials,first_aid,paragraph,39a16c5132787655
+who-118-02,118,115,416,659,6.1,stages of care,first_aid,paragraph,4f67c252fd6ddcbd
+who-118-03,118,115,660,967,6.1,stages of care,first_aid,list,889b915eaf820129
+who-118-04,118,115,992,1881,6.2.1,first aid principles,first_aid,heading,a107e8902c63a69a
+who-118-05,118,115,1882,2093,6.2.1,first aid principles,first_aid,paragraph,97a74b5222cfdadf
+who-118-06,118,115,2094,2273,6.2.1,first aid principles,first_aid,list,5e67e0b937b7d3fa
+who-118-07,118,115,2274,2717,6.2.2,breathing and shock,first_aid,heading,2d40764b67881543
+who-119-01,119,116,4,665,6.2.2,breathing and shock,first_aid,paragraph,402f868ef42f2353
+who-119-02,119,116,666,1531,6.2.2,breathing and shock,first_aid,paragraph,b1adfe85d9a6b5ae
+who-119-03,119,116,1619,2056,6.2.3,steps to take,first_aid,bullet,7b76ddb3e92dd95c
+who-119-04,119,116,2057,2477,6.2.3,steps to take,first_aid,bullet,8941a20a68b1557d
+who-119-05,119,116,2478,2908,6.2.3,steps to take,first_aid,bullet,4bf80fbdb923a70d
+who-120-01,120,117,48,334,6.2.3,steps to take,first_aid,paragraph,82512bcd4686e517
+who-120-02,120,117,335,1227,6.2.3,steps to take,first_aid,bullet,39126bf8d1931edb
+who-120-03,120,117,1274,1386,6.2.3,steps to take,first_aid,figure,6b5a0bdd95d31c63
+who-120-04,120,117,1387,1773,6.3,getting to hospital,transport,heading,3aca198c6a31cbc3
+who-120-05,120,117,1774,2637,6.3,getting to hospital,transport,paragraph,c2db618f84c0c211
+who-166-01,166,163,1501,1772,6.12,rehabilitation,aftercare,heading,e8781b110abe188e
+who-166-02,166,163,1773,2519,6.12,rehabilitation,aftercare,paragraph,091f76de294fbaab
+who-166-03,166,163,2520,2867,6.13,going home,aftercare,list,fd0140d0b6929c68
+who-166-04,166,163,2868,3054,6.13,going home,aftercare,list,0193ba1c747a9458
+who-167-01,167,164,4,309,6.13,going home,aftercare,paragraph,5d8ad662e785ece9
+who-167-02,167,164,310,804,6.14,cobra spit in the eyes,eye,heading,1fdd04978c67b7fe
+who-167-03,167,164,805,1412,6.14,cobra spit in the eyes,eye,paragraph,0b883a333f35aaa6
+who-167-04,167,164,1413,1869,6.14,cobra spit in the eyes,eye,paragraph,51fe3dd78aaee4fe
+who-167-05,167,164,1870,2079,6.14,cobra spit in the eyes,eye,paragraph,4ba14fc692bb007b
+who-167-06,167,164,2080,2403,6.14,cobra spit in the eyes,eye,paragraph,e24eb0a44f138144
+who-167-07,167,164,2404,2749,6.14,cobra spit in the eyes,eye,paragraph,48264d5ddf96db02
+who-198-01,198,195,21,457,A4,pressure pad and bandage,first_aid,paragraph,f50250e3473c1c80
+who-198-02,198,195,458,603,A4,pressure pad and bandage,first_aid,list,42f2ede87c3bc7f3
+who-198-03,198,195,604,681,A4,pressure pad and bandage,first_aid,figure,854d3d6cb1edd132
+who-198-04,198,195,682,900,A4,pressure pad and bandage,first_aid,paragraph,5bf1c45e397a375c
+who-198-05,198,195,901,1080,A4,pressure pad and bandage,first_aid,paragraph,8f4130d93a099bdd
+who-199-01,199,196,4,109,A4,pressure pad and bandage,first_aid,paragraph,d5dc4ec4353539b9
+who-199-02,199,196,110,223,A4,pressure pad and bandage,first_aid,figure,3719df584d57a13d
+who-199-03,199,196,224,723,A4,pressure pad and bandage,first_aid,paragraph,b8fdfbfe060ba99a

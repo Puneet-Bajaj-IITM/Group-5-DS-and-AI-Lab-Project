@@ -1,0 +1,35 @@
+# source_trial: 1
+# source_study: H1_s3 (H1_s3.db)
+# H1 top 2 of 3: best validation macro-F1 0.2511 over 8 epochs (trial 9 of 'H1'), parameters on base config R_F0
+# moved onto front end F1 (YOLO box crop), the FE winner (Ruling R102): the tuned parameters transfer from the whole-photo search
+run_id: H1_top2_s42
+encoder: mobilevit_s
+head: arcface
+losses:
+- arcface
+front_end: F1
+input_size: 320
+epochs: 20
+lr: 0.0009384503725705565
+weight_decay: 0.015026291778424265
+batch_size: 64
+sampler: weighted
+seed: 42
+subset_path: /kaggle/input/serpentguard-m3-subset/subset.csv
+embedding_dim: 256
+arcface_s: 30.0
+arcface_m: 0.3455925837183653
+triplet_margin: 0.2
+triplet_weight: 1.0
+mask_weight: 1.0
+hierarchy: true
+mask_head: false
+mask_keep: 0.2
+pooling: gap
+danger_weight: 1.0
+aug_strength: 0.9092041956284974
+mask_source: predicted
+box_source: predicted
+eval_every: 2
+warmup_epochs: 1
+exclude_species: []
