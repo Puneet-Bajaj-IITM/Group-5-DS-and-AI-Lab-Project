@@ -1,0 +1,19 @@
+# E3: do the genus and family heads help? E1 winner MobileViT-S without them (run beside E2, read as a delta against E1_mvits)
+run_id: E3
+encoder: mobilevit_s
+head: linear
+losses: [ce]
+sampler: weighted
+front_end: F0
+pooling: gap
+mask_head: false
+hierarchy: false
+input_size: 320
+epochs: 20
+lr: 3.0e-4
+weight_decay: 0.05
+batch_size: 64
+seed: 42
+eval_every: 2
+warmup_epochs: 1
+subset_path: /kaggle/input/serpentguard-m3-subset/subset.csv

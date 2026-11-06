@@ -1,0 +1,24 @@
+# Milestone 3 environment, pinned to the versions the tests ran on
+albumentations==2.0.8
+matplotlib==3.11.2
+numpy==2.5.4
+onnx==1.23.2
+onnxruntime==1.31.1
+opencv-python-headless==5.0.0.93
+optuna==5.0.0
+pandas==3.1.0
+pillow==13.0.0
+pytest==9.2.0
+pyyaml==6.0.3
+rank-bm25==0.2.2
+scikit-learn==1.9.1
+scipy==1.18.1
+segmentation-models-pytorch==0.6.0
+timm==1.0.31
+torch==2.15.0
+torchvision==0.29.2
+ultralytics==8.4.202
+tokenizers==0.23.3
+transformers==5.22.1
+onnxscript==0.7.2
+huggingface_hub==2.4.0

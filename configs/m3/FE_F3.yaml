@@ -1,0 +1,21 @@
+# FE: recipe R (ArcFace head, hierarchy heads, danger weight 1) with front end F3
+run_id: FE_F3
+encoder: mobilevit_s
+head: arcface
+losses: [arcface]
+sampler: weighted
+front_end: F3
+pooling: gap
+mask_head: false
+hierarchy: true
+input_size: 320
+epochs: 20
+lr: 3.0e-4
+weight_decay: 0.05
+batch_size: 64
+seed: 42
+eval_every: 2
+warmup_epochs: 1
+subset_path: /kaggle/input/serpentguard-m3-subset/subset.csv
+danger_weight: 1.0
+mask_source: predicted
