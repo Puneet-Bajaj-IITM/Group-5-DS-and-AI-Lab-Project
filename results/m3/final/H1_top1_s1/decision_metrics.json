@@ -191,7 +191,7 @@
   "calibration": {
     "before": {
       "ece": 0.21054512907277967,
-      "aurc": 0.137025649723727,
+      "aurc": 0.13702564972372702,
       "error_at_80": 0.2738867429487647
     },
     "after": {
@@ -470,7 +470,7 @@
         }
       }
     },
-    "non_snake_objects": "skipped (plan section 14.8): the unknown pool holds no non-snake photos"
+    "non_snake_objects": "skipped: the unknown pool holds no non-snake photos"
   },
   "poor_image": {
     "flags": [
