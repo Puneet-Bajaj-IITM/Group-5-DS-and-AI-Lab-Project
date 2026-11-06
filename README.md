@@ -23,7 +23,7 @@ Each member's weekly contributions are in [work-contribution-log.md](work-contri
 |---|---|---|---|---|
 | 1 | Problem definition and literature review | 22 Oct | Submitted | [Report](documentation/milestone%201/project-report.md) · [Slides](documentation/milestone%201/assets/SerpentGuard_AI_Group5_Presentation.pdf) |
 | 2 | Dataset preparation | 29 Oct | Submitted | [Report](documentation/milestone%202/project-report.md) · [Slides](documentation/milestone%202/SerpentGuard_AI_M2_Presentation.pdf) · [Notebooks](notebooks/README.md) |
-| 3 | Model architecture and end-to-end pipeline | 5 Nov | Planned | |
+| 3 | Model architecture and end-to-end pipeline | 5 Nov | Submitted | [Report](documentation/milestone%203/project-report.md) · [Slides](documentation/milestone%203/SerpentGuard_AI_M3_Presentation.pdf) · [Notebooks](notebooks/README.md#milestone-3) |
 | 4 | Model training | 19 Nov | Planned | |
 | 5 | Evaluation and analysis | 26 Nov | Planned | |
 | 6 | Deployment and documentation | 10 Dec | Planned | |
