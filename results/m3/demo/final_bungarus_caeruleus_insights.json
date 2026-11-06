@@ -1,0 +1,128 @@
+{
+  "input": {
+    "photo": {
+      "path": "val/bungarus_caeruleus/inaturalist_754593781.jpg",
+      "species": "Bungarus caeruleus",
+      "license": "cc-by-nc",
+      "attribution": "(c) manishpatil, some rights reserved (CC BY-NC)",
+      "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/754593781/medium.jpg"
+    },
+    "clip_seed": 42,
+    "fps": 15,
+    "frames": 150
+  },
+  "model": {
+    "run_id": "H1_top1_s1",
+    "encoder": "mobilevit_s",
+    "input_size": 320,
+    "detector": "yolo26n-ft",
+    "tau_snake": 0.102
+  },
+  "decision": {
+    "file": "decision_metrics.json",
+    "smoothing": "vote_4_of_6",
+    "thresholds": {
+      "temperature": 1.9086784115427977,
+      "temperature_who": 0.9690096288687304,
+      "theta_d": 0.05660591583161018,
+      "theta_who": "inf",
+      "tau_unknown": 0.40982445157291975,
+      "theta_conf": 0.360998147721644,
+      "theta_v": 0.5,
+      "theta_genus": 0.5
+    }
+  },
+  "final": {
+    "verdict": "dangerous",
+    "message": "dangerous: WHO Category 1",
+    "reason": [
+      "who_listed_mass",
+      "top_species_dangerous",
+      "venomous_family_mass"
+    ],
+    "note": "WHO Category 1",
+    "top3": [
+      [
+        "Bungarus caeruleus",
+        0.8744114172214392
+      ],
+      [
+        "Bungarus walli",
+        0.0352425749725886
+      ],
+      [
+        "Bungarus bungaroides",
+        0.017852651254780583
+      ]
+    ],
+    "genus_fallback": null,
+    "majority": true,
+    "final_stable": "dangerous"
+  },
+  "timing": {
+    "time_to_first_stable_s": 0.4,
+    "first_majority_at_s": 0.4
+  },
+  "flips": {
+    "raw": 0,
+    "smoothed": 1,
+    "raw_counts": {
+      "dangerous": 101
+    }
+  },
+  "species_top1": [
+    {
+      "species": "Bungarus caeruleus",
+      "share": 1.0,
+      "frames": 101
+    }
+  ],
+  "passages": [
+    {
+      "id": "who-110-01",
+      "source": "WHO SEARO 2016",
+      "page": 110
+    },
+    {
+      "id": "who-119-04",
+      "source": "WHO SEARO 2016",
+      "page": 119
+    },
+    {
+      "id": "who-118-04",
+      "source": "WHO SEARO 2016",
+      "page": 118
+    },
+    {
+      "id": "who-119-03",
+      "source": "WHO SEARO 2016",
+      "page": 119
+    },
+    {
+      "id": "who-120-02",
+      "source": "WHO SEARO 2016",
+      "page": 120
+    },
+    {
+      "id": "who-120-05",
+      "source": "WHO SEARO 2016",
+      "page": 120
+    },
+    {
+      "id": "card-029",
+      "source": "SerpentGuard species card",
+      "page": null
+    }
+  ],
+  "speed": {
+    "frames_read": 101,
+    "mean_frame_ms": 77.843,
+    "mean_ms": {
+      "preprocess": 0.4,
+      "detector": 11.604,
+      "model": 65.446,
+      "verdict": 0.386,
+      "passages": 0.007
+    }
+  }
+}

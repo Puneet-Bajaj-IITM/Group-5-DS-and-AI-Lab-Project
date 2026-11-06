@@ -13,19 +13,19 @@ Evidence for each row is the notebook it names, saved with the outputs of its ru
 
 | Work item | Contribution / evidence | Contributor(s) | Date or period | Reviewed / confirmed by |
 |---|---|---|---|---|
-| Candidate subset | 16.4% subset stratified by class and photographer (13,925 photos, all 184 classes), calibration set and hand-check sample; [notebook 10](notebooks/10_m3_subset.ipynb) | Puneet Bajaj | 4 Nov 2026 | Pending |
-| Package, model and training | `serpentguard` package: metrics, SnakeID (three mobile encoders with ArcFace, genus, family and WHO heads), losses and the training runner; [notebook 12](notebooks/12_m3_train.ipynb) | Puneet Bajaj | 4 Nov 2026 | Pending |
-| Baselines | B0 to B5 before any training, including the published SnakeCLEF 2021 model and BioCLIP zero-shot; [notebook 11](notebooks/11_m3_baselines.ipynb) | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
-| Encoder, head and loss comparison | E1 to E4 and the N0 noise floor; [notebook 12](notebooks/12_m3_train.ipynb), all runs in [notebook 21](notebooks/21_m3_summary.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
-| Front end | S1 segmenters, D1 detector and the FE crop and mask ablation; [notebook 13](notebooks/13_m3_frontends.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
-| Tuning and retrain | H1 random search over 24 trials, then the top three configurations retrained at seeds 1, 2 and 42 (N1); [notebook 14](notebooks/14_m3_tuning.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
-| Decision layer | Verdict rules with thresholds fitted on the calibration set to the lower bound of 95% WHO recall, and the DR0 to DR4 decision-rule study; [notebook 19](notebooks/19_m3_decision.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
-| Few-shot enrolment and retrieval | K1 enrolment of new species from a few photos; Q1 retrieval of WHO first-aid passages with 60 draft questions; [notebook 16](notebooks/16_m3_response.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
-| Robustness and video | R1 blanked-snake and swapped-background checks; V1 on 200 synthetic clips with frame voting; [notebook 17](notebooks/17_m3_robustness.ipynb), [notebook 18](notebooks/18_m3_video.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
-| Export and speed | X1 ONNX export, fp16 and int8 variants, laptop latency and package size; [notebook 20](notebooks/20_m3_x1.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
-| End-to-end pipeline and demo | P1 from a photo or clip to the verdict, species and WHO passages, the video demo, and the detector padding fix; [notebook 15](notebooks/15_m3_end_to_end.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
-| Comparison with the published model | B1 on all 184 classes and on the 62 species both models know; [notebook 21](notebooks/21_m3_summary.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
-| Code clean-up and run outputs | `serpentguard` cut to the code the notebooks use; notebooks 10 to 21 saved with the outputs of their runs; [notebook 21](notebooks/21_m3_summary.ipynb) puts every run in one table | Puneet Bajaj | 6 Nov 2026 | Pending |
+| Candidate subset | 16.4% subset stratified by class and photographer (13,925 photos, all 184 classes), calibration set and hand-check sample; [notebook 10](notebooks/10_subset.ipynb) | Puneet Bajaj | 4 Nov 2026 | Pending |
+| Package, model and training | `serpentguard` package: metrics, SnakeID (three mobile encoders with ArcFace, genus, family and WHO heads), losses and the training runner; [notebook 12](notebooks/12_training.ipynb) | Puneet Bajaj | 4 Nov 2026 | Pending |
+| Baselines | B0 to B5 before any training, including the published SnakeCLEF 2021 model and BioCLIP zero-shot; [notebook 11](notebooks/11_baselines.ipynb) | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
+| Encoder, head and loss comparison | E1 to E4 and the N0 noise floor; [notebook 12](notebooks/12_training.ipynb), with all runs in one table | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Front end | S1 segmenters, D1 detector and the FE crop and mask ablation; [notebook 13](notebooks/13_cropping.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Tuning and retrain | H1 random search over 24 trials, then the top three configurations retrained at seeds 1, 2 and 42 (N1); [notebook 14](notebooks/14_tuning.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Decision layer | Verdict rules with thresholds fitted to the lower bound of 95% WHO recall on the calibration set; the DR0 to DR4 rule study; [notebook 15](notebooks/15_safety.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Few-shot enrolment and retrieval | K1 enrolment of new species from a few photos; Q1 retrieval of WHO first-aid passages with 60 draft questions; [notebook 11](notebooks/11_baselines.ipynb), [notebook 16](notebooks/16_app.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Robustness and video | R1 blanked-snake and swapped-background checks; V1 on 200 synthetic clips with frame voting; [notebook 15](notebooks/15_safety.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Export and speed | X1 ONNX export, fp16 and int8 variants, laptop latency and package size; [notebook 16](notebooks/16_app.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| End-to-end pipeline and demo | P1 from a photo or clip to the verdict, species and WHO passages, the video demo, and the detector padding fix; [notebook 16](notebooks/16_app.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Comparison with the published model | B1 on all 184 classes and on the 62 species both models know; [notebook 11](notebooks/11_baselines.ipynb) | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Code clean-up and run outputs | `serpentguard` cut to the code the notebooks use; notebooks 10 to 16 saved with their run outputs; [notebook 12](notebooks/12_training.ipynb) puts every run in one table | Puneet Bajaj | 6 Nov 2026 | Pending |
 | Kaggle runs | Training and evaluation kernels (E1 to E4, FE, H1 slices, retrain, baselines) run on Puneet Bajaj's, Jayesh Bansal's and Vikas's Kaggle accounts | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
 | Report and deck | [Report](documentation/milestone%203/project-report.md) with figures, and the [presentation](documentation/milestone%203/SerpentGuard_AI_M3_Presentation.pdf) | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
 | Jayesh Bansal's work this week | TO BE FILLED BY Jayesh Bansal | Jayesh Bansal | | Jayesh Bansal |
@@ -37,7 +37,7 @@ Evidence for each row is the notebook it names, saved with the outputs of its ru
 | Member name | Work completed | Evidence / report sections | Member confirmation |
 |---|---|---|---|
 | Jayesh Bansal | TO BE FILLED BY Jayesh Bansal. Kaggle runs on his account are listed above | | |
-| Puneet Bajaj | Subset, model and training code, baselines, front end, tuning and retrain, decision layer, few-shot enrolment, retrieval, robustness, video, export and speed, end-to-end pipeline and demo, report and deck | [project-report.md](documentation/milestone%203/project-report.md) | |
+| Puneet Bajaj | Subset, model and training code, baselines, front end, tuning, decision layer, enrolment, retrieval, robustness, video, export, end-to-end pipeline and demo, report and deck | [project-report.md](documentation/milestone%203/project-report.md) | |
 | Vikas | Presentation (PPT) | [SerpentGuard_AI_M3_Presentation.pdf](documentation/milestone%203/SerpentGuard_AI_M3_Presentation.pdf) | Vikas |
 | Manas Rastogi | TO BE FILLED BY Manas Rastogi | | |
 

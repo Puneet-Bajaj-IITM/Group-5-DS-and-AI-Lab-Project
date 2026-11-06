@@ -28,19 +28,14 @@ Notes:
 
 ## Milestone 3
 
-The M3 notebooks find the team's datasets the same way. Several also read another notebook's Kaggle output, so declare that kernel as a source; each notebook's first cell says which. Each notebook is saved with the outputs of its run, and its result files stay in that run's Kaggle output. The repo keeps only the few files another notebook reads (`results/m3/q1/retrieval.csv`, `results/m3/x1_laptop/package.csv`, `results/m3/final/H1_top1_s1/decision_metrics.json`) and notebook 21's tables in `results/m3/summary/`.
+The Milestone 3 notebooks find the team's datasets the same way. Several also read another notebook's Kaggle output, so declare that kernel as a source; each notebook's first cell says which. Each notebook is saved with the outputs of its run, and its result files stay in that run's Kaggle output. The repo keeps only the few files another notebook reads: the run tables in `results/m3/summary/`, `results/m3/q1/retrieval.csv`, the `results/m3/x1_laptop` CSVs and the shipped decision file `results/m3/final/H1_top1_s1/decision_metrics.json`.
 
 | # | Notebook | Answers | Runs on |
 |---|---|---|---|
-| 10 | [`10_m3_subset`](10_m3_subset.ipynb) | the candidate subset and calibration set | CPU |
-| 11 | [`11_m3_baselines`](11_m3_baselines.ipynb) | B0 to B5, C1, K1 enrolment | GPU T4, internet on |
-| 12 | [`12_m3_train`](12_m3_train.ipynb) | E1 to E4, N0, FE, K1, the H1 retrains, N1 | GPU T4 x2, internet on |
-| 13 | [`13_m3_frontends`](13_m3_frontends.ipynb) | S1, D1 | GPU T4 x2, internet on |
-| 14 | [`14_m3_tuning`](14_m3_tuning.ipynb) | H1 | GPU T4 x2, internet on |
-| 15 | [`15_m3_end_to_end`](15_m3_end_to_end.ipynb) | P1 and the video demo | local CPU |
-| 16 | [`16_m3_response`](16_m3_response.ipynb) | Q1 | local CPU |
-| 17 | [`17_m3_robustness`](17_m3_robustness.ipynb) | R1 | GPU T4, internet on |
-| 18 | [`18_m3_video`](18_m3_video.ipynb) | V1 | GPU T4, internet on |
-| 19 | [`19_m3_decision`](19_m3_decision.ipynb) | the verdicts, U1 and the decision-rule study | CPU, internet on |
-| 20 | [`20_m3_x1`](20_m3_x1.ipynb) | X1 on the laptop CPU (or a Kaggle CPU) | local CPU |
-| 21 | [`21_m3_summary`](21_m3_summary.ipynb) | every run's results in one table, with a plot | local CPU |
+| 10 | [`10_subset`](10_subset.ipynb) | Which 16% of the training photos we experiment on, and whether that subset is representative; also builds the calibration set | local CPU |
+| 11 | [`11_baselines`](11_baselines.ipynb) | How far existing models get before we train anything, how well new species can be added from a few photos, and how our final model compares with the published SnakeCLEF model | GPU T4, internet on |
+| 12 | [`12_training`](12_training.ipynb) | How SnakeID is built and trained: one full training run, then every training run (encoders, heads, losses, noise floor, front ends, retrains) in one table | GPU T4, internet on |
+| 13 | [`13_cropping`](13_cropping.ipynb) | Whether finding the snake first helps: four segmenters and two detectors, and a crop against a mask | GPU T4 x2, internet on |
+| 14 | [`14_tuning`](14_tuning.ipynb) | Which learning rate, weight decay, ArcFace margin and augmentation strength work best, and whether the gain holds when the best settings are retrained | GPU T4 x2, internet on |
+| 15 | [`15_safety`](15_safety.ipynb) | How outputs become a verdict: thresholds, the decision rule study, whether the model looks at the snake or the scenery, unknown species and video stability | GPU T4, internet on |
+| 16 | [`16_app`](16_app.ipynb) | The whole app from a photo or clip to a verdict and WHO passages, the video demo, passage retrieval, and package size and speed on a laptop | local CPU |

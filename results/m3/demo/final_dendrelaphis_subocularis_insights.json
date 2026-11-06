@@ -1,0 +1,424 @@
+{
+  "input": {
+    "kind": "photo",
+    "photo": {
+      "path": "val/dendrelaphis_subocularis/inaturalist_480976720.jpg",
+      "species": "Dendrelaphis subocularis",
+      "license": "cc-by-nc",
+      "attribution": "(c) Tomek Kloc, some rights reserved (CC BY-NC)",
+      "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/480976720/medium.jpg",
+      "expected_verdict": "not_listed"
+    },
+    "source_size": [
+      375,
+      500
+    ],
+    "clip_seed": 43,
+    "recipe": "video.synthesize_clip: V1's recipe (M1 section 3.4), leaves over a central ellipse",
+    "clip_params": {
+      "seed": 43,
+      "seconds": 10,
+      "fps": 15,
+      "frames": 150,
+      "size": [
+        375,
+        500
+      ],
+      "pan": [
+        [
+          0.0366,
+          -0.1095
+        ],
+        [
+          -0.1152,
+          0.0814
+        ],
+        [
+          0.0209,
+          -0.0661
+        ],
+        [
+          0.0604,
+          -0.0567
+        ]
+      ],
+      "zoom": [
+        1.147,
+        1.1579,
+        1.3344,
+        1.3122
+      ],
+      "rotation_deg": [
+        -5.3128,
+        -5.3152,
+        -1.872,
+        -11.9021
+      ],
+      "shake_share": 0.005089237677451262,
+      "exposure_share": 0.9662278115245301,
+      "light_gain": 0.8543843004416315,
+      "noise_sigma": 3.0701409457701336,
+      "jpeg_quality": 63,
+      "leaf_cover_target": 0.6780506720603153,
+      "occluder_region": "centre",
+      "leaves": 29,
+      "leaf_cover": 0.6792514327620393,
+      "leaf_centres": [
+        [
+          221,
+          247
+        ],
+        [
+          168,
+          171
+        ],
+        [
+          156,
+          171
+        ],
+        [
+          135,
+          216
+        ],
+        [
+          196,
+          162
+        ],
+        [
+          173,
+          278
+        ],
+        [
+          184,
+          129
+        ],
+        [
+          161,
+          312
+        ],
+        [
+          118,
+          331
+        ],
+        [
+          236,
+          299
+        ],
+        [
+          219,
+          230
+        ],
+        [
+          272,
+          277
+        ],
+        [
+          137,
+          223
+        ],
+        [
+          206,
+          297
+        ],
+        [
+          108,
+          193
+        ],
+        [
+          187,
+          163
+        ],
+        [
+          200,
+          352
+        ],
+        [
+          143,
+          310
+        ],
+        [
+          166,
+          236
+        ],
+        [
+          213,
+          358
+        ],
+        [
+          151,
+          272
+        ],
+        [
+          170,
+          307
+        ],
+        [
+          132,
+          323
+        ],
+        [
+          186,
+          341
+        ],
+        [
+          120,
+          229
+        ],
+        [
+          106,
+          271
+        ],
+        [
+          185,
+          131
+        ],
+        [
+          247,
+          311
+        ],
+        [
+          127,
+          165
+        ]
+      ]
+    },
+    "max_seconds": null,
+    "fps": 15.0,
+    "frames": 150,
+    "seconds": 10.0,
+    "frame_size": [
+      375,
+      500
+    ],
+    "annotated_size": [
+      374,
+      500
+    ]
+  },
+  "model": {
+    "run_id": "H1_top1_s1",
+    "encoder": "mobilevit_s",
+    "front_end": "F1",
+    "input_size": 320,
+    "backend": "torch",
+    "scorer": "head",
+    "checkpoint_sha256": "93e41e20b3a2e9cac00583ceb6b6b156c603d734d8e4ef375fde1660250ee75c",
+    "detector": "yolo26n-ft",
+    "tau_snake": 0.102
+  },
+  "decision": {
+    "file": "decision_metrics.json",
+    "sha256": "7bae8a20585f84aaa08a3e8ad543b866e9d9c940dac7c08d5c7627fb4cba55bc",
+    "recall_bound": "lower",
+    "recall_bound_recorded": true,
+    "thresholds": {
+      "temperature": 1.9086784115427977,
+      "temperature_who": 0.9690096288687304,
+      "theta_d": 0.05660591583161018,
+      "theta_who": "inf",
+      "tau_unknown": 0.40982445157291975,
+      "theta_conf": 0.360998147721644,
+      "theta_v": 0.5,
+      "theta_genus": 0.5
+    },
+    "smoothing": "vote_4_of_6"
+  },
+  "final": {
+    "verdict": "unknown",
+    "message": "we don't know: unclear between species",
+    "reason": [
+      "unclear_between_species"
+    ],
+    "reason_text": [
+      "unclear between species"
+    ],
+    "note": null,
+    "top3": [
+      [
+        "Fowlea piscator",
+        0.2969
+      ],
+      [
+        "Dendrelaphis tristis",
+        0.174
+      ],
+      [
+        "Coelognathus helena",
+        0.0626
+      ]
+    ],
+    "genus_fallback": {
+      "genus": "Dendrelaphis",
+      "probability": 0.6343844952761143,
+      "who_listed": false
+    },
+    "final_stable": "unknown",
+    "majority": true
+  },
+  "timing": {
+    "first_stable_verdict": "unknown",
+    "time_to_first_stable_s": 0.1,
+    "first_majority_at_s": 0.4,
+    "stable_means": "on screen for 1.0 s"
+  },
+  "flips": {
+    "raw": 14,
+    "smoothed": 2,
+    "raw_counts": {
+      "unknown": 90,
+      "not_listed": 9,
+      "dangerous": 2
+    },
+    "smoothed_counts": {
+      "unknown": 98,
+      "not_listed": 3
+    }
+  },
+  "species_top1": [
+    {
+      "species": "Fowlea piscator",
+      "share": 0.3069,
+      "frames": 31
+    },
+    {
+      "species": "Dendrelaphis tristis",
+      "share": 0.3069,
+      "frames": 31
+    },
+    {
+      "species": "Psammophis leithii",
+      "share": 0.1287,
+      "frames": 13
+    }
+  ],
+  "species_top1_by_second": [
+    {
+      "second": 0,
+      "species": "Fowlea piscator",
+      "share": 0.7,
+      "frames": 7
+    },
+    {
+      "second": 1,
+      "species": "Fowlea piscator",
+      "share": 0.7,
+      "frames": 7
+    },
+    {
+      "second": 2,
+      "species": "Fowlea piscator",
+      "share": 0.2,
+      "frames": 2
+    },
+    {
+      "second": 3,
+      "species": "Ptyas korros",
+      "share": 0.3,
+      "frames": 3
+    },
+    {
+      "second": 4,
+      "species": "Psammophis leithii",
+      "share": 0.4,
+      "frames": 4
+    },
+    {
+      "second": 5,
+      "species": "Psammophis leithii",
+      "share": 0.3,
+      "frames": 3
+    },
+    {
+      "second": 6,
+      "species": "Dendrelaphis tristis",
+      "share": 0.7,
+      "frames": 7
+    },
+    {
+      "second": 7,
+      "species": "Dendrelaphis tristis",
+      "share": 0.8,
+      "frames": 8
+    },
+    {
+      "second": 8,
+      "species": "Dendrelaphis tristis",
+      "share": 0.7,
+      "frames": 7
+    },
+    {
+      "second": 9,
+      "species": "Fowlea piscator",
+      "share": 0.7273,
+      "frames": 8
+    }
+  ],
+  "species_card": null,
+  "passages": [
+    {
+      "id": "note-unknown",
+      "source": "SerpentGuard",
+      "page": null,
+      "citation": "SerpentGuard"
+    },
+    {
+      "id": "who-110-01",
+      "source": "WHO SEARO 2016",
+      "page": 110,
+      "citation": "WHO SEARO 2016, PDF p. 110 (printed p. 107)"
+    },
+    {
+      "id": "who-119-04",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-118-04",
+      "source": "WHO SEARO 2016",
+      "page": 118,
+      "citation": "WHO SEARO 2016, PDF p. 118 (printed p. 115)"
+    },
+    {
+      "id": "who-119-03",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-120-02",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    },
+    {
+      "id": "who-120-05",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    }
+  ],
+  "speed": {
+    "mean_ms": {
+      "preprocess": 4.062,
+      "front_end": 14.765,
+      "snakeid": 60.768,
+      "decision": 0.322
+    },
+    "mean_frame_ms": 79.917,
+    "clip_ms": {
+      "decision": 0.477,
+      "response": 0.023
+    },
+    "total_ms": 8074.672,
+    "effective_fps": 10.00000000000002,
+    "skipped_share": 0.32666666666666666,
+    "processed": 101,
+    "frames": 150,
+    "skipping": "the 10 frames-per-second cap"
+  },
+  "annotated": {
+    "file": "annotated.mp4",
+    "codec": "avc1"
+  }
+}

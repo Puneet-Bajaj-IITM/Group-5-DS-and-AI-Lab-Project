@@ -1,0 +1,3090 @@
+{
+  "run": "K1",
+  "kernel": "jayeshbansal497/sg-m3-rk1",
+  "plain": {
+    "old_top1_before": 0.43371223275811294,
+    "held_out_species": [
+      "Amphiesma monticola",
+      "Argyrophis diardii",
+      "Boiga thackerayi",
+      "Elaphe hodgsonii",
+      "Lycodon jara",
+      "Melanophidium wynaudense",
+      "Platyceps ventromaculatus",
+      "Sibynophis subpunctatus",
+      "Uropeltis ellioti",
+      "Uropeltis macrolepis"
+    ],
+    "photos": 969,
+    "draws": 5,
+    "seed": 42,
+    "shots": {
+      "1": {
+        "new_top1": 0.03873271674821015,
+        "new_top1_std": 0.020822707601558185,
+        "new_top1_other_photographer": 0.0383123880353925,
+        "new_top1_other_photographer_std": 0.020190923152859187,
+        "new_as_old": 0.9448089938834686,
+        "new_as_old_std": 0.024318416527406045,
+        "old_top1_after": 0.43228694269391604,
+        "old_top1_after_std": 0.0009555003140667082,
+        "old_as_new": 0.0068790859296778365,
+        "old_as_new_std": 0.002535414895302948,
+        "old_top1_drop": 0.0014252900641968935,
+        "species_enrolled": 10,
+        "skipped_species": [],
+        "species": {
+          "Amphiesma monticola": {
+            "new_top1": 0.00684931506849315,
+            "new_top1_other_photographer": 0.00684931506849315,
+            "new_as_old": 0.9931506849315068,
+            "queries": 149.2,
+            "queries_other_photographer": 148.4
+          },
+          "Argyrophis diardii": {
+            "new_top1": 0.021333333333333333,
+            "new_top1_other_photographer": 0.021333333333333333,
+            "new_as_old": 0.9573333333333334,
+            "queries": 75.0,
+            "queries_other_photographer": 73.8
+          },
+          "Boiga thackerayi": {
+            "new_top1": 0.005154639175257732,
+            "new_top1_other_photographer": 0.005197594501718213,
+            "new_as_old": 0.9927400976668477,
+            "queries": 192.6,
+            "queries_other_photographer": 189.8
+          },
+          "Elaphe hodgsonii": {
+            "new_top1": 0.03558550331153071,
+            "new_top1_other_photographer": 0.03565757538360278,
+            "new_as_old": 0.9644144966884693,
+            "queries": 73.8,
+            "queries_other_photographer": 73.6
+          },
+          "Lycodon jara": {
+            "new_top1": 0.1393939393939394,
+            "new_top1_other_photographer": 0.13725490196078433,
+            "new_as_old": 0.8329885057471265,
+            "queries": 58.6,
+            "queries_other_photographer": 57.8
+          },
+          "Melanophidium wynaudense": {
+            "new_top1": 0.02926155969634231,
+            "new_top1_other_photographer": 0.02926155969634231,
+            "new_as_old": 0.9459433229813664,
+            "queries": 66.8,
+            "queries_other_photographer": 66.8
+          },
+          "Platyceps ventromaculatus": {
+            "new_top1": 0.00425531914893617,
+            "new_top1_other_photographer": 0.004347826086956522,
+            "new_as_old": 0.9957446808510639,
+            "queries": 46.8,
+            "queries_other_photographer": 46.6
+          },
+          "Sibynophis subpunctatus": {
+            "new_top1": 0.018094405594405595,
+            "new_top1_other_photographer": 0.018214285714285714,
+            "new_as_old": 0.9721639471639472,
+            "queries": 143.8,
+            "queries_other_photographer": 143.2
+          },
+          "Uropeltis ellioti": {
+            "new_top1": 0.02717717717717718,
+            "new_top1_other_photographer": 0.02717717717717718,
+            "new_as_old": 0.9230966260378025,
+            "queries": 36.2,
+            "queries_other_photographer": 36.2
+          },
+          "Uropeltis macrolepis": {
+            "new_top1": 0.1002219755826859,
+            "new_top1_other_photographer": 0.09783031143123151,
+            "new_as_old": 0.8705142434332224,
+            "queries": 105.2,
+            "queries_other_photographer": 103.6
+          }
+        },
+        "per_draw": [
+          {
+            "draw": 0,
+            "new_top1": 0.03466435233376358,
+            "new_top1_other_photographer": 0.034710605802773756,
+            "new_as_old": 0.934903111924366,
+            "old_top1_after": 0.4317097591141999,
+            "old_as_new": 0.01071912362329937
+          },
+          {
+            "draw": 1,
+            "new_top1": 0.04857686650845218,
+            "new_top1_other_photographer": 0.0466666178729155,
+            "new_as_old": 0.9301566880179413,
+            "old_top1_after": 0.43088521114317685,
+            "old_as_new": 0.008068790859296779
+          },
+          {
+            "draw": 2,
+            "new_top1": 0.03108956160011402,
+            "new_top1_other_photographer": 0.03180397815992351,
+            "new_as_old": 0.9549435812125099,
+            "old_top1_after": 0.43300547735437894,
+            "old_as_new": 0.0047705989752046644
+          },
+          {
+            "draw": 3,
+            "new_top1": 0.06760132941302228,
+            "new_top1_other_photographer": 0.06661322841961505,
+            "new_as_old": 0.9216399203857722,
+            "old_top1_after": 0.43276989221980094,
+            "old_as_new": 0.006066317215383709
+          },
+          {
+            "draw": 4,
+            "new_top1": 0.011731473885698661,
+            "new_top1_other_photographer": 0.011767509921734696,
+            "new_as_old": 0.9824016678767535,
+            "old_top1_after": 0.4330643736380234,
+            "old_as_new": 0.0047705989752046644
+          }
+        ],
+        "enrolled_photos": [
+          {
+            "Boiga thackerayi": [
+              440
+            ],
+            "Amphiesma monticola": [
+              99
+            ],
+            "Sibynophis subpunctatus": [
+              191
+            ],
+            "Uropeltis macrolepis": [
+              575
+            ],
+            "Argyrophis diardii": [
+              968
+            ],
+            "Elaphe hodgsonii": [
+              788
+            ],
+            "Melanophidium wynaudense": [
+              675
+            ],
+            "Lycodon jara": [
+              633
+            ],
+            "Platyceps ventromaculatus": [
+              870
+            ],
+            "Uropeltis ellioti": [
+              843
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              367
+            ],
+            "Amphiesma monticola": [
+              6
+            ],
+            "Sibynophis subpunctatus": [
+              267
+            ],
+            "Uropeltis macrolepis": [
+              589
+            ],
+            "Argyrophis diardii": [
+              961
+            ],
+            "Elaphe hodgsonii": [
+              776
+            ],
+            "Melanophidium wynaudense": [
+              678
+            ],
+            "Lycodon jara": [
+              651
+            ],
+            "Platyceps ventromaculatus": [
+              881
+            ],
+            "Uropeltis ellioti": [
+              841
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              309
+            ],
+            "Amphiesma monticola": [
+              114
+            ],
+            "Sibynophis subpunctatus": [
+              278
+            ],
+            "Uropeltis macrolepis": [
+              515
+            ],
+            "Argyrophis diardii": [
+              902
+            ],
+            "Elaphe hodgsonii": [
+              804
+            ],
+            "Melanophidium wynaudense": [
+              663
+            ],
+            "Lycodon jara": [
+              658
+            ],
+            "Platyceps ventromaculatus": [
+              853
+            ],
+            "Uropeltis ellioti": [
+              840
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              462
+            ],
+            "Amphiesma monticola": [
+              108
+            ],
+            "Sibynophis subpunctatus": [
+              275
+            ],
+            "Uropeltis macrolepis": [
+              549
+            ],
+            "Argyrophis diardii": [
+              968
+            ],
+            "Elaphe hodgsonii": [
+              767
+            ],
+            "Melanophidium wynaudense": [
+              717
+            ],
+            "Lycodon jara": [
+              603
+            ],
+            "Platyceps ventromaculatus": [
+              850
+            ],
+            "Uropeltis ellioti": [
+              824
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              452
+            ],
+            "Amphiesma monticola": [
+              64
+            ],
+            "Sibynophis subpunctatus": [
+              198
+            ],
+            "Uropeltis macrolepis": [
+              570
+            ],
+            "Argyrophis diardii": [
+              903
+            ],
+            "Elaphe hodgsonii": [
+              795
+            ],
+            "Melanophidium wynaudense": [
+              690
+            ],
+            "Lycodon jara": [
+              630
+            ],
+            "Platyceps ventromaculatus": [
+              856
+            ],
+            "Uropeltis ellioti": [
+              840
+            ]
+          }
+        ]
+      },
+      "5": {
+        "new_top1": 0.197897086660869,
+        "new_top1_std": 0.022806359701721863,
+        "new_top1_other_photographer": 0.18244096772264656,
+        "new_top1_other_photographer_std": 0.019615239883803304,
+        "new_as_old": 0.7718379663707896,
+        "new_as_old_std": 0.03102621141960911,
+        "old_top1_after": 0.427198303787031,
+        "old_top1_after_std": 0.001733993012234879,
+        "old_as_new": 0.018882148536427352,
+        "old_as_new_std": 0.002612300825410428,
+        "old_top1_drop": 0.006513928971081939,
+        "species_enrolled": 10,
+        "skipped_species": [],
+        "species": {
+          "Amphiesma monticola": {
+            "new_top1": 0.05498455007334493,
+            "new_top1_other_photographer": 0.05131340819216509,
+            "new_as_old": 0.9353680017971117,
+            "queries": 145.0,
+            "queries_other_photographer": 140.6
+          },
+          "Argyrophis diardii": {
+            "new_top1": 0.28674496600831567,
+            "new_top1_other_photographer": 0.2537632074106238,
+            "new_as_old": 0.6953858238924479,
+            "queries": 68.2,
+            "queries_other_photographer": 52.2
+          },
+          "Boiga thackerayi": {
+            "new_top1": 0.14032050447461636,
+            "new_top1_other_photographer": 0.13715360074039135,
+            "new_as_old": 0.857528957890975,
+            "queries": 182.2,
+            "queries_other_photographer": 169.2
+          },
+          "Elaphe hodgsonii": {
+            "new_top1": 0.15430015696916485,
+            "new_top1_other_photographer": 0.15047778949636534,
+            "new_as_old": 0.8394253332269136,
+            "queries": 64.2,
+            "queries_other_photographer": 56.6
+          },
+          "Lycodon jara": {
+            "new_top1": 0.46987993138936535,
+            "new_top1_other_photographer": 0.4185839583729523,
+            "new_as_old": 0.5188473413379073,
+            "queries": 52.6,
+            "queries_other_photographer": 45.2
+          },
+          "Melanophidium wynaudense": {
+            "new_top1": 0.2559982151781252,
+            "new_top1_other_photographer": 0.2505549550805992,
+            "new_as_old": 0.7208391439201035,
+            "queries": 52.8,
+            "queries_other_photographer": 39.4
+          },
+          "Platyceps ventromaculatus": {
+            "new_top1": 0.06087656529516995,
+            "new_top1_other_photographer": 0.060843776106934,
+            "new_as_old": 0.9391234347048301,
+            "queries": 40.2,
+            "queries_other_photographer": 36.6
+          },
+          "Sibynophis subpunctatus": {
+            "new_top1": 0.09438749313870928,
+            "new_top1_other_photographer": 0.09534945687157084,
+            "new_as_old": 0.8835754773815824,
+            "queries": 135.4,
+            "queries_other_photographer": 134.8
+          },
+          "Uropeltis ellioti": {
+            "new_top1": 0.054264831294030404,
+            "new_top1_other_photographer": 0.057227794256993356,
+            "new_as_old": 0.825163885799036,
+            "queries": 29.4,
+            "queries_other_photographer": 28.8
+          },
+          "Uropeltis macrolepis": {
+            "new_top1": 0.4072136527878478,
+            "new_top1_other_photographer": 0.3491417306978705,
+            "new_as_old": 0.5031222637569879,
+            "queries": 98.6,
+            "queries_other_photographer": 84.0
+          }
+        },
+        "per_draw": [
+          {
+            "draw": 0,
+            "new_top1": 0.17951417707227452,
+            "new_top1_other_photographer": 0.1758451391180354,
+            "new_as_old": 0.7977334109808631,
+            "old_top1_after": 0.4267624712880617,
+            "old_as_new": 0.01996584015548619
+          },
+          {
+            "draw": 1,
+            "new_top1": 0.21451013776081265,
+            "new_top1_other_photographer": 0.19029337070723432,
+            "new_as_old": 0.7582888075091383,
+            "old_top1_after": 0.42829377466281876,
+            "old_as_new": 0.015136344896637023
+          },
+          {
+            "draw": 2,
+            "new_top1": 0.17424412611761,
+            "new_top1_other_photographer": 0.16564540571567207,
+            "new_as_old": 0.8045758829773565,
+            "old_top1_after": 0.42852935979739676,
+            "old_as_new": 0.01937687731904117
+          },
+          {
+            "draw": 3,
+            "new_top1": 0.22769610767404505,
+            "new_top1_other_photographer": 0.21291557531935196,
+            "new_as_old": 0.7279852388759604,
+            "old_top1_after": 0.42434772365863715,
+            "old_as_new": 0.022145002650332764
+          },
+          {
+            "draw": 4,
+            "new_top1": 0.19352088467960277,
+            "new_top1_other_photographer": 0.16750534775293915,
+            "new_as_old": 0.7706064915106292,
+            "old_top1_after": 0.42805818952824076,
+            "old_as_new": 0.017786677660639613
+          }
+        ],
+        "enrolled_photos": [
+          {
+            "Boiga thackerayi": [
+              298,
+              431,
+              313,
+              459,
+              377
+            ],
+            "Amphiesma monticola": [
+              0,
+              11,
+              55,
+              82,
+              92
+            ],
+            "Sibynophis subpunctatus": [
+              201,
+              157,
+              236,
+              278,
+              294
+            ],
+            "Uropeltis macrolepis": [
+              584,
+              532,
+              499,
+              500,
+              570
+            ],
+            "Argyrophis diardii": [
+              893,
+              924,
+              952,
+              950,
+              905
+            ],
+            "Elaphe hodgsonii": [
+              784,
+              793,
+              791,
+              744,
+              785
+            ],
+            "Melanophidium wynaudense": [
+              723,
+              663,
+              678,
+              686,
+              717
+            ],
+            "Lycodon jara": [
+              627,
+              660,
+              620,
+              656,
+              638
+            ],
+            "Platyceps ventromaculatus": [
+              876,
+              892,
+              868,
+              866,
+              845
+            ],
+            "Uropeltis ellioti": [
+              843,
+              813,
+              810,
+              842,
+              817
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              461,
+              336,
+              388,
+              396,
+              492
+            ],
+            "Amphiesma monticola": [
+              46,
+              97,
+              19,
+              134,
+              30
+            ],
+            "Sibynophis subpunctatus": [
+              278,
+              241,
+              209,
+              198,
+              199
+            ],
+            "Uropeltis macrolepis": [
+              549,
+              546,
+              507,
+              550,
+              581
+            ],
+            "Argyrophis diardii": [
+              968,
+              953,
+              910,
+              931,
+              961
+            ],
+            "Elaphe hodgsonii": [
+              742,
+              756,
+              754,
+              769,
+              757
+            ],
+            "Melanophidium wynaudense": [
+              719,
+              678,
+              692,
+              676,
+              725
+            ],
+            "Lycodon jara": [
+              613,
+              606,
+              646,
+              638,
+              628
+            ],
+            "Platyceps ventromaculatus": [
+              848,
+              855,
+              881,
+              845,
+              856
+            ],
+            "Uropeltis ellioti": [
+              840,
+              822,
+              838,
+              841,
+              817
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              402,
+              482,
+              405,
+              395,
+              361
+            ],
+            "Amphiesma monticola": [
+              111,
+              55,
+              85,
+              19,
+              92
+            ],
+            "Sibynophis subpunctatus": [
+              172,
+              273,
+              235,
+              255,
+              253
+            ],
+            "Uropeltis macrolepis": [
+              534,
+              585,
+              516,
+              500,
+              533
+            ],
+            "Argyrophis diardii": [
+              964,
+              954,
+              913,
+              903,
+              950
+            ],
+            "Elaphe hodgsonii": [
+              768,
+              785,
+              803,
+              760,
+              732
+            ],
+            "Melanophidium wynaudense": [
+              708,
+              712,
+              687,
+              720,
+              721
+            ],
+            "Lycodon jara": [
+              607,
+              620,
+              615,
+              618,
+              646
+            ],
+            "Platyceps ventromaculatus": [
+              871,
+              883,
+              846,
+              854,
+              848
+            ],
+            "Uropeltis ellioti": [
+              834,
+              838,
+              808,
+              809,
+              837
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              309,
+              357,
+              339,
+              325,
+              314
+            ],
+            "Amphiesma monticola": [
+              1,
+              36,
+              116,
+              96,
+              119
+            ],
+            "Sibynophis subpunctatus": [
+              248,
+              163,
+              296,
+              223,
+              292
+            ],
+            "Uropeltis macrolepis": [
+              584,
+              506,
+              505,
+              540,
+              578
+            ],
+            "Argyrophis diardii": [
+              961,
+              962,
+              895,
+              912,
+              966
+            ],
+            "Elaphe hodgsonii": [
+              758,
+              748,
+              805,
+              755,
+              744
+            ],
+            "Melanophidium wynaudense": [
+              678,
+              661,
+              701,
+              711,
+              667
+            ],
+            "Lycodon jara": [
+              629,
+              608,
+              637,
+              625,
+              651
+            ],
+            "Platyceps ventromaculatus": [
+              852,
+              872,
+              891,
+              845,
+              882
+            ],
+            "Uropeltis ellioti": [
+              822,
+              819,
+              832,
+              833,
+              817
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              343,
+              391,
+              388,
+              339,
+              483
+            ],
+            "Amphiesma monticola": [
+              115,
+              1,
+              19,
+              18,
+              74
+            ],
+            "Sibynophis subpunctatus": [
+              245,
+              208,
+              232,
+              246,
+              209
+            ],
+            "Uropeltis macrolepis": [
+              496,
+              579,
+              543,
+              583,
+              590
+            ],
+            "Argyrophis diardii": [
+              930,
+              947,
+              897,
+              903,
+              905
+            ],
+            "Elaphe hodgsonii": [
+              745,
+              741,
+              793,
+              769,
+              794
+            ],
+            "Melanophidium wynaudense": [
+              676,
+              690,
+              678,
+              686,
+              691
+            ],
+            "Lycodon jara": [
+              617,
+              608,
+              646,
+              622,
+              639
+            ],
+            "Platyceps ventromaculatus": [
+              848,
+              879,
+              859,
+              892,
+              873
+            ],
+            "Uropeltis ellioti": [
+              808,
+              807,
+              844,
+              810,
+              840
+            ]
+          }
+        ]
+      },
+      "10": {
+        "new_top1": 0.26166143378750006,
+        "new_top1_std": 0.02935662816248144,
+        "new_top1_other_photographer": 0.25532831687138413,
+        "new_top1_other_photographer_std": 0.02772233202243,
+        "new_as_old": 0.6977295116214632,
+        "new_as_old_std": 0.03442733559509084,
+        "old_top1_after": 0.42733965486777786,
+        "old_top1_after_std": 0.0008897043454046544,
+        "old_as_new": 0.02417103480770363,
+        "old_as_new_std": 0.002459792551372819,
+        "old_top1_drop": 0.006372577890335074,
+        "species_enrolled": 10,
+        "skipped_species": [],
+        "species": {
+          "Amphiesma monticola": {
+            "new_top1": 0.08385390113762206,
+            "new_top1_other_photographer": 0.08042710276664151,
+            "new_as_old": 0.9052773314540756,
+            "queries": 128.2,
+            "queries_other_photographer": 119.4
+          },
+          "Argyrophis diardii": {
+            "new_top1": 0.35290959639536,
+            "new_top1_other_photographer": 0.29029610486132224,
+            "new_as_old": 0.6373584233808565,
+            "queries": 58.0,
+            "queries_other_photographer": 40.6
+          },
+          "Boiga thackerayi": {
+            "new_top1": 0.2042873137471261,
+            "new_top1_other_photographer": 0.2089503819195148,
+            "new_as_old": 0.7900026944987939,
+            "queries": 175.2,
+            "queries_other_photographer": 152.6
+          },
+          "Elaphe hodgsonii": {
+            "new_top1": 0.28114811162697273,
+            "new_top1_other_photographer": 0.31326989225983426,
+            "new_as_old": 0.7047892956434803,
+            "queries": 56.8,
+            "queries_other_photographer": 49.0
+          },
+          "Lycodon jara": {
+            "new_top1": 0.5501625336253049,
+            "new_top1_other_photographer": 0.5272170370752333,
+            "new_as_old": 0.4193774546010848,
+            "queries": 45.0,
+            "queries_other_photographer": 40.0
+          },
+          "Melanophidium wynaudense": {
+            "new_top1": 0.3267393588323821,
+            "new_top1_other_photographer": 0.33417915417915417,
+            "new_as_old": 0.6288056904335974,
+            "queries": 41.6,
+            "queries_other_photographer": 27.0
+          },
+          "Platyceps ventromaculatus": {
+            "new_top1": 0.12499542124542125,
+            "new_top1_other_photographer": 0.13289285714285715,
+            "new_as_old": 0.8750045787545788,
+            "queries": 31.0,
+            "queries_other_photographer": 27.6
+          },
+          "Sibynophis subpunctatus": {
+            "new_top1": 0.186251978285165,
+            "new_top1_other_photographer": 0.1909826033701759,
+            "new_as_old": 0.7714738331349869,
+            "queries": 122.4,
+            "queries_other_photographer": 117.0
+          },
+          "Uropeltis ellioti": {
+            "new_top1": 0.11402406271433059,
+            "new_top1_other_photographer": 0.11726746533853816,
+            "new_as_old": 0.7474977084655373,
+            "queries": 20.0,
+            "queries_other_photographer": 19.2
+          },
+          "Uropeltis macrolepis": {
+            "new_top1": 0.3922420602653161,
+            "new_top1_other_photographer": 0.35780056980056985,
+            "new_as_old": 0.4977081058476408,
+            "queries": 89.4,
+            "queries_other_photographer": 77.4
+          }
+        },
+        "per_draw": [
+          {
+            "draw": 0,
+            "new_top1": 0.2939428434440334,
+            "new_top1_other_photographer": 0.28938375953360623,
+            "new_as_old": 0.6676966369876236,
+            "old_top1_after": 0.4272336415572177,
+            "old_as_new": 0.02143824724659874
+          },
+          {
+            "draw": 1,
+            "new_top1": 0.2596393537603746,
+            "new_top1_other_photographer": 0.2637628972556872,
+            "new_as_old": 0.6980430037793579,
+            "old_top1_after": 0.4267624712880617,
+            "old_as_new": 0.025973261087225395
+          },
+          {
+            "draw": 2,
+            "new_top1": 0.28674238363535076,
+            "new_top1_other_photographer": 0.26724842931343534,
+            "new_as_old": 0.6681933260868911,
+            "old_top1_after": 0.42770481182637377,
+            "old_as_new": 0.027151186760115437
+          },
+          {
+            "draw": 3,
+            "new_top1": 0.24496264172476834,
+            "new_top1_other_photographer": 0.23863217265175982,
+            "new_as_old": 0.7027514377617146,
+            "old_top1_after": 0.4263501973025502,
+            "old_as_new": 0.024265268861534836
+          },
+          {
+            "draw": 4,
+            "new_top1": 0.22301994637297345,
+            "new_top1_other_photographer": 0.21761432560243216,
+            "new_as_old": 0.7519631534917289,
+            "old_top1_after": 0.4286471523646858,
+            "old_as_new": 0.02202721008304376
+          }
+        ],
+        "enrolled_photos": [
+          {
+            "Boiga thackerayi": [
+              334,
+              461,
+              487,
+              492,
+              388,
+              353,
+              307,
+              358,
+              484,
+              412
+            ],
+            "Amphiesma monticola": [
+              108,
+              18,
+              1,
+              56,
+              117,
+              141,
+              29,
+              77,
+              148,
+              114
+            ],
+            "Sibynophis subpunctatus": [
+              226,
+              194,
+              247,
+              156,
+              200,
+              237,
+              268,
+              284,
+              296,
+              204
+            ],
+            "Uropeltis macrolepis": [
+              536,
+              568,
+              598,
+              543,
+              567,
+              575,
+              534,
+              565,
+              552,
+              521
+            ],
+            "Argyrophis diardii": [
+              956,
+              910,
+              905,
+              952,
+              902,
+              947,
+              967,
+              913,
+              912,
+              903
+            ],
+            "Elaphe hodgsonii": [
+              757,
+              777,
+              765,
+              731,
+              774,
+              786,
+              762,
+              806,
+              734,
+              745
+            ],
+            "Melanophidium wynaudense": [
+              672,
+              702,
+              717,
+              677,
+              725,
+              661,
+              714,
+              718,
+              695,
+              719
+            ],
+            "Lycodon jara": [
+              646,
+              651,
+              609,
+              615,
+              619,
+              636,
+              622,
+              627,
+              641,
+              621
+            ],
+            "Platyceps ventromaculatus": [
+              854,
+              869,
+              886,
+              856,
+              849,
+              878,
+              859,
+              850,
+              855,
+              865
+            ],
+            "Uropeltis ellioti": [
+              819,
+              815,
+              811,
+              836,
+              837,
+              840,
+              807,
+              844,
+              814,
+              841
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              338,
+              357,
+              455,
+              482,
+              334,
+              462,
+              392,
+              468,
+              358,
+              300
+            ],
+            "Amphiesma monticola": [
+              22,
+              41,
+              1,
+              80,
+              63,
+              89,
+              93,
+              143,
+              85,
+              124
+            ],
+            "Sibynophis subpunctatus": [
+              246,
+              193,
+              241,
+              281,
+              198,
+              162,
+              186,
+              197,
+              190,
+              236
+            ],
+            "Uropeltis macrolepis": [
+              493,
+              566,
+              520,
+              528,
+              524,
+              505,
+              506,
+              516,
+              497,
+              511
+            ],
+            "Argyrophis diardii": [
+              959,
+              950,
+              967,
+              905,
+              964,
+              894,
+              958,
+              902,
+              895,
+              953
+            ],
+            "Elaphe hodgsonii": [
+              745,
+              732,
+              731,
+              785,
+              756,
+              772,
+              803,
+              795,
+              794,
+              744
+            ],
+            "Melanophidium wynaudense": [
+              721,
+              710,
+              704,
+              728,
+              663,
+              724,
+              725,
+              722,
+              716,
+              708
+            ],
+            "Lycodon jara": [
+              619,
+              659,
+              634,
+              616,
+              609,
+              621,
+              626,
+              658,
+              638,
+              660
+            ],
+            "Platyceps ventromaculatus": [
+              878,
+              866,
+              850,
+              855,
+              880,
+              849,
+              845,
+              870,
+              861,
+              887
+            ],
+            "Uropeltis ellioti": [
+              808,
+              810,
+              812,
+              823,
+              818,
+              835,
+              814,
+              820,
+              840,
+              844
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              353,
+              399,
+              343,
+              351,
+              406,
+              358,
+              354,
+              357,
+              420,
+              359
+            ],
+            "Amphiesma monticola": [
+              74,
+              145,
+              86,
+              69,
+              59,
+              135,
+              22,
+              14,
+              54,
+              113
+            ],
+            "Sibynophis subpunctatus": [
+              275,
+              196,
+              188,
+              162,
+              216,
+              194,
+              219,
+              161,
+              166,
+              171
+            ],
+            "Uropeltis macrolepis": [
+              546,
+              574,
+              578,
+              582,
+              510,
+              580,
+              498,
+              548,
+              581,
+              514
+            ],
+            "Argyrophis diardii": [
+              912,
+              904,
+              966,
+              959,
+              968,
+              947,
+              894,
+              958,
+              914,
+              896
+            ],
+            "Elaphe hodgsonii": [
+              767,
+              804,
+              794,
+              791,
+              761,
+              793,
+              731,
+              806,
+              774,
+              784
+            ],
+            "Melanophidium wynaudense": [
+              706,
+              678,
+              680,
+              667,
+              714,
+              711,
+              728,
+              725,
+              724,
+              718
+            ],
+            "Lycodon jara": [
+              619,
+              642,
+              622,
+              660,
+              623,
+              628,
+              629,
+              639,
+              649,
+              609
+            ],
+            "Platyceps ventromaculatus": [
+              869,
+              884,
+              848,
+              888,
+              849,
+              859,
+              851,
+              880,
+              854,
+              866
+            ],
+            "Uropeltis ellioti": [
+              807,
+              808,
+              828,
+              817,
+              843,
+              839,
+              841,
+              840,
+              815,
+              820
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              433,
+              399,
+              452,
+              309,
+              314,
+              357,
+              353,
+              492,
+              403,
+              401
+            ],
+            "Amphiesma monticola": [
+              136,
+              77,
+              39,
+              38,
+              131,
+              113,
+              74,
+              48,
+              140,
+              122
+            ],
+            "Sibynophis subpunctatus": [
+              154,
+              158,
+              255,
+              209,
+              251,
+              236,
+              242,
+              266,
+              211,
+              166
+            ],
+            "Uropeltis macrolepis": [
+              538,
+              495,
+              519,
+              540,
+              548,
+              561,
+              522,
+              569,
+              564,
+              565
+            ],
+            "Argyrophis diardii": [
+              927,
+              911,
+              962,
+              902,
+              956,
+              895,
+              945,
+              913,
+              920,
+              955
+            ],
+            "Elaphe hodgsonii": [
+              768,
+              744,
+              757,
+              785,
+              795,
+              796,
+              794,
+              802,
+              776,
+              733
+            ],
+            "Melanophidium wynaudense": [
+              719,
+              713,
+              724,
+              689,
+              666,
+              677,
+              673,
+              725,
+              723,
+              690
+            ],
+            "Lycodon jara": [
+              610,
+              625,
+              623,
+              622,
+              606,
+              632,
+              620,
+              656,
+              640,
+              612
+            ],
+            "Platyceps ventromaculatus": [
+              849,
+              871,
+              872,
+              881,
+              857,
+              864,
+              859,
+              860,
+              882,
+              884
+            ],
+            "Uropeltis ellioti": [
+              840,
+              810,
+              837,
+              820,
+              824,
+              817,
+              838,
+              819,
+              841,
+              843
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              367,
+              432,
+              306,
+              482,
+              351,
+              383,
+              471,
+              433,
+              400,
+              458
+            ],
+            "Amphiesma monticola": [
+              112,
+              21,
+              149,
+              150,
+              1,
+              66,
+              74,
+              127,
+              42,
+              104
+            ],
+            "Sibynophis subpunctatus": [
+              168,
+              278,
+              259,
+              297,
+              295,
+              226,
+              217,
+              279,
+              253,
+              192
+            ],
+            "Uropeltis macrolepis": [
+              582,
+              579,
+              569,
+              529,
+              521,
+              519,
+              583,
+              596,
+              520,
+              568
+            ],
+            "Argyrophis diardii": [
+              912,
+              908,
+              964,
+              967,
+              897,
+              949,
+              922,
+              959,
+              894,
+              953
+            ],
+            "Elaphe hodgsonii": [
+              764,
+              777,
+              745,
+              803,
+              763,
+              769,
+              792,
+              793,
+              744,
+              762
+            ],
+            "Melanophidium wynaudense": [
+              708,
+              723,
+              725,
+              719,
+              716,
+              722,
+              681,
+              713,
+              678,
+              662
+            ],
+            "Lycodon jara": [
+              632,
+              658,
+              659,
+              657,
+              618,
+              646,
+              621,
+              620,
+              613,
+              611
+            ],
+            "Platyceps ventromaculatus": [
+              847,
+              889,
+              855,
+              848,
+              856,
+              857,
+              846,
+              866,
+              873,
+              892
+            ],
+            "Uropeltis ellioti": [
+              837,
+              842,
+              843,
+              823,
+              840,
+              841,
+              807,
+              810,
+              838,
+              815
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "balanced": {
+    "old_top1_before": 0.43388892160904646,
+    "held_out_species": [
+      "Amphiesma monticola",
+      "Argyrophis diardii",
+      "Boiga thackerayi",
+      "Elaphe hodgsonii",
+      "Lycodon jara",
+      "Melanophidium wynaudense",
+      "Platyceps ventromaculatus",
+      "Sibynophis subpunctatus",
+      "Uropeltis ellioti",
+      "Uropeltis macrolepis"
+    ],
+    "photos": 969,
+    "draws": 5,
+    "seed": 42,
+    "shots": {
+      "1": {
+        "new_top1": 0.03833984622941363,
+        "new_top1_std": 0.021540668696823962,
+        "new_top1_other_photographer": 0.03817389711650984,
+        "new_top1_other_photographer_std": 0.02110193771711217,
+        "new_as_old": 0.9439490137798598,
+        "new_as_old_std": 0.024899090619626547,
+        "old_top1_after": 0.4324754108015784,
+        "old_top1_after_std": 0.000945097269325709,
+        "old_as_new": 0.006831968902762236,
+        "old_as_new_std": 0.002581377819755124,
+        "old_top1_drop": 0.0014135108074680436,
+        "species_enrolled": 10,
+        "skipped_species": [],
+        "species": {
+          "Amphiesma monticola": {
+            "new_top1": 0.00684931506849315,
+            "new_top1_other_photographer": 0.00684931506849315,
+            "new_as_old": 0.9931506849315068,
+            "queries": 149.2,
+            "queries_other_photographer": 148.4
+          },
+          "Argyrophis diardii": {
+            "new_top1": 0.021333333333333333,
+            "new_top1_other_photographer": 0.021333333333333333,
+            "new_as_old": 0.9546666666666667,
+            "queries": 75.0,
+            "queries_other_photographer": 73.8
+          },
+          "Boiga thackerayi": {
+            "new_top1": 0.006185567010309278,
+            "new_top1_other_photographer": 0.00623926116838488,
+            "new_as_old": 0.9917091698317961,
+            "queries": 192.6,
+            "queries_other_photographer": 189.8
+          },
+          "Elaphe hodgsonii": {
+            "new_top1": 0.03558550331153071,
+            "new_top1_other_photographer": 0.03565757538360278,
+            "new_as_old": 0.9589350446336748,
+            "queries": 73.8,
+            "queries_other_photographer": 73.6
+          },
+          "Lycodon jara": {
+            "new_top1": 0.14303030303030304,
+            "new_top1_other_photographer": 0.1411764705882353,
+            "new_as_old": 0.8293521421107627,
+            "queries": 58.6,
+            "queries_other_photographer": 57.8
+          },
+          "Melanophidium wynaudense": {
+            "new_top1": 0.023464458247066944,
+            "new_top1_other_photographer": 0.023464458247066944,
+            "new_as_old": 0.948841873706004,
+            "queries": 66.8,
+            "queries_other_photographer": 66.8
+          },
+          "Platyceps ventromaculatus": {
+            "new_top1": 0.00425531914893617,
+            "new_top1_other_photographer": 0.004347826086956522,
+            "new_as_old": 0.9957446808510639,
+            "queries": 46.8,
+            "queries_other_photographer": 46.6
+          },
+          "Sibynophis subpunctatus": {
+            "new_top1": 0.020881895881895884,
+            "new_top1_other_photographer": 0.021031746031746033,
+            "new_as_old": 0.9693764568764568,
+            "queries": 143.8,
+            "queries_other_photographer": 143.2
+          },
+          "Uropeltis ellioti": {
+            "new_top1": 0.02717717717717718,
+            "new_top1_other_photographer": 0.02717717717717718,
+            "new_as_old": 0.917691220632397,
+            "queries": 36.2,
+            "queries_other_photographer": 36.2
+          },
+          "Uropeltis macrolepis": {
+            "new_top1": 0.09463559008509063,
+            "new_top1_other_photographer": 0.09446180808010227,
+            "new_as_old": 0.8800221975582685,
+            "queries": 105.2,
+            "queries_other_photographer": 103.6
+          }
+        },
+        "per_draw": [
+          {
+            "draw": 0,
+            "new_top1": 0.03535879677820803,
+            "new_top1_other_photographer": 0.035405050247218205,
+            "new_as_old": 0.930135608119191,
+            "old_top1_after": 0.4320042405324224,
+            "old_as_new": 0.010660227339654868
+          },
+          {
+            "draw": 1,
+            "new_top1": 0.04955725866531493,
+            "new_top1_other_photographer": 0.04872847354301859,
+            "new_as_old": 0.931137080174804,
+            "old_top1_after": 0.4310618999941104,
+            "old_as_new": 0.008245479710230284
+          },
+          {
+            "draw": 2,
+            "new_top1": 0.03203295782652911,
+            "new_top1_other_photographer": 0.03277485194633127,
+            "new_as_old": 0.9512974822833922,
+            "old_top1_after": 0.43329995877260147,
+            "old_as_new": 0.00465280640791566
+          },
+          {
+            "draw": 3,
+            "new_top1": 0.06635481180646645,
+            "new_top1_other_photographer": 0.06552966773939546,
+            "new_as_old": 0.9228864379923282,
+            "old_top1_after": 0.43276989221980094,
+            "old_as_new": 0.0058307320808057015
+          },
+          {
+            "draw": 4,
+            "new_top1": 0.008395406070549631,
+            "new_top1_other_photographer": 0.008431442106585668,
+            "new_as_old": 0.9842884603295836,
+            "old_top1_after": 0.43324106248895694,
+            "old_as_new": 0.0047705989752046644
+          }
+        ],
+        "enrolled_photos": [
+          {
+            "Boiga thackerayi": [
+              440
+            ],
+            "Amphiesma monticola": [
+              99
+            ],
+            "Sibynophis subpunctatus": [
+              191
+            ],
+            "Uropeltis macrolepis": [
+              575
+            ],
+            "Argyrophis diardii": [
+              968
+            ],
+            "Elaphe hodgsonii": [
+              788
+            ],
+            "Melanophidium wynaudense": [
+              675
+            ],
+            "Lycodon jara": [
+              633
+            ],
+            "Platyceps ventromaculatus": [
+              870
+            ],
+            "Uropeltis ellioti": [
+              843
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              367
+            ],
+            "Amphiesma monticola": [
+              6
+            ],
+            "Sibynophis subpunctatus": [
+              267
+            ],
+            "Uropeltis macrolepis": [
+              589
+            ],
+            "Argyrophis diardii": [
+              961
+            ],
+            "Elaphe hodgsonii": [
+              776
+            ],
+            "Melanophidium wynaudense": [
+              678
+            ],
+            "Lycodon jara": [
+              651
+            ],
+            "Platyceps ventromaculatus": [
+              881
+            ],
+            "Uropeltis ellioti": [
+              841
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              309
+            ],
+            "Amphiesma monticola": [
+              114
+            ],
+            "Sibynophis subpunctatus": [
+              278
+            ],
+            "Uropeltis macrolepis": [
+              515
+            ],
+            "Argyrophis diardii": [
+              902
+            ],
+            "Elaphe hodgsonii": [
+              804
+            ],
+            "Melanophidium wynaudense": [
+              663
+            ],
+            "Lycodon jara": [
+              658
+            ],
+            "Platyceps ventromaculatus": [
+              853
+            ],
+            "Uropeltis ellioti": [
+              840
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              462
+            ],
+            "Amphiesma monticola": [
+              108
+            ],
+            "Sibynophis subpunctatus": [
+              275
+            ],
+            "Uropeltis macrolepis": [
+              549
+            ],
+            "Argyrophis diardii": [
+              968
+            ],
+            "Elaphe hodgsonii": [
+              767
+            ],
+            "Melanophidium wynaudense": [
+              717
+            ],
+            "Lycodon jara": [
+              603
+            ],
+            "Platyceps ventromaculatus": [
+              850
+            ],
+            "Uropeltis ellioti": [
+              824
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              452
+            ],
+            "Amphiesma monticola": [
+              64
+            ],
+            "Sibynophis subpunctatus": [
+              198
+            ],
+            "Uropeltis macrolepis": [
+              570
+            ],
+            "Argyrophis diardii": [
+              903
+            ],
+            "Elaphe hodgsonii": [
+              795
+            ],
+            "Melanophidium wynaudense": [
+              690
+            ],
+            "Lycodon jara": [
+              630
+            ],
+            "Platyceps ventromaculatus": [
+              856
+            ],
+            "Uropeltis ellioti": [
+              840
+            ]
+          }
+        ]
+      },
+      "5": {
+        "new_top1": 0.19459370810085697,
+        "new_top1_std": 0.01964479447120337,
+        "new_top1_other_photographer": 0.1784267174616061,
+        "new_top1_other_photographer_std": 0.013819534993559434,
+        "new_as_old": 0.7756053439840325,
+        "new_as_old_std": 0.026536090413231767,
+        "old_top1_after": 0.4273514341245067,
+        "old_top1_after_std": 0.0016236584901455128,
+        "old_as_new": 0.018599446374933746,
+        "old_as_new_std": 0.002643911835163894,
+        "old_top1_drop": 0.00653748748453975,
+        "species_enrolled": 10,
+        "skipped_species": [],
+        "species": {
+          "Amphiesma monticola": {
+            "new_top1": 0.05636386041817252,
+            "new_top1_other_photographer": 0.05272185889639044,
+            "new_as_old": 0.9353400428036354,
+            "queries": 145.0,
+            "queries_other_photographer": 140.6
+          },
+          "Argyrophis diardii": {
+            "new_top1": 0.28674496600831567,
+            "new_top1_other_photographer": 0.2537632074106238,
+            "new_as_old": 0.6923555208621448,
+            "queries": 68.2,
+            "queries_other_photographer": 52.2
+          },
+          "Boiga thackerayi": {
+            "new_top1": 0.14139577329182065,
+            "new_top1_other_photographer": 0.13962582612241084,
+            "new_as_old": 0.8564536890737708,
+            "queries": 182.2,
+            "queries_other_photographer": 169.2
+          },
+          "Elaphe hodgsonii": {
+            "new_top1": 0.16922819059781308,
+            "new_top1_other_photographer": 0.1670117715102235,
+            "new_as_old": 0.8244972995982653,
+            "queries": 64.2,
+            "queries_other_photographer": 56.6
+          },
+          "Lycodon jara": {
+            "new_top1": 0.45787993138936534,
+            "new_top1_other_photographer": 0.4050601488491428,
+            "new_as_old": 0.5308473413379073,
+            "queries": 52.6,
+            "queries_other_photographer": 45.2
+          },
+          "Melanophidium wynaudense": {
+            "new_top1": 0.22483304379556251,
+            "new_top1_other_photographer": 0.21216504151025264,
+            "new_as_old": 0.7521365904349413,
+            "queries": 52.8,
+            "queries_other_photographer": 39.4
+          },
+          "Platyceps ventromaculatus": {
+            "new_top1": 0.06087656529516995,
+            "new_top1_other_photographer": 0.060843776106934,
+            "new_as_old": 0.9391234347048301,
+            "queries": 40.2,
+            "queries_other_photographer": 36.6
+          },
+          "Sibynophis subpunctatus": {
+            "new_top1": 0.09728604386334697,
+            "new_top1_other_photographer": 0.09824800759620853,
+            "new_as_old": 0.8747362427955544,
+            "queries": 135.4,
+            "queries_other_photographer": 134.8
+          },
+          "Uropeltis ellioti": {
+            "new_top1": 0.054264831294030404,
+            "new_top1_other_photographer": 0.057227794256993356,
+            "new_as_old": 0.825163885799036,
+            "queries": 29.4,
+            "queries_other_photographer": 28.8
+          },
+          "Uropeltis macrolepis": {
+            "new_top1": 0.3970638750549724,
+            "new_top1_other_photographer": 0.337599742356881,
+            "new_as_old": 0.5253993924302394,
+            "queries": 98.6,
+            "queries_other_photographer": 84.0
+          }
+        },
+        "per_draw": [
+          {
+            "draw": 0,
+            "new_top1": 0.17197321068571986,
+            "new_top1_other_photographer": 0.16632119930955389,
+            "new_as_old": 0.8022852512259193,
+            "old_top1_after": 0.4271158489899287,
+            "old_as_new": 0.019553566169974675
+          },
+          {
+            "draw": 1,
+            "new_top1": 0.2092854123897248,
+            "new_top1_other_photographer": 0.18479263270414287,
+            "new_as_old": 0.765365384732078,
+            "old_top1_after": 0.42841156723010776,
+            "old_as_new": 0.014665174627481006
+          },
+          {
+            "draw": 2,
+            "new_top1": 0.17850171872892898,
+            "new_top1_other_photographer": 0.17048603139062574,
+            "new_as_old": 0.8015491476724638,
+            "old_top1_after": 0.4286471523646858,
+            "old_as_new": 0.019317981035396666
+          },
+          {
+            "draw": 3,
+            "new_top1": 0.21819477670687557,
+            "new_top1_other_photographer": 0.1997620351928889,
+            "new_as_old": 0.7397726005344764,
+            "old_top1_after": 0.4246422050768596,
+            "old_as_new": 0.021791624948465753
+          },
+          {
+            "draw": 4,
+            "new_top1": 0.1950134219930356,
+            "new_top1_other_photographer": 0.1707716887108191,
+            "new_as_old": 0.7690543357552251,
+            "old_top1_after": 0.42794039696095176,
+            "old_as_new": 0.01766888509335061
+          }
+        ],
+        "enrolled_photos": [
+          {
+            "Boiga thackerayi": [
+              298,
+              431,
+              313,
+              459,
+              377
+            ],
+            "Amphiesma monticola": [
+              0,
+              11,
+              55,
+              82,
+              92
+            ],
+            "Sibynophis subpunctatus": [
+              201,
+              157,
+              236,
+              278,
+              294
+            ],
+            "Uropeltis macrolepis": [
+              584,
+              532,
+              499,
+              500,
+              570
+            ],
+            "Argyrophis diardii": [
+              893,
+              924,
+              952,
+              950,
+              905
+            ],
+            "Elaphe hodgsonii": [
+              784,
+              793,
+              791,
+              744,
+              785
+            ],
+            "Melanophidium wynaudense": [
+              723,
+              663,
+              678,
+              686,
+              717
+            ],
+            "Lycodon jara": [
+              627,
+              660,
+              620,
+              656,
+              638
+            ],
+            "Platyceps ventromaculatus": [
+              876,
+              892,
+              868,
+              866,
+              845
+            ],
+            "Uropeltis ellioti": [
+              843,
+              813,
+              810,
+              842,
+              817
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              461,
+              336,
+              388,
+              396,
+              492
+            ],
+            "Amphiesma monticola": [
+              46,
+              97,
+              19,
+              134,
+              30
+            ],
+            "Sibynophis subpunctatus": [
+              278,
+              241,
+              209,
+              198,
+              199
+            ],
+            "Uropeltis macrolepis": [
+              549,
+              546,
+              507,
+              550,
+              581
+            ],
+            "Argyrophis diardii": [
+              968,
+              953,
+              910,
+              931,
+              961
+            ],
+            "Elaphe hodgsonii": [
+              742,
+              756,
+              754,
+              769,
+              757
+            ],
+            "Melanophidium wynaudense": [
+              719,
+              678,
+              692,
+              676,
+              725
+            ],
+            "Lycodon jara": [
+              613,
+              606,
+              646,
+              638,
+              628
+            ],
+            "Platyceps ventromaculatus": [
+              848,
+              855,
+              881,
+              845,
+              856
+            ],
+            "Uropeltis ellioti": [
+              840,
+              822,
+              838,
+              841,
+              817
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              402,
+              482,
+              405,
+              395,
+              361
+            ],
+            "Amphiesma monticola": [
+              111,
+              55,
+              85,
+              19,
+              92
+            ],
+            "Sibynophis subpunctatus": [
+              172,
+              273,
+              235,
+              255,
+              253
+            ],
+            "Uropeltis macrolepis": [
+              534,
+              585,
+              516,
+              500,
+              533
+            ],
+            "Argyrophis diardii": [
+              964,
+              954,
+              913,
+              903,
+              950
+            ],
+            "Elaphe hodgsonii": [
+              768,
+              785,
+              803,
+              760,
+              732
+            ],
+            "Melanophidium wynaudense": [
+              708,
+              712,
+              687,
+              720,
+              721
+            ],
+            "Lycodon jara": [
+              607,
+              620,
+              615,
+              618,
+              646
+            ],
+            "Platyceps ventromaculatus": [
+              871,
+              883,
+              846,
+              854,
+              848
+            ],
+            "Uropeltis ellioti": [
+              834,
+              838,
+              808,
+              809,
+              837
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              309,
+              357,
+              339,
+              325,
+              314
+            ],
+            "Amphiesma monticola": [
+              1,
+              36,
+              116,
+              96,
+              119
+            ],
+            "Sibynophis subpunctatus": [
+              248,
+              163,
+              296,
+              223,
+              292
+            ],
+            "Uropeltis macrolepis": [
+              584,
+              506,
+              505,
+              540,
+              578
+            ],
+            "Argyrophis diardii": [
+              961,
+              962,
+              895,
+              912,
+              966
+            ],
+            "Elaphe hodgsonii": [
+              758,
+              748,
+              805,
+              755,
+              744
+            ],
+            "Melanophidium wynaudense": [
+              678,
+              661,
+              701,
+              711,
+              667
+            ],
+            "Lycodon jara": [
+              629,
+              608,
+              637,
+              625,
+              651
+            ],
+            "Platyceps ventromaculatus": [
+              852,
+              872,
+              891,
+              845,
+              882
+            ],
+            "Uropeltis ellioti": [
+              822,
+              819,
+              832,
+              833,
+              817
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              343,
+              391,
+              388,
+              339,
+              483
+            ],
+            "Amphiesma monticola": [
+              115,
+              1,
+              19,
+              18,
+              74
+            ],
+            "Sibynophis subpunctatus": [
+              245,
+              208,
+              232,
+              246,
+              209
+            ],
+            "Uropeltis macrolepis": [
+              496,
+              579,
+              543,
+              583,
+              590
+            ],
+            "Argyrophis diardii": [
+              930,
+              947,
+              897,
+              903,
+              905
+            ],
+            "Elaphe hodgsonii": [
+              745,
+              741,
+              793,
+              769,
+              794
+            ],
+            "Melanophidium wynaudense": [
+              676,
+              690,
+              678,
+              686,
+              691
+            ],
+            "Lycodon jara": [
+              617,
+              608,
+              646,
+              622,
+              639
+            ],
+            "Platyceps ventromaculatus": [
+              848,
+              879,
+              859,
+              892,
+              873
+            ],
+            "Uropeltis ellioti": [
+              808,
+              807,
+              844,
+              810,
+              840
+            ]
+          }
+        ]
+      },
+      "10": {
+        "new_top1": 0.2663031407452062,
+        "new_top1_std": 0.026540692732413527,
+        "new_top1_other_photographer": 0.2590233996157745,
+        "new_top1_other_photographer_std": 0.02360859488895168,
+        "new_as_old": 0.693622072382737,
+        "new_as_old_std": 0.03351758480229933,
+        "old_top1_after": 0.4275045644619825,
+        "old_top1_after_std": 0.0008820689375247676,
+        "old_as_new": 0.024053242240414628,
+        "old_as_new_std": 0.0024937551701811433,
+        "old_top1_drop": 0.006384357147063979,
+        "species_enrolled": 10,
+        "skipped_species": [],
+        "species": {
+          "Amphiesma monticola": {
+            "new_top1": 0.08225390113762207,
+            "new_top1_other_photographer": 0.08042710276664151,
+            "new_as_old": 0.9037396422698748,
+            "queries": 128.2,
+            "queries_other_photographer": 119.4
+          },
+          "Argyrophis diardii": {
+            "new_top1": 0.3594669734445403,
+            "new_top1_other_photographer": 0.29029610486132224,
+            "new_as_old": 0.6308010463316761,
+            "queries": 58.0,
+            "queries_other_photographer": 40.6
+          },
+          "Boiga thackerayi": {
+            "new_top1": 0.20892719844542587,
+            "new_top1_other_photographer": 0.21334304569738363,
+            "new_as_old": 0.7853628098004942,
+            "queries": 175.2,
+            "queries_other_photographer": 152.6
+          },
+          "Elaphe hodgsonii": {
+            "new_top1": 0.2775766830555441,
+            "new_top1_other_photographer": 0.3089220661728777,
+            "new_as_old": 0.7083607242149089,
+            "queries": 56.8,
+            "queries_other_photographer": 49.0
+          },
+          "Lycodon jara": {
+            "new_top1": 0.559359150961457,
+            "new_top1_other_photographer": 0.538345085855721,
+            "new_as_old": 0.40573639282048807,
+            "queries": 45.0,
+            "queries_other_photographer": 40.0
+          },
+          "Melanophidium wynaudense": {
+            "new_top1": 0.3563625521765057,
+            "new_top1_other_photographer": 0.36194472194472194,
+            "new_as_old": 0.6021242581707698,
+            "queries": 41.6,
+            "queries_other_photographer": 27.0
+          },
+          "Platyceps ventromaculatus": {
+            "new_top1": 0.11730311355311356,
+            "new_top1_other_photographer": 0.12289285714285716,
+            "new_as_old": 0.8826968864468865,
+            "queries": 31.0,
+            "queries_other_photographer": 27.6
+          },
+          "Sibynophis subpunctatus": {
+            "new_top1": 0.20443469968696243,
+            "new_top1_other_photographer": 0.20966164324377803,
+            "new_as_old": 0.7500124232085994,
+            "queries": 122.4,
+            "queries_other_photographer": 117.0
+          },
+          "Uropeltis ellioti": {
+            "new_top1": 0.11402406271433059,
+            "new_top1_other_photographer": 0.11726746533853816,
+            "new_as_old": 0.7474977084655373,
+            "queries": 20.0,
+            "queries_other_photographer": 19.2
+          },
+          "Uropeltis macrolepis": {
+            "new_top1": 0.3833230722765607,
+            "new_top1_other_photographer": 0.34713390313390313,
+            "new_as_old": 0.5198888320981343,
+            "queries": 89.4,
+            "queries_other_photographer": 77.4
+          }
+        },
+        "per_draw": [
+          {
+            "draw": 0,
+            "new_top1": 0.2940347187818103,
+            "new_top1_other_photographer": 0.28366244805819635,
+            "new_as_old": 0.6670643184864528,
+            "old_top1_after": 0.42752812297544024,
+            "old_as_new": 0.021261558395665233
+          },
+          {
+            "draw": 1,
+            "new_top1": 0.2576788014402708,
+            "new_top1_other_photographer": 0.255903990730114,
+            "new_as_old": 0.7015539436963609,
+            "old_top1_after": 0.4266446787207727,
+            "old_as_new": 0.025973261087225395
+          },
+          {
+            "draw": 2,
+            "new_top1": 0.2913272794536504,
+            "new_top1_other_photographer": 0.2779608237804549,
+            "new_as_old": 0.6630284546886159,
+            "old_top1_after": 0.42788150067730724,
+            "old_as_new": 0.026856705341892925
+          },
+          {
+            "draw": 3,
+            "new_top1": 0.2579162143693522,
+            "new_top1_other_photographer": 0.25355353561677413,
+            "new_as_old": 0.6901405779598435,
+            "old_top1_after": 0.42670357500441725,
+            "old_as_new": 0.02444195771246834
+          },
+          {
+            "draw": 4,
+            "new_top1": 0.2305586896809475,
+            "new_top1_other_photographer": 0.22403619989333298,
+            "new_as_old": 0.7463230670824117,
+            "old_top1_after": 0.4287649449319748,
+            "old_as_new": 0.02173272866482125
+          }
+        ],
+        "enrolled_photos": [
+          {
+            "Boiga thackerayi": [
+              334,
+              461,
+              487,
+              492,
+              388,
+              353,
+              307,
+              358,
+              484,
+              412
+            ],
+            "Amphiesma monticola": [
+              108,
+              18,
+              1,
+              56,
+              117,
+              141,
+              29,
+              77,
+              148,
+              114
+            ],
+            "Sibynophis subpunctatus": [
+              226,
+              194,
+              247,
+              156,
+              200,
+              237,
+              268,
+              284,
+              296,
+              204
+            ],
+            "Uropeltis macrolepis": [
+              536,
+              568,
+              598,
+              543,
+              567,
+              575,
+              534,
+              565,
+              552,
+              521
+            ],
+            "Argyrophis diardii": [
+              956,
+              910,
+              905,
+              952,
+              902,
+              947,
+              967,
+              913,
+              912,
+              903
+            ],
+            "Elaphe hodgsonii": [
+              757,
+              777,
+              765,
+              731,
+              774,
+              786,
+              762,
+              806,
+              734,
+              745
+            ],
+            "Melanophidium wynaudense": [
+              672,
+              702,
+              717,
+              677,
+              725,
+              661,
+              714,
+              718,
+              695,
+              719
+            ],
+            "Lycodon jara": [
+              646,
+              651,
+              609,
+              615,
+              619,
+              636,
+              622,
+              627,
+              641,
+              621
+            ],
+            "Platyceps ventromaculatus": [
+              854,
+              869,
+              886,
+              856,
+              849,
+              878,
+              859,
+              850,
+              855,
+              865
+            ],
+            "Uropeltis ellioti": [
+              819,
+              815,
+              811,
+              836,
+              837,
+              840,
+              807,
+              844,
+              814,
+              841
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              338,
+              357,
+              455,
+              482,
+              334,
+              462,
+              392,
+              468,
+              358,
+              300
+            ],
+            "Amphiesma monticola": [
+              22,
+              41,
+              1,
+              80,
+              63,
+              89,
+              93,
+              143,
+              85,
+              124
+            ],
+            "Sibynophis subpunctatus": [
+              246,
+              193,
+              241,
+              281,
+              198,
+              162,
+              186,
+              197,
+              190,
+              236
+            ],
+            "Uropeltis macrolepis": [
+              493,
+              566,
+              520,
+              528,
+              524,
+              505,
+              506,
+              516,
+              497,
+              511
+            ],
+            "Argyrophis diardii": [
+              959,
+              950,
+              967,
+              905,
+              964,
+              894,
+              958,
+              902,
+              895,
+              953
+            ],
+            "Elaphe hodgsonii": [
+              745,
+              732,
+              731,
+              785,
+              756,
+              772,
+              803,
+              795,
+              794,
+              744
+            ],
+            "Melanophidium wynaudense": [
+              721,
+              710,
+              704,
+              728,
+              663,
+              724,
+              725,
+              722,
+              716,
+              708
+            ],
+            "Lycodon jara": [
+              619,
+              659,
+              634,
+              616,
+              609,
+              621,
+              626,
+              658,
+              638,
+              660
+            ],
+            "Platyceps ventromaculatus": [
+              878,
+              866,
+              850,
+              855,
+              880,
+              849,
+              845,
+              870,
+              861,
+              887
+            ],
+            "Uropeltis ellioti": [
+              808,
+              810,
+              812,
+              823,
+              818,
+              835,
+              814,
+              820,
+              840,
+              844
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              353,
+              399,
+              343,
+              351,
+              406,
+              358,
+              354,
+              357,
+              420,
+              359
+            ],
+            "Amphiesma monticola": [
+              74,
+              145,
+              86,
+              69,
+              59,
+              135,
+              22,
+              14,
+              54,
+              113
+            ],
+            "Sibynophis subpunctatus": [
+              275,
+              196,
+              188,
+              162,
+              216,
+              194,
+              219,
+              161,
+              166,
+              171
+            ],
+            "Uropeltis macrolepis": [
+              546,
+              574,
+              578,
+              582,
+              510,
+              580,
+              498,
+              548,
+              581,
+              514
+            ],
+            "Argyrophis diardii": [
+              912,
+              904,
+              966,
+              959,
+              968,
+              947,
+              894,
+              958,
+              914,
+              896
+            ],
+            "Elaphe hodgsonii": [
+              767,
+              804,
+              794,
+              791,
+              761,
+              793,
+              731,
+              806,
+              774,
+              784
+            ],
+            "Melanophidium wynaudense": [
+              706,
+              678,
+              680,
+              667,
+              714,
+              711,
+              728,
+              725,
+              724,
+              718
+            ],
+            "Lycodon jara": [
+              619,
+              642,
+              622,
+              660,
+              623,
+              628,
+              629,
+              639,
+              649,
+              609
+            ],
+            "Platyceps ventromaculatus": [
+              869,
+              884,
+              848,
+              888,
+              849,
+              859,
+              851,
+              880,
+              854,
+              866
+            ],
+            "Uropeltis ellioti": [
+              807,
+              808,
+              828,
+              817,
+              843,
+              839,
+              841,
+              840,
+              815,
+              820
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              433,
+              399,
+              452,
+              309,
+              314,
+              357,
+              353,
+              492,
+              403,
+              401
+            ],
+            "Amphiesma monticola": [
+              136,
+              77,
+              39,
+              38,
+              131,
+              113,
+              74,
+              48,
+              140,
+              122
+            ],
+            "Sibynophis subpunctatus": [
+              154,
+              158,
+              255,
+              209,
+              251,
+              236,
+              242,
+              266,
+              211,
+              166
+            ],
+            "Uropeltis macrolepis": [
+              538,
+              495,
+              519,
+              540,
+              548,
+              561,
+              522,
+              569,
+              564,
+              565
+            ],
+            "Argyrophis diardii": [
+              927,
+              911,
+              962,
+              902,
+              956,
+              895,
+              945,
+              913,
+              920,
+              955
+            ],
+            "Elaphe hodgsonii": [
+              768,
+              744,
+              757,
+              785,
+              795,
+              796,
+              794,
+              802,
+              776,
+              733
+            ],
+            "Melanophidium wynaudense": [
+              719,
+              713,
+              724,
+              689,
+              666,
+              677,
+              673,
+              725,
+              723,
+              690
+            ],
+            "Lycodon jara": [
+              610,
+              625,
+              623,
+              622,
+              606,
+              632,
+              620,
+              656,
+              640,
+              612
+            ],
+            "Platyceps ventromaculatus": [
+              849,
+              871,
+              872,
+              881,
+              857,
+              864,
+              859,
+              860,
+              882,
+              884
+            ],
+            "Uropeltis ellioti": [
+              840,
+              810,
+              837,
+              820,
+              824,
+              817,
+              838,
+              819,
+              841,
+              843
+            ]
+          },
+          {
+            "Boiga thackerayi": [
+              367,
+              432,
+              306,
+              482,
+              351,
+              383,
+              471,
+              433,
+              400,
+              458
+            ],
+            "Amphiesma monticola": [
+              112,
+              21,
+              149,
+              150,
+              1,
+              66,
+              74,
+              127,
+              42,
+              104
+            ],
+            "Sibynophis subpunctatus": [
+              168,
+              278,
+              259,
+              297,
+              295,
+              226,
+              217,
+              279,
+              253,
+              192
+            ],
+            "Uropeltis macrolepis": [
+              582,
+              579,
+              569,
+              529,
+              521,
+              519,
+              583,
+              596,
+              520,
+              568
+            ],
+            "Argyrophis diardii": [
+              912,
+              908,
+              964,
+              967,
+              897,
+              949,
+              922,
+              959,
+              894,
+              953
+            ],
+            "Elaphe hodgsonii": [
+              764,
+              777,
+              745,
+              803,
+              763,
+              769,
+              792,
+              793,
+              744,
+              762
+            ],
+            "Melanophidium wynaudense": [
+              708,
+              723,
+              725,
+              719,
+              716,
+              722,
+              681,
+              713,
+              678,
+              662
+            ],
+            "Lycodon jara": [
+              632,
+              658,
+              659,
+              657,
+              618,
+              646,
+              621,
+              620,
+              613,
+              611
+            ],
+            "Platyceps ventromaculatus": [
+              847,
+              889,
+              855,
+              848,
+              856,
+              857,
+              846,
+              866,
+              873,
+              892
+            ],
+            "Uropeltis ellioti": [
+              837,
+              842,
+              843,
+              823,
+              840,
+              841,
+              807,
+              810,
+              838,
+              815
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
