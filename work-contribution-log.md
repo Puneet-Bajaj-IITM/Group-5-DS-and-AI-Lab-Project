@@ -37,7 +37,7 @@ Evidence for each row is the notebook it names, saved with the outputs of its ru
 | Member name | Work completed | Evidence / report sections | Member confirmation |
 |---|---|---|---|
 | Jayesh Bansal | TO BE FILLED BY Jayesh Bansal. Kaggle runs on his account are listed above | | |
-| Puneet Bajaj | Subset, model and training code, baselines, front end, tuning, decision layer, enrolment, retrieval, robustness, video, export, end-to-end pipeline and demo, report and deck | [project-report.md](documentation/milestone%203/project-report.md) | |
+| Puneet Bajaj | Subset, model and training code, baselines, front end, tuning, decision layer, enrolment, retrieval, robustness, video, export, end-to-end pipeline and demo, report and deck | [project-report.md](documentation/milestone%203/project-report.md) | Puneet Bajaj |
 | Vikas | Presentation (PPT) | [SerpentGuard_AI_M3_Presentation.pdf](documentation/milestone%203/SerpentGuard_AI_M3_Presentation.pdf) | Vikas |
 | Manas Rastogi | TO BE FILLED BY Manas Rastogi | | |
 
@@ -47,7 +47,7 @@ Evidence for each row is the notebook it names, saved with the outputs of its ru
 |---|---|---|---|
 | Jayesh Bansal | 24f100185 | | |
 | Vikas | 23f3001800 | Vikas | 05/11/2026 |
-| Puneet Bajaj | 23f3002416 | | |
+| Puneet Bajaj | 23f3002416 | Puneet Bajaj | 05/11/2026 |
 | Manas Rastogi | 22f3001477 | | |
 
 ## Week 2: 23 to 31 October 2026 (Milestone 2, dataset preparation)
