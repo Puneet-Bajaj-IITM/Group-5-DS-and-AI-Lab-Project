@@ -35,12 +35,12 @@ We chose a model for each stage of SerpentGuard, compared each one against basel
 | Response retrieval (Q1) | The M3 package ships BM25 (Recall@3 0.47, against 0.40 for a fixed lookup); MiniLM-L6 (0.68) is the upgrade once the size budget allows |
 | End to end (P1) | 100 validation photos and 5 clips through the final model, every node logged; 87.4 ms per photo on a laptop CPU, detector included |
 | Robustness (R1) | With the snake blanked, 17.8% of the photos the final model gets right stay right, against 23.6% on the whole photo; Indian photos score 15.6 points lower on top-1 |
-| Video (V1) | On 200 damaged synthetic clips, the 4-of-6 vote cuts verdict flips from 26.1 to 6.1 per clip, and dangerous clips that ever show "not listed" from 0.294 to 0.039; the clip verdict is right on 29.5%, against 58.5% on the clean photos |
+| Video (V1) | On 200 damaged synthetic clips, the 4-of-6 vote cuts verdict flips from 26.2 to 6.1 per clip, and dangerous clips that ever show "not listed" from 0.294 to 0.059; the clip verdict is right on 29.5%, against 58.5% on the clean photos |
 | Video demo | A snake clip in, an annotated video and an insights file out; 79.9 to 88.2 ms per frame on the laptop |
 | Tuning (H1) | 24 random trials of 8 epochs; the best, 0.260, used learning rate 9.5e-4 and weight decay 1.6e-3 |
 | Final model (retrain, N1) | H1_top1, the tuned recipe on the F1 crop: head macro-F1 0.3668, mean of 3 seeds that span 0.0014, against 0.311 for the default recipe on the same crop. We ship seed 1, H1_top1_s1 |
 | Against B1, scored the same way | Macro-F1 0.367 against 0.257, and 0.357 against 0.252 on photos uploaded from 2022, a lead that comes from coverage: B1 cannot name 122 of our 184 species. On the 62 species both know, B1 leads on top-1, 0.801 against 0.682 |
-| Size and speed (X1) | A 13.6 MB package with BM25, against 30 MB; 84.7 ms per photo (11.8 FPS) on one laptop CPU thread, against 10 FPS |
+| Size and speed (X1) | A 13.6 MB package with BM25, against 30 MB; 84.9 ms per photo (11.8 FPS) on one laptop CPU thread, against 10 FPS |
 
 What we learned, good and bad:
 
@@ -52,7 +52,7 @@ What we learned, good and bad:
 - **The end-to-end check caught a train/serve skew.** The app padded a lone photo differently from the training batches, so its detector boxes drifted from the training boxes. With every call padded to the same square, P1 matches the training run's outputs on 98% of verdicts, up from 89%.
 - **Three ideas bought nothing.** Triplet loss, the 5× danger weight and logit-adjusted cross-entropy did not raise macro-F1, and logit adjustment cut top-1 accuracy to 37.3%. We report them as findings.
 - **A smarter decision rule does not cut false alarms.** On the final model, none of 6 other rules beats the current one at the same 0.95 WHO recall target. We read the false alarms as lookalike confusion in the classifier, so the cut has to come from a better model.
-- **Voting steadies the verdict on video, but damaged clips are hard.** On 200 synthetic clips with leaves over 30 to 70% of the snake, the 4-of-6 vote cuts verdict flips from 26.1 to 6.1 per clip, and only 0.039 of dangerous snakes' clips ever show "not listed", against 0.294 frame by frame. The clip verdict is right on only 29.5%.
+- **Voting steadies the verdict on video, but damaged clips are hard.** On 200 synthetic clips with leaves over 30 to 70% of the snake, the 4-of-6 vote cuts verdict flips from 26.2 to 6.1 per clip, and only 0.059 of dangerous snakes' clips ever show "not listed", against 0.294 frame by frame. The clip verdict is right on only 29.5%.
 - **The package fits the phone budget in fp16, not in int8.** fp16 SnakeID, the detector with int8 weights and BM25 come to 13.6 MB against 30 MB and run at 11.8 FPS on one laptop CPU thread. fp16 loses nothing, but full int8 breaks trained models: on the final model it keeps the float32 top-1 species on only 8.0 to 9.3% of photos.
 - **The final model's verdicts sit just under the WHO recall target and just over the error target.** 94.8% of WHO-listed photos get "dangerous", against the M1 target of 0.95, and 2.1% get "not listed", just above the 2% target. False alarms fall to about 3 in 10, from 4 in 10 for E2, and unknown-species detection does not work yet.
 
@@ -79,7 +79,7 @@ SerpentGuard runs offline on the phone and generates no text. A photo, or each f
 - Export precisions: fp32, fp16, int8 weights and int8 arithmetic (X1).
 - Baselines with no training on our photos: a class prior, the published SnakeCLEF 2021 model, BioCLIP, our frozen encoders and DINOv2 (section 3).
 
-**Overall approach: one recipe, one rule.** Every run uses the same recipe: AdamW at learning rate 3e-4 (encoder at 0.1×), weight decay 0.05, cosine schedule after 1 warm-up epoch, 20 epochs, batch 64, mixed precision, 320 px input and notebook 06's augmentation and sampler. Each run changes only what it tests, and its settings sit under its run name in the code's run table. We pick the highest validation macro-F1 among models whose raw WHO recall and O3 error are no worse than cross-entropy's beyond noise. Within noise, we pick the smaller and faster model, then the one with fewer parts.
+**Overall approach: one recipe, one rule.** Every run uses the same recipe: AdamW at learning rate 3e-4 (encoder at 0.1×), weight decay 0.05, cosine schedule after 1 warm-up epoch, 20 epochs, batch 64, mixed precision, 320 px input and notebook 06's augmentation and sampler. Each run changes only what it tests, and its settings sit in `configs/m3/<run>.yaml`. We pick the highest validation macro-F1 among models whose raw WHO recall and O3 error are no worse than cross-entropy's beyond noise. Within noise, we pick the smaller and faster model, then the one with fewer parts.
 
 ## 2. Architecture justification
 
@@ -237,7 +237,7 @@ The box crop cuts false alarms from 0.410 to 0.279, the largest drop of any chan
 
 The crop and the tuned recipe cut false alarms from E2's 0.422 to 0.311, with WHO recall still near the target: 0.948 on validation, just under 0.95, although the fit's lower bound on calibration reaches 0.952. O3 is 0.021, just above 2%. Ranking species by prototypes meets the O3 target (0.015), but it raises false alarms and "we don't know" and separates unknown species worse, so the head stays. Calibration meets its target after temperature scaling; the error at 80% coverage, 0.268, is still far from 5%. The photo quality table changes reason labels only: 202 "we don't know" photos now give "the photo is dark or blurry" as their reason, and every verdict count equals the selection run's decision file.
 
-**Decision rules (DR): can a different rule cut false alarms?** With the final model, about 3 in 10 snakes that are neither WHO-listed nor vipers or elapids are still called dangerous. We asked whether a smarter rule cuts that at the same 0.95 WHO recall target. Every rule is fitted on the calibration set and measured once on validation, on the final model with head scoring ([`danger_rules.py`](../../src/serpentguard/danger_rules.py)). The other ways to be called dangerous (a dangerous top species, the viper and elapid mass, the genus guard) stay on for every rule.
+**Decision rules (DR): can a different rule cut false alarms?** With the final model, about 3 in 10 snakes that are neither WHO-listed nor vipers or elapids are still called dangerous. We asked whether a smarter rule cuts that at the same 0.95 WHO recall target. Every rule is fitted on the calibration set and measured once on validation, on the final model with head scoring ([notebook 19](../../notebooks/19_m3_decision.ipynb)). The other ways to be called dangerous (a dangerous top species, the viper and elapid mass, the genus guard) stay on for every rule.
 
 - **DR0**, the current rule: the listed mass reaches θ_d or the WHO head reaches θ_who.
 - **DR1**, a learned danger score: logistic regression on 8 features of the outputs (listed mass, WHO head, top-1 probability and whether it is listed, entropy, margin, the genus head's listed mass, viper and elapid mass), cross-fitted on calibration in 5 folds grouped by photographer, so neither the weights nor θ_d see their own photos.
@@ -276,31 +276,31 @@ The knowledge base is 168 WHO passages and 184 species cards in our own words; t
 
 ### 2.8 Size and speed (X1)
 
-**Full int8 does not survive training.** On 300 validation photos taken one class at a time, the float32 ONNX export of E1's MobileViT-S agrees with the training run's saved outputs on 99% of photos and gets top-1 0.217. Static int8 (attention kept in float) gets 0.040 and agrees with float32 on only 6.7% of top-1 species; dynamic int8 also gets 0.040. The cause is in the trained weights: activations with outliers (a SiLU output peaking near 100 where most values are under 1) that one int8 range per tensor rounds away, and depthwise weights that spread up to 46x between channels once BatchNorm is folded in. Untrained models, which our first export tests used, don't have these outliers, so they hid the problem; the export tests now build a model that has them. The final model, rerun on the laptop below, collapses the same way: int8 arithmetic keeps the float32 top-1 species on 9.3% (static) and 8.0% (dynamic) of photos. The phone package therefore keeps activations in float: MobileViT-S ships as fp16, and the size fallback is int8 weights with float arithmetic.
+**Full int8 does not survive training.** On 300 validation photos taken one class at a time (notebook 20's first run, on a Kaggle CPU), the float32 ONNX export of E1's MobileViT-S agrees with the training run's saved outputs on 99% of photos and gets top-1 0.217. Static int8 (attention kept in float) gets 0.040 and agrees with float32 on only 6.7% of top-1 species; dynamic int8 also gets 0.040. The cause is in the trained weights: activations with outliers (a SiLU output peaking near 100 where most values are under 1) that one int8 range per tensor rounds away, and depthwise weights that spread up to 46x between channels once BatchNorm is folded in. Untrained models, which our first export tests used, don't have these outliers, so they hid the problem; the export tests now build a model that has them. The final model, rerun on the laptop below, collapses the same way: int8 arithmetic keeps the float32 top-1 species on 9.3% (static) and 8.0% (dynamic) of photos. The phone package therefore keeps activations in float: MobileViT-S ships as fp16, and the size fallback is int8 weights with float arithmetic.
 
 **Laptop run.** Each network of the package, timed on the laptop CPU (Apple M4 Pro, 14 cores, the O6 device) at 320 px, batch 1, median of 100 runs:
 
 | Network | Precision | MB | ms, 1 thread | ms, 4 threads | Agrees with float32 |
 |---|---|---:|---:|---:|---:|
-| SnakeID (MobileViT-S) | fp32 | 20.7 | 50.5 | 23.7 | |
-| SnakeID | **fp16, shipped** | 10.6 | 75.1 | 42.1 | 100.0% |
-| SnakeID | int8 weights, float arithmetic | 5.5 | 59.4 | 23.1 | 92.3% |
-| SnakeID | int8 arithmetic, static (attention in float) | 6.0 | 55.7 | 34.5 | 9.3% |
-| SnakeID | int8 arithmetic, dynamic | 5.5 | 71.2 | 50.2 | 8.0% |
-| Detector (YOLO26n) | fp32 | 9.7 | 6.7 | 5.0 | |
-| Detector | fp16 | 4.9 | 7.6 | 5.4 | 100.0% |
-| Detector | **int8 weights, shipped** | 2.6 | 9.6 | 7.8 | 99.7% |
-| Detector | int8 arithmetic, static | 3.0 | 9.0 | 5.0 | 67.4% |
+| SnakeID (MobileViT-S) | fp32 | 20.7 | 50.9 | 21.7 | |
+| SnakeID | **fp16, shipped** | 10.6 | 75.0 | 39.0 | 100.0% |
+| SnakeID | int8 weights, float arithmetic | 5.5 | 58.9 | 24.9 | 92.3% |
+| SnakeID | int8 arithmetic, static (attention in float) | 6.0 | 55.3 | 30.7 | 9.3% |
+| SnakeID | int8 arithmetic, dynamic | 5.5 | 71.0 | 42.7 | 8.0% |
+| Detector (YOLO26n) | fp32 | 9.7 | 6.7 | 4.7 | |
+| Detector | fp16 | 4.9 | 7.6 | 5.3 | 100.0% |
+| Detector | **int8 weights, shipped** | 2.6 | 9.9 | 7.7 | 99.7% |
+| Detector | int8 arithmetic, static | 3.0 | 8.8 | 4.4 | 67.4% |
 
 MB and times come from exports with untrained weights; the final model's own files are a little larger (below). Agreement is measured on 300 validation photos with trained weights. For SnakeID it is the share of photos that keep float32's top-1 species, with the final model on crops from the shipped detector; for the detector, the share of photos where float32 finds a snake and the variant finds the same box, with our fine-tuned YOLO26n. The final model's crops come from the deployed detector (int8 weights at 320 px), not from the boxes its training run used, so its float32 export agrees with the run's saved validation outputs on 0.92 of top-1 species, against 0.99 for E1 on whole photos. The precision comparison is unaffected, since each precision is compared with float32 on the same crops.
 
 **The final model loses nothing in fp16.** Its fp16 file, 10.67 MB, gets the same top-1 as float32 on the 300 photos, 0.363, with an embedding cosine of 1.0000. With int8 weights, 5.63 MB, top-1 is also 0.363, and 96.3% of the photos float32 gets right stay right. The absolute top-1 is low because the 300 photos spread over 176 species with at most 2 photos each, so rare species dominate; the model's full-validation accuracy per species, weighted to that mix, is consistent with it. Only the comparison between precisions matters here.
 
-**The package fits.** fp16 SnakeID, its prototypes and the detector at int8 weights come to 13.30 MB, or 13.51 MB with BM25, against the 30 MB budget. Together the two networks take 84.7 ms per photo (11.8 FPS) on one thread and 49.8 ms (20.1 FPS) on four, against the O6 target of 10 FPS on a laptop CPU. MiniLM-L3 in place of BM25 would make the package 30.99 MB and MiniLM-L6 36.24 MB, so neither fits. The final model's own fp16 file is 0.07 MB larger than the timed export, which puts its package at 13.58 MB with BM25.
+**The package fits.** fp16 SnakeID, its prototypes and the detector at int8 weights come to 13.30 MB, or 13.51 MB with BM25, against the 30 MB budget. Together the two networks take 84.9 ms per photo (11.8 FPS) on one thread and 46.7 ms (21.4 FPS) on four, against the O6 target of 10 FPS on a laptop CPU. MiniLM-L3 in place of BM25 would make the package 30.99 MB and MiniLM-L6 36.24 MB, so neither fits. The final model's own fp16 file is 0.07 MB larger than the timed export, which puts its package at 13.58 MB with BM25.
 
 **Detector precision.** A precision goes in the package only if the detector's top box agrees with float32's on at least 95% of the 300 photos (the same box at IoU 0.5, or no box from either), and the smallest passing precision wins. Float32 finds a snake in 97.0% of the photos; on those, int8 weights find the same box 99.7% of the time and static int8 67.4%, so the detector ships with int8 weights. Its static int8 version breaks the way SnakeID's does.
 
-**The times are upper bounds.** Other jobs were running on the laptop while it was timed (one-minute load average 4.5 to 8.8), so an idle machine would be faster. On this CPU fp16 is slower than fp32, 1.5 times on one thread and 1.8 times on four, because ONNX Runtime computes in fp32 on the CPU and casts the fp16 values. fp32 is therefore the speed option on a laptop: about 23.7 MB with BM25, and 16.6 FPS on one thread. We keep fp16 because download size is the phone's constraint, and both meet 10 FPS.
+**The times are upper bounds.** Other jobs were running on the laptop while it was timed (one-minute load average 3.4 to 7.8), so an idle machine would be faster. On this CPU fp16 is slower than fp32, 1.5 times on one thread and 1.8 times on four, because ONNX Runtime computes in fp32 on the CPU and casts the fp16 values. fp32 is therefore the speed option on a laptop: about 23.7 MB with BM25, and 16.4 FPS on one thread. We keep fp16 because download size is the phone's constraint, and both meet 10 FPS.
 
 ### 2.9 Challenges and trade-offs
 
@@ -393,7 +393,7 @@ Training on 16% of our photos takes MobileViT-S from 0.135 (frozen) to 0.256. B1
 | Size | **10.7 MB** in fp16 | about 1.13 GB |
 | Trained on | 13,611 of our photos (the 16.4% subset) | SnakeCLEF 2021 data, all from before 2022 |
 
-Both models are scored with the same function, the one B1 was scored with. As checks, it reproduces our run's own macro-F1 exactly, and with shuffled labels our model scores 0.006. Ours leads on macro-F1 by 0.110 on full validation and by 0.105 on the photos uploaded from 2022, which B1 cannot have trained on. B1 wins on top-1, by about 6 points on both sets, on top-3, by about 1 point, and on raw WHO recall, by 0.010 on full validation and 0.022 on the 2022 photos. The macro-F1 lead is a coverage effect: B1 cannot name 122 of our classes, which hold 15% of the photos, and each of them scores zero in its macro-F1.
+Both models are scored with the same function, the one B1 was scored with ([notebook 21](../../notebooks/21_m3_summary.ipynb), section 9). As checks, it reproduces our run's own macro-F1 exactly, and with shuffled labels our model scores 0.006. Ours leads on macro-F1 by 0.110 on full validation and by 0.105 on the photos uploaded from 2022, which B1 cannot have trained on. B1 wins on top-1, by about 6 points on both sets, on top-3, by about 1 point, and on raw WHO recall, by 0.010 on full validation and 0.022 on the 2022 photos. The macro-F1 lead is a coverage effect: B1 cannot name 122 of our classes, which hold 15% of the photos, and each of them scores zero in its macro-F1.
 
 **On the 62 species both models know, B1 is clearly better:**
 
@@ -405,7 +405,7 @@ Both models are scored with the same function, the one B1 was scored with. As ch
 | Top-1, photos uploaded from 2022 (11,931) | 0.679 | 0.697 | **0.788** |
 | Mean recall, photos uploaded from 2022 | 0.577 | 0.594 | **0.737** |
 
-On these species B1 leads by about 12 points of top-1, and by 10 points even when ours may answer only with the same 62 species. Top-1 and mean recall are exact for both models. B1's macro-F1 here is soft: we have only its per-class figures, not its per-photo outputs, so its precision still counts photos of species it cannot know. As a check, the script rebuilds each model's own top-1 from those per-class figures. Ours is about 1% of B1's size and trained on 16% of our photos; training on the full set is M4.
+On these species B1 leads by about 12 points of top-1, and by 10 points even when ours may answer only with the same 62 species. Top-1 and mean recall are exact for both models. B1's macro-F1 here is soft: we have only its per-class figures, not its per-photo outputs, so its precision still counts photos of species it cannot know. As a check, notebook 21 rebuilds each model's own top-1 from those per-class figures. Ours is about 1% of B1's size and trained on 16% of our photos; training on the full set is M4.
 
 ### 3.5 Industry benchmarks (other datasets, never directly comparable)
 
@@ -499,7 +499,7 @@ SnakeID is MobileViT-S [12], pretrained on ImageNet, with its classifier removed
 
 ### 5.3 Training pipeline
 
-Each run is one entry in the code's run table, under its run id. Notebook 12 reads it on a Kaggle T4 GPU and trains with `train.py`:
+Each run is one file, `configs/m3/<run id>.yaml`. Notebook 12 reads it on a Kaggle T4 GPU and trains with `train.py`:
 
 - **Data:** the subset after notebook 06's caps (13,611 photos), with the weighted sampler and notebook 06's augmentation, scaled by the run's augmentation strength. Runs on the F1 crop read the detector boxes saved for every photo.
 - **Losses:** ArcFace for species (cross-entropy in the runs that test it), and cross-entropy for genus, family and WHO. Batch-hard triplet and Dice + BCE mask losses appear only in the runs that test them.
@@ -537,20 +537,20 @@ So 1 dangerous snake was missed, a mountain pit viper (*Ovophis monticola*) call
 
 #### Video (V1) and robustness (R1)
 
-**Video (V1).** We made 200 synthetic clips from validation photos of 176 classes with the M1 recipe: 10 s at 15 FPS, a moving camera, motion blur, low light, noise, JPEG, and leaves over 30 to 70% of the snake, placed on the predicted mask in 191 clips and in a central ellipse in the other 9 ([notebook 18](../../notebooks/18_m3_video.ipynb), run on a Kaggle GPU). Every frame goes through the detector, the final model and the shipped decision file. We play each clip two ways: every frame at 15 FPS, and on the laptop's schedule, where the package's 84.7 ms per photo gives 11.9 FPS and 20.7% of the frames are skipped. On screen, each clip shows the per-frame verdict, an EMA (α = 0.3) of the outputs, or the 4-of-6 vote. 1,898 of the 30,000 frames (6.3%) have no snake box above the no-snake threshold, spread over 95 clips; none of the undamaged photos lacks one. We reran V1 after the detector padding fix (see P1 above): the numbers here are from the rerun, and they moved only slightly from the first run, except that frames with no snake box fell by about half.
+**Video (V1).** We made 200 synthetic clips from validation photos of 176 classes with the M1 recipe: 10 s at 15 FPS, a moving camera, motion blur, low light, noise, JPEG, and leaves over 30 to 70% of the snake, placed on the predicted mask in 191 clips and in a central ellipse in the other 9 ([notebook 18](../../notebooks/18_m3_video.ipynb), run on a Kaggle GPU). Every frame goes through the detector, the final model and the shipped decision file. We play each clip two ways: every frame at 15 FPS, and on the laptop's schedule, where the package's 84.9 ms per photo gives 11.8 FPS and 21.3% of the frames are skipped. On screen, each clip shows the per-frame verdict, an EMA (α = 0.3) of the outputs, or the 4-of-6 vote. 1,898 of the 30,000 frames (6.3%) have no snake box above the no-snake threshold, spread over 95 clips; none of the undamaged photos lacks one. We reran V1 after the detector padding fix (see P1 above): the numbers here are from the rerun, and they moved only slightly from the first run, except that frames with no snake box fell by about half.
 
 | Schedule, method | Verdict flips per clip (mean) | Clips with at most 1 flip | Stable within 2 s | Clip verdict right (95% interval) | Same, of clips whose clean photo is right | Clip species right | Dangerous clips ever showing "not listed" |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Every frame, per frame | 33.2 | 17.0% | 59.5% | 0.285 (0.222 to 0.348) | 0.453 | 0.070 | 0.294 |
 | Every frame, EMA | 15.5 | 33.0% | 81.0% | 0.305 (0.239 to 0.373) | 0.470 | 0.120 | 0.078 |
 | Every frame, 4-of-6 vote | 7.7 | 38.5% | 94.5% | 0.295 (0.229 to 0.363) | 0.462 | 0.100 | 0.078 |
-| Laptop, per frame | 26.1 | 19.0% | 62.5% | 0.285 (0.223 to 0.352) | 0.453 | 0.075 | 0.294 |
-| Laptop, EMA | 12.1 | 36.0% | 82.5% | 0.295 (0.227 to 0.362) | 0.462 | 0.130 | 0.078 |
-| Laptop, 4-of-6 vote | 6.1 | 42.0% | 94.5% | 0.295 (0.229 to 0.362) | 0.462 | 0.085 | 0.039 |
+| Laptop, per frame | 26.2 | 18.0% | 63.0% | 0.280 (0.220 to 0.342) | 0.444 | 0.070 | 0.294 |
+| Laptop, EMA | 12.1 | 37.0% | 83.0% | 0.290 (0.223 to 0.357) | 0.453 | 0.125 | 0.078 |
+| Laptop, 4-of-6 vote | 6.1 | 40.5% | 93.0% | 0.295 (0.231 to 0.363) | 0.462 | 0.095 | 0.059 |
 
-**Voting removes most of the flicker.** On the laptop schedule, the vote cuts verdict flips from 26.1 to 6.1 per clip and raises the clips stable within 2 s from 62.5% to 94.5%. It also removes most "not listed" flashes on dangerous snakes: with the vote, 2 of the 51 dangerous clips (0.039) ever show "not listed", against 15 (0.294) with per-frame verdicts. With every method, 1 dangerous clip ends on "not listed". The EMA sits between the two. Even with the vote, only 42.0% of clips meet the O6 target of at most 1 flip. Skipping a fifth of the frames on the laptop changes little.
+**Voting removes most of the flicker.** On the laptop schedule, the vote cuts verdict flips from 26.2 to 6.1 per clip and raises the clips stable within 2 s from 63.0% to 93.0%. It also removes most "not listed" flashes on dangerous snakes: with the vote, 3 of the 51 dangerous clips (0.059) ever show "not listed", against 15 (0.294) with per-frame verdicts. With every method, 1 dangerous clip ends on "not listed". The EMA sits between the two. Even with the vote, only 40.5% of clips meet the O6 target of at most 1 flip. Skipping a fifth of the frames on the laptop changes little.
 
-**Clip accuracy is far below photo accuracy on these clips.** The clean photos get the right verdict 58.5% of the time and the right species 36.5%. On the clips, the voted verdict is right on 29.5% and the species on 8.5%, and even among clips whose clean photo is right, the verdict is right on only 46.2%. These clips are damaged on purpose, with leaves over 30 to 70% of the snake as well as blur and low light, so the numbers measure that damage; we have not yet measured real snake videos.
+**Clip accuracy is far below photo accuracy on these clips.** The clean photos get the right verdict 58.5% of the time and the right species 36.5%. On the clips, the voted verdict is right on 29.5% and the species on 9.5%, and even among clips whose clean photo is right, the verdict is right on only 46.2%. These clips are damaged on purpose, with leaves over 30 to 70% of the snake as well as blur and low light, so the numbers measure that damage; we have not yet measured real snake videos.
 
 **Robustness (R1).** We rescored the validation photos that have a predicted mask (15,977 of 17,151) on the final model and on R_F0, the same recipe on the whole photo, in two ways: with the snake blanked to grey, and with the snake moved onto the scenery of a photo of another class (the donor), whose own snake is blanked first. The final model sees both through the detector's crop. As a check, both runs' untouched photos reproduce their saved top-1 species on 99.9% of photos.
 
@@ -622,12 +622,7 @@ For a clip, the screen shows the voted verdict, and the video demo writes an ann
 
 Notes describe the species on screen: a venomous top species that is not WHO-listed reads "venomous family, not on WHO's priority list" (7 photos), and the Category 2 on the coral snake photo belongs to its top species, the banded krait, not to the coral snake. Every screen shows WHO first-aid passages with their page, whatever the verdict.
 
-**Video demo.** One command takes a snake video, or a photo filmed into a clip, through the same pipeline and writes an annotated video and a summary of what it saw:
-
-```
-python -m serpentguard.video_demo --run-dir RUN --decision-file DECISION --frontend-dir FRONTEND --video IN.mp4 --out OUT
-python -m serpentguard.video_demo --run-dir RUN --decision-file DECISION --frontend-dir FRONTEND --from-photo PATH --seed S --out OUT
-```
+**Video demo.** Section 5 of [notebook 15](../../notebooks/15_m3_end_to_end.ipynb) takes a snake video (`DEMO_VIDEO`), or a photo filmed into a clip (`DEMO_PHOTO`, `DEMO_SEED`), through the same pipeline and writes an annotated video and a summary of what it saw.
 
 The video is H.264, with the verdict banner, the top 3, the detector's box and a line per frame. `insights.json` and `insights.md` give the stable verdict and when it appeared, the flips, the top species over time, the species card, the WHO passages with their pages, and the milliseconds per node. We have no real snake video yet, so the three demos film validation photos with V1's clip recipe, on the final model with the shipped decision file:
 
@@ -689,9 +684,9 @@ Each experiment is reproduced by one notebook or command. A run's outputs (its m
 - Notebook 20, Kaggle CPU and the laptop: size and speed, X1 (2.8).
 - Notebook 15, local CPU: the end-to-end check, P1 (5.5).
 - Notebook 16, local CPU: response retrieval, Q1 (2.7).
-- Local commands on a CPU: the decision-rule ablation (`python -m serpentguard.danger_rules`, 2.6), the video demo (`python -m serpentguard.video_demo`, 5.6) and the B1 comparisons, scored with the same function as B1 (3.4).
+- Local commands on a CPU: the decision-rule ablation (notebook 19 with `DR_RUN` set, 2.6), the video demo (notebook 15, section 5, 5.6) and the B1 comparisons, scored with the same function as B1 (3.4).
 
-The code is in `src/serpentguard/`, with tests in `tests/`; each run's settings sit under its run name in the code's run table. The library pins are in `requirements-m3.txt`: timm 1.0.31, albumentations 2.0.8, scikit-learn 1.9.1, segmentation-models-pytorch 0.6.0, ultralytics 8.4.202, onnxruntime 1.31.1. Seeds are 42 for the subset and default runs, 1 and 2 for noise floors, and 1, 2 and 42 for the retrain. Every run records its subset hash, library versions, input normalisation and timing.
+The code is in `src/serpentguard/`; each run's settings are in `configs/m3/<run>.yaml`. The library pins are in `requirements-m3.txt`: timm 1.0.31, albumentations 2.0.8, scikit-learn 1.9.1, segmentation-models-pytorch 0.6.0, ultralytics 8.4.202, onnxruntime 1.31.1. Seeds are 42 for the subset and default runs, 1 and 2 for noise floors, and 1, 2 and 42 for the retrain. Every run records its subset hash, library versions, input normalisation and timing.
 
 ## References
 
