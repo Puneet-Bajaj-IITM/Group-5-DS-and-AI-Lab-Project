@@ -5,6 +5,50 @@ Team: Group 5, DS and AI Lab Project. Team lead Jayesh Bansal; members Vikas, Pu
 
 The course asks for this log to be updated every week with each member's contributions. Add each new week above the previous one. Members check their own rows, and everyone also signs the acknowledgment page of each milestone report.
 
+## Week 3: 1 to 7 November 2026 (Milestone 3, model selection, baselines, tuning, end-to-end pipeline)
+
+### Contribution entries
+
+Evidence for each row is the notebook and results folder it names. Runs listed as on another member's Kaggle account were run there; the account owner is named only as the account, not as the author.
+
+| Work item | Contribution / evidence | Contributor(s) | Date or period | Reviewed / confirmed by |
+|---|---|---|---|---|
+| Candidate subset | 16.4% subset stratified by class and photographer (13,925 photos, all 184 classes), calibration set and hand-check sample; [notebook 10](notebooks/10_m3_subset.ipynb); `results/m3/subset` | Puneet Bajaj | 4 Nov 2026 | Pending |
+| Package, model and training | `serpentguard` package: metrics, SnakeID (three mobile encoders with ArcFace, genus, family and WHO heads), losses and the training runner; [notebook 12](notebooks/12_m3_train.ipynb) | Puneet Bajaj | 4 Nov 2026 | Pending |
+| Baselines | B0 to B5 before any training, including the published SnakeCLEF 2021 model and BioCLIP zero-shot; [notebook 11](notebooks/11_m3_baselines.ipynb); `results/m3/baselines_v1` to `baselines_v3` | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
+| Encoder, head and loss comparison | E1 to E4 and the N0 noise floor; `results/m3/e1`, `results/m3/e2` | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Front end | S1 segmenters, D1 detector and the FE crop and mask ablation; [notebook 13](notebooks/13_m3_frontends.ipynb); `results/m3/frontends`, `results/m3/fe` | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Tuning and retrain | H1 random search over 24 trials, then the top three configurations retrained at seeds 1, 2 and 42 (N1); [notebook 14](notebooks/14_m3_tuning.ipynb); `results/m3/h1`, `results/m3/retrain` | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Decision layer | Verdict rules with thresholds fitted on the calibration set to the lower bound of 95% WHO recall, and the DR0 to DR4 decision-rule study; [notebook 19](notebooks/19_m3_decision.ipynb); `results/m3/final`, `results/m3/dr` | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Few-shot enrolment and retrieval | K1 enrolment of new species from a few photos; Q1 retrieval of WHO first-aid passages with 60 draft questions; [notebook 16](notebooks/16_m3_response.ipynb); `results/m3/k1`, `results/m3/q1` | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Robustness and video | R1 blanked-snake and swapped-background checks; V1 on 200 synthetic clips with frame voting; [notebook 17](notebooks/17_m3_robustness.ipynb), [notebook 18](notebooks/18_m3_video.ipynb); `results/m3/r1`, `results/m3/v1` | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Export and speed | X1 ONNX export, fp16 and int8 variants, laptop latency and package size; [notebook 20](notebooks/20_m3_x1.ipynb); `results/m3/x1_laptop` | Puneet Bajaj | 5 Nov 2026 | Pending |
+| End-to-end pipeline and demo | P1 from a photo or clip to the verdict, species and WHO passages, the video demo, and the detector padding fix; [notebook 15](notebooks/15_m3_end_to_end.ipynb); `results/m3/p1_final`, `results/m3/demo` | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Comparison with the published model | B1 on all 184 classes and on the 62 species both models know; `results/m3/retrain/H1_top1_s1/compare_b1.json`, `compare_b1_shared.json` | Puneet Bajaj | 5 Nov 2026 | Pending |
+| Kaggle runs | Training and evaluation kernels (E1 to E4, FE, H1 slices, retrain, baselines) run on Puneet Bajaj's, Jayesh Bansal's and Vikas's Kaggle accounts | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
+| Report and deck | [Report](documentation/milestone%203/project-report.md) with figures, and the [presentation](documentation/milestone%203/SerpentGuard_AI_M3_Presentation.pdf) | Puneet Bajaj | 4 to 5 Nov 2026 | Pending |
+| Jayesh Bansal's work this week | TO BE FILLED BY Jayesh Bansal | Jayesh Bansal | | Jayesh Bansal |
+| Vikas's work this week | TO BE FILLED BY Vikas | Vikas | | Vikas |
+| Manas Rastogi's work this week | TO BE FILLED BY Manas Rastogi | Manas Rastogi | | Manas Rastogi |
+
+### Member contribution summary
+
+| Member name | Work completed | Evidence / report sections | Member confirmation |
+|---|---|---|---|
+| Jayesh Bansal | TO BE FILLED BY Jayesh Bansal. Kaggle runs on his account are listed above | | |
+| Puneet Bajaj | M3 plan, subset, metrics, model, losses, training runner, baselines, front ends, decision layer, robustness, video, response retrieval, export, end-to-end pipeline, tuning, Kaggle runs, report draft, final model choice and B1 comparison, decision-rule ablation, robustness on the final model, laptop export and speed, end-to-end pipeline and video demo on the final model | [experiment-log.md](documentation/milestone%203/experiment-log.md); [project-report.md](documentation/milestone%203/project-report.md); [notebooks](notebooks/README.md) 10 to 20 | |
+| Vikas | TO BE FILLED BY Vikas. Kaggle runs on his account are listed above | | |
+| Manas Rastogi | TO BE FILLED BY Manas Rastogi | | |
+
+### Milestone 3 acknowledgment
+
+| Team member name | Roll Number | Signature / acknowledgment | Date |
+|---|---|---|---|
+| Jayesh Bansal | 24f100185 | | |
+| Vikas | 23f3001800 | | |
+| Puneet Bajaj | 23f3002416 | | |
+| Manas Rastogi | 22f3001477 | | |
+
 ## Week 2: 23 to 31 October 2026 (Milestone 2, dataset preparation)
 
 ### Contribution entries
