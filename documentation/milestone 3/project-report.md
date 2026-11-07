@@ -344,7 +344,7 @@ Each team member signs one row after the review. By signing, each member confirm
 
 | Team member name | Roll Number | Signature / acknowledgment | Date |
 |---|---|---|---|
-| Jayesh Bansal | 24f100185 | PENDING | PENDING |
+| Jayesh Bansal | 24f100185 | ![Jayesh Bansal](https://drive.google.com/uc?export=download&id=1imepTm_t9vgJVL367tWU-LPYcLq9Zet0) | 07/11/2026 |
 | Vikas | 23f3001800 | Vikas | 05/11/2026 |
 | Puneet Bajaj | 23f3002416 | Puneet Bajaj | 05/11/2026 |
 | Manas Rastogi | 22f3001477 | PENDING | PENDING |
