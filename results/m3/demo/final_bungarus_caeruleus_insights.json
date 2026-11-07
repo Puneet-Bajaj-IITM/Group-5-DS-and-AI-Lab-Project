@@ -116,13 +116,13 @@
   ],
   "speed": {
     "frames_read": 101,
-    "mean_frame_ms": 77.843,
+    "mean_frame_ms": 88.938,
     "mean_ms": {
-      "preprocess": 0.4,
-      "detector": 11.604,
-      "model": 65.446,
-      "verdict": 0.386,
-      "passages": 0.007
+      "preprocess": 0.46,
+      "detector": 13.122,
+      "model": 74.725,
+      "verdict": 0.616,
+      "passages": 0.014
     }
   }
 }

@@ -282,7 +282,7 @@ For each photo the app shows a verdict with its reason, the top 3 species, the l
 
 The category shown is the top species': a coral snake photo read "WHO Category 2" because a banded krait was on top. A venomous top species that is not WHO-listed reads "venomous family, not on WHO's priority list" (7 photos).
 
-**Video demo.** [Notebook 16](../../notebooks/16_app.ipynb) also turns a clip into an annotated video and an insights file. With no real snake video yet, the demos film validation photos. A common krait clip shows "dangerous: WHO Category 1" from 0.4 s, top species in 100% of the 101 frames read; on a *Coelognathus helena* clip the vote lets through 7 of 20 frame-by-frame flips; on a *Dendrelaphis subocularis* clip the top species wanders, but the screen shows its genus at 0.63. Frames took 77.8 to 81.6 ms on the laptop. The videos are not committed, as they use other people's photos.
+**Video demo.** [Notebook 16](../../notebooks/16_app.ipynb) also turns a clip into an annotated video and an insights file. With no real snake video yet, the demos film validation photos. A common krait clip shows "dangerous: WHO Category 1" from 0.4 s, top species in 100% of the 101 frames read; on a *Coelognathus helena* clip the vote lets through 7 of 20 frame-by-frame flips; on a *Dendrelaphis subocularis* clip the top species wanders, but the screen shows its genus at 0.63. Frames took 78.8 to 88.9 ms on the laptop. The videos are not committed, as they use other people's photos.
 
 ## 6. Architecture visualization
 
