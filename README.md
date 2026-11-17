@@ -33,6 +33,7 @@ Course requirements: [guidelines](https://bsc-iitm.github.io/dsai-lab-project/gu
 ## Repository layout
 
 ```text
+app/                    the Flutter phone app: identify, SOS, hospitals, map, Bluetooth alerts
 documentation/          milestone reports and slides (one folder per milestone)
 notebooks/              the notebook chain, from raw download to full training, the video lock and the summary
 src/                    the serpentguard package the notebooks share
