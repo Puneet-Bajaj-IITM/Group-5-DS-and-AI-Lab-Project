@@ -54,14 +54,21 @@
   }
  },
  "copied": {
-  "b1_62.json": "7d2de15c338f9569521bc0a0b0b8d1d133fdbe12f6e2b0a495383dc924a4a074",
-  "decision_metrics.json": "6cfd486658f32d912c6fccb67620506ab493e02296c8e9cadcd1d0c409d59b04",
+  "b1_62.json": "c9d376262000f6803d9eb276efe162ca632015dc3fd09c0ae06e2827ff09e0d8",
+  "decision_metrics.json": "569b4bfbb68aaa9d9d07d591f86ed2ace723cd323dff2154ac9b67f30a1264be",
   "per_class_counts.json": "b5009d96bd391d4eaebde3a71500084093fb8764f6b8e95775812dd92064b015",
-  "robustness_metrics.json": "91c0fa8b6a65c87aabac9d24b5db3fe68aa54c9d1c84c4ff560cf2c55f83ad37",
+  "robustness_metrics.json": "095832b3e37a44a033b9ce5ca586a0e12f9c836b2610b281e297c98fa2754ea4",
   "config.yaml": "046431c78623dad263fa461fafca907461a3ad016cd51072e10657147f50e740",
-  "final_metrics.json": "165e7214fe662dcbd45596e95a4689714489b5681e3880444b4f47119a2681d6",
+  "final_metrics.json": "314334b357dce5e5b2d4b5af26184e2f6b39662f94b47e3812fc22cf193a2814",
   "metrics.jsonl": "6b55a191c20f544e7a95efa05c5e41c47cafbd72a3d20a37bf0e633778a1c067",
   "versions.json": "db53232ccc4412f00bc60ea2130b11a818529b483773d79d3b733486f3249271",
   "subset_hash.txt": "519a5b6ac06cb996ea9ee0a03270f3956a856013ea23e779dc2c2ef7345c5ad5"
- }
+ },
+ "copied_original": {
+  "b1_62.json": "7d2de15c338f9569521bc0a0b0b8d1d133fdbe12f6e2b0a495383dc924a4a074",
+  "decision_metrics.json": "6cfd486658f32d912c6fccb67620506ab493e02296c8e9cadcd1d0c409d59b04",
+  "robustness_metrics.json": "91c0fa8b6a65c87aabac9d24b5db3fe68aa54c9d1c84c4ff560cf2c55f83ad37",
+  "final_metrics.json": "165e7214fe662dcbd45596e95a4689714489b5681e3880444b4f47119a2681d6"
+ },
+ "note": "Result JSON files over 200 lines were rewritten without indentation on 17 Nov 2026 to keep the repo readable; every value is unchanged. copied_original holds the SHA-256 of the files as the run wrote them."
 }

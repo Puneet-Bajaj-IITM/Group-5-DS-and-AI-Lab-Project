@@ -17,6 +17,8 @@ Start with [`m4/summary/goals.csv`](m4/summary/goals.csv). It lists the Mileston
 
 ## Folders
 
+Result JSON files longer than 200 lines are stored on one line, without indentation; any JSON reader loads them. Their values are as the runs wrote them, and each full run's `manifest.json` keeps the SHA-256 of the original files under `copied_original`. A3's `decision_metrics.json` is kept byte for byte, because notebook 24 and `scripts/verify_inference.py` compare it with the model folder's copy.
+
 - `m4/arms/`: the background arms on the experiment subset, one folder per arm (`M4_A1` to `M4_A3`), the re-scored Milestone 3 model (`A0_check`), the pick (`arms.csv`, `pick.json`), the app's time per frame (`app_cost.json`), and each arm's run of notebook 18 in `executed/`.
 - `m4/full/`: the three full-training runs (`A1`, `H2`, `A3`), each with its config, training curve, metrics and a `manifest.json` that lists the SHA-256 of everything kept outside the repo, and each run of notebook 21 in `executed/`.
 - `m4/gate/`: the no-snake gate, before and after the detector and U-Net were retrained with non-snake photos, and the one scoring of the non-snake test split.
