@@ -47,6 +47,10 @@
   "M4_FULL/r1/robustness_swapped.npz": {
    "sha256": "680472a48f980864509f3badc09830a52d08e01f7e4d83ef76206ec27434ceec",
    "bytes": 16891932
+  },
+  "M4_FULL/class_mix.json": {
+   "sha256": "18eed57b5c45c4eca07c7d0ac126effb1f5c53a124e1244ae0edfd7e4e199b9e",
+   "bytes": 34470
   }
  },
  "copied": {
@@ -58,7 +62,6 @@
   "final_metrics.json": "165e7214fe662dcbd45596e95a4689714489b5681e3880444b4f47119a2681d6",
   "metrics.jsonl": "6b55a191c20f544e7a95efa05c5e41c47cafbd72a3d20a37bf0e633778a1c067",
   "versions.json": "db53232ccc4412f00bc60ea2130b11a818529b483773d79d3b733486f3249271",
-  "subset_hash.txt": "519a5b6ac06cb996ea9ee0a03270f3956a856013ea23e779dc2c2ef7345c5ad5",
-  "class_mix.json": "18eed57b5c45c4eca07c7d0ac126effb1f5c53a124e1244ae0edfd7e4e199b9e"
+  "subset_hash.txt": "519a5b6ac06cb996ea9ee0a03270f3956a856013ea23e779dc2c2ef7345c5ad5"
  }
 }

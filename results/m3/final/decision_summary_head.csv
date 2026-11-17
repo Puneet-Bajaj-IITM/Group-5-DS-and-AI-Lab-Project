@@ -1,2 +1,0 @@
-run,kernel,scorer,recall_bound,recall_target,who_dangerous_recall,false_alarm,venomous_recall,o3_all,abstain_rate,unknown_flagged,unknown_auroc_msp,theta_d,theta_who,calibration_recall,tau_snake,no_snake_val
-H1_top1_s1,dataset:puneetbajajiitm/serpentguard-m3-run-final,head,lower,0.965,0.9479117785077429,0.31073148705599035,0.9446026404348952,0.020647583294228063,0.09538802402192292,0.07538802660753881,0.6922758991770115,0.05660591583161018,inf,0.9664310954063604,0.102,151

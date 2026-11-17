@@ -1,2 +1,0 @@
-model,evaluation,macro_f1,macro_f1_prototype,top1,top3,who_recall,o3_raw,ece,macro_f1_2022,top1_2022,slice_overlap,class_coverage,photo_coverage,precision,recall,map50
-B1,upper_bound_overlap_unverified,0.2568058920073597,,0.6825258002448836,0.7706256194974054,0.7780384795870483,0.22196152041295167,0.14584648418496474,0.2521075385221927,0.6741234674123467,clear by date: the model's training photos predate 2022,0.33695652173913043,0.8518453734476124,,,

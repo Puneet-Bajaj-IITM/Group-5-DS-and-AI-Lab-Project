@@ -28,7 +28,7 @@ Notes:
 
 ## Milestone 3
 
-The Milestone 3 notebooks find the team's datasets the same way. Several also read another notebook's Kaggle output, so declare that kernel as a source; each notebook's first cell says which. Each notebook is saved with the outputs of its run, and its result files stay in that run's Kaggle output. The repo keeps only the few files another notebook reads: the run tables in `results/m3/summary/`, `results/m3/q1/retrieval.csv`, the `results/m3/x1_laptop` CSVs and the shipped decision file `results/m3/final/H1_top1_s1/decision_metrics.json`.
+The Milestone 3 notebooks find the team's datasets the same way. Several also read another notebook's Kaggle output, so declare that kernel as a source; each notebook's first cell says which. Each notebook is saved with the outputs of its run, and its result files stay in that run's Kaggle output. The repo keeps only the few files another notebook reads: the run tables in `results/m3/summary/`, `results/m3/q1/retrieval.csv` and `ranks.csv`, the `results/m3/x1_laptop` files, the shipped decision file `results/m3/final/H1_top1_s1/decision_metrics.json`, and the final model's scenery test `results/m3/r1/H1_top1_s1/robustness_metrics.json`, which the Milestone 4 notebooks compare against. The full run records are archived; see [`../results/README.md`](../results/README.md).
 
 | # | Notebook | Answers | Runs on |
 |---|---|---|---|
