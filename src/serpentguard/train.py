@@ -34,6 +34,8 @@ CALIBRATION_OUTPUTS = "calib_outputs.npz"
 UNKNOWN_OUTPUTS = "unknown_outputs.npz"
 HELDOUT_OUTPUTS = "heldout_outputs.npz"
 PROTOTYPES_FILE = "prototypes.npz"
+GRAD_CLIP_NORM = 5.0     # largest gradient norm per step
+ENCODER_LR_FACTOR = 0.1  # the encoder learns at this share of the run's lr
 
 
 def check_config(cfg):
@@ -230,7 +232,7 @@ def run_epoch(model, loader, optimizer, scheduler, scaler, cfg, device, log_prio
         optimizer.zero_grad(set_to_none=True)
         scaler.scale(loss).backward()
         scaler.unscale_(optimizer)
-        torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), GRAD_CLIP_NORM)
         scaler.step(optimizer)
         scaler.update()
         scheduler.step()
@@ -255,11 +257,11 @@ def training_images(model, images, class_ids, cfg, rng):
 
 
 def make_optimizer(model, cfg):
-    """AdamW with the encoder at 0.1 x lr and every other part at lr."""
+    """AdamW with the encoder at ENCODER_LR_FACTOR x lr and every other part at lr."""
     encoder = list(model.encoder.parameters())
     encoder_ids = {id(parameter) for parameter in encoder}
     rest = [parameter for parameter in model.parameters() if id(parameter) not in encoder_ids]
-    return torch.optim.AdamW([{"params": encoder, "lr": cfg["lr"] * 0.1},
+    return torch.optim.AdamW([{"params": encoder, "lr": cfg["lr"] * ENCODER_LR_FACTOR},
                               {"params": rest, "lr": cfg["lr"]}],
                              weight_decay=cfg["weight_decay"])
 

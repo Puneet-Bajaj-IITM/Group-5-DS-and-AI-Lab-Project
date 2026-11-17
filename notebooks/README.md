@@ -22,6 +22,8 @@ The team's datasets are private and owned by `puneetbajajiitm`. Ask the team to 
 Notes:
 
 - Notebooks 03, 06 and 07 and the full analysis are saved with the outputs of their 31 October 2026 runs on the clean dataset. Notebooks 08 and 09 keep their 30 October outputs, and their photos aren't in the main dataset.
+- Notebooks 01, 02, 04 and 05 and `load_dataset_example` are saved without outputs; their runs are on Kaggle. Notebook 02's report is `data/split_report.json`, notebook 03's is `data/processing_report.json`, and the Milestone 2 report gives the numbers of the download and the masks (see [`../data/README.md`](../data/README.md)).
+- Notebook 06 is the Milestone 2 record of the preprocessing; the code that training uses is `src/serpentguard/data.py`, which keeps the same steps. Its `class_weights.csv` and the `rgbm_4ch` mode were not used later.
 - Notebook 02 pins scikit-learn 1.9.1, because `StratifiedGroupKFold` assigns folds differently between releases.
 - Scheduled Kaggle runs can only read attached datasets, so attach each one before you save and run.
 - Always take class ids from `classes.csv`. `val/` and `test/` lack some species folders, so plain `ImageFolder` would mislabel photos.
@@ -55,10 +57,11 @@ The Milestone 4 notebooks work the same way: the Kaggle notebooks find the team'
 | 23 | [`23_head_arms`](23_head_arms.ipynb) | Whether a second, closer look the model picks itself (the detail crop) helps | GPU T4, internet on |
 | 24 | [`24_video_lock`](24_video_lock.ipynb) | Whether pooling frames and locking the answer steadies the shown species on a clip, with the shipped model behind the app's front end | local CPU |
 | 25 | [`25_m4_summary`](25_m4_summary.ipynb) | The goals and the report's tables, read from the saved result files | local CPU |
+| 27 | [`27_m4_figures`](27_m4_figures.ipynb) | The report's figures: learning curves, calibration before and after temperature scaling, and sample predictions on credited validation photos, from saved outputs | local CPU, internet on |
 
 Where each run is saved with its outputs:
 
-- Notebooks 19, 20, 22, 23 and 25 are saved here with the outputs of the run their results come from.
+- Notebooks 19, 20, 22, 23 and 25 are saved here with the outputs of the run their results come from. Notebook 27 is saved with its run; it writes its figures to [`../documentation/milestone 4/assets/`](../documentation/milestone%204/assets/figures.md).
 - Notebook 18 ran once per arm. The copy here holds no outputs; each run is in `results/m4/arms/executed/18_background_arms_<arm>.ipynb` (A0 to A3).
 - Notebook 21 ran once per recipe. The copy here holds no outputs; each run is in `results/m4/full/executed/21_full_training_<run>.ipynb` (A1, H2 and A3).
 - Notebook 24 is saved here with its run on the shipped model, A3; its earlier run on the Milestone 3 model is `results/m4/video/executed/24_video_lock_M3.ipynb`.

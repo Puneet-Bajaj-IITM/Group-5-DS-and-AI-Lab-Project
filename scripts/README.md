@@ -1,10 +1,8 @@
 # Scripts
 
-Four Milestone 4 numbers were measured on the team laptop's CPU by scripts rather than notebooks. The code here is
-the code that ran; after the runs, only comments, descriptive text strings and one hard-coded working-folder path
-were changed (`time_detail_crop.py` now reads it from `SERPENTGUARD_WORK`). They read their inputs from the folder
-layout they ran in, outside the repo (the photos, clips and weights may not be redistributed), so they do not run
-from this folder unchanged.
+Three Milestone 4 measurements were made on the team laptop's CPU by scripts rather than notebooks (four scripts;
+one only fetches the photos). They need the private photos, clips and weights, which may not be redistributed, and
+read them from the folder layout they ran in, outside the repo, so they do not run from a fresh clone.
 
 | Script | What it produced | How it was run |
 |---|---|---|
@@ -13,7 +11,33 @@ from this folder unchanged.
 | [`measure_app_cost.py`](measure_app_cost.py) | `results/m4/arms/app_cost.json`, the time per frame of the detector and U-Net the app runs; the file's `front_end_source` and `script` fields were written afterwards | `python measure.py <src folder> <out json>`, on the laptop's CPU (run under the name `measure.py`) |
 | [`time_detail_crop.py`](time_detail_crop.py) | the `laptop_ms_per_frame` block of `results/m4/heads/M4_H2.json`: one look and the detail crop, timed on the same frames; its printed medians were copied into the file | `PYTHONPATH=src python laptop_h2.py`, on the laptop's CPU (run under the name `laptop_h2.py`) |
 
-SHA-256 of each file as it ran and as it is here:
+## Checking the shipped model: `verify_inference.py`
+
+One command runs the model we ship (A3) on five credited validation photos, on the CPU, and compares its answers
+with the saved ones:
+
+```text
+python scripts/verify_inference.py --models <folder>
+```
+
+`<folder>` holds A3's `best.pt`, `prototypes.npz` and `decision_metrics.json` and the M4 front end's detector and
+segmenter, saved as `detector.pt` and `segmenter.pt` (the gate run's `M4_detector.pt` and `M4_segmenter.pt`);
+[`results/m4/artifacts.md`](../results/m4/artifacts.md) says where to download each. The photos in
+[`verify_photos.csv`](verify_photos.csv) are downloaded from their source urls; none is committed. Each photo takes
+the app's path (see the script's docstring), and the script prints one JSON line per photo.
+
+It exits with 1 when an answer differs from [`verify_inference_expected.json`](verify_inference_expected.json),
+written by a real run on the team laptop's CPU: the gate's result, the top species and the verdict must match
+exactly, and the top 3 and the scores within 0.01 (two species whose probabilities are that close may swap places).
+The five photos cover each outcome: a cobra called dangerous, a trinket snake called not on the WHO list, a
+saw-scaled viper whose top species is wrong but which is still called dangerous, a vine snake the model cannot place
+between species, and a cat snake the gate drops because the segmenter finds no snake pixels.
+
+## Provenance
+
+The four measurement scripts are the code that ran. After the runs, only comments, descriptive text strings and one hard-coded
+working-folder path were changed (`time_detail_crop.py` now reads it from `SERPENTGUARD_WORK`). SHA-256 of each
+file as it ran and as it is here:
 
 | Script | As it ran | As it is here | Cited by |
 |---|---|---|---|
