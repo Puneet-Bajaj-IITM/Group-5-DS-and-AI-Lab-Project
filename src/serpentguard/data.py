@@ -22,7 +22,8 @@ from albumentations.pytorch import ToTensorV2
 from PIL import Image
 from torch.utils.data import DataLoader, Dataset, Sampler, WeightedRandomSampler, get_worker_info
 
-from serpentguard.metrics import TEST_SPLITS, WHO_RISK_ID, assert_no_test_paths, taxonomy_index
+from serpentguard.metrics import (TEST_SPLITS, WHO_RISK_ID, assert_no_test_paths, round_robin,
+                                  taxonomy_index)
 
 IMG_SIZE, SEED = 320, 42
 NO_ID = -1                    # class, genus or family id of a species outside classes.csv
@@ -37,6 +38,11 @@ FRONT_END_MODES = {"F0": "full", "F1": "box_crop", "F1m": "mask_box_crop", "F2":
                    "F3": "hard_mask", "F4": "full", "F5": "full"}
 MASK_INPUT_MODES = ("mask_box_crop", "soft_dim", "hard_mask")  # input cut from the mask
 PREDICTED_INPUT_MODES = ("box_crop", *MASK_INPUT_MODES)       # input from front-end predictions
+MASK_BLUR = (5, 5)            # feathers a mask's edge, in prepare and in swap_scenery
+SNAKE_DILATE_PX = 5           # remove_snake paints this far past the mask
+INPAINT_RADIUS = 3
+BANK_QUALITY = 90             # JPEG quality of a scenery bank photo
+BANK_FILE = "bank.csv"
 
 # A run's settings in config.yaml's key order; None marks a setting every run must give.
 DEFAULTS = dict(run_id=None, encoder=None, head=None, losses=None, front_end=None, input_size=320,
@@ -45,7 +51,8 @@ DEFAULTS = dict(run_id=None, encoder=None, head=None, losses=None, front_end=Non
                 triplet_margin=0.2, triplet_weight=1.0, mask_weight=1.0, hierarchy=True,
                 mask_head=False, mask_keep=0.2, pooling="gap", danger_weight=5.0, aug_strength=1.0,
                 mask_source="sam", box_source="none", eval_every=2, warmup_epochs=1,
-                exclude_species=[])
+                exclude_species=[], train_list=None, scenery_swap=0.0, scenery_bank=None,
+                views="body", detail_crop=False, detail_threshold=0.5, detail_train_p=0.5)
 
 
 def run_config(cfg):
@@ -63,8 +70,9 @@ def input_mode(cfg):
 
 
 def uses_masks(cfg):
-    """True when training reads masks: a mask head, or an input cut from the mask."""
-    return cfg["mask_head"] or input_mode(cfg) in MASK_INPUT_MODES
+    """True when training reads masks: a mask head, an input cut from the mask, or scenery swap."""
+    return (cfg["mask_head"] or input_mode(cfg) in MASK_INPUT_MODES
+            or cfg["scenery_swap"] > 0)
 
 
 def load_tables(data_root):
@@ -189,7 +197,7 @@ def prepare(rgb, mask, mode="full", size=IMG_SIZE):
     if mode != "full" and mask is not None:
         if mode != "rgbm_4ch":
             keep = 0.0 if mode == "hard_mask" else 0.20  # soft_dim keeps 20% of the background
-            weight = keep + (1 - keep) * cv2.GaussianBlur(mask.astype(np.float32), (5, 5),
+            weight = keep + (1 - keep) * cv2.GaussianBlur(mask.astype(np.float32), MASK_BLUR,
                                                           0)[..., None]
             rgb = (rgb * weight + np.array(GREY_RGB) * (1 - weight)).astype(np.uint8)
         ys, xs = np.nonzero(mask)
@@ -209,6 +217,51 @@ def prepare(rgb, mask, mode="full", size=IMG_SIZE):
     canvas[top:top + resized[1], left:left + resized[0]] = rgb
     canvas_mask[top:top + resized[1], left:left + resized[0]] = target
     return canvas, canvas_mask
+
+
+def remove_snake(rgb, mask):
+    """The photo with the mask, dilated by SNAKE_DILATE_PX, inpainted."""
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,
+                                       (2 * SNAKE_DILATE_PX + 1, 2 * SNAKE_DILATE_PX + 1))
+    hole = cv2.dilate(mask.astype(np.uint8), kernel)
+    return cv2.inpaint(rgb, hole, INPAINT_RADIUS, cv2.INPAINT_TELEA)
+
+
+def swap_scenery(rgb, mask, donor):
+    """The snake pasted, edge feathered as prepare does, onto the donor resized to the photo."""
+    height, width = rgb.shape[:2]
+    donor = cv2.resize(donor, (width, height), interpolation=cv2.INTER_LINEAR)
+    weight = cv2.GaussianBlur(mask.astype(np.float32), MASK_BLUR, 0)[..., None]
+    return (rgb * weight + donor * (1 - weight)).astype(np.uint8)
+
+
+def build_scenery_bank(frame, out_dir, n=3000, max_side=640, seed=SEED):
+    """n snake-free photos, classes in turn, in out_dir with bank.csv (file, class_id, path)."""
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    rows = []
+    for _, row in round_robin(frame[frame["mask_valid"]], n, seed).iterrows():
+        rgb = load_rgb(row["image_file"])
+        mask = load_mask(row["mask_file"], rgb.shape[:2])
+        if mask is None:
+            continue
+        scale = min(1.0, max_side / max(rgb.shape[:2]))
+        if scale < 1:
+            size = (round(rgb.shape[1] * scale), round(rgb.shape[0] * scale))
+            rgb = cv2.resize(rgb, size, interpolation=cv2.INTER_AREA)
+            mask = cv2.resize(mask, size, interpolation=cv2.INTER_NEAREST)
+        name = f"{len(rows):05d}.jpg"
+        Image.fromarray(remove_snake(rgb, mask)).save(out_dir / name, quality=BANK_QUALITY)
+        rows.append({"file": name, "class_id": int(row["class_id"]), "path": row["path"]})
+    bank = pd.DataFrame(rows, columns=["file", "class_id", "path"])
+    bank.to_csv(out_dir / BANK_FILE, index=False)
+    return bank
+
+
+def read_bank(bank_dir):
+    """bank.csv with each file as a full path."""
+    bank = pd.read_csv(Path(bank_dir, BANK_FILE))
+    return bank.assign(file=[str(Path(bank_dir, name)) for name in bank["file"]])
 
 
 def mask_box(mask):
@@ -305,18 +358,34 @@ AUGMENT = build_augment(1.0)
 class SnakeDataset(Dataset):
     """Each frame row as its image, mask, whether the mask is real, and the four targets."""
 
-    def __init__(self, frame, train=False, mode="full", size=IMG_SIZE, aug_strength=1.0):
+    def __init__(self, frame, train=False, mode="full", size=IMG_SIZE, aug_strength=1.0,
+                 swap_p=0.0, bank=None):
         self.frame, self.train, self.mode, self.size = (frame.reset_index(drop=True), train,
                                                         mode, size)
+        if swap_p > 0 and (bank is None or bank["class_id"].nunique() < 2):
+            raise ValueError("swap_p > 0 needs a scenery bank with at least two classes")
+        self.swap_p = swap_p
+        self.bank_files = None if bank is None else bank["file"].to_numpy()
+        self.bank_classes = None if bank is None else bank["class_id"].to_numpy()
         self.augment = AUGMENT if aug_strength == 1.0 else build_augment(aug_strength)
 
     def __len__(self):
         return len(self.frame)
 
+    def pick_donor(self, class_id):
+        """The file of a random bank photo whose class is not class_id."""
+        while True:
+            pick = random.randrange(len(self.bank_files))
+            if self.bank_classes[pick] != class_id:
+                return self.bank_files[pick]
+
     def __getitem__(self, index):
         row = self.frame.iloc[index]
         rgb = load_rgb(row["image_file"])
         mask = load_mask(row["mask_file"], rgb.shape[:2])
+        if self.train and mask is not None and self.swap_p > 0 and random.random() < self.swap_p:
+            with Image.open(self.pick_donor(int(row["class_id"]))) as donor:
+                rgb = swap_scenery(rgb, mask, np.asarray(donor.convert("RGB"), dtype=np.uint8))
         image, target = apply_mode(rgb, mask, self.mode, row.get("box"), self.size)
         sample = self.augment[row["tier"] if self.train else "eval"](image=image, mask=target)
         target = sample["mask"].unsqueeze(0).float()
@@ -338,6 +407,18 @@ def calibration_set(train, subset):
     """Training photos outside the subset whose photographer has no photo in it."""
     return train[~train["path"].isin(subset["path"])
                  & ~train["observer_id"].isin(subset["observer_id"])]
+
+
+def full_train_rows(metadata, subset):
+    """Train-split rows whose photographer is not a calibration photographer."""
+    train = metadata[metadata["split"] == "train"]
+    calibration_observers = calibration_set(train, subset)["observer_id"]
+    return train[~train["observer_id"].isin(calibration_observers)]
+
+
+def smoke_sample(frame, limit, seed=SEED):
+    """`limit` photos with the species taking turns, for a smoke run's scored sets; all if None."""
+    return frame if limit is None else round_robin(frame, limit, seed)
 
 
 def unknown_split(unknown, seed=SEED):
@@ -421,7 +502,23 @@ def make_frames(cfg, data_root, masks_root, subset_csv, preds_root=None, limit=N
     def first(frame):
         return (frame if limit is None else frame.head(limit)).reset_index(drop=True)
 
-    subset_rows = metadata[(metadata["split"] == "train") & metadata["path"].isin(subset["path"])]
+    def across_species(frame):  # a scored set; a smoke run's must hold more than one species
+        return smoke_sample(frame, limit).reset_index(drop=True)
+
+    if cfg["train_list"] is None:
+        subset_rows = metadata[(metadata["split"] == "train")
+                               & metadata["path"].isin(subset["path"])]
+    else:
+        listed = pd.read_csv(cfg["train_list"], dtype=ID_TYPES)
+        subset_rows = metadata[(metadata["split"] == "train")
+                               & metadata["path"].isin(listed["path"])]
+        calibration_observers = set(calibration_set(
+            metadata[(metadata["split"] == "train") & ~metadata["species"].isin(excluded)],
+            subset)["observer_id"])
+        shared = set(subset_rows["observer_id"]) & calibration_observers
+        if shared:
+            raise ValueError(f"train_list holds photos by {len(shared)} calibration "
+                             f"photographers, e.g. {sorted(shared)[:3]}")
     train = cap_train(build_frame(subset_rows, classes, ["train"], mask_stats, frontend_preds,
                                   cfg["mask_source"], masks_root, preds_root))
     # held-out species go after capping, so such a run keeps its parent's photos of the rest
@@ -443,7 +540,7 @@ def make_frames(cfg, data_root, masks_root, subset_csv, preds_root=None, limit=N
         return frame if mode in MASK_INPUT_MODES else frame.assign(mask_path="", mask_valid=False)
 
     known = ~metadata["species"].isin(excluded)
-    val = first(scored(metadata[known], ["val"]))
+    val = across_species(scored(metadata[known], ["val"]))
     if predicted_input and not has_input(val, mode).any():
         raise ValueError(f"run {cfg['run_id']} validates on front-end predictions, but "
                          "frontend_preds.csv gives no validation photo a "
@@ -455,10 +552,10 @@ def make_frames(cfg, data_root, masks_root, subset_csv, preds_root=None, limit=N
     heldout = None
     if excluded:
         rows = metadata[~known & metadata["split"].isin(["train", "val"])]
-        heldout = first(scored(rows, ["train", "val"]).merge(
+        heldout = across_species(scored(rows, ["train", "val"]).merge(
             rows[["path", "split", "obs_id"]], on="path", how="left", validate="one_to_one"))
-    frames = {"train": train, "val": val, "calibration": first(calibration),
-              "unknown": first(unknown), "heldout": heldout}
+    frames = {"train": train, "val": val, "calibration": across_species(calibration),
+              "unknown": across_species(unknown), "heldout": heldout}
     return {name: None if frame is None else with_files(frame, data_root)
             for name, frame in frames.items()}
 
@@ -499,8 +596,12 @@ def init_worker(worker_id):
 
 def train_loader(cfg, frame, num_workers=4):
     """The weighted or P x K training loader; both draw the class_sampling_probs mix."""
+    swap_p = cfg["scenery_swap"]
+    if swap_p > 0 and cfg["scenery_bank"] is None:
+        raise ValueError("scenery_swap is above 0, but scenery_bank names no bank folder")
+    bank = read_bank(cfg["scenery_bank"]) if swap_p > 0 else None
     dataset = SnakeDataset(frame, train=True, mode=input_mode(cfg), size=cfg["input_size"],
-                           aug_strength=cfg["aug_strength"])
+                           aug_strength=cfg["aug_strength"], swap_p=swap_p, bank=bank)
     seed_augmentation(dataset, cfg["seed"])
     common = {"num_workers": num_workers, "pin_memory": torch.cuda.is_available(),
               "worker_init_fn": init_worker,

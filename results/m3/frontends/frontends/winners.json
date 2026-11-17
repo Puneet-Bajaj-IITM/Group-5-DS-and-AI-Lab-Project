@@ -1,0 +1,47 @@
+{
+  "S1": {
+    "candidate": "unet",
+    "kind": "unet",
+    "weights": "S1/unet/segmenter.pt",
+    "rule": "best Open Images IoU of the cleaned masks; within 0.005 the fewest parameters",
+    "scores": {
+      "lraspp": [
+        0.7873179137531635,
+        3218138
+      ],
+      "maskhead": [
+        0.7715986466895662,
+        1364385
+      ],
+      "unet": [
+        0.836860649211458,
+        6628945
+      ],
+      "yolo26n-seg": [
+        0.8277984851762394,
+        3082751
+      ]
+    },
+    "raw_iou": {
+      "lraspp": 0.7905054575932055,
+      "maskhead": 0.7725553350329415,
+      "unet": 0.8376193317347395,
+      "yolo26n-seg": 0.8278211268532348
+    }
+  },
+  "D1": {
+    "candidate": "yolo26n-ft",
+    "weights": "D1/yolo26n-ft/detector.pt",
+    "rule": "best Open Images mAP@0.5",
+    "scores": {
+      "yolo26n-ft": [
+        0.9354143479124633,
+        2533886
+      ],
+      "yolov8n-oiv7": [
+        0.5143031565909852,
+        3497943
+      ]
+    }
+  }
+}

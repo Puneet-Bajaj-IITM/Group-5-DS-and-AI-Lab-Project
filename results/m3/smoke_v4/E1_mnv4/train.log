@@ -1,0 +1,13 @@
+E1_mnv4: read 39212 files (5386 MB, 0 missing) into the page cache in 13 s
+E1_mnv4 on Tesla T4: 13611 training photos after caps, 17151 val, 7999 calibration, 451 unknown; subset 40196d19a68e
+Loading pretrained weights from Hugging Face hub (timm/mobilenetv4_conv_small.e2400_r224_in1k)
+HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+HTTP Request: HEAD https://huggingface.co/timm/mobilenetv4_conv_small.e2400_r224_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+HTTP Request: GET https://huggingface.co/api/models/timm/mobilenetv4_conv_small.e2400_r224_in1k/xet-read-token/331fb803779522b685cf942e15f914fb6741c1eb "HTTP/1.1 200 OK"
+[timm/mobilenetv4_conv_small.e2400_r224_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+/kaggle/working/repo/src/serpentguard/train.py:217: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  scheduler.step()
+E1_mnv4 epoch 1/1: macro-F1 0.029, top-1 0.191, top-3 0.307, loss 7.754, lr 3.00e-04, 70 photos/s, data wait 77%, epoch 194 s + eval 142 s
+E1_mnv4 best epoch 1: macro-F1 head 0.029, prototype 0.061, balanced 0.062; top-1 0.191, top-3 0.307; WHO recall 0.599, listed as not listed 0.401; ECE 0.094; 3.2 min/epoch, 9.1 min in all, data wait 77%

@@ -1,0 +1,433 @@
+{
+  "run": "E1_effb0",
+  "prototype_set": "plain",
+  "photos": {
+    "calibration": 7999,
+    "val": 17151,
+    "unknown": 451
+  },
+  "thresholds": {
+    "temperature": 1.0070819761486915,
+    "temperature_who": 1.037795157748109,
+    "theta_d": 0.02517771796200183,
+    "theta_who": 0.6736856720820154,
+    "tau_unknown": 0.40290223530364094,
+    "theta_conf": 0.26081170681861077,
+    "theta_v": 0.5,
+    "theta_genus": 0.5
+  },
+  "fit": {
+    "photos": 7999,
+    "classes": 111,
+    "not_in_calibration": [
+      "Dendrelaphis grandoculis",
+      "Hydrophis ornatus",
+      "Hydrophis lapemoides",
+      "Gloydius himalayanus",
+      "Xylophis perroteti",
+      "Craspedocephalus travancoricus",
+      "Ahaetulla sahyadrensis",
+      "Ophiophagus kaalinga",
+      "Rhabdophis leonardi",
+      "Oligodon albocinctus",
+      "Bungarus niger",
+      "Pseudoindotyphlops porrectus",
+      "Trimeresurus andersonii",
+      "Dieurostus dussumieri",
+      "Melanophidium wynaudense",
+      "Sinomicrurus macclellandi",
+      "Uropeltis phipsonii",
+      "Pareas monticola",
+      "Lycodon septentrionalis",
+      "Lycodon jara",
+      "Sahyadriophis uttaraghati",
+      "Dendrelaphis andamanensis",
+      "Herpetoreas platyceps",
+      "Melanophidium khairei",
+      "Dendrelaphis ashoki",
+      "Calliophis melanurus",
+      "Platyplectrurus madurensis",
+      "Platyceps ventromaculatus",
+      "Trimeresurus salazar",
+      "Hebius khasiensis",
+      "Boiga multifasciata",
+      "Gongylosoma calamaria",
+      "Uropeltis ocellata",
+      "Lycodon zawi",
+      "Elaphe cantoris",
+      "Ahaetulla anomala",
+      "Calliophis bibroni",
+      "Oligodon affinis",
+      "Lycodon hypsirhinoides",
+      "Naja oxiana",
+      "Lycodon bicolor",
+      "Rhabdops aquaticus",
+      "Hydrophis spiralis",
+      "Uropeltis ellioti",
+      "Psammophis leithii",
+      "Lycodon flavicollis",
+      "Platyceps bholanathi",
+      "Plectrurus perroteti",
+      "Oligodon cyclurus",
+      "Boiga stoliczkae",
+      "Ahaetulla laudankia",
+      "Uropeltis ceylanica",
+      "Spalerosophis atriceps",
+      "Archelaphe bella",
+      "Ahaetulla perroteti",
+      "Ovophis zayuensis",
+      "Boiga andamanensis",
+      "Rhabdophis bindi",
+      "Boiga dightoni",
+      "Psammophis longifrons",
+      "Ferania sieboldii",
+      "Rhabdops olivaceus",
+      "Gongylosoma scriptum",
+      "Bungarus bungaroides",
+      "Bungarus walli",
+      "Psammophis condanarus",
+      "Trimeresurus medoensis",
+      "Wallaceophis gujaratensis",
+      "Bungarus andamanensis",
+      "Rhinophis melanoleucus",
+      "Platyceps gracilis",
+      "Rhinophis karinthandani",
+      "Platyceps josephi"
+    ],
+    "who_listed_photos": 566,
+    "who_dangerous_recall": 0.950530035335689,
+    "false_alarm": 0.4253456221198157,
+    "tau_pass_share": 0.9501187648456056,
+    "o4_answered_share": 0.8001000125015627,
+    "o4_error": 0.31,
+    "o4_verdict_answered_share": 0.9604950618827354
+  },
+  "danger_signals": {
+    "species_mass_only": {
+      "theta_d": 0.021663852251091728,
+      "theta_who": Infinity,
+      "calibration": {
+        "who_recall": 0.950530035335689,
+        "false_alarm": 0.4394777265745008
+      },
+      "validation": {
+        "who_recall": 0.972782731112154,
+        "false_alarm": 0.5018061408789886
+      }
+    },
+    "who_head_only": {
+      "theta_d": Infinity,
+      "theta_who": 0.05086997498064997,
+      "calibration": {
+        "who_recall": 0.950530035335689,
+        "false_alarm": 0.6188940092165899
+      },
+      "validation": {
+        "who_recall": 0.9685593618019709,
+        "false_alarm": 0.6137116195063215
+      }
+    },
+    "joint": {
+      "theta_d": 0.02517771796200183,
+      "theta_who": 0.6736856720820154,
+      "calibration": {
+        "who_recall": 0.950530035335689,
+        "false_alarm": 0.4253456221198157
+      },
+      "validation": {
+        "who_recall": 0.9671515720319099,
+        "false_alarm": 0.4826158940397351
+      }
+    }
+  },
+  "calibration": {
+    "before": {
+      "ece": 0.027249089886325288,
+      "aurc": 0.25326517222309325,
+      "error_at_80": 0.42307411996210187
+    },
+    "after": {
+      "ece": 0.024119884288654816,
+      "aurc": 0.2532567726258666,
+      "error_at_80": 0.42307411996210187
+    }
+  },
+  "o4_point": {
+    "answered_share": 0.7582065185703457,
+    "error": 0.4060289141802522,
+    "verdict_answered_share": 0.9507900413970031
+  },
+  "verdicts": {
+    "val": {
+      "total": 17151,
+      "dangerous": 10120,
+      "not_listed": 6187,
+      "unknown": 844,
+      "reasons": {
+        "who_listed_mass": 8983,
+        "who_head": 3173,
+        "top_species_dangerous": 4886,
+        "venomous_family_mass": 3752,
+        "dangerous_genus": 6,
+        "no_snake": 0,
+        "unclear_between_species": 790,
+        "unfamiliar": 117,
+        "poor_image": 0
+      }
+    },
+    "unknown": {
+      "total": 451,
+      "dangerous": 268,
+      "not_listed": 135,
+      "unknown": 48,
+      "reasons": {
+        "who_listed_mass": 230,
+        "who_head": 51,
+        "top_species_dangerous": 124,
+        "venomous_family_mass": 84,
+        "dangerous_genus": 0,
+        "no_snake": 0,
+        "unclear_between_species": 47,
+        "unfamiliar": 2,
+        "poor_image": 0
+      }
+    }
+  },
+  "verdict_metrics": {
+    "who_dangerous_recall": 0.9671515720319099,
+    "false_alarm": 0.4826158940397351,
+    "false_alarm_outside_table": 0.4733137376237624,
+    "venomous_recall": 0.9596168780740357,
+    "venomous_as_not_listed": 0.031063939943049443,
+    "table_dangerous_recall": 0.9474307364432868,
+    "who_recall_raw": 0.6729235100891601,
+    "abstain_rate": 0.04920995860299691,
+    "o3": {
+      "dangerous_as_not_listed_all": 0.024401689347724072,
+      "dangerous_as_not_listed_answered": 0.024609559867486985,
+      "coverage_listed": 0.991553261379634,
+      "top1_error_raw": 0.32707648991084
+    }
+  },
+  "intervals": {
+    "who_dangerous_recall": [
+      0.9556442542136734,
+      0.9778948938581222
+    ],
+    "false_alarm": [
+      0.46274375025274317,
+      0.5041799698095322
+    ],
+    "venomous_recall": [
+      0.9507658728548387,
+      0.9680359037948806
+    ],
+    "dangerous_as_not_listed_all": [
+      0.01568423767026173,
+      0.0333052424207007
+    ]
+  },
+  "fallback": {
+    "genus": {
+      "unknown_photos": 844,
+      "shown": 190,
+      "shown_share": 0.22511848341232227,
+      "correct": 0.5157894736842106
+    },
+    "family": {
+      "unknown_photos": 844,
+      "shown": 763,
+      "shown_share": 0.9040284360189573,
+      "correct": 0.7981651376146789
+    },
+    "taxonomy": {
+      "genus_acc_summed": 0.5698210016908635,
+      "genus_acc_head": 0.5508716692904204,
+      "disagreement_genus": 0.2177132528715527,
+      "family_acc_summed": 0.7680601714185762,
+      "family_acc_head": 0.7294618389598274,
+      "disagreement_family": 0.1437817036907469
+    }
+  },
+  "u1": {
+    "scores": "higher means more likely unknown: msp = -max softmax (temperature-scaled), energy = -logsumexp of the raw species logits, prototype_distance = 1 - best prototype cosine, cosine_margin = -(best - second-best prototype cosine)",
+    "o4_target_flagged": 0.7,
+    "groups": {
+      "all": {
+        "photos": 451,
+        "species": 49,
+        "open_set": {
+          "msp": {
+            "auroc": 0.6407029462188017,
+            "fpr95": 0.7671272812080928
+          },
+          "energy": {
+            "auroc": 0.6087316765482442,
+            "fpr95": 0.8078829222785844
+          },
+          "prototype_distance": {
+            "auroc": 0.5533785531695061,
+            "fpr95": 0.8744096554136785
+          },
+          "cosine_margin": {
+            "auroc": 0.5575738442200043,
+            "fpr95": 0.8693953705323305
+          }
+        },
+        "flagged_at_tau": 0.04878048780487805,
+        "verdicts": {
+          "total": 451,
+          "dangerous": 268,
+          "not_listed": 135,
+          "unknown": 48,
+          "reasons": {
+            "who_listed_mass": 230,
+            "who_head": 51,
+            "top_species_dangerous": 124,
+            "venomous_family_mass": 84,
+            "dangerous_genus": 0,
+            "no_snake": 0,
+            "unclear_between_species": 47,
+            "unfamiliar": 2,
+            "poor_image": 0
+          }
+        }
+      },
+      "known_genus": {
+        "photos": 422,
+        "species": 42,
+        "open_set": {
+          "msp": {
+            "auroc": 0.6428659459426599,
+            "fpr95": 0.7642119993003323
+          },
+          "energy": {
+            "auroc": 0.603017772719096,
+            "fpr95": 0.8103900647192583
+          },
+          "prototype_distance": {
+            "auroc": 0.5493413535363751,
+            "fpr95": 0.8744096554136785
+          },
+          "cosine_margin": {
+            "auroc": 0.5640553754344253,
+            "fpr95": 0.8665966999008804
+          }
+        },
+        "flagged_at_tau": 0.04265402843601896,
+        "verdicts": {
+          "total": 422,
+          "dangerous": 252,
+          "not_listed": 125,
+          "unknown": 45,
+          "reasons": {
+            "who_listed_mass": 215,
+            "who_head": 51,
+            "top_species_dangerous": 118,
+            "venomous_family_mass": 80,
+            "dangerous_genus": 0,
+            "no_snake": 0,
+            "unclear_between_species": 44,
+            "unfamiliar": 1,
+            "poor_image": 0
+          }
+        }
+      },
+      "unknown_genus": {
+        "photos": 29,
+        "species": 7,
+        "open_set": {
+          "msp": {
+            "auroc": 0.6092275709267982,
+            "fpr95": 0.7671272812080928
+          },
+          "energy": {
+            "auroc": 0.691878828820678,
+            "fpr95": 0.7312693137426389
+          },
+          "prototype_distance": {
+            "auroc": 0.6121267685205849,
+            "fpr95": 0.7810040230890327
+          },
+          "cosine_margin": {
+            "auroc": 0.4632563899963609,
+            "fpr95": 0.9581365518045595
+          }
+        },
+        "flagged_at_tau": 0.13793103448275862,
+        "verdicts": {
+          "total": 29,
+          "dangerous": 16,
+          "not_listed": 10,
+          "unknown": 3,
+          "reasons": {
+            "who_listed_mass": 15,
+            "who_head": 0,
+            "top_species_dangerous": 6,
+            "venomous_family_mass": 4,
+            "dangerous_genus": 0,
+            "no_snake": 0,
+            "unclear_between_species": 3,
+            "unfamiliar": 1,
+            "poor_image": 0
+          }
+        }
+      }
+    },
+    "who_listed_species": {
+      "Bungarus sindanus": {
+        "photos": 16,
+        "who_risk_id": 1,
+        "genus_known": true,
+        "flagged_at_tau": 0.125,
+        "verdicts": {
+          "total": 16,
+          "dangerous": 15,
+          "not_listed": 1,
+          "unknown": 0,
+          "reasons": {
+            "who_listed_mass": 15,
+            "who_head": 2,
+            "top_species_dangerous": 10,
+            "venomous_family_mass": 6,
+            "dangerous_genus": 0,
+            "no_snake": 0,
+            "unclear_between_species": 0,
+            "unfamiliar": 0,
+            "poor_image": 0
+          }
+        }
+      },
+      "Naja sagittifera": {
+        "photos": 3,
+        "who_risk_id": 1,
+        "genus_known": true,
+        "flagged_at_tau": 0.0,
+        "verdicts": {
+          "total": 3,
+          "dangerous": 3,
+          "not_listed": 0,
+          "unknown": 0,
+          "reasons": {
+            "who_listed_mass": 3,
+            "who_head": 3,
+            "top_species_dangerous": 3,
+            "venomous_family_mass": 3,
+            "dangerous_genus": 0,
+            "no_snake": 0,
+            "unclear_between_species": 0,
+            "unfamiliar": 0,
+            "poor_image": 0
+          }
+        }
+      }
+    },
+    "non_snake_objects": "skipped (plan section 14.8): the unknown pool holds no non-snake photos"
+  },
+  "poor_image": "not available",
+  "no_snake": {
+    "val": 0,
+    "unknown": 0,
+    "source": "not available: no front-end result, so every photo was scored as showing a snake"
+  }
+}

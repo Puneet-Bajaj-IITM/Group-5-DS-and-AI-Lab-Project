@@ -1,0 +1,160 @@
+{
+  "split": "test",
+  "photos": 600,
+  "scored_once": true,
+  "photos_per_category": {
+    "person": 180,
+    "rope_hose_belt": 60,
+    "tshirt": 60,
+    "other_animal": 60,
+    "hand_arm": 60,
+    "cat": 40,
+    "dog": 40,
+    "eel": 40,
+    "legless_lizard": 20,
+    "caecilian": 20,
+    "earthworm": 20
+  },
+  "photo_files": "re-made on the team laptop from manifest.csv's source urls by scripts/fetch_non_snake_test.py, with notebook 19's negatives.save_photo; every one matches the manifest's size and pHash",
+  "photo_check": {
+    "saved": 600,
+    "size_mismatches": 0,
+    "phash_over_limit": 0,
+    "phash_limit": 8
+  },
+  "g4": {
+    "goal": 0.05,
+    "gate": "M4 both",
+    "false_snake_rate": 0.2833333333333333,
+    "passed": false,
+    "val_false_snake_rate": 0.2733333333333333,
+    "val_snake_recall": 0.9827998367442131
+  },
+  "rules": {
+    "M4 both": {
+      "front_end": "M4",
+      "rule": "both",
+      "thresholds": {
+        "box_conf": 0.00499307457357645,
+        "mask_area": 4.8e-05
+      },
+      "thresholds_from": "gate.json (the picked gate)",
+      "picked": true,
+      "false_snake_rate": 0.2833333333333333,
+      "called_a_snake": 170,
+      "by_category": {
+        "caecilian": 0.95,
+        "cat": 0.025,
+        "dog": 0.05,
+        "earthworm": 1.0,
+        "eel": 0.975,
+        "hand_arm": 0.0833,
+        "legless_lizard": 1.0,
+        "other_animal": 0.4333,
+        "person": 0.0889,
+        "rope_hose_belt": 0.2833,
+        "tshirt": 0.0833
+      }
+    },
+    "M4 box": {
+      "front_end": "M4",
+      "rule": "box",
+      "thresholds": {
+        "box_conf": 0.085111
+      },
+      "thresholds_from": "gates.csv",
+      "picked": false,
+      "false_snake_rate": 0.4066666666666667,
+      "called_a_snake": 244,
+      "by_category": {
+        "caecilian": 1.0,
+        "cat": 0.25,
+        "dog": 0.175,
+        "earthworm": 1.0,
+        "eel": 0.975,
+        "hand_arm": 0.2333,
+        "legless_lizard": 1.0,
+        "other_animal": 0.65,
+        "person": 0.2167,
+        "rope_hose_belt": 0.3333,
+        "tshirt": 0.2667
+      }
+    },
+    "M4 mask": {
+      "front_end": "M4",
+      "rule": "mask",
+      "thresholds": {
+        "mask_area": 4.8e-05
+      },
+      "thresholds_from": "gates.csv",
+      "picked": false,
+      "false_snake_rate": 0.2833333333333333,
+      "called_a_snake": 170,
+      "by_category": {
+        "caecilian": 0.95,
+        "cat": 0.025,
+        "dog": 0.05,
+        "earthworm": 1.0,
+        "eel": 0.975,
+        "hand_arm": 0.0833,
+        "legless_lizard": 1.0,
+        "other_animal": 0.4333,
+        "person": 0.0889,
+        "rope_hose_belt": 0.2833,
+        "tshirt": 0.0833
+      }
+    },
+    "M3 box": {
+      "front_end": "M3",
+      "rule": "box",
+      "thresholds": {
+        "box_conf": 0.101952
+      },
+      "thresholds_from": "gates.csv (before)",
+      "picked": false,
+      "false_snake_rate": 0.9566666666666667,
+      "called_a_snake": 574,
+      "by_category": {
+        "caecilian": 1.0,
+        "cat": 1.0,
+        "dog": 0.975,
+        "earthworm": 1.0,
+        "eel": 0.975,
+        "hand_arm": 0.9,
+        "legless_lizard": 1.0,
+        "other_animal": 0.9833,
+        "person": 0.9333,
+        "rope_hose_belt": 0.95,
+        "tshirt": 0.9667
+      }
+    }
+  },
+  "val_by_category_for_the_gate": {
+    "caecilian": 1.0,
+    "cat": 0.075,
+    "dog": 0.05,
+    "earthworm": 1.0,
+    "eel": 0.95,
+    "hand_arm": 0.0667,
+    "legless_lizard": 1.0,
+    "other_animal": 0.4167,
+    "person": 0.0833,
+    "rope_hose_belt": 0.25,
+    "tshirt": 0.0333
+  },
+  "nothing_fitted_here": "every cut-off comes from notebook 20's calibration fit (gate.json, gates.csv)",
+  "device": "cpu",
+  "segmenter_precision": "float32",
+  "precision_note": "the cut-offs were fitted in notebook 20 on Kaggle T4 scores, where the U-Net ran in float16; this scoring runs on a CPU in float32 (mask IoU 0.9995 between the two, measured on the team laptop); the detector runs in float32 in both",
+  "weights_sha256": {
+    "M4 detector": "29a1ad1c1b9b561c35ef4ffa1916998837c3c78525c21b51668d9d0e95607b61",
+    "M4 segmenter": "b881c338356bdf44aa0b45e0306f59d7b38252d04316da2455c40055aef656ec",
+    "M3 detector": "099b36bd8271c328b60be8152161f74558a0083ebe4e6fec1f558e7c0951c5b0",
+    "M3 segmenter": "f7646444ec409614e992cd7a112a1c2c47fd81a1dc62afea54f50f83664abf3f"
+  },
+  "code_commit": "7589bd1c02f5b4183a37ec700239ba5edcaf0724",
+  "script_sha256": "2a69ad5c9e781c070d98a5b18d61bb1d9cd08f2467bdd816ed5401629a894469",
+  "scores_csv": "non_snake_test_scores.csv, written by scripts/score_non_snake_test.py and kept outside the repo",
+  "scores_csv_sha256": "04980df6c825585ba55215355cdd744ab426444bfacc38e0ef53c3666a013d96",
+  "minutes": 1.6
+}

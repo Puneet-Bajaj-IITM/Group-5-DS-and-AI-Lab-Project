@@ -1,0 +1,13 @@
+retriever,baseline,style,n,only_retriever,only_baseline,p_sign_test
+R0,R1,all,60,14,18,0.5966
+R0,R1,keyword,20,0,14,0.0001
+R0,R1,paraphrase,20,7,1,0.0703
+R0,R1,verdict,20,7,3,0.3438
+R2-L6,R1,all,60,20,7,0.0192
+R2-L6,R1,keyword,20,1,4,0.3750
+R2-L6,R1,paraphrase,20,11,0,0.0010
+R2-L6,R1,verdict,20,8,3,0.2266
+R2-L3,R1,all,60,13,9,0.5235
+R2-L3,R1,keyword,20,0,5,0.0625
+R2-L3,R1,paraphrase,20,8,0,0.0078
+R2-L3,R1,verdict,20,5,4,1.0000

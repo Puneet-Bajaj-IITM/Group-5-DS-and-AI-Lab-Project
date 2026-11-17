@@ -1,0 +1,12 @@
+category,lookalike,photos_val,m3_both_val,m4_both_val,photos_test,m3_box_test,m4_both_test,source
+caecilian,True,20,1.0,1.0,20,1.0,0.95,results/m4/gate/fpr_by_category.csv; results/m4/gate/non_snake_test.json
+cat,False,40,0.975,0.075,40,1.0,0.025,results/m4/gate/fpr_by_category.csv; results/m4/gate/non_snake_test.json
+dog,False,40,0.95,0.05,40,0.975,0.05,results/m4/gate/fpr_by_category.csv; results/m4/gate/non_snake_test.json
+earthworm,True,20,1.0,1.0,20,1.0,1.0,results/m4/gate/fpr_by_category.csv; results/m4/gate/non_snake_test.json
+eel,True,40,0.975,0.95,40,0.975,0.975,results/m4/gate/fpr_by_category.csv; results/m4/gate/non_snake_test.json
+hand_arm,False,60,0.9833333333333333,0.06666666666666667,60,0.9,0.0833,results/m4/gate/fpr_by_category.csv; results/m4/gate/non_snake_test.json
+legless_lizard,True,20,1.0,1.0,20,1.0,1.0,results/m4/gate/fpr_by_category.csv; results/m4/gate/non_snake_test.json
+other_animal,False,60,0.9833333333333333,0.4166666666666667,60,0.9833,0.4333,results/m4/gate/fpr_by_category.csv; results/m4/gate/non_snake_test.json
+person,False,180,0.9277777777777778,0.08333333333333333,180,0.9333,0.0889,results/m4/gate/fpr_by_category.csv; results/m4/gate/non_snake_test.json
+rope_hose_belt,False,60,0.9666666666666667,0.25,60,0.95,0.2833,results/m4/gate/fpr_by_category.csv; results/m4/gate/non_snake_test.json
+tshirt,False,60,0.9666666666666667,0.03333333333333333,60,0.9667,0.0833,results/m4/gate/fpr_by_category.csv; results/m4/gate/non_snake_test.json

@@ -1,0 +1,180 @@
+{
+  "path": "val/ophiophagus_hannah/inaturalist_469322902.jpg",
+  "species": "Ophiophagus hannah",
+  "class_id": 47,
+  "license": "cc-by-nc",
+  "attribution": "(c) yolkyellow, some rights reserved (CC BY-NC)",
+  "expected": "dangerous",
+  "who_listed": true,
+  "venomous_family": true,
+  "failure": null,
+  "verdict": "dangerous",
+  "message": "dangerous: could be a WHO-listed species: Naja naja (Category 1)",
+  "note": "could be a WHO-listed species: Naja naja (Category 1)",
+  "reason": [
+    "who_listed_mass"
+  ],
+  "top3": [
+    [
+      "Ptyas mucosa",
+      0.5921
+    ],
+    [
+      "Naja naja",
+      0.0614
+    ],
+    [
+      "Coelognathus helena",
+      0.0471
+    ]
+  ],
+  "genus_fallback": null,
+  "margin": 0.5307305296332394,
+  "snake_found": true,
+  "card": {
+    "id": "card-008",
+    "source": "SerpentGuard species card",
+    "page": null,
+    "citation": "SerpentGuard species card"
+  },
+  "passages": [
+    {
+      "id": "who-110-01",
+      "source": "WHO SEARO 2016",
+      "page": 110,
+      "citation": "WHO SEARO 2016, PDF p. 110 (printed p. 107)"
+    },
+    {
+      "id": "who-119-04",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-118-04",
+      "source": "WHO SEARO 2016",
+      "page": 118,
+      "citation": "WHO SEARO 2016, PDF p. 118 (printed p. 115)"
+    },
+    {
+      "id": "who-119-03",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-120-02",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    },
+    {
+      "id": "who-120-05",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    },
+    {
+      "id": "card-008",
+      "source": "SerpentGuard species card",
+      "page": null,
+      "citation": "SerpentGuard species card"
+    }
+  ],
+  "question_passages": [],
+  "total_ms": 83.202,
+  "clip": null,
+  "log": [
+    {
+      "node": "preprocess",
+      "ms": 7.605,
+      "summary": {
+        "mode": "RGB",
+        "size": [
+          413,
+          500
+        ],
+        "brightness": 116.2,
+        "input": [
+          320,
+          320
+        ]
+      }
+    },
+    {
+      "node": "front_end",
+      "ms": 12.625,
+      "summary": {
+        "mode": "F1 (box_crop)",
+        "box": [
+          202.1,
+          182.6,
+          242.4,
+          352.8
+        ],
+        "box_conf": 0.2738213837146759,
+        "tau_snake": 0.102,
+        "snake_found": true,
+        "input": "box_crop"
+      }
+    },
+    {
+      "node": "snakeid",
+      "ms": 62.578,
+      "summary": {
+        "backend": "torch",
+        "top1": "Ptyas mucosa",
+        "top1_raw_prob": 0.9649,
+        "outputs": [
+          "embedding",
+          "family_logits",
+          "genus_logits",
+          "species_logits",
+          "who_logits"
+        ]
+      }
+    },
+    {
+      "node": "decision",
+      "ms": 0.355,
+      "summary": {
+        "verdict": "dangerous",
+        "reason": [
+          "who_listed_mass"
+        ],
+        "top1": [
+          "Ptyas mucosa",
+          0.5921
+        ],
+        "message": "dangerous: could be a WHO-listed species: Naja naja (Category 1)"
+      }
+    },
+    {
+      "node": "response",
+      "ms": 0.015,
+      "summary": {
+        "retriever": "R0 lookup",
+        "card": "card-008",
+        "passages": [
+          "who-110-01",
+          "who-119-04",
+          "who-118-04",
+          "who-119-03",
+          "who-120-02",
+          "who-120-05",
+          "card-008"
+        ],
+        "pages": [
+          110,
+          119,
+          118,
+          119,
+          120,
+          120,
+          null
+        ]
+      }
+    }
+  ],
+  "example": "dangerous"
+}

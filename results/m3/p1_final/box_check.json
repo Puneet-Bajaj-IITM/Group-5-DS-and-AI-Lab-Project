@@ -1,0 +1,16 @@
+{
+  "source_photos": "photos.jsonl",
+  "training_boxes": "frontend_preds.csv (notebook 13, mixed batches)",
+  "minimal_rectangle_rect_true": {
+    "photos": 100,
+    "median_iou": 0.9435351571663232,
+    "min_iou": 0.21507918124240097,
+    "share_at_least_0.9": 0.82
+  },
+  "square_rect_false": {
+    "photos": 100,
+    "median_iou": 0.9990973556855762,
+    "min_iou": 0.9627581153914009,
+    "share_at_least_0.9": 1.0
+  }
+}

@@ -1,0 +1,1225 @@
+{
+  "epoch": 1,
+  "draws": 13376,
+  "total_variation": 0.04039731625465962,
+  "classes": [
+    {
+      "class_id": 0,
+      "species": "Indotyphlops braminus",
+      "expected": 0.02377280422036284,
+      "drawn": 0.023624401913875596,
+      "ratio": 0.9937574757646753
+    },
+    {
+      "class_id": 1,
+      "species": "Ahaetulla prasina",
+      "expected": 0.022262821819756768,
+      "drawn": 0.022802033492822966,
+      "ratio": 1.0242202752836878
+    },
+    {
+      "class_id": 2,
+      "species": "Ptyas mucosa",
+      "expected": 0.020185896685069128,
+      "drawn": 0.017793062200956937,
+      "ratio": 0.8814600846598954
+    },
+    {
+      "class_id": 3,
+      "species": "Protobothrops mucrosquamatus",
+      "expected": 0.017995243381136273,
+      "drawn": 0.01592404306220096,
+      "ratio": 0.8849029004460993
+    },
+    {
+      "class_id": 4,
+      "species": "Fowlea piscator",
+      "expected": 0.017662409623713158,
+      "drawn": 0.01786782296650718,
+      "ratio": 1.0116299727596758
+    },
+    {
+      "class_id": 5,
+      "species": "Psammodynastes pulverulentus",
+      "expected": 0.016572901470860643,
+      "drawn": 0.016073564593301434,
+      "ratio": 0.9698702802018603
+    },
+    {
+      "class_id": 6,
+      "species": "Chrysopelea ornata",
+      "expected": 0.014003775866293932,
+      "drawn": 0.01270933014354067,
+      "ratio": 0.9075645215181644
+    },
+    {
+      "class_id": 7,
+      "species": "Malayopython reticulatus",
+      "expected": 0.013841407758945577,
+      "drawn": 0.013307416267942584,
+      "ratio": 0.9614207239391616
+    },
+    {
+      "class_id": 8,
+      "species": "Naja naja",
+      "expected": 0.02121194981403271,
+      "drawn": 0.020933014354066987,
+      "ratio": 0.9868500792048266
+    },
+    {
+      "class_id": 9,
+      "species": "Ptyas korros",
+      "expected": 0.012735657237984001,
+      "drawn": 0.01173744019138756,
+      "ratio": 0.9216202958399927
+    },
+    {
+      "class_id": 10,
+      "species": "Amphiesma stolatum",
+      "expected": 0.012489209617022112,
+      "drawn": 0.012036483253588517,
+      "ratio": 0.9637505993320383
+    },
+    {
+      "class_id": 11,
+      "species": "Elaphe taeniura",
+      "expected": 0.012443876583160015,
+      "drawn": 0.011513157894736841,
+      "ratio": 0.9252066924480197
+    },
+    {
+      "class_id": 12,
+      "species": "Python bivittatus",
+      "expected": 0.011524294417335487,
+      "drawn": 0.011513157894736841,
+      "ratio": 0.9990336482047966
+    },
+    {
+      "class_id": 13,
+      "species": "Laticauda colubrina",
+      "expected": 0.011450498816904471,
+      "drawn": 0.011961722488038277,
+      "ratio": 1.044646410545808
+    },
+    {
+      "class_id": 14,
+      "species": "Rhabdophis helleri",
+      "expected": 0.01038955861023186,
+      "drawn": 0.010316985645933014,
+      "ratio": 0.9930148173737261
+    },
+    {
+      "class_id": 15,
+      "species": "Craspedocephalus malabaricus",
+      "expected": 0.013803844122896728,
+      "drawn": 0.01457834928229665,
+      "ratio": 1.0561079328703251
+    },
+    {
+      "class_id": 16,
+      "species": "Echis carinatus",
+      "expected": 0.016404268479671313,
+      "drawn": 0.015699760765550238,
+      "ratio": 0.9570533904029842
+    },
+    {
+      "class_id": 17,
+      "species": "Daboia russelii",
+      "expected": 0.015590320282550696,
+      "drawn": 0.013980263157894737,
+      "ratio": 0.8967271296884132
+    },
+    {
+      "class_id": 18,
+      "species": "Lycodon aulicus",
+      "expected": 0.009207167483811469,
+      "drawn": 0.010316985645933014,
+      "ratio": 1.1205385004750796
+    },
+    {
+      "class_id": 19,
+      "species": "Xenopeltis unicolor",
+      "expected": 0.009207167483811469,
+      "drawn": 0.008597488038277512,
+      "ratio": 0.9337820837292329
+    },
+    {
+      "class_id": 20,
+      "species": "Dendrelaphis tristis",
+      "expected": 0.009479359105944479,
+      "drawn": 0.010017942583732058,
+      "ratio": 1.0568164442098027
+    },
+    {
+      "class_id": 21,
+      "species": "Gonyosoma oxycephalum",
+      "expected": 0.009207167483811469,
+      "drawn": 0.010092703349282297,
+      "ratio": 1.096178967856056
+    },
+    {
+      "class_id": 22,
+      "species": "Craspedocephalus gramineus",
+      "expected": 0.011209702779155482,
+      "drawn": 0.010466507177033494,
+      "ratio": 0.9337006862033875
+    },
+    {
+      "class_id": 23,
+      "species": "Bungarus fasciatus",
+      "expected": 0.012136185361186644,
+      "drawn": 0.012335526315789474,
+      "ratio": 1.0164253386603959
+    },
+    {
+      "class_id": 24,
+      "species": "Coelognathus helena",
+      "expected": 0.008734686014245714,
+      "drawn": 0.010167464114832535,
+      "ratio": 1.1640331545117995
+    },
+    {
+      "class_id": 25,
+      "species": "Coelognathus radiatus",
+      "expected": 0.008471928352120435,
+      "drawn": 0.007326555023923445,
+      "ratio": 0.864803704588659
+    },
+    {
+      "class_id": 26,
+      "species": "Python molurus",
+      "expected": 0.008538375866900068,
+      "drawn": 0.008223684210526315,
+      "ratio": 0.9631438506246031
+    },
+    {
+      "class_id": 27,
+      "species": "Oreocryptophis porphyraceus",
+      "expected": 0.008337444759724845,
+      "drawn": 0.007999401913875598,
+      "ratio": 0.9594548622999929
+    },
+    {
+      "class_id": 28,
+      "species": "Hydrophis platurus",
+      "expected": 0.008404955536019372,
+      "drawn": 0.007401315789473684,
+      "ratio": 0.8805895233776553
+    },
+    {
+      "class_id": 29,
+      "species": "Bungarus caeruleus",
+      "expected": 0.013176225519378007,
+      "drawn": 0.012559808612440191,
+      "ratio": 0.9532174896345494
+    },
+    {
+      "class_id": 30,
+      "species": "Hypnale hypnale",
+      "expected": 0.01272944320627082,
+      "drawn": 0.015325956937799043,
+      "ratio": 1.2039770074349458
+    },
+    {
+      "class_id": 31,
+      "species": "Ahaetulla oxyrhynca",
+      "expected": 0.007812540675988047,
+      "drawn": 0.008821770334928229,
+      "ratio": 1.1291807237614857
+    },
+    {
+      "class_id": 32,
+      "species": "Oligodon taeniolatus",
+      "expected": 0.007703268991309382,
+      "drawn": 0.007476076555023923,
+      "ratio": 0.9705070098757073
+    },
+    {
+      "class_id": 33,
+      "species": "Macrovipera lebetinus",
+      "expected": 0.010448816804176194,
+      "drawn": 0.010541267942583732,
+      "ratio": 1.0088480007009584
+    },
+    {
+      "class_id": 34,
+      "species": "Xenochrophis trianguligerus",
+      "expected": 0.007555115371089302,
+      "drawn": 0.0067284688995215315,
+      "ratio": 0.8905845336616502
+    },
+    {
+      "class_id": 35,
+      "species": "Pareas carinatus",
+      "expected": 0.007249730926487702,
+      "drawn": 0.0067284688995215315,
+      "ratio": 0.9280991208843791
+    },
+    {
+      "class_id": 36,
+      "species": "Laticauda laticaudata",
+      "expected": 0.007210648534353379,
+      "drawn": 0.0067284688995215315,
+      "ratio": 0.9331295052678521
+    },
+    {
+      "class_id": 37,
+      "species": "Boiga multomaculata",
+      "expected": 0.007131841266108853,
+      "drawn": 0.007476076555023923,
+      "ratio": 1.0482673794986026
+    },
+    {
+      "class_id": 38,
+      "species": "Coelognathus flavolineatus",
+      "expected": 0.006971554701999714,
+      "drawn": 0.007102272727272727,
+      "ratio": 1.0187501971741708
+    },
+    {
+      "class_id": 39,
+      "species": "Eryx conicus",
+      "expected": 0.006848878470339156,
+      "drawn": 0.007102272727272727,
+      "ratio": 1.0369979198829358
+    },
+    {
+      "class_id": 40,
+      "species": "Naja kaouthia",
+      "expected": 0.010276892803128006,
+      "drawn": 0.010242224880382775,
+      "ratio": 0.9966266143464414
+    },
+    {
+      "class_id": 41,
+      "species": "Ahaetulla borealis",
+      "expected": 0.006639382892933401,
+      "drawn": 0.006055622009569378,
+      "ratio": 0.9120760328515853
+    },
+    {
+      "class_id": 42,
+      "species": "Psammophis schokari",
+      "expected": 0.006466901910264134,
+      "drawn": 0.006429425837320574,
+      "ratio": 0.9942049418000173
+    },
+    {
+      "class_id": 43,
+      "species": "Lycodon travancoricus",
+      "expected": 0.006289692793370682,
+      "drawn": 0.005980861244019139,
+      "ratio": 0.9508987863958871
+    },
+    {
+      "class_id": 44,
+      "species": "Enhydris enhydris",
+      "expected": 0.0061073439851526525,
+      "drawn": 0.0065041866028708135,
+      "ratio": 1.0649779378209105
+    },
+    {
+      "class_id": 45,
+      "species": "Pseudoxenodon macrops",
+      "expected": 0.005966926502939447,
+      "drawn": 0.005532296650717704,
+      "ratio": 0.9271601800344558
+    },
+    {
+      "class_id": 46,
+      "species": "Lycodon fasciolatus",
+      "expected": 0.005919380514123204,
+      "drawn": 0.005382775119617225,
+      "ratio": 0.9093477107569486
+    },
+    {
+      "class_id": 47,
+      "species": "Ophiophagus hannah",
+      "expected": 0.008307141031646646,
+      "drawn": 0.008821770334928229,
+      "ratio": 1.0619502306896038
+    },
+    {
+      "class_id": 48,
+      "species": "Boiga cyanea",
+      "expected": 0.005919380514123204,
+      "drawn": 0.00583133971291866,
+      "ratio": 0.9851266866533609
+    },
+    {
+      "class_id": 49,
+      "species": "Oligodon arnensis",
+      "expected": 0.0057252494084522355,
+      "drawn": 0.006429425837320574,
+      "ratio": 1.1229948913367436
+    },
+    {
+      "class_id": 50,
+      "species": "Euprepiophis mandarinus",
+      "expected": 0.0057743940815883354,
+      "drawn": 0.006130382775119617,
+      "ratio": 1.0616495321416237
+    },
+    {
+      "class_id": 51,
+      "species": "Boiga trigonata",
+      "expected": 0.005575216778519341,
+      "drawn": 0.005756578947368421,
+      "ratio": 1.0325300658349013
+    },
+    {
+      "class_id": 52,
+      "species": "Eryx johnii",
+      "expected": 0.0052623345393926985,
+      "drawn": 0.006205143540669857,
+      "ratio": 1.1791617378597834
+    },
+    {
+      "class_id": 53,
+      "species": "Sahyadriophis beddomei",
+      "expected": 0.005421033431550157,
+      "drawn": 0.005008971291866029,
+      "ratio": 0.9239882681250504
+    },
+    {
+      "class_id": 54,
+      "species": "Rhabdophis plumbicolor",
+      "expected": 0.005098698475394114,
+      "drawn": 0.004934210526315789,
+      "ratio": 0.9677392279868814
+    },
+    {
+      "class_id": 55,
+      "species": "Ahaetulla farnsworthi",
+      "expected": 0.005315760625252521,
+      "drawn": 0.005083732057416268,
+      "ratio": 0.9563508246150134
+    },
+    {
+      "class_id": 56,
+      "species": "Dendrelaphis chairecacos",
+      "expected": 0.0045727901940160074,
+      "drawn": 0.005158492822966507,
+      "ratio": 1.1280842995414386
+    },
+    {
+      "class_id": 57,
+      "species": "Acrochordus granulatus",
+      "expected": 0.004510572462336599,
+      "drawn": 0.004186602870813397,
+      "ratio": 0.9281755045000704
+    },
+    {
+      "class_id": 58,
+      "species": "Atretium schistosum",
+      "expected": 0.004447484425772567,
+      "drawn": 0.004111842105263158,
+      "ratio": 0.9245320976135615
+    },
+    {
+      "class_id": 59,
+      "species": "Protobothrops jerdonii",
+      "expected": 0.0045727901940160074,
+      "drawn": 0.004336124401913876,
+      "ratio": 0.9482447735275862
+    },
+    {
+      "class_id": 60,
+      "species": "Platyceps rhodorachis",
+      "expected": 0.0043834885076831035,
+      "drawn": 0.004186602870813397,
+      "ratio": 0.9550847147141786
+    },
+    {
+      "class_id": 61,
+      "species": "Spalerosophis diadema",
+      "expected": 0.0043834885076831035,
+      "drawn": 0.004186602870813397,
+      "ratio": 0.9550847147141786
+    },
+    {
+      "class_id": 62,
+      "species": "Hypsiscopus plumbeus",
+      "expected": 0.0041856341019600295,
+      "drawn": 0.004410885167464114,
+      "ratio": 1.0538152786452608
+    },
+    {
+      "class_id": 63,
+      "species": "Hydrophis schistosus",
+      "expected": 0.004252608500202016,
+      "drawn": 0.004186602870813397,
+      "ratio": 0.984478790044867
+    },
+    {
+      "class_id": 64,
+      "species": "Lycodon striatus",
+      "expected": 0.0043834885076831035,
+      "drawn": 0.005083732057416268,
+      "ratio": 1.1597457250100738
+    },
+    {
+      "class_id": 65,
+      "species": "Ahaetulla malabarica",
+      "expected": 0.004447484425772567,
+      "drawn": 0.005083732057416268,
+      "ratio": 1.1430578661404034
+    },
+    {
+      "class_id": 66,
+      "species": "Boiga forsteni",
+      "expected": 0.0041856341019600295,
+      "drawn": 0.004111842105263158,
+      "ratio": 0.982370175008294
+    },
+    {
+      "class_id": 67,
+      "species": "Boiga nuchalis",
+      "expected": 0.004117570474805627,
+      "drawn": 0.003438995215311005,
+      "ratio": 0.8352000861559862
+    },
+    {
+      "class_id": 68,
+      "species": "Dendrelaphis cyanochloris",
+      "expected": 0.004117570474805627,
+      "drawn": 0.004709928229665072,
+      "ratio": 1.1438609875614594
+    },
+    {
+      "class_id": 69,
+      "species": "Gonyosoma frenatum",
+      "expected": 0.004048362680700846,
+      "drawn": 0.004410885167464114,
+      "ratio": 1.089547927237712
+    },
+    {
+      "class_id": 70,
+      "species": "Boiga siamensis",
+      "expected": 0.003977951001959632,
+      "drawn": 0.004410885167464114,
+      "ratio": 1.1088334585547206
+    },
+    {
+      "class_id": 71,
+      "species": "Sibynophis collaris",
+      "expected": 0.003906270337994023,
+      "drawn": 0.0036632775119617225,
+      "ratio": 0.9377941604120814
+    },
+    {
+      "class_id": 72,
+      "species": "Lycodon fasciatus",
+      "expected": 0.0038332495004880962,
+      "drawn": 0.004709928229665072,
+      "ratio": 1.2287038005392934
+    },
+    {
+      "class_id": 73,
+      "species": "Craspedocephalus anamallensis",
+      "expected": 0.003906270337994023,
+      "drawn": 0.004037081339712919,
+      "ratio": 1.0334874420867837
+    },
+    {
+      "class_id": 74,
+      "species": "Eryx whitakeri",
+      "expected": 0.0036828669935245876,
+      "drawn": 0.0030651913875598086,
+      "ratio": 0.8322840311499684
+    },
+    {
+      "class_id": 75,
+      "species": "Trimeresurus erythrurus",
+      "expected": 0.004971870441258194,
+      "drawn": 0.004784688995215311,
+      "ratio": 0.9623519059367295
+    },
+    {
+      "class_id": 76,
+      "species": "Cerberus rynchops",
+      "expected": 0.0036828669935245876,
+      "drawn": 0.004037081339712919,
+      "ratio": 1.096178967856056
+    },
+    {
+      "class_id": 77,
+      "species": "Calliophis nigrescens",
+      "expected": 0.0037588103852804994,
+      "drawn": 0.00388755980861244,
+      "ratio": 1.034252705014364
+    },
+    {
+      "class_id": 79,
+      "species": "Fordonia leucobalia",
+      "expected": 0.0036053242671766897,
+      "drawn": 0.00291566985645933,
+      "ratio": 0.8087122378988051
+    },
+    {
+      "class_id": 80,
+      "species": "Craspedocephalus macrolepis",
+      "expected": 0.0036828669935245876,
+      "drawn": 0.003214712918660287,
+      "ratio": 0.8728832521816742
+    },
+    {
+      "class_id": 81,
+      "species": "Dendrelaphis proarchos",
+      "expected": 0.0036053242671766897,
+      "drawn": 0.004709928229665072,
+      "ratio": 1.3063813073749928
+    },
+    {
+      "class_id": 82,
+      "species": "Oligodon tillacki",
+      "expected": 0.0034450066227068024,
+      "drawn": 0.003438995215311005,
+      "ratio": 0.9982550374921851
+    },
+    {
+      "class_id": 83,
+      "species": "Oligodon russelius",
+      "expected": 0.0035260766938615255,
+      "drawn": 0.003513755980861244,
+      "ratio": 0.9965058295465523
+    },
+    {
+      "class_id": 84,
+      "species": "Oligodon cinereus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003438995215311005,
+      "ratio": 1.0229070221053573
+    },
+    {
+      "class_id": 85,
+      "species": "Ovophis monticola",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.004111842105263158,
+      "ratio": 1.223041004691188
+    },
+    {
+      "class_id": 86,
+      "species": "Dendrelaphis subocularis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0035885167464114833,
+      "ratio": 1.067381240457764
+    },
+    {
+      "class_id": 87,
+      "species": "Grypotyphlops acutus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003962320574162679,
+      "ratio": 1.1785667863387812
+    },
+    {
+      "class_id": 88,
+      "species": "Dendrelaphis girii",
+      "expected": 0.0035260766938615255,
+      "drawn": 0.003812799043062201,
+      "ratio": 1.0813148363164717
+    },
+    {
+      "class_id": 89,
+      "species": "Boiga flaviviridis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0029904306220095694,
+      "ratio": 0.8894843670481368
+    },
+    {
+      "class_id": 90,
+      "species": "Boiga beddomei",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0030651913875598086,
+      "ratio": 0.9117214762243402
+    },
+    {
+      "class_id": 93,
+      "species": "Hydrophis curtus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003513755980861244,
+      "ratio": 1.0451441312815608
+    },
+    {
+      "class_id": 94,
+      "species": "Ahaetulla isabellina",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.00388755980861244,
+      "ratio": 1.1563296771625777
+    },
+    {
+      "class_id": 95,
+      "species": "Dendrelaphis grandoculis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0030651913875598086,
+      "ratio": 0.9117214762243402
+    },
+    {
+      "class_id": 96,
+      "species": "Gerarda prevostiana",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003214712918660287,
+      "ratio": 0.956195694576747
+    },
+    {
+      "class_id": 97,
+      "species": "Hydrophis ornatus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003438995215311005,
+      "ratio": 1.0229070221053573
+    },
+    {
+      "class_id": 99,
+      "species": "Hydrophis stokesii",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0035885167464114833,
+      "ratio": 1.067381240457764
+    },
+    {
+      "class_id": 100,
+      "species": "Trimeresurus popeiorum",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0037380382775119617,
+      "ratio": 1.111855458810171
+    },
+    {
+      "class_id": 101,
+      "species": "Hydrophis lapemoides",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003289473684210526,
+      "ratio": 0.9784328037529504
+    },
+    {
+      "class_id": 102,
+      "species": "Gloydius himalayanus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0026166267942583734,
+      "ratio": 0.7782988211671198
+    },
+    {
+      "class_id": 103,
+      "species": "Ptyas nigromarginata",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003438995215311005,
+      "ratio": 1.0229070221053573
+    },
+    {
+      "class_id": 104,
+      "species": "Lycodon nympha",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003513755980861244,
+      "ratio": 1.0451441312815608
+    },
+    {
+      "class_id": 105,
+      "species": "Xylophis perroteti",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0037380382775119617,
+      "ratio": 1.111855458810171
+    },
+    {
+      "class_id": 106,
+      "species": "Craspedocephalus travancoricus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0029904306220095694,
+      "ratio": 0.8894843670481368
+    },
+    {
+      "class_id": 107,
+      "species": "Ahaetulla sahyadrensis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.002840909090909091,
+      "ratio": 0.84501014869573
+    },
+    {
+      "class_id": 108,
+      "species": "Ophiophagus kaalinga",
+      "expected": 0.004538675989450461,
+      "drawn": 0.005308014354066986,
+      "ratio": 1.1695072233410686
+    },
+    {
+      "class_id": 109,
+      "species": "Platyceps plinii",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0035885167464114833,
+      "ratio": 1.067381240457764
+    },
+    {
+      "class_id": 110,
+      "species": "Trimeresurus septentrionalis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.004037081339712919,
+      "ratio": 1.2008038955149847
+    },
+    {
+      "class_id": 111,
+      "species": "Rhabdophis himalayanus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0036632775119617225,
+      "ratio": 1.0896183496339675
+    },
+    {
+      "class_id": 112,
+      "species": "Rhabdophis leonardi",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003214712918660287,
+      "ratio": 0.956195694576747
+    },
+    {
+      "class_id": 113,
+      "species": "Hydrophis cyanocinctus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.004111842105263158,
+      "ratio": 1.223041004691188
+    },
+    {
+      "class_id": 115,
+      "species": "Oligodon albocinctus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0037380382775119617,
+      "ratio": 1.111855458810171
+    },
+    {
+      "class_id": 116,
+      "species": "Bungarus niger",
+      "expected": 0.004538675989450461,
+      "drawn": 0.00388755980861244,
+      "ratio": 0.8565405016019094
+    },
+    {
+      "class_id": 117,
+      "species": "Pseudoindotyphlops porrectus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.00388755980861244,
+      "ratio": 1.1563296771625777
+    },
+    {
+      "class_id": 119,
+      "species": "Trimeresurus andersonii",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0033642344497607658,
+      "ratio": 1.0006699129291539
+    },
+    {
+      "class_id": 120,
+      "species": "Fowlea tytleri",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0033642344497607658,
+      "ratio": 1.0006699129291539
+    },
+    {
+      "class_id": 121,
+      "species": "Dieurostus dussumieri",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0026913875598086126,
+      "ratio": 0.8005359303433232
+    },
+    {
+      "class_id": 123,
+      "species": "Dendrelaphis bifrenalis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003289473684210526,
+      "ratio": 0.9784328037529504
+    },
+    {
+      "class_id": 124,
+      "species": "Sinomicrurus macclellandi",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0030651913875598086,
+      "ratio": 0.9117214762243402
+    },
+    {
+      "class_id": 125,
+      "species": "Uropeltis phipsonii",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003289473684210526,
+      "ratio": 0.9784328037529504
+    },
+    {
+      "class_id": 126,
+      "species": "Pareas monticola",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0029904306220095694,
+      "ratio": 0.8894843670481368
+    },
+    {
+      "class_id": 127,
+      "species": "Lycodon septentrionalis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003513755980861244,
+      "ratio": 1.0451441312815608
+    },
+    {
+      "class_id": 129,
+      "species": "Chrysopelea taprobanica",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0035885167464114833,
+      "ratio": 1.067381240457764
+    },
+    {
+      "class_id": 130,
+      "species": "Sahyadriophis uttaraghati",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.002840909090909091,
+      "ratio": 0.84501014869573
+    },
+    {
+      "class_id": 131,
+      "species": "Dendrelaphis andamanensis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0023175837320574162,
+      "ratio": 0.689350384462306
+    },
+    {
+      "class_id": 132,
+      "species": "Herpetoreas platyceps",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.004709928229665072,
+      "ratio": 1.4009378781008155
+    },
+    {
+      "class_id": 133,
+      "species": "Melanophidium khairei",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003962320574162679,
+      "ratio": 1.1785667863387812
+    },
+    {
+      "class_id": 134,
+      "species": "Dendrelaphis ashoki",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.004336124401913876,
+      "ratio": 1.2897523322197983
+    },
+    {
+      "class_id": 135,
+      "species": "Calliophis melanurus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0026913875598086126,
+      "ratio": 0.8005359303433232
+    },
+    {
+      "class_id": 136,
+      "species": "Ahaetulla dispar",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.002840909090909091,
+      "ratio": 0.84501014869573
+    },
+    {
+      "class_id": 137,
+      "species": "Platyplectrurus madurensis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003812799043062201,
+      "ratio": 1.1340925679863745
+    },
+    {
+      "class_id": 139,
+      "species": "Trimeresurus salazar",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0037380382775119617,
+      "ratio": 1.111855458810171
+    },
+    {
+      "class_id": 140,
+      "species": "Hebius khasiensis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003214712918660287,
+      "ratio": 0.956195694576747
+    },
+    {
+      "class_id": 141,
+      "species": "Boiga multifasciata",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003289473684210526,
+      "ratio": 0.9784328037529504
+    },
+    {
+      "class_id": 142,
+      "species": "Gongylosoma calamaria",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003513755980861244,
+      "ratio": 1.0451441312815608
+    },
+    {
+      "class_id": 143,
+      "species": "Uropeltis ocellata",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.004410885167464114,
+      "ratio": 1.3119894413960016
+    },
+    {
+      "class_id": 144,
+      "species": "Lycodon zawi",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003438995215311005,
+      "ratio": 1.0229070221053573
+    },
+    {
+      "class_id": 145,
+      "species": "Elaphe cantoris",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0035885167464114833,
+      "ratio": 1.067381240457764
+    },
+    {
+      "class_id": 146,
+      "species": "Ahaetulla anomala",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.004186602870813397,
+      "ratio": 1.2452781138673916
+    },
+    {
+      "class_id": 147,
+      "species": "Calliophis bibroni",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.004111842105263158,
+      "ratio": 1.223041004691188
+    },
+    {
+      "class_id": 148,
+      "species": "Oligodon affinis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0035885167464114833,
+      "ratio": 1.067381240457764
+    },
+    {
+      "class_id": 149,
+      "species": "Lycodon hypsirhinoides",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.004560406698564594,
+      "ratio": 1.3564636597484088
+    },
+    {
+      "class_id": 150,
+      "species": "Naja oxiana",
+      "expected": 0.004538675989450461,
+      "drawn": 0.0048594497607655504,
+      "ratio": 1.070675627002387
+    },
+    {
+      "class_id": 151,
+      "species": "Lycodon bicolor",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003513755980861244,
+      "ratio": 1.0451441312815608
+    },
+    {
+      "class_id": 152,
+      "species": "Rhabdops aquaticus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0029904306220095694,
+      "ratio": 0.8894843670481368
+    },
+    {
+      "class_id": 153,
+      "species": "Hydrophis spiralis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0031399521531100478,
+      "ratio": 0.9339585854005436
+    },
+    {
+      "class_id": 155,
+      "species": "Psammophis leithii",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003812799043062201,
+      "ratio": 1.1340925679863745
+    },
+    {
+      "class_id": 156,
+      "species": "Lycodon flavicollis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003513755980861244,
+      "ratio": 1.0451441312815608
+    },
+    {
+      "class_id": 157,
+      "species": "Platyceps bholanathi",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.002766148325358852,
+      "ratio": 0.8227730395195265
+    },
+    {
+      "class_id": 158,
+      "species": "Plectrurus perroteti",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.002840909090909091,
+      "ratio": 0.84501014869573
+    },
+    {
+      "class_id": 159,
+      "species": "Oligodon cyclurus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0030651913875598086,
+      "ratio": 0.9117214762243402
+    },
+    {
+      "class_id": 160,
+      "species": "Boiga stoliczkae",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003289473684210526,
+      "ratio": 0.9784328037529504
+    },
+    {
+      "class_id": 161,
+      "species": "Ahaetulla laudankia",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0035885167464114833,
+      "ratio": 1.067381240457764
+    },
+    {
+      "class_id": 162,
+      "species": "Uropeltis ceylanica",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0035885167464114833,
+      "ratio": 1.067381240457764
+    },
+    {
+      "class_id": 163,
+      "species": "Spalerosophis atriceps",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.00291566985645933,
+      "ratio": 0.8672472578719334
+    },
+    {
+      "class_id": 164,
+      "species": "Archelaphe bella",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.002541866028708134,
+      "ratio": 0.7560617119909162
+    },
+    {
+      "class_id": 165,
+      "species": "Ahaetulla perroteti",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0036632775119617225,
+      "ratio": 1.0896183496339675
+    },
+    {
+      "class_id": 166,
+      "species": "Ovophis zayuensis",
+      "expected": 0.003189456375151513,
+      "drawn": 0.0029904306220095694,
+      "ratio": 0.9375988476617778
+    },
+    {
+      "class_id": 167,
+      "species": "Boiga andamanensis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0033642344497607658,
+      "ratio": 1.0006699129291539
+    },
+    {
+      "class_id": 168,
+      "species": "Rhabdophis bindi",
+      "expected": 0.003276854923473776,
+      "drawn": 0.0036632775119617225,
+      "ratio": 1.1179248387592033
+    },
+    {
+      "class_id": 169,
+      "species": "Boiga dightoni",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0033642344497607658,
+      "ratio": 1.0006699129291539
+    },
+    {
+      "class_id": 170,
+      "species": "Psammophis longifrons",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003513755980861244,
+      "ratio": 1.0451441312815608
+    },
+    {
+      "class_id": 171,
+      "species": "Ferania sieboldii",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0030651913875598086,
+      "ratio": 0.9117214762243402
+    },
+    {
+      "class_id": 172,
+      "species": "Rhabdops olivaceus",
+      "expected": 0.003189456375151513,
+      "drawn": 0.002766148325358852,
+      "ratio": 0.8672789340871445
+    },
+    {
+      "class_id": 173,
+      "species": "Gongylosoma scriptum",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0033642344497607658,
+      "ratio": 1.0006699129291539
+    },
+    {
+      "class_id": 174,
+      "species": "Bungarus bungaroides",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.003214712918660287,
+      "ratio": 0.956195694576747
+    },
+    {
+      "class_id": 175,
+      "species": "Bungarus walli",
+      "expected": 0.003209328569748984,
+      "drawn": 0.002840909090909091,
+      "ratio": 0.885203564909931
+    },
+    {
+      "class_id": 176,
+      "species": "Psammophis condanarus",
+      "expected": 0.003007048308224399,
+      "drawn": 0.002541866028708134,
+      "ratio": 0.8453026915982783
+    },
+    {
+      "class_id": 177,
+      "species": "Trimeresurus medoensis",
+      "expected": 0.0030995944490360226,
+      "drawn": 0.00291566985645933,
+      "ratio": 0.9406617234606633
+    },
+    {
+      "class_id": 178,
+      "species": "Wallaceophis gujaratensis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.004934210526315789,
+      "ratio": 1.4676492056294257
+    },
+    {
+      "class_id": 179,
+      "species": "Bungarus andamanensis",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.002840909090909091,
+      "ratio": 0.84501014869573
+    },
+    {
+      "class_id": 180,
+      "species": "Rhinophis melanoleucus",
+      "expected": 0.0033619822144077484,
+      "drawn": 0.0029904306220095694,
+      "ratio": 0.8894843670481368
+    },
+    {
+      "class_id": 181,
+      "species": "Platyceps gracilis",
+      "expected": 0.002812836128713477,
+      "drawn": 0.00291566985645933,
+      "ratio": 1.0365587339753373
+    },
+    {
+      "class_id": 182,
+      "species": "Rhinophis karinthandani",
+      "expected": 0.003276854923473776,
+      "drawn": 0.0035885167464114833,
+      "ratio": 1.0951100461314645
+    },
+    {
+      "class_id": 183,
+      "species": "Platyceps josephi",
+      "expected": 0.003189456375151513,
+      "drawn": 0.003214712918660287,
+      "ratio": 1.007918761236411
+    }
+  ]
+}

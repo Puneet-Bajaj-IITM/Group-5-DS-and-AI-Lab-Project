@@ -1,0 +1,40 @@
+run kernel,dataset:puneetbajajiitm/serpentguard-m3-run-rf0
+run,R_F0
+front end,F0
+segmenter,"{'candidate': 'unet', 'kind': 'unet', 'weights': 'S1/unet/segmenter.pt', 'rule': 'best Open Images IoU of the cleaned masks; within 0.005 the fewest parameters', 'scores': {'lraspp': [0.7873179137531635, 3218138], 'maskhead': [0.7715986466895662, 1364385], 'unet': [0.836860649211458, 6628945], 'yolo26n-seg': [0.8277984851762394, 3082751]}, 'raw_iou': {'lraspp': 0.7905054575932055, 'maskhead': 0.7725553350329415, 'unet': 0.8376193317347395, 'yolo26n-seg': 0.8278211268532348}}"
+val photos,17151
+photos dropped (as is / blanked / swapped),0 / 0 / 0
+with mask,15977
+without mask,1174
+masks dropped by cleaning / wrong size / unreadable,0 / 0 / 0
+top-1 as is,0.5306396128505626
+macro-F1 as is,0.2574617991967038
+top-1 as is (masked),0.5365212492958628
+top-1 blanked,0.14345621831382613
+macro-F1 blanked,0.042000810534503746
+shortcut rate,0.23600093327111527
+shortcut 95% CI,"[0.215, 0.258]"
+shortcut India / not,0.154 / 0.271
+top-1 swapped,0.3244038305063529
+keeps own class,0.3244038305063529
+follows donor,0.03761657382487325
+donor class as is (control),0.010076985666896163
+donor silhouette rate,0.14295549852913564
+follows donor without silhouette,0.019133864018111443
+"verdict changed, blanked",0.43080678475308254
+"dangerous -> not listed, blanked",516
+unknown when blanked,0.1811353821117857
+"verdict changed, swapped",0.3440570820554547
+india gap,-0.18823720836154895
+dark gap,0.045210141120599956
+blurry gap,0.0550631533762016
+few_photographers gap,-0.3058711037256613
+india photos in / out,6367 / 10784
+dark photos in / out,2292 / 14859
+blurry photos in / out,701 / 16450
+few_photographers photos in / out,119 / 17032
+few-photographer classes (cut-off),29 (<= 10)
+India gap 95% CI,"[-0.229, -0.150]"
+instrument top-1 agreement,0.9992420267039823
+read back,none
+minutes,7.269542260733334

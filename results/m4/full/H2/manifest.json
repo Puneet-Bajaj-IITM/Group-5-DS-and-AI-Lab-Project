@@ -1,0 +1,64 @@
+{
+ "run": "M4_FULL",
+ "label": "H2",
+ "kernel": "vikas25s/sg-m4-full-h2",
+ "built_from_commit": "2db5479",
+ "winner_config": "results/m4/arms/H2/config.yaml",
+ "executed_notebook": "results/m4/full/executed/21_full_training_H2.ipynb",
+ "not_in_repo": {
+  "full/frontend_preds.csv": {
+   "sha256": "84140c320fe9a368c2cb3c219d26b4b34af7009ea1be75fc32d69283a17e169e",
+   "bytes": 11730336,
+   "rows": 78379
+  },
+  "full/full_train.csv": {
+   "sha256": "425f8b9bd5fa0f3432ff56cae50f185276ed15774ff4c226ccf9c1beec817362",
+   "bytes": 2581453,
+   "rows": 49782
+  },
+  "M4_FULL/best.pt": {
+   "sha256": "2b0891b5c4229b7501867ff4f15854a47ffe2fee010334ab08b3159dc225b68d",
+   "bytes": 20820579
+  },
+  "M4_FULL/val_outputs.npz": {
+   "sha256": "01f035af13cb99339abc12bd14d155f681cb22b3b6f9a97c324fbf721a66d72d",
+   "bytes": 25655441
+  },
+  "M4_FULL/calib_outputs.npz": {
+   "sha256": "238630fe5252cc2aad38c7e46a777d485cec0cdb79e8042fb95fd2526f0f1514",
+   "bytes": 12012217
+  },
+  "M4_FULL/unknown_outputs.npz": {
+   "sha256": "b7fb08c081df903bff865bde908ecea684ea0583d6cf71e3e1b7184f236c1b6b",
+   "bytes": 689213
+  },
+  "M4_FULL/prototypes.npz": {
+   "sha256": "85af57e31744654b8f3bf622d50da76512154d21a704f180979f5d7e2760a2c4",
+   "bytes": 348547
+  },
+  "M4_FULL/r1/robustness_as_is.npz": {
+   "sha256": "bbacc0d516b4e982c0b69073b87580f6c57a30d7f6af3690a97940c8af25c8e4",
+   "bytes": 17865371
+  },
+  "M4_FULL/r1/robustness_blanked.npz": {
+   "sha256": "7ddf3014ce91dc1385d19719454a2f7dad5aa299a404b8cc37d801ca59c67bd6",
+   "bytes": 16273532
+  },
+  "M4_FULL/r1/robustness_swapped.npz": {
+   "sha256": "680472a48f980864509f3badc09830a52d08e01f7e4d83ef76206ec27434ceec",
+   "bytes": 16891932
+  }
+ },
+ "copied": {
+  "b1_62.json": "7d2de15c338f9569521bc0a0b0b8d1d133fdbe12f6e2b0a495383dc924a4a074",
+  "decision_metrics.json": "6cfd486658f32d912c6fccb67620506ab493e02296c8e9cadcd1d0c409d59b04",
+  "per_class_counts.json": "b5009d96bd391d4eaebde3a71500084093fb8764f6b8e95775812dd92064b015",
+  "robustness_metrics.json": "91c0fa8b6a65c87aabac9d24b5db3fe68aa54c9d1c84c4ff560cf2c55f83ad37",
+  "config.yaml": "046431c78623dad263fa461fafca907461a3ad016cd51072e10657147f50e740",
+  "final_metrics.json": "165e7214fe662dcbd45596e95a4689714489b5681e3880444b4f47119a2681d6",
+  "metrics.jsonl": "6b55a191c20f544e7a95efa05c5e41c47cafbd72a3d20a37bf0e633778a1c067",
+  "versions.json": "db53232ccc4412f00bc60ea2130b11a818529b483773d79d3b733486f3249271",
+  "subset_hash.txt": "519a5b6ac06cb996ea9ee0a03270f3956a856013ea23e779dc2c2ef7345c5ad5",
+  "class_mix.json": "18eed57b5c45c4eca07c7d0ac126effb1f5c53a124e1244ae0edfd7e4e199b9e"
+ }
+}

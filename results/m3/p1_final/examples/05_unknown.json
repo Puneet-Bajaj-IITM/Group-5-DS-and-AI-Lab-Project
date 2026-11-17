@@ -1,0 +1,179 @@
+{
+  "path": "val/dendrelaphis_bifrenalis/inaturalist_166277514.jpg",
+  "species": "Dendrelaphis bifrenalis",
+  "class_id": 123,
+  "license": "cc-by-nc",
+  "attribution": "(c) Pasindu Dilshan Abegunawaradhana, some rights reserved (CC BY-NC)",
+  "expected": "not_listed",
+  "who_listed": false,
+  "venomous_family": false,
+  "failure": null,
+  "verdict": "unknown",
+  "message": "we don't know: unclear between species",
+  "note": "",
+  "reason": [
+    "unclear_between_species"
+  ],
+  "top3": [
+    [
+      "Dendrelaphis tristis",
+      0.2712
+    ],
+    [
+      "Psammophis schokari",
+      0.1496
+    ],
+    [
+      "Chrysopelea ornata",
+      0.1005
+    ]
+  ],
+  "genus_fallback": {
+    "genus": "Dendrelaphis",
+    "probability": 0.6671955719780495,
+    "who_listed": false
+  },
+  "margin": 0.12156910635925375,
+  "snake_found": true,
+  "card": null,
+  "passages": [
+    {
+      "id": "note-unknown",
+      "source": "SerpentGuard",
+      "page": null,
+      "citation": "SerpentGuard"
+    },
+    {
+      "id": "who-110-01",
+      "source": "WHO SEARO 2016",
+      "page": 110,
+      "citation": "WHO SEARO 2016, PDF p. 110 (printed p. 107)"
+    },
+    {
+      "id": "who-119-04",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-118-04",
+      "source": "WHO SEARO 2016",
+      "page": 118,
+      "citation": "WHO SEARO 2016, PDF p. 118 (printed p. 115)"
+    },
+    {
+      "id": "who-119-03",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-120-02",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    },
+    {
+      "id": "who-120-05",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    }
+  ],
+  "question_passages": [],
+  "total_ms": 172.219,
+  "clip": null,
+  "log": [
+    {
+      "node": "preprocess",
+      "ms": 92.941,
+      "summary": {
+        "mode": "RGB",
+        "size": [
+          500,
+          375
+        ],
+        "brightness": 62.4,
+        "input": [
+          320,
+          320
+        ]
+      }
+    },
+    {
+      "node": "front_end",
+      "ms": 13.951,
+      "summary": {
+        "mode": "F1 (box_crop)",
+        "box": [
+          195.3,
+          116.9,
+          384.5,
+          287.0
+        ],
+        "box_conf": 0.7772233486175537,
+        "tau_snake": 0.102,
+        "snake_found": true,
+        "input": "box_crop"
+      }
+    },
+    {
+      "node": "snakeid",
+      "ms": 64.92,
+      "summary": {
+        "backend": "torch",
+        "top1": "Dendrelaphis tristis",
+        "top1_raw_prob": 0.5861,
+        "outputs": [
+          "embedding",
+          "family_logits",
+          "genus_logits",
+          "species_logits",
+          "who_logits"
+        ]
+      }
+    },
+    {
+      "node": "decision",
+      "ms": 0.368,
+      "summary": {
+        "verdict": "unknown",
+        "reason": [
+          "unclear_between_species"
+        ],
+        "top1": [
+          "Dendrelaphis tristis",
+          0.2712
+        ],
+        "message": "we don't know: unclear between species"
+      }
+    },
+    {
+      "node": "response",
+      "ms": 0.015,
+      "summary": {
+        "retriever": "R0 lookup",
+        "card": null,
+        "passages": [
+          "note-unknown",
+          "who-110-01",
+          "who-119-04",
+          "who-118-04",
+          "who-119-03",
+          "who-120-02",
+          "who-120-05"
+        ],
+        "pages": [
+          null,
+          110,
+          119,
+          118,
+          119,
+          120,
+          120
+        ]
+      }
+    }
+  ],
+  "example": "unknown"
+}

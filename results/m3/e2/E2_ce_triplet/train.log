@@ -1,0 +1,20 @@
+E2_ce_triplet: read 39212 files (5386 MB, 0 missing) into the page cache in 13 s
+E2_ce_triplet on Tesla T4: 13611 training photos after caps, 17151 val, 7999 calibration, 451 unknown; subset 40196d19a68e
+Loading pretrained weights from Hugging Face hub (timm/mobilevit_s.cvnets_in1k)
+HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+HTTP Request: HEAD https://huggingface.co/timm/mobilevit_s.cvnets_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+HTTP Request: GET https://huggingface.co/api/models/timm/mobilevit_s.cvnets_in1k/xet-read-token/b531fe564ef88515b1aa1743ad4c40452b9f80ee "HTTP/1.1 200 OK"
+[timm/mobilevit_s.cvnets_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+E2_ce_triplet epoch 2/20: macro-F1 0.108, top-1 0.387, top-3 0.576, loss 6.698, lr 2.98e-04, 70 photos/s, data wait 21%, epoch 195 s + eval 144 s
+E2_ce_triplet epoch 4/20: macro-F1 0.171, top-1 0.435, top-3 0.642, loss 5.192, lr 2.82e-04, 70 photos/s, data wait 20%, epoch 194 s + eval 138 s
+E2_ce_triplet epoch 6/20: macro-F1 0.198, top-1 0.480, top-3 0.668, loss 4.535, lr 2.52e-04, 71 photos/s, data wait 19%, epoch 192 s + eval 138 s
+E2_ce_triplet epoch 8/20: macro-F1 0.220, top-1 0.502, top-3 0.688, loss 4.127, lr 2.10e-04, 71 photos/s, data wait 19%, epoch 191 s + eval 138 s
+E2_ce_triplet epoch 10/20: macro-F1 0.232, top-1 0.514, top-3 0.691, loss 3.782, lr 1.62e-04, 70 photos/s, data wait 20%, epoch 194 s + eval 141 s
+E2_ce_triplet epoch 12/20: macro-F1 0.244, top-1 0.522, top-3 0.703, loss 3.605, lr 1.13e-04, 70 photos/s, data wait 20%, epoch 194 s + eval 142 s
+E2_ce_triplet epoch 14/20: macro-F1 0.245, top-1 0.526, top-3 0.704, loss 3.476, lr 6.80e-05, 70 photos/s, data wait 20%, epoch 193 s + eval 140 s
+E2_ce_triplet epoch 16/20: macro-F1 0.246, top-1 0.530, top-3 0.707, loss 3.332, lr 3.16e-05, 66 photos/s, data wait 25%, epoch 207 s + eval 153 s
+E2_ce_triplet epoch 18/20: macro-F1 0.251, top-1 0.532, top-3 0.707, loss 3.312, lr 8.13e-06, 67 photos/s, data wait 24%, epoch 204 s + eval 152 s
+E2_ce_triplet epoch 20/20: macro-F1 0.254, top-1 0.534, top-3 0.707, loss 3.307, lr 0.00e+00, 63 photos/s, data wait 28%, epoch 215 s + eval 158 s
+E2_ce_triplet best epoch 20: macro-F1 head 0.254, prototype 0.254, balanced 0.254; top-1 0.534, top-3 0.707; WHO recall 0.725, listed as not listed 0.275; ECE 0.047; 3.3 min/epoch, 94.1 min in all, data wait 22%

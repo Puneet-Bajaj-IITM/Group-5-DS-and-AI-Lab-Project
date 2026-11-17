@@ -1,0 +1,213 @@
+{
+  "run": "M4_FULL",
+  "shared_classes": 62,
+  "resamples": 1000,
+  "seed": 42,
+  "definitions": {
+    "photos": "photos of B1's 62 species; set_photos is every photo of the set",
+    "top1": "share of the photos whose top species is right; ours may answer any of 184",
+    "macro_f1": "the G3 headline: per-species F1 over the photos of the 62 species only, averaged over the species present",
+    "macro_f1_m3_definition": "reported, not judged: M3's whole-slice definition, per-species F1 with precision over every photo of the set, averaged over the 62 species present, as compare_b1_shared.json",
+    "ours, closed set": "our species head restricted to the 62 species",
+    "against_b1": "ours minus B1 and its 95% interval over photographer resamples"
+  },
+  "b1_check": {
+    "full_validation": {
+      "photos": 14610,
+      "recorded photos": 14610,
+      "top-1": 0.8012320328542094,
+      "recorded top-1": 0.8012320328542094,
+      "macro-F1, whole slice": 0.6529988666584037,
+      "recorded macro-F1": 0.6529988666584037
+    },
+    "upload_2022_slice": {
+      "photos": 11931,
+      "recorded photos": 11931,
+      "top-1": 0.788031179280865,
+      "recorded top-1": 0.788031179280865,
+      "macro-F1, whole slice": 0.6368155748461269,
+      "recorded macro-F1": 0.6368155748461269
+    }
+  },
+  "full_validation": {
+    "photos": 14610,
+    "set_photos": 17151,
+    "photographers": 2081,
+    "scores": {
+      "ours": {
+        "top1": 0.7091718001368925,
+        "macro_f1": 0.7080498367537162,
+        "macro_f1_m3_definition": 0.6761723118600889
+      },
+      "ours, closed set": {
+        "top1": 0.766050650239562,
+        "macro_f1": 0.7140018268273349,
+        "macro_f1_m3_definition": 0.6474382324906038
+      },
+      "M3 final": {
+        "top1": 0.682340862422998,
+        "macro_f1": 0.6020802683055354,
+        "macro_f1_m3_definition": 0.5677303982781315
+      },
+      "B1": {
+        "top1": 0.8012320328542094,
+        "macro_f1": 0.7394430250741302,
+        "macro_f1_m3_definition": 0.6529988666584037
+      },
+      "ours, predictions shuffled": {
+        "top1": 0.02997946611909651,
+        "macro_f1": 0.015069220119714963,
+        "macro_f1_m3_definition": 0.013980996518872848
+      }
+    },
+    "against_b1": {
+      "ours": {
+        "top1": {
+          "diff": -0.09206023271731689,
+          "low": -0.11101534213673768,
+          "high": -0.0732795274648017
+        },
+        "macro_f1": {
+          "diff": -0.031393188320413934,
+          "low": -0.04780156044442409,
+          "high": -0.01129822342134764
+        },
+        "macro_f1_m3_definition": {
+          "diff": 0.023173445201685183,
+          "low": 0.007066707578987278,
+          "high": 0.04332764439968803
+        }
+      },
+      "M3 final": {
+        "top1": {
+          "diff": -0.11889117043121145,
+          "low": -0.13225452560512882,
+          "high": -0.10655197093763377
+        },
+        "macro_f1": {
+          "diff": -0.13736275676859477,
+          "low": -0.15362166297349755,
+          "high": -0.116879754464087
+        },
+        "macro_f1_m3_definition": {
+          "diff": -0.08526846838027213,
+          "low": -0.1038197382504312,
+          "high": -0.06457576457416532
+        }
+      },
+      "ours, predictions shuffled": {
+        "top1": {
+          "diff": -0.7712525667351129,
+          "low": -0.7872129775295879,
+          "high": -0.7558108117901343
+        },
+        "macro_f1": {
+          "diff": -0.7243738049544152,
+          "low": -0.7364361370123649,
+          "high": -0.6948470564301852
+        },
+        "macro_f1_m3_definition": {
+          "diff": -0.6390178701395308,
+          "low": -0.6495534021211484,
+          "high": -0.6078058129964974
+        }
+      }
+    }
+  },
+  "upload_2022_slice": {
+    "photos": 11931,
+    "set_photos": 13947,
+    "photographers": 1767,
+    "scores": {
+      "ours": {
+        "top1": 0.7072332578995894,
+        "macro_f1": 0.6938297458388171,
+        "macro_f1_m3_definition": 0.6617268236361424
+      },
+      "ours, closed set": {
+        "top1": 0.7602045092615874,
+        "macro_f1": 0.7007539441430155,
+        "macro_f1_m3_definition": 0.6378264699166614
+      },
+      "M3 final": {
+        "top1": 0.6791551420668845,
+        "macro_f1": 0.5939109827561505,
+        "macro_f1_m3_definition": 0.5595089378318612
+      },
+      "B1": {
+        "top1": 0.788031179280865,
+        "macro_f1": 0.7187578090729588,
+        "macro_f1_m3_definition": 0.6368155748461269
+      },
+      "ours, predictions shuffled": {
+        "top1": 0.029502975442125556,
+        "macro_f1": 0.01515475419673722,
+        "macro_f1_m3_definition": 0.014084371030873113
+      }
+    },
+    "against_b1": {
+      "ours": {
+        "top1": {
+          "diff": -0.08079792138127562,
+          "low": -0.09952096527325882,
+          "high": -0.0637971235151793
+        },
+        "macro_f1": {
+          "diff": -0.024928063234141762,
+          "low": -0.04291211776621898,
+          "high": -0.0006913670832499745
+        },
+        "macro_f1_m3_definition": {
+          "diff": 0.024911248790015494,
+          "low": 0.007108836943121913,
+          "high": 0.049927124440353944
+        }
+      },
+      "M3 final": {
+        "top1": {
+          "diff": -0.10887603721398043,
+          "low": -0.12307501468631038,
+          "high": -0.09439757160970347
+        },
+        "macro_f1": {
+          "diff": -0.12484682631680832,
+          "low": -0.13999867004738817,
+          "high": -0.09778827815177833
+        },
+        "macro_f1_m3_definition": {
+          "diff": -0.07730663701426577,
+          "low": -0.09553373745899076,
+          "high": -0.04986358309700189
+        }
+      },
+      "ours, predictions shuffled": {
+        "top1": {
+          "diff": -0.7585282038387394,
+          "low": -0.7764500098609106,
+          "high": -0.7409337993671367
+        },
+        "macro_f1": {
+          "diff": -0.7036030548762217,
+          "low": -0.7145157010640509,
+          "high": -0.6715452044248335
+        },
+        "macro_f1_m3_definition": {
+          "diff": -0.6227312038152538,
+          "low": -0.6322021933195188,
+          "high": -0.5891385133148996
+        }
+      }
+    }
+  },
+  "g3": {
+    "set": "upload_2022_slice",
+    "judged_on": [
+      "top1",
+      "macro_f1"
+    ],
+    "top1": "lower",
+    "macro_f1": "lower",
+    "passed": false,
+    "rule": "top-1 and macro-F1 each higher than B1's, or the interval includes 0"
+  }
+}

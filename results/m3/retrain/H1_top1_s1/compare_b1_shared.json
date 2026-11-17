@@ -1,0 +1,49 @@
+{
+  "run": "H1_top1_s1",
+  "shared_classes": 62,
+  "note": "Our final run against B1 on only the species B1 knows (its 62 covered classes), on full validation and on the 2022 upload slice. Recall-based scores are exact for both; B1 has no per-photo outputs, so its precision still counts photos of species it cannot know. \"Ours, closed set\" restricts our predictions to the same 62 species.",
+  "full_validation": {
+    "ours": {
+      "classes": 62,
+      "photos": 14610,
+      "top1": 0.682340862422998,
+      "mean_recall": 0.5847557128724008,
+      "macro_f1": 0.5677303982781315
+    },
+    "b1": {
+      "classes": 62,
+      "photos": 14610,
+      "top1": 0.8012320328542094,
+      "mean_recall": 0.7553931731067801,
+      "macro_f1": 0.6529988666584037
+    },
+    "ours_closed_set": {
+      "classes": 62,
+      "photos": 14610,
+      "top1": 0.7013004791238877,
+      "mean_recall": 0.6034211148939279
+    }
+  },
+  "upload_2022_slice": {
+    "ours": {
+      "classes": 62,
+      "photos": 11931,
+      "top1": 0.6791551420668845,
+      "mean_recall": 0.5770890090007827,
+      "macro_f1": 0.5595089378318612
+    },
+    "b1": {
+      "classes": 62,
+      "photos": 11931,
+      "top1": 0.788031179280865,
+      "mean_recall": 0.737390831047389,
+      "macro_f1": 0.6368155748461269
+    },
+    "ours_closed_set": {
+      "classes": 62,
+      "photos": 11931,
+      "top1": 0.6971754253625011,
+      "mean_recall": 0.5937564359456157
+    }
+  }
+}

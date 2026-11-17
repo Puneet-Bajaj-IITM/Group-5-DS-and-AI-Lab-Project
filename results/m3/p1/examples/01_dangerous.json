@@ -1,0 +1,176 @@
+{
+  "path": "val/calliophis_bibroni/inaturalist_301417376.jpg",
+  "species": "Calliophis bibroni",
+  "class_id": 147,
+  "license": "cc-by-nc",
+  "attribution": "(c) Harikrishnan S., some rights reserved (CC BY-NC)",
+  "expected": "dangerous",
+  "who_listed": false,
+  "venomous_family": true,
+  "failure": null,
+  "verdict": "dangerous",
+  "message": "dangerous: WHO Category 2",
+  "note": "WHO Category 2",
+  "reason": [
+    "who_listed_mass",
+    "top_species_dangerous",
+    "venomous_family_mass"
+  ],
+  "top3": [
+    [
+      "Calliophis bibroni",
+      0.7155
+    ],
+    [
+      "Bungarus fasciatus",
+      0.0764
+    ],
+    [
+      "Lycodon fasciatus",
+      0.0706
+    ]
+  ],
+  "genus_fallback": null,
+  "margin": 0.6391515755873441,
+  "snake_found": true,
+  "card": {
+    "id": "card-147",
+    "source": "SerpentGuard species card",
+    "page": null,
+    "citation": "SerpentGuard species card"
+  },
+  "passages": [
+    {
+      "id": "who-110-01",
+      "source": "WHO SEARO 2016",
+      "page": 110,
+      "citation": "WHO SEARO 2016, PDF p. 110 (printed p. 107)"
+    },
+    {
+      "id": "who-119-04",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-118-04",
+      "source": "WHO SEARO 2016",
+      "page": 118,
+      "citation": "WHO SEARO 2016, PDF p. 118 (printed p. 115)"
+    },
+    {
+      "id": "who-119-03",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-120-02",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    },
+    {
+      "id": "who-120-05",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    },
+    {
+      "id": "card-147",
+      "source": "SerpentGuard species card",
+      "page": null,
+      "citation": "SerpentGuard species card"
+    }
+  ],
+  "question_passages": [],
+  "total_ms": 67.062,
+  "clip": null,
+  "log": [
+    {
+      "node": "preprocess",
+      "ms": 4.189,
+      "summary": {
+        "mode": "RGB",
+        "size": [
+          500,
+          333
+        ],
+        "brightness": 83.2,
+        "input": [
+          320,
+          320
+        ]
+      }
+    },
+    {
+      "node": "front_end",
+      "ms": 0.001,
+      "summary": {
+        "mode": "F0 (full)",
+        "detector": "no detector: every frame is treated as showing a snake",
+        "input": "whole photo"
+      }
+    },
+    {
+      "node": "snakeid",
+      "ms": 62.564,
+      "summary": {
+        "backend": "torch",
+        "top1": "Calliophis bibroni",
+        "top1_raw_prob": 0.6538,
+        "outputs": [
+          "embedding",
+          "family_logits",
+          "genus_logits",
+          "species_logits",
+          "who_logits"
+        ]
+      }
+    },
+    {
+      "node": "decision",
+      "ms": 0.277,
+      "summary": {
+        "verdict": "dangerous",
+        "reason": [
+          "who_listed_mass",
+          "top_species_dangerous",
+          "venomous_family_mass"
+        ],
+        "top1": [
+          "Calliophis bibroni",
+          0.7155
+        ],
+        "message": "dangerous: WHO Category 2"
+      }
+    },
+    {
+      "node": "response",
+      "ms": 0.013,
+      "summary": {
+        "retriever": "R0 lookup",
+        "card": "card-147",
+        "passages": [
+          "who-110-01",
+          "who-119-04",
+          "who-118-04",
+          "who-119-03",
+          "who-120-02",
+          "who-120-05",
+          "card-147"
+        ],
+        "pages": [
+          110,
+          119,
+          118,
+          119,
+          120,
+          120,
+          null
+        ]
+      }
+    }
+  ],
+  "example": "dangerous"
+}

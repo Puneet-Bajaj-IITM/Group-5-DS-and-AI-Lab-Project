@@ -1,0 +1,159 @@
+{
+  "path": "val/ophiophagus_hannah/inaturalist_469322902.jpg",
+  "species": "Ophiophagus hannah",
+  "class_id": 47,
+  "license": "cc-by-nc",
+  "attribution": "(c) yolkyellow, some rights reserved (CC BY-NC)",
+  "expected": "dangerous",
+  "who_listed": true,
+  "venomous_family": true,
+  "failure": null,
+  "verdict": "dangerous",
+  "message": "dangerous: WHO Category 2",
+  "note": "WHO Category 2",
+  "reason": [
+    "who_listed_mass"
+  ],
+  "top3": [
+    [
+      "Elaphe taeniura",
+      0.3761
+    ],
+    [
+      "Ptyas mucosa",
+      0.1494
+    ],
+    [
+      "Ptyas korros",
+      0.0734
+    ]
+  ],
+  "genus_fallback": null,
+  "margin": 0.22662244160371273,
+  "snake_found": true,
+  "card": null,
+  "passages": [
+    {
+      "id": "who-110-01",
+      "source": "WHO SEARO 2016",
+      "page": 110,
+      "citation": "WHO SEARO 2016, PDF p. 110 (printed p. 107)"
+    },
+    {
+      "id": "who-119-04",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-118-04",
+      "source": "WHO SEARO 2016",
+      "page": 118,
+      "citation": "WHO SEARO 2016, PDF p. 118 (printed p. 115)"
+    },
+    {
+      "id": "who-119-03",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-120-02",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    },
+    {
+      "id": "who-120-05",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    }
+  ],
+  "question_passages": [],
+  "total_ms": 67.718,
+  "clip": null,
+  "log": [
+    {
+      "node": "preprocess",
+      "ms": 5.549,
+      "summary": {
+        "mode": "RGB",
+        "size": [
+          413,
+          500
+        ],
+        "brightness": 116.2,
+        "input": [
+          320,
+          320
+        ]
+      }
+    },
+    {
+      "node": "front_end",
+      "ms": 0.001,
+      "summary": {
+        "mode": "F0 (full)",
+        "detector": "no detector: every frame is treated as showing a snake",
+        "input": "whole photo"
+      }
+    },
+    {
+      "node": "snakeid",
+      "ms": 61.901,
+      "summary": {
+        "backend": "torch",
+        "top1": "Elaphe taeniura",
+        "top1_raw_prob": 0.3267,
+        "outputs": [
+          "embedding",
+          "family_logits",
+          "genus_logits",
+          "species_logits",
+          "who_logits"
+        ]
+      }
+    },
+    {
+      "node": "decision",
+      "ms": 0.241,
+      "summary": {
+        "verdict": "dangerous",
+        "reason": [
+          "who_listed_mass"
+        ],
+        "top1": [
+          "Elaphe taeniura",
+          0.3761
+        ],
+        "message": "dangerous: WHO Category 2"
+      }
+    },
+    {
+      "node": "response",
+      "ms": 0.01,
+      "summary": {
+        "retriever": "R0 lookup",
+        "card": null,
+        "passages": [
+          "who-110-01",
+          "who-119-04",
+          "who-118-04",
+          "who-119-03",
+          "who-120-02",
+          "who-120-05"
+        ],
+        "pages": [
+          110,
+          119,
+          118,
+          119,
+          120,
+          120
+        ]
+      }
+    }
+  ],
+  "example": "dangerous"
+}

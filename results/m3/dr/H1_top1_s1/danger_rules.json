@@ -1,0 +1,2055 @@
+{
+  "run": "H1_top1_s1",
+  "scorer": "head",
+  "prototype_set": "plain",
+  "photos": {
+    "calibration": 7999,
+    "val": 17151
+  },
+  "temperature": 1.9086784115427977,
+  "temperature_who": 0.9690096288687304,
+  "rules": {
+    "DR0": "the current rule: listed mass >= theta_d or WHO head >= theta_who, fitted jointly",
+    "DR1": "logistic regression on the outputs (FEATURES) >= theta_d, cross-fitted by photographer; replaces both signals",
+    "DR2_top3": "listed mass among the top 3 species >= theta_d, jointly with the WHO head",
+    "DR2_top5": "listed mass among the top 5 species >= theta_d, jointly with the WHO head",
+    "DR3_max": "max(species listed mass, genus head's listed mass) >= theta_d, jointly with the WHO head",
+    "DR3_mix": "weight x species listed mass + (1 - weight) x genus head's listed mass >= theta_d, jointly with the WHO head; weight fitted on calibration at each target's point fit",
+    "DR4": "DR0's thresholds; a call only a WHO signal makes, with listed mass and WHO head both under CONFIDENT_DANGER, becomes we don't know (keep away); a variant, since it changes what the verdicts mean"
+  },
+  "threshold_note": "theta_d is the threshold on each rule's own score, which stands in for the listed mass",
+  "targets": [
+    0.9,
+    0.95,
+    0.975
+  ],
+  "dr1": {
+    "features": [
+      "listed_mass",
+      "who_head",
+      "top1_prob",
+      "top1_listed",
+      "entropy",
+      "margin",
+      "genus_listed_mass",
+      "venomous_family"
+    ],
+    "folds": 5,
+    "seed": 0,
+    "trained_on": "WHO-listed (1) against neither WHO-listed nor viper or elapid (0); every photo scored out of fold",
+    "coefficients": {
+      "listed_mass": 2.022815904394352,
+      "who_head": -0.30201445775041663,
+      "top1_prob": 0.6267616245729797,
+      "top1_listed": 0.02066337875367066,
+      "entropy": 0.11404704765033173,
+      "margin": -0.11480029616829049,
+      "genus_listed_mass": 0.6426744807026512,
+      "venomous_family": 1.1404732678304899
+    }
+  },
+  "dr3_mix_weight": {
+    "0.9": 0.0,
+    "0.95": 0.4,
+    "0.975": 0.4
+  },
+  "dr4_confident": 0.5,
+  "o3_limit": 0.02,
+  "results": {
+    "DR0": {
+      "0.9": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.19415265032659437,
+              "theta_who": Infinity
+            },
+            "target": 0.9,
+            "lower_bound": null,
+            "who_recall": 0.9028268551236749,
+            "false_alarm": 0.1523809523809524
+          },
+          "validation": {
+            "who_recall": 0.8737681839511966,
+            "false_alarm": 0.18490367248645395,
+            "false_alarm_outside_table": 0.1688582920792079,
+            "o3": 0.042702956358517126,
+            "unknown_share": 0.16552970672264009,
+            "intervals": {
+              "who_recall": [
+                0.8466537799727368,
+                0.9006097500608027
+              ],
+              "false_alarm": [
+                0.16977486434481562,
+                0.20094645768838057
+              ],
+              "false_alarm_outside_table": [
+                0.15456956443169112,
+                0.1852901989524112
+              ],
+              "o3": [
+                0.0325646528669234,
+                0.05452711369059591
+              ],
+              "unknown_share": [
+                0.155154841122377,
+                0.1760774326415929
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.12083167073131347,
+              "theta_who": Infinity
+            },
+            "target": 0.925,
+            "lower_bound": 0.9081040404953449,
+            "who_recall": 0.931095406360424,
+            "false_alarm": 0.1817204301075269
+          },
+          "validation": {
+            "who_recall": 0.9075551384326607,
+            "false_alarm": 0.22561709813365444,
+            "false_alarm_outside_table": 0.21008663366336633,
+            "o3": 0.03613327076489911,
+            "unknown_share": 0.13987522593434784,
+            "intervals": {
+              "who_recall": [
+                0.8846291775395592,
+                0.9288702928870293
+              ],
+              "false_alarm": [
+                0.20879870869259162,
+                0.24408884685402207
+              ],
+              "false_alarm_outside_table": [
+                0.19416788159225826,
+                0.2286717039060395
+              ],
+              "o3": [
+                0.0273028900550569,
+                0.04705997806384575
+              ],
+              "unknown_share": [
+                0.13111662763651383,
+                0.1488935166593461
+              ]
+            }
+          }
+        }
+      },
+      "0.95": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.0814731175828377,
+              "theta_who": Infinity
+            },
+            "target": 0.95,
+            "lower_bound": null,
+            "who_recall": 0.9540636042402827,
+            "false_alarm": 0.21705069124423962
+          },
+          "validation": {
+            "who_recall": 0.9305490380103237,
+            "false_alarm": 0.26979229379891634,
+            "false_alarm_outside_table": 0.25510519801980197,
+            "o3": 0.028155795401220086,
+            "unknown_share": 0.11562008046178066,
+            "intervals": {
+              "who_recall": [
+                0.9110371090077102,
+                0.9470019400546339
+              ],
+              "false_alarm": [
+                0.25159970746675,
+                0.2900626848902037
+              ],
+              "false_alarm_outside_table": [
+                0.2374399860239795,
+                0.27561952142254587
+              ],
+              "o3": [
+                0.020228281378915455,
+                0.037593512907921456
+              ],
+              "unknown_share": [
+                0.10815323169233454,
+                0.12359168855392812
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.05660591583161018,
+              "theta_who": Infinity
+            },
+            "target": 0.965,
+            "lower_bound": 0.9515528956000792,
+            "who_recall": 0.9664310954063604,
+            "false_alarm": 0.2534562211981567
+          },
+          "validation": {
+            "who_recall": 0.9479117785077429,
+            "false_alarm": 0.31073148705599035,
+            "false_alarm_outside_table": 0.29610148514851486,
+            "o3": 0.020647583294228063,
+            "unknown_share": 0.09538802402192292,
+            "intervals": {
+              "who_recall": [
+                0.9301399616891995,
+                0.9633870200788429
+              ],
+              "false_alarm": [
+                0.2917798567283099,
+                0.3308898833441593
+              ],
+              "false_alarm_outside_table": [
+                0.277881156706404,
+                0.3172042838437381
+              ],
+              "o3": [
+                0.013453339530997638,
+                0.02917743564441087
+              ],
+              "unknown_share": [
+                0.08834800696276682,
+                0.10273128860150242
+              ]
+            }
+          }
+        }
+      },
+      "0.975": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.04101711638871806,
+              "theta_who": 0.3096755318347328
+            },
+            "target": 0.975,
+            "lower_bound": null,
+            "who_recall": 0.9752650176678446,
+            "false_alarm": 0.30030721966205837
+          },
+          "validation": {
+            "who_recall": 0.9624589394650399,
+            "false_alarm": 0.3565623118603251,
+            "false_alarm_outside_table": 0.3427444306930693,
+            "o3": 0.015016424213984044,
+            "unknown_share": 0.0782461664042913,
+            "intervals": {
+              "who_recall": [
+                0.9501414712552401,
+                0.9741832999889176
+              ],
+              "false_alarm": [
+                0.33722636569898784,
+                0.37733851132898005
+              ],
+              "false_alarm_outside_table": [
+                0.32372514237532335,
+                0.3640279761007303
+              ],
+              "o3": [
+                0.008679656762174614,
+                0.02332307912683772
+              ],
+              "unknown_share": [
+                0.07254522992017597,
+                0.0845842206181077
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.026026716705487264,
+              "theta_who": 0.3096755318347328
+            },
+            "target": 0.985,
+            "lower_bound": 0.9799309703888036,
+            "who_recall": 0.9876325088339223,
+            "false_alarm": 0.34854070660522274
+          },
+          "validation": {
+            "who_recall": 0.974659784138902,
+            "false_alarm": 0.4148103552077062,
+            "false_alarm_outside_table": 0.4016862623762376,
+            "o3": 0.010323791647114031,
+            "unknown_share": 0.05568188443822518,
+            "intervals": {
+              "who_recall": [
+                0.9636237004753028,
+                0.9840093061690631
+              ],
+              "false_alarm": [
+                0.3949390496609634,
+                0.43514495866805813
+              ],
+              "false_alarm_outside_table": [
+                0.3809885430099768,
+                0.4226275932221027
+              ],
+              "o3": [
+                0.004567438750887481,
+                0.018089497089002537
+              ],
+              "unknown_share": [
+                0.05100927664611837,
+                0.06050274423588772
+              ]
+            }
+          }
+        }
+      }
+    },
+    "DR1": {
+      "0.9": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.0720047018079889,
+              "theta_who": Infinity
+            },
+            "target": 0.9,
+            "lower_bound": null,
+            "who_recall": 0.9063604240282686,
+            "false_alarm": 0.16144393241167435
+          },
+          "validation": {
+            "who_recall": 0.8859690286250587,
+            "false_alarm": 0.19566526189042746,
+            "false_alarm_outside_table": 0.1797648514851485,
+            "o3": 0.041295166588456125,
+            "unknown_share": 0.15894116961110138,
+            "intervals": {
+              "who_recall": [
+                0.8611059765865682,
+                0.9103118662297043
+              ],
+              "false_alarm": [
+                0.18025648148345477,
+                0.21264793867405463
+              ],
+              "false_alarm_outside_table": [
+                0.16426276355446826,
+                0.19677445749395575
+              ],
+              "o3": [
+                0.03153952450242143,
+                0.05325377953189974
+              ],
+              "unknown_share": [
+                0.14894773030862415,
+                0.1688963928464446
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.0550399231015551,
+              "theta_who": Infinity
+            },
+            "target": 0.92,
+            "lower_bound": 0.9010087973287663,
+            "who_recall": 0.9222614840989399,
+            "false_alarm": 0.18218125960061443
+          },
+          "validation": {
+            "who_recall": 0.9075551384326607,
+            "false_alarm": 0.21824202287778446,
+            "false_alarm_outside_table": 0.20281559405940594,
+            "o3": 0.0333176912247771,
+            "unknown_share": 0.14541426155909276,
+            "intervals": {
+              "who_recall": [
+                0.8818087733103729,
+                0.9302962342271294
+              ],
+              "false_alarm": [
+                0.20144066950873532,
+                0.23586188123935004
+              ],
+              "false_alarm_outside_table": [
+                0.1865440508815724,
+                0.2206019041209621
+              ],
+              "o3": [
+                0.02434219750009183,
+                0.0437710876350793
+              ],
+              "unknown_share": [
+                0.13601888870393022,
+                0.15475835241982303
+              ]
+            }
+          }
+        }
+      },
+      "0.95": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.036832148809408244,
+              "theta_who": Infinity
+            },
+            "target": 0.95,
+            "lower_bound": null,
+            "who_recall": 0.9558303886925795,
+            "false_alarm": 0.21981566820276496
+          },
+          "validation": {
+            "who_recall": 0.9343031440638198,
+            "false_alarm": 0.2679108970499699,
+            "false_alarm_outside_table": 0.2530940594059406,
+            "o3": 0.024401689347724072,
+            "unknown_share": 0.12005130896157658,
+            "intervals": {
+              "who_recall": [
+                0.917129063364016,
+                0.9501921893200238
+              ],
+              "false_alarm": [
+                0.24890843307582047,
+                0.28856745923483373
+              ],
+              "false_alarm_outside_table": [
+                0.23445137533651836,
+                0.2741695338772362
+              ],
+              "o3": [
+                0.016656318569620007,
+                0.03394262362808456
+              ],
+              "unknown_share": [
+                0.11184956345887864,
+                0.12808510846625135
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.023265239105092133,
+              "theta_who": Infinity
+            },
+            "target": 0.965,
+            "lower_bound": 0.9522996791495355,
+            "who_recall": 0.9664310954063604,
+            "false_alarm": 0.27050691244239633
+          },
+          "validation": {
+            "who_recall": 0.9540122008446739,
+            "false_alarm": 0.3260084286574353,
+            "false_alarm_outside_table": 0.3119585396039604,
+            "o3": 0.01642421398404505,
+            "unknown_share": 0.09492157891668124,
+            "intervals": {
+              "who_recall": [
+                0.9398407583990944,
+                0.9667079528468492
+              ],
+              "false_alarm": [
+                0.3060042466752924,
+                0.34661592566933397
+              ],
+              "false_alarm_outside_table": [
+                0.2924836744453689,
+                0.3334382420271071
+              ],
+              "o3": [
+                0.009777490989419834,
+                0.02434290125261229
+              ],
+              "unknown_share": [
+                0.08872501881245633,
+                0.10160610302198882
+              ]
+            }
+          }
+        }
+      },
+      "0.975": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.018971772509065656,
+              "theta_who": Infinity
+            },
+            "target": 0.975,
+            "lower_bound": null,
+            "who_recall": 0.9752650176678446,
+            "false_alarm": 0.2947772657450077
+          },
+          "validation": {
+            "who_recall": 0.9610511496949788,
+            "false_alarm": 0.3532510535821794,
+            "false_alarm_outside_table": 0.3394956683168317,
+            "o3": 0.014547160957297044,
+            "unknown_share": 0.0849513147921404,
+            "intervals": {
+              "who_recall": [
+                0.9478775513723094,
+                0.9731423693081633
+              ],
+              "false_alarm": [
+                0.3328839487004326,
+                0.37406956304519096
+              ],
+              "false_alarm_outside_table": [
+                0.31944259802783,
+                0.3606333860309069
+              ],
+              "o3": [
+                0.008071730394983422,
+                0.022309356340451367
+              ],
+              "unknown_share": [
+                0.07909022205838781,
+                0.09147022672229331
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.012560036018387111,
+              "theta_who": Infinity
+            },
+            "target": 0.985,
+            "lower_bound": 0.9762288786482335,
+            "who_recall": 0.9858657243816255,
+            "false_alarm": 0.3468509984639017
+          },
+          "validation": {
+            "who_recall": 0.9741905208822149,
+            "false_alarm": 0.4136062612883805,
+            "false_alarm_outside_table": 0.40075804455445546,
+            "o3": 0.007977475363679024,
+            "unknown_share": 0.06571045420092123,
+            "intervals": {
+              "who_recall": [
+                0.9633394593812892,
+                0.9834447718573425
+              ],
+              "false_alarm": [
+                0.39342206857603945,
+                0.43437964123392725
+              ],
+              "false_alarm_outside_table": [
+                0.3799021789963785,
+                0.4218433565735339
+              ],
+              "o3": [
+                0.0038624753705675686,
+                0.013303994119357296
+              ],
+              "unknown_share": [
+                0.060777715277337455,
+                0.07137298102949813
+              ]
+            }
+          }
+        }
+      }
+    },
+    "DR2_top3": {
+      "0.9": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.2636357021415742,
+              "theta_who": 0.4016820162394914
+            },
+            "target": 0.9,
+            "lower_bound": null,
+            "who_recall": 0.901060070671378,
+            "false_alarm": 0.1522273425499232
+          },
+          "validation": {
+            "who_recall": 0.8564054434537776,
+            "false_alarm": 0.18385009030704394,
+            "false_alarm_outside_table": 0.16793007425742573,
+            "o3": 0.04598779915532614,
+            "unknown_share": 0.17439216372223193,
+            "intervals": {
+              "who_recall": [
+                0.8268249220767196,
+                0.8850837122899134
+              ],
+              "false_alarm": [
+                0.16931499428893879,
+                0.19940695537903255
+              ],
+              "false_alarm_outside_table": [
+                0.15373700082192165,
+                0.1837133381612298
+              ],
+              "o3": [
+                0.03530820143805252,
+                0.05784409564329019
+              ],
+              "unknown_share": [
+                0.16413478037111626,
+                0.1849905695245601
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.07267270781498614,
+              "theta_who": 0.4016820162394914
+            },
+            "target": 0.92,
+            "lower_bound": 0.9049194894717001,
+            "who_recall": 0.9275618374558304,
+            "false_alarm": 0.1869431643625192
+          },
+          "validation": {
+            "who_recall": 0.8981698732989207,
+            "false_alarm": 0.2282510535821794,
+            "false_alarm_outside_table": 0.21294863861386137,
+            "o3": 0.030971374941342094,
+            "unknown_share": 0.1493207393154918,
+            "intervals": {
+              "who_recall": [
+                0.8716126552116484,
+                0.9223368340594958
+              ],
+              "false_alarm": [
+                0.21241292913949433,
+                0.24549859969145169
+              ],
+              "false_alarm_outside_table": [
+                0.19709260855893898,
+                0.23031842690942594
+              ],
+              "o3": [
+                0.02266361938678016,
+                0.04097874615757192
+              ],
+              "unknown_share": [
+                0.13995412757257342,
+                0.15937500496063242
+              ]
+            }
+          }
+        }
+      },
+      "0.95": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.017411065451479215,
+              "theta_who": 0.0871892524674484
+            },
+            "target": 0.95,
+            "lower_bound": null,
+            "who_recall": 0.950530035335689,
+            "false_alarm": 0.2771121351766513
+          },
+          "validation": {
+            "who_recall": 0.9286719849835758,
+            "false_alarm": 0.3265352197471403,
+            "false_alarm_outside_table": 0.3131188118811881,
+            "o3": 0.02111684655091506,
+            "unknown_share": 0.12559034458632148,
+            "intervals": {
+              "who_recall": [
+                0.906663643533123,
+                0.9483096127767254
+              ],
+              "false_alarm": [
+                0.3097065801898022,
+                0.34455972203794505
+              ],
+              "false_alarm_outside_table": [
+                0.29636560828714875,
+                0.3314888565582604
+              ],
+              "o3": [
+                0.013636334214753602,
+                0.02991082525616913
+              ],
+              "unknown_share": [
+                0.11723569053024847,
+                0.13374847015767774
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.017411065451479215,
+              "theta_who": 0.040863815399740544
+            },
+            "target": 0.96,
+            "lower_bound": 0.950285788031204,
+            "who_recall": 0.9646643109540636,
+            "false_alarm": 0.34807987711213517
+          },
+          "validation": {
+            "who_recall": 0.9389957766306898,
+            "false_alarm": 0.3944912703190849,
+            "false_alarm_outside_table": 0.3822710396039604,
+            "o3": 0.015485687470671047,
+            "unknown_share": 0.10792373622529298,
+            "intervals": {
+              "who_recall": [
+                0.918770140287076,
+                0.9566098633760628
+              ],
+              "false_alarm": [
+                0.3762130831340509,
+                0.4132078715190875
+              ],
+              "false_alarm_outside_table": [
+                0.3637630424198289,
+                0.40144275211945046
+              ],
+              "o3": [
+                0.009728640690283464,
+                0.022583561062392083
+              ],
+              "unknown_share": [
+                0.10008432258364641,
+                0.11562156334656003
+              ]
+            }
+          }
+        }
+      },
+      "0.975": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": Infinity,
+              "theta_who": 0.018076520539276168
+            },
+            "target": 0.975,
+            "lower_bound": null,
+            "who_recall": 0.9752650176678446,
+            "false_alarm": 0.44070660522273425
+          },
+          "validation": {
+            "who_recall": 0.9535429375879868,
+            "false_alarm": 0.48457254665863936,
+            "false_alarm_outside_table": 0.47385519801980197,
+            "o3": 0.012200844673862036,
+            "unknown_share": 0.09025712786426447,
+            "intervals": {
+              "who_recall": [
+                0.936778229732919,
+                0.9690383821478382
+              ],
+              "false_alarm": [
+                0.46811058619935325,
+                0.5022208031832369
+              ],
+              "false_alarm_outside_table": [
+                0.45630103151180945,
+                0.4922218541572934
+              ],
+              "o3": [
+                0.007019887636563313,
+                0.0178157872412623
+              ],
+              "unknown_share": [
+                0.08326437500120028,
+                0.09695681673329039
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": Infinity,
+              "theta_who": 0.006365881254033409
+            },
+            "target": 0.985,
+            "lower_bound": 0.9777777777777777,
+            "who_recall": 0.9858657243816255,
+            "false_alarm": 0.6219662058371735
+          },
+          "validation": {
+            "who_recall": 0.97653683716565,
+            "false_alarm": 0.6502859723058398,
+            "false_alarm_outside_table": 0.6427134900990099,
+            "o3": 0.004223369310183012,
+            "unknown_share": 0.05696460847763979,
+            "intervals": {
+              "who_recall": [
+                0.96663473301599,
+                0.9848101507817982
+              ],
+              "false_alarm": [
+                0.6351290768467099,
+                0.6651555986439756
+              ],
+              "false_alarm_outside_table": [
+                0.6275953763287412,
+                0.6582667565717185
+              ],
+              "o3": [
+                0.0017152168866014323,
+                0.007251811587159018
+              ],
+              "unknown_share": [
+                0.052437501647936,
+                0.062016937798414586
+              ]
+            }
+          }
+        }
+      }
+    },
+    "DR2_top5": {
+      "0.9": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.24387096005764913,
+              "theta_who": 0.4016820162394914
+            },
+            "target": 0.9,
+            "lower_bound": null,
+            "who_recall": 0.901060070671378,
+            "false_alarm": 0.15360983102918588
+          },
+          "validation": {
+            "who_recall": 0.8592210229938996,
+            "false_alarm": 0.1848284166164961,
+            "false_alarm_outside_table": 0.16893564356435645,
+            "o3": 0.044580009385265136,
+            "unknown_share": 0.17375080170252463,
+            "intervals": {
+              "who_recall": [
+                0.8292997433082878,
+                0.8875767364230478
+              ],
+              "false_alarm": [
+                0.1703423812671828,
+                0.20053800241376712
+              ],
+              "false_alarm_outside_table": [
+                0.1548598467624622,
+                0.18461156217119495
+              ],
+              "o3": [
+                0.0340796845053811,
+                0.05615487332951306
+              ],
+              "unknown_share": [
+                0.16358164102857561,
+                0.184477187403556
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.07681209360766648,
+              "theta_who": 0.4016820162394914
+            },
+            "target": 0.925,
+            "lower_bound": 0.9061869691750312,
+            "who_recall": 0.9293286219081273,
+            "false_alarm": 0.19216589861751152
+          },
+          "validation": {
+            "who_recall": 0.9033317691224777,
+            "false_alarm": 0.23404575556893437,
+            "false_alarm_outside_table": 0.21875,
+            "o3": 0.030971374941342094,
+            "unknown_share": 0.1455891784735584,
+            "intervals": {
+              "who_recall": [
+                0.879186579264739,
+                0.9267836203229177
+              ],
+              "false_alarm": [
+                0.217642924789941,
+                0.2516509784618526
+              ],
+              "false_alarm_outside_table": [
+                0.20234726686182686,
+                0.2371304629822398
+              ],
+              "o3": [
+                0.022724595150372718,
+                0.04079197583857872
+              ],
+              "unknown_share": [
+                0.1362452996879426,
+                0.1551911591250809
+              ]
+            }
+          }
+        }
+      },
+      "0.95": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.028194908120829996,
+              "theta_who": Infinity
+            },
+            "target": 0.95,
+            "lower_bound": null,
+            "who_recall": 0.950530035335689,
+            "false_alarm": 0.23456221198156682
+          },
+          "validation": {
+            "who_recall": 0.9361801970905678,
+            "false_alarm": 0.28838049367850693,
+            "false_alarm_outside_table": 0.2740563118811881,
+            "o3": 0.02111684655091506,
+            "unknown_share": 0.12069267098128389,
+            "intervals": {
+              "who_recall": [
+                0.9166639218269653,
+                0.9536543451245824
+              ],
+              "false_alarm": [
+                0.27082179345601853,
+                0.307652410758245
+              ],
+              "false_alarm_outside_table": [
+                0.2565516933911525,
+                0.2930175663386791
+              ],
+              "o3": [
+                0.013486596365518026,
+                0.03033883874264135
+              ],
+              "unknown_share": [
+                0.11254242607707478,
+                0.12909074299270432
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.022353300197918105,
+              "theta_who": 0.047153859133467264
+            },
+            "target": 0.965,
+            "lower_bound": 0.95160591491027,
+            "who_recall": 0.9664310954063604,
+            "false_alarm": 0.3497695852534562
+          },
+          "validation": {
+            "who_recall": 0.9497888315344909,
+            "false_alarm": 0.3966736905478627,
+            "false_alarm_outside_table": 0.3845915841584158,
+            "o3": 0.01313937118723604,
+            "unknown_share": 0.10005247507433969,
+            "intervals": {
+              "who_recall": [
+                0.932019129617714,
+                0.9651465594462082
+              ],
+              "false_alarm": [
+                0.3788313993315658,
+                0.41554172742491374
+              ],
+              "false_alarm_outside_table": [
+                0.3658620915705765,
+                0.4038147263716009
+              ],
+              "o3": [
+                0.0071144516215474445,
+                0.020647978812470512
+              ],
+              "unknown_share": [
+                0.0928936027046444,
+                0.10766383208984685
+              ]
+            }
+          }
+        }
+      },
+      "0.975": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.05856089449659857,
+              "theta_who": 0.023542714302580824
+            },
+            "target": 0.975,
+            "lower_bound": null,
+            "who_recall": 0.9752650176678446,
+            "false_alarm": 0.4129032258064516
+          },
+          "validation": {
+            "who_recall": 0.9526044110746129,
+            "false_alarm": 0.45763094521372666,
+            "false_alarm_outside_table": 0.4464727722772277,
+            "o3": 0.01313937118723604,
+            "unknown_share": 0.09089848988397178,
+            "intervals": {
+              "who_recall": [
+                0.9337344657968004,
+                0.9687648488441019
+              ],
+              "false_alarm": [
+                0.4401572244010466,
+                0.4770394916734985
+              ],
+              "false_alarm_outside_table": [
+                0.42898357180959956,
+                0.4658837087262264
+              ],
+              "o3": [
+                0.007682263138450763,
+                0.019512555924375813
+              ],
+              "unknown_share": [
+                0.0841515789997407,
+                0.09740168712554675
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.05856089449659857,
+              "theta_who": 0.006365881254033409
+            },
+            "target": 0.985,
+            "lower_bound": 0.9777777777777777,
+            "who_recall": 0.9858657243816255,
+            "false_alarm": 0.6248847926267281
+          },
+          "validation": {
+            "who_recall": 0.9779446269357109,
+            "false_alarm": 0.6531456953642384,
+            "false_alarm_outside_table": 0.645575495049505,
+            "o3": 0.004223369310183012,
+            "unknown_share": 0.05509882805667308,
+            "intervals": {
+              "who_recall": [
+                0.9680393608074012,
+                0.9861882135937851
+              ],
+              "false_alarm": [
+                0.6377913329843964,
+                0.6682993084017957
+              ],
+              "false_alarm_outside_table": [
+                0.6303126924714376,
+                0.660956149188856
+              ],
+              "o3": [
+                0.0017152168866014323,
+                0.007251811587159018
+              ],
+              "unknown_share": [
+                0.050694977290164214,
+                0.05984617054959902
+              ]
+            }
+          }
+        }
+      }
+    },
+    "DR3_max": {
+      "0.9": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.33318073819184874,
+              "theta_who": 0.7570705161410797
+            },
+            "target": 0.9,
+            "lower_bound": null,
+            "who_recall": 0.901060070671378,
+            "false_alarm": 0.14316436251920123
+          },
+          "validation": {
+            "who_recall": 0.8507742843735335,
+            "false_alarm": 0.174367850692354,
+            "false_alarm_outside_table": 0.15810643564356436,
+            "o3": 0.050680431722196155,
+            "unknown_share": 0.1748003031893184,
+            "intervals": {
+              "who_recall": [
+                0.8203926929461233,
+                0.8801606269783037
+              ],
+              "false_alarm": [
+                0.1600560592898095,
+                0.190155822582205
+              ],
+              "false_alarm_outside_table": [
+                0.14434517152767212,
+                0.17344357518810313
+              ],
+              "o3": [
+                0.039427645050723596,
+                0.06350735778880721
+              ],
+              "unknown_share": [
+                0.16470797203087764,
+                0.18559701661795816
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.1536047241433471,
+              "theta_who": 0.7570705161410797
+            },
+            "target": 0.925,
+            "lower_bound": 0.9075165535110237,
+            "who_recall": 0.9293286219081273,
+            "false_alarm": 0.18202764976958524
+          },
+          "validation": {
+            "who_recall": 0.9042702956358517,
+            "false_alarm": 0.22019867549668873,
+            "false_alarm_outside_table": 0.2045946782178218,
+            "o3": 0.0337869544814641,
+            "unknown_share": 0.14547256719724797,
+            "intervals": {
+              "who_recall": [
+                0.8796970055290069,
+                0.9269489204761302
+              ],
+              "false_alarm": [
+                0.20405012708116943,
+                0.23754180101802172
+              ],
+              "false_alarm_outside_table": [
+                0.18871131877082178,
+                0.22294995969641182
+              ],
+              "o3": [
+                0.02510352307423437,
+                0.04377433579226496
+              ],
+              "unknown_share": [
+                0.13607936970215,
+                0.1549350892165998
+              ]
+            }
+          }
+        }
+      },
+      "0.95": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.11298452425155414,
+              "theta_who": Infinity
+            },
+            "target": 0.95,
+            "lower_bound": null,
+            "who_recall": 0.950530035335689,
+            "false_alarm": 0.20445468509984638
+          },
+          "validation": {
+            "who_recall": 0.9244486156733928,
+            "false_alarm": 0.24864539434075858,
+            "false_alarm_outside_table": 0.23352413366336633,
+            "o3": 0.027686532144533083,
+            "unknown_share": 0.12914698851378928,
+            "intervals": {
+              "who_recall": [
+                0.9051486881232755,
+                0.9412818986109972
+              ],
+              "false_alarm": [
+                0.23122341670520674,
+                0.2675945590034406
+              ],
+              "false_alarm_outside_table": [
+                0.2168673428159431,
+                0.25296875256712104
+              ],
+              "o3": [
+                0.01995661855036855,
+                0.03751710289208324
+              ],
+              "unknown_share": [
+                0.1210761895574858,
+                0.1379387351056299
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.06312874649403853,
+              "theta_who": Infinity
+            },
+            "target": 0.965,
+            "lower_bound": 0.957336342798859,
+            "who_recall": 0.9699646643109541,
+            "false_alarm": 0.2588325652841782
+          },
+          "validation": {
+            "who_recall": 0.9502580947911778,
+            "false_alarm": 0.3136664659843468,
+            "false_alarm_outside_table": 0.29919554455445546,
+            "o3": 0.01923979352416706,
+            "unknown_share": 0.09737041571920005,
+            "intervals": {
+              "who_recall": [
+                0.9351449857344951,
+                0.9636398194828427
+              ],
+              "false_alarm": [
+                0.2945049513139851,
+                0.33486692149951713
+              ],
+              "false_alarm_outside_table": [
+                0.28050956827756923,
+                0.3203965005249909
+              ],
+              "o3": [
+                0.012499869845897543,
+                0.027344117837468804
+              ],
+              "unknown_share": [
+                0.09014641924471334,
+                0.10497017283230782
+              ]
+            }
+          }
+        }
+      },
+      "0.975": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.051564001638711124,
+              "theta_who": 0.3096755318347328
+            },
+            "target": 0.975,
+            "lower_bound": null,
+            "who_recall": 0.9752650176678446,
+            "false_alarm": 0.28755760368663597
+          },
+          "validation": {
+            "who_recall": 0.9610511496949788,
+            "false_alarm": 0.3475316074653823,
+            "false_alarm_outside_table": 0.3334622524752475,
+            "o3": 0.014077897700610043,
+            "unknown_share": 0.08582589936446855,
+            "intervals": {
+              "who_recall": [
+                0.9474645614560548,
+                0.9728819026790596
+              ],
+              "false_alarm": [
+                0.32817479385214626,
+                0.36878071513019844
+              ],
+              "false_alarm_outside_table": [
+                0.31407840716679297,
+                0.35515319671562284
+              ],
+              "o3": [
+                0.007852469481154057,
+                0.021852946718277325
+              ],
+              "unknown_share": [
+                0.07941045249344747,
+                0.09235835100520458
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.034287369080754665,
+              "theta_who": 0.3096755318347328
+            },
+            "target": 0.985,
+            "lower_bound": 0.9777758751902588,
+            "who_recall": 0.9858657243816255,
+            "false_alarm": 0.33563748079877115
+          },
+          "validation": {
+            "who_recall": 0.969967151572032,
+            "false_alarm": 0.3960716435881999,
+            "false_alarm_outside_table": 0.382657797029703,
+            "o3": 0.010793054903801032,
+            "unknown_share": 0.06658503877324937,
+            "intervals": {
+              "who_recall": [
+                0.9582910115799521,
+                0.980158349453652
+              ],
+              "false_alarm": [
+                0.37622632798701783,
+                0.41723304980650106
+              ],
+              "false_alarm_outside_table": [
+                0.3627044112764305,
+                0.40387280530318986
+              ],
+              "o3": [
+                0.005469111025845074,
+                0.01769142711566383
+              ],
+              "unknown_share": [
+                0.06136601433194399,
+                0.07193926324875258
+              ]
+            }
+          }
+        }
+      }
+    },
+    "DR3_mix": {
+      "0.9": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.3136613729175302,
+              "theta_who": 0.669005825032442
+            },
+            "target": 0.9,
+            "lower_bound": null,
+            "who_recall": 0.901060070671378,
+            "false_alarm": 0.1445468509984639,
+            "weight": 0.0
+          },
+          "validation": {
+            "who_recall": 0.8521820741435946,
+            "false_alarm": 0.17534617700180613,
+            "false_alarm_outside_table": 0.15911200495049505,
+            "o3": 0.05021116846550915,
+            "unknown_share": 0.17421724680776632,
+            "intervals": {
+              "who_recall": [
+                0.8229862420128669,
+                0.8815258803195639
+              ],
+              "false_alarm": [
+                0.16137276846291257,
+                0.1906448754433056
+              ],
+              "false_alarm_outside_table": [
+                0.14541653415878295,
+                0.1740677042950485
+              ],
+              "o3": [
+                0.03870989496607181,
+                0.06385252001441351
+              ],
+              "unknown_share": [
+                0.16413748126957475,
+                0.1849459510110837
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.15903683301369903,
+              "theta_who": 0.2815786143294331
+            },
+            "target": 0.925,
+            "lower_bound": 0.9045886752136751,
+            "who_recall": 0.9257950530035336,
+            "false_alarm": 0.18617511520737326,
+            "weight": 0.0
+          },
+          "validation": {
+            "who_recall": 0.8892538714218676,
+            "false_alarm": 0.22328416616496086,
+            "false_alarm_outside_table": 0.2078434405940594,
+            "o3": 0.03754106053496011,
+            "unknown_share": 0.1535770509008221,
+            "intervals": {
+              "who_recall": [
+                0.8642883567916707,
+                0.9138106550315648
+              ],
+              "false_alarm": [
+                0.20764254168096674,
+                0.2400444412703307
+              ],
+              "false_alarm_outside_table": [
+                0.19304902923485348,
+                0.22504715861472518
+              ],
+              "o3": [
+                0.02824832528640087,
+                0.04894354026244462
+              ],
+              "unknown_share": [
+                0.14383958839359223,
+                0.16327505351946106
+              ]
+            }
+          }
+        }
+      },
+      "0.95": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.0750419569560651,
+              "theta_who": Infinity
+            },
+            "target": 0.95,
+            "lower_bound": null,
+            "who_recall": 0.9558303886925795,
+            "false_alarm": 0.21351766513056836,
+            "weight": 0.4
+          },
+          "validation": {
+            "who_recall": 0.9333646175504458,
+            "false_alarm": 0.2576760987357014,
+            "false_alarm_outside_table": 0.24280631188118812,
+            "o3": 0.023932426091037073,
+            "unknown_share": 0.12378286980351,
+            "intervals": {
+              "who_recall": [
+                0.9164607941481449,
+                0.948644959630877
+              ],
+              "false_alarm": [
+                0.24028258402661992,
+                0.27685082700743835
+              ],
+              "false_alarm_outside_table": [
+                0.22569130800154388,
+                0.2625206557161197
+              ],
+              "o3": [
+                0.016361991002932216,
+                0.033001662499548806
+              ],
+              "unknown_share": [
+                0.11593342520047517,
+                0.13231403865703248
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.04882979770944685,
+              "theta_who": Infinity
+            },
+            "target": 0.965,
+            "lower_bound": 0.9516951353222921,
+            "who_recall": 0.9664310954063604,
+            "false_alarm": 0.250384024577573,
+            "weight": 0.4
+          },
+          "validation": {
+            "who_recall": 0.9483810417644298,
+            "false_alarm": 0.3023028296207104,
+            "false_alarm_outside_table": 0.2879795792079208,
+            "o3": 0.02017832003754106,
+            "unknown_share": 0.10290945134394495,
+            "intervals": {
+              "who_recall": [
+                0.9329538525498892,
+                0.9616070397404703
+              ],
+              "false_alarm": [
+                0.28346027826609665,
+                0.3231957442447862
+              ],
+              "false_alarm_outside_table": [
+                0.26973869335132095,
+                0.3095288132103991
+              ],
+              "o3": [
+                0.013362286562731997,
+                0.02832327981141807
+              ],
+              "unknown_share": [
+                0.09587872102008146,
+                0.11053363549077169
+              ]
+            }
+          }
+        }
+      },
+      "0.975": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.03624087676961922,
+              "theta_who": Infinity
+            },
+            "target": 0.975,
+            "lower_bound": null,
+            "who_recall": 0.9770318021201413,
+            "false_alarm": 0.27895545314900155,
+            "weight": 0.4
+          },
+          "validation": {
+            "who_recall": 0.9577663068981699,
+            "false_alarm": 0.3358669476219145,
+            "false_alarm_outside_table": 0.3214727722772277,
+            "o3": 0.01689347724073205,
+            "unknown_share": 0.0885662643577634,
+            "intervals": {
+              "who_recall": [
+                0.9444137518586926,
+                0.9696997421608584
+              ],
+              "false_alarm": [
+                0.31650819405145886,
+                0.35672507345960136
+              ],
+              "false_alarm_outside_table": [
+                0.30229864483478197,
+                0.3433344603099107
+              ],
+              "o3": [
+                0.010410312541969212,
+                0.024514051107688974
+              ],
+              "unknown_share": [
+                0.08217869528332566,
+                0.095371293646181
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.02020100090354214,
+              "theta_who": Infinity
+            },
+            "target": 0.985,
+            "lower_bound": 0.9774350649350649,
+            "who_recall": 0.9858657243816255,
+            "false_alarm": 0.3384024577572965,
+            "weight": 0.4
+          },
+          "validation": {
+            "who_recall": 0.973721257625528,
+            "false_alarm": 0.4020921131848284,
+            "false_alarm_outside_table": 0.3890006188118812,
+            "o3": 0.008446738620366025,
+            "unknown_share": 0.06413620197073057,
+            "intervals": {
+              "who_recall": [
+                0.9628214932643778,
+                0.982982829897855
+              ],
+              "false_alarm": [
+                0.3822169508791513,
+                0.42369826597971716
+              ],
+              "false_alarm_outside_table": [
+                0.368761979596928,
+                0.4110115882844064
+              ],
+              "o3": [
+                0.004018088542151221,
+                0.014027705841730229
+              ],
+              "unknown_share": [
+                0.059386092196927844,
+                0.06948179678202669
+              ]
+            }
+          }
+        }
+      }
+    },
+    "DR4": {
+      "0.9": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.19415265032659437,
+              "theta_who": Infinity
+            },
+            "target": 0.9,
+            "lower_bound": null,
+            "who_recall": 0.8798586572438163,
+            "false_alarm": 0.13179723502304147,
+            "confident": 0.5,
+            "o3": 0.03356890459363958
+          },
+          "validation": {
+            "who_recall": 0.8423275457531675,
+            "false_alarm": 0.16187537627934978,
+            "false_alarm_outside_table": 0.1454207920792079,
+            "o3": 0.042702956358517126,
+            "unknown_share": 0.18826890560317183,
+            "intervals": {
+              "who_recall": [
+                0.8112662946295927,
+                0.8727618959631925
+              ],
+              "false_alarm": [
+                0.14819542324433574,
+                0.1768542553022416
+              ],
+              "false_alarm_outside_table": [
+                0.1321477780908159,
+                0.16046895984187853
+              ],
+              "o3": [
+                0.0325646528669234,
+                0.05452711369059591
+              ],
+              "unknown_share": [
+                0.17769948300903243,
+                0.199430724229373
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.12083167073131347,
+              "theta_who": Infinity
+            },
+            "target": 0.925,
+            "lower_bound": 0.9081040404953449,
+            "who_recall": 0.8798586572438163,
+            "false_alarm": 0.13179723502304147,
+            "confident": 0.5,
+            "o3": 0.028268551236749116
+          },
+          "validation": {
+            "who_recall": 0.8423275457531675,
+            "false_alarm": 0.16187537627934978,
+            "false_alarm_outside_table": 0.1454207920792079,
+            "o3": 0.03613327076489911,
+            "unknown_share": 0.19946358812897208,
+            "intervals": {
+              "who_recall": [
+                0.8112662946295927,
+                0.8727618959631925
+              ],
+              "false_alarm": [
+                0.14819542324433574,
+                0.1768542553022416
+              ],
+              "false_alarm_outside_table": [
+                0.1321477780908159,
+                0.16046895984187853
+              ],
+              "o3": [
+                0.0273028900550569,
+                0.04705997806384575
+              ],
+              "unknown_share": [
+                0.18859660427386762,
+                0.21061069072684566
+              ]
+            }
+          }
+        }
+      },
+      "0.95": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.0814731175828377,
+              "theta_who": Infinity
+            },
+            "target": 0.95,
+            "lower_bound": null,
+            "who_recall": 0.8798586572438163,
+            "false_alarm": 0.13179723502304147,
+            "confident": 0.5,
+            "o3": 0.019434628975265017
+          },
+          "validation": {
+            "who_recall": 0.8423275457531675,
+            "false_alarm": 0.16187537627934978,
+            "false_alarm_outside_table": 0.1454207920792079,
+            "o3": 0.028155795401220086,
+            "unknown_share": 0.2135152469243776,
+            "intervals": {
+              "who_recall": [
+                0.8112662946295927,
+                0.8727618959631925
+              ],
+              "false_alarm": [
+                0.14819542324433574,
+                0.1768542553022416
+              ],
+              "false_alarm_outside_table": [
+                0.1321477780908159,
+                0.16046895984187853
+              ],
+              "o3": [
+                0.020228281378915455,
+                0.037593512907921456
+              ],
+              "unknown_share": [
+                0.2016450378665797,
+                0.22537357538132227
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.05660591583161018,
+              "theta_who": Infinity
+            },
+            "target": 0.965,
+            "lower_bound": 0.9515528956000792,
+            "who_recall": 0.8798586572438163,
+            "false_alarm": 0.13179723502304147,
+            "confident": 0.5,
+            "o3": 0.015901060070671377
+          },
+          "validation": {
+            "who_recall": 0.8423275457531675,
+            "false_alarm": 0.16187537627934978,
+            "false_alarm_outside_table": 0.1454207920792079,
+            "o3": 0.020647583294228063,
+            "unknown_share": 0.22838318465395605,
+            "intervals": {
+              "who_recall": [
+                0.8112662946295927,
+                0.8727618959631925
+              ],
+              "false_alarm": [
+                0.14819542324433574,
+                0.1768542553022416
+              ],
+              "false_alarm_outside_table": [
+                0.1321477780908159,
+                0.16046895984187853
+              ],
+              "o3": [
+                0.013453339530997638,
+                0.02917743564441087
+              ],
+              "unknown_share": [
+                0.21636917013808965,
+                0.2406409430850118
+              ]
+            }
+          }
+        }
+      },
+      "0.975": {
+        "point": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.04101711638871806,
+              "theta_who": 0.3096755318347328
+            },
+            "target": 0.975,
+            "lower_bound": null,
+            "who_recall": 0.8904593639575972,
+            "false_alarm": 0.14301075268817204,
+            "confident": 0.5,
+            "o3": 0.012367491166077738
+          },
+          "validation": {
+            "who_recall": 0.8521820741435946,
+            "false_alarm": 0.17451836243226973,
+            "false_alarm_outside_table": 0.1583384900990099,
+            "o3": 0.015016424213984044,
+            "unknown_share": 0.23841175441665208,
+            "intervals": {
+              "who_recall": [
+                0.8227718898625611,
+                0.8811819071800624
+              ],
+              "false_alarm": [
+                0.1605084251255802,
+                0.19008165099141336
+              ],
+              "false_alarm_outside_table": [
+                0.14477863016425876,
+                0.17382568772690932
+              ],
+              "o3": [
+                0.008679656762174614,
+                0.02332307912683772
+              ],
+              "unknown_share": [
+                0.22605268511645474,
+                0.251574151982689
+              ]
+            }
+          }
+        },
+        "lower": {
+          "calibration": {
+            "thresholds": {
+              "theta_d": 0.026026716705487264,
+              "theta_who": 0.3096755318347328
+            },
+            "target": 0.985,
+            "lower_bound": 0.9799309703888036,
+            "who_recall": 0.8904593639575972,
+            "false_alarm": 0.14301075268817204,
+            "confident": 0.5,
+            "o3": 0.007067137809187279
+          },
+          "validation": {
+            "who_recall": 0.8521820741435946,
+            "false_alarm": 0.17451836243226973,
+            "false_alarm_outside_table": 0.1583384900990099,
+            "o3": 0.010323791647114031,
+            "unknown_share": 0.26348317882339223,
+            "intervals": {
+              "who_recall": [
+                0.8227718898625611,
+                0.8811819071800624
+              ],
+              "false_alarm": [
+                0.1605084251255802,
+                0.19008165099141336
+              ],
+              "false_alarm_outside_table": [
+                0.14477863016425876,
+                0.17382568772690932
+              ],
+              "o3": [
+                0.004567438750887481,
+                0.018089497089002537
+              ],
+              "unknown_share": [
+                0.25097333997878096,
+                0.2776244379845687
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "headline": {
+    "target": 0.95,
+    "rows": {
+      "DR0": {
+        "point": {
+          "who_recall": 0.9305490380103237,
+          "false_alarm": 0.26979229379891634,
+          "false_alarm_interval": [
+            0.25159970746675,
+            0.2900626848902037
+          ],
+          "o3": 0.028155795401220086,
+          "o3_within_limit": false,
+          "unknown_share": 0.11562008046178066,
+          "false_alarm_outside_table": 0.25510519801980197
+        },
+        "lower": {
+          "who_recall": 0.9479117785077429,
+          "false_alarm": 0.31073148705599035,
+          "false_alarm_interval": [
+            0.2917798567283099,
+            0.3308898833441593
+          ],
+          "o3": 0.020647583294228063,
+          "o3_within_limit": false,
+          "unknown_share": 0.09538802402192292,
+          "false_alarm_outside_table": 0.29610148514851486
+        }
+      },
+      "DR1": {
+        "point": {
+          "who_recall": 0.9343031440638198,
+          "false_alarm": 0.2679108970499699,
+          "false_alarm_interval": [
+            0.24890843307582047,
+            0.28856745923483373
+          ],
+          "o3": 0.024401689347724072,
+          "o3_within_limit": false,
+          "unknown_share": 0.12005130896157658,
+          "false_alarm_outside_table": 0.2530940594059406
+        },
+        "lower": {
+          "who_recall": 0.9540122008446739,
+          "false_alarm": 0.3260084286574353,
+          "false_alarm_interval": [
+            0.3060042466752924,
+            0.34661592566933397
+          ],
+          "o3": 0.01642421398404505,
+          "o3_within_limit": true,
+          "unknown_share": 0.09492157891668124,
+          "false_alarm_outside_table": 0.3119585396039604
+        }
+      },
+      "DR2_top3": {
+        "point": {
+          "who_recall": 0.9286719849835758,
+          "false_alarm": 0.3265352197471403,
+          "false_alarm_interval": [
+            0.3097065801898022,
+            0.34455972203794505
+          ],
+          "o3": 0.02111684655091506,
+          "o3_within_limit": false,
+          "unknown_share": 0.12559034458632148,
+          "false_alarm_outside_table": 0.3131188118811881
+        },
+        "lower": {
+          "who_recall": 0.9389957766306898,
+          "false_alarm": 0.3944912703190849,
+          "false_alarm_interval": [
+            0.3762130831340509,
+            0.4132078715190875
+          ],
+          "o3": 0.015485687470671047,
+          "o3_within_limit": true,
+          "unknown_share": 0.10792373622529298,
+          "false_alarm_outside_table": 0.3822710396039604
+        }
+      },
+      "DR2_top5": {
+        "point": {
+          "who_recall": 0.9361801970905678,
+          "false_alarm": 0.28838049367850693,
+          "false_alarm_interval": [
+            0.27082179345601853,
+            0.307652410758245
+          ],
+          "o3": 0.02111684655091506,
+          "o3_within_limit": false,
+          "unknown_share": 0.12069267098128389,
+          "false_alarm_outside_table": 0.2740563118811881
+        },
+        "lower": {
+          "who_recall": 0.9497888315344909,
+          "false_alarm": 0.3966736905478627,
+          "false_alarm_interval": [
+            0.3788313993315658,
+            0.41554172742491374
+          ],
+          "o3": 0.01313937118723604,
+          "o3_within_limit": true,
+          "unknown_share": 0.10005247507433969,
+          "false_alarm_outside_table": 0.3845915841584158
+        }
+      },
+      "DR3_max": {
+        "point": {
+          "who_recall": 0.9244486156733928,
+          "false_alarm": 0.24864539434075858,
+          "false_alarm_interval": [
+            0.23122341670520674,
+            0.2675945590034406
+          ],
+          "o3": 0.027686532144533083,
+          "o3_within_limit": false,
+          "unknown_share": 0.12914698851378928,
+          "false_alarm_outside_table": 0.23352413366336633
+        },
+        "lower": {
+          "who_recall": 0.9502580947911778,
+          "false_alarm": 0.3136664659843468,
+          "false_alarm_interval": [
+            0.2945049513139851,
+            0.33486692149951713
+          ],
+          "o3": 0.01923979352416706,
+          "o3_within_limit": true,
+          "unknown_share": 0.09737041571920005,
+          "false_alarm_outside_table": 0.29919554455445546
+        }
+      },
+      "DR3_mix": {
+        "point": {
+          "who_recall": 0.9333646175504458,
+          "false_alarm": 0.2576760987357014,
+          "false_alarm_interval": [
+            0.24028258402661992,
+            0.27685082700743835
+          ],
+          "o3": 0.023932426091037073,
+          "o3_within_limit": false,
+          "unknown_share": 0.12378286980351,
+          "false_alarm_outside_table": 0.24280631188118812
+        },
+        "lower": {
+          "who_recall": 0.9483810417644298,
+          "false_alarm": 0.3023028296207104,
+          "false_alarm_interval": [
+            0.28346027826609665,
+            0.3231957442447862
+          ],
+          "o3": 0.02017832003754106,
+          "o3_within_limit": false,
+          "unknown_share": 0.10290945134394495,
+          "false_alarm_outside_table": 0.2879795792079208
+        }
+      },
+      "DR4": {
+        "point": {
+          "who_recall": 0.8423275457531675,
+          "false_alarm": 0.16187537627934978,
+          "false_alarm_interval": [
+            0.14819542324433574,
+            0.1768542553022416
+          ],
+          "o3": 0.028155795401220086,
+          "o3_within_limit": false,
+          "unknown_share": 0.2135152469243776,
+          "false_alarm_outside_table": 0.1454207920792079
+        },
+        "lower": {
+          "who_recall": 0.8423275457531675,
+          "false_alarm": 0.16187537627934978,
+          "false_alarm_interval": [
+            0.14819542324433574,
+            0.1768542553022416
+          ],
+          "o3": 0.020647583294228063,
+          "o3_within_limit": false,
+          "unknown_share": 0.22838318465395605,
+          "false_alarm_outside_table": 0.1454207920792079
+        }
+      }
+    }
+  },
+  "win_rule": "a rule wins when its validation false alarms at the 0.95 target sit below DR0's with non-overlapping 95% photographer-bootstrap intervals and its O3 is no worse; DR4 also needs its validation WHO recall (O2) to reach the target",
+  "wins": {
+    "point": [],
+    "lower": []
+  },
+  "winner": [],
+  "verdict": "no rule beats DR0",
+  "no_snake": {
+    "source": "front end: box_conf >= tau_snake, fitted so 99% of calibration photos keep a snake; every calibration photo is a real snake and there is no licensed non-snake set, so this is the only fit we can defend and no false-snake rate is measured; a photo with no box counts as no snake",
+    "tau_snake": 0.102,
+    "val": 151
+  }
+}

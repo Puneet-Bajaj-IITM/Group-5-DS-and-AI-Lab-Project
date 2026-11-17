@@ -1,0 +1,21 @@
+E2_arcface: read 39212 files (5386 MB, 0 missing) into the page cache in 13 s
+E2_arcface on Tesla T4: 13611 training photos after caps, 17151 val, 7999 calibration, 451 unknown; subset 40196d19a68e
+Loading pretrained weights from Hugging Face hub (timm/mobilevit_s.cvnets_in1k)
+HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+HTTP Request: HEAD https://huggingface.co/timm/mobilevit_s.cvnets_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[timm/mobilevit_s.cvnets_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+/kaggle/working/repo/src/serpentguard/train.py:217: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  scheduler.step()
+E2_arcface epoch 2/20: macro-F1 0.127, top-1 0.381, top-3 0.560, loss 14.586, lr 2.98e-04, 70 photos/s, data wait 18%, epoch 194 s + eval 144 s
+E2_arcface epoch 4/20: macro-F1 0.177, top-1 0.447, top-3 0.628, loss 12.439, lr 2.82e-04, 71 photos/s, data wait 17%, epoch 192 s + eval 138 s
+E2_arcface epoch 6/20: macro-F1 0.200, top-1 0.481, top-3 0.659, loss 11.276, lr 2.52e-04, 70 photos/s, data wait 18%, epoch 193 s + eval 135 s
+E2_arcface epoch 8/20: macro-F1 0.218, top-1 0.498, top-3 0.673, loss 10.569, lr 2.10e-04, 71 photos/s, data wait 16%, epoch 191 s + eval 137 s
+E2_arcface epoch 10/20: macro-F1 0.230, top-1 0.513, top-3 0.685, loss 9.965, lr 1.62e-04, 70 photos/s, data wait 17%, epoch 193 s + eval 141 s
+E2_arcface epoch 12/20: macro-F1 0.242, top-1 0.520, top-3 0.691, loss 9.617, lr 1.13e-04, 70 photos/s, data wait 17%, epoch 194 s + eval 142 s
+E2_arcface epoch 14/20: macro-F1 0.249, top-1 0.524, top-3 0.697, loss 9.305, lr 6.80e-05, 71 photos/s, data wait 16%, epoch 192 s + eval 139 s
+E2_arcface epoch 16/20: macro-F1 0.246, top-1 0.530, top-3 0.699, loss 9.146, lr 3.16e-05, 65 photos/s, data wait 23%, epoch 209 s + eval 155 s
+E2_arcface epoch 18/20: macro-F1 0.255, top-1 0.530, top-3 0.699, loss 9.024, lr 8.13e-06, 66 photos/s, data wait 22%, epoch 205 s + eval 152 s
+E2_arcface epoch 20/20: macro-F1 0.256, top-1 0.529, top-3 0.700, loss 9.056, lr 0.00e+00, 62 photos/s, data wait 26%, epoch 218 s + eval 161 s
+E2_arcface best epoch 20: macro-F1 head 0.256, prototype 0.262, balanced 0.263; top-1 0.529, top-3 0.700; WHO recall 0.741, listed as not listed 0.259; ECE 0.193; 3.3 min/epoch, 94.0 min in all, data wait 19%

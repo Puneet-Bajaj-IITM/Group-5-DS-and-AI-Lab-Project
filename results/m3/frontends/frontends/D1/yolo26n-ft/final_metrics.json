@@ -1,0 +1,46 @@
+{
+  "detection": {
+    "precision": 0.8947368421052632,
+    "recall": 0.912751677852349,
+    "map50": 0.9354143479124633,
+    "conf_threshold": 0.25,
+    "images": 284,
+    "gt_boxes": 298,
+    "predictions": 1176,
+    "predictions_at_conf": 304,
+    "rotation_tagged": 3,
+    "orientation_mismatch": []
+  },
+  "parameters": 2533886,
+  "run": {
+    "subset_hash": "40196d19a68eb4917bef72f22e2f5fc9aea70bcdd19346c6044e754fbf38e188",
+    "versions": {
+      "python": "3.13.16",
+      "torch": "2.11.0+cu130",
+      "timm": "1.0.31",
+      "albumentations": "2.0.8",
+      "numpy": "2.1.3",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "opencv": "4.14.0",
+      "cuda": "13.0",
+      "cudnn": 92700,
+      "gpu": "Tesla T4",
+      "torchvision": "0.26.0+cu130",
+      "segmentation_models_pytorch": "0.6.0",
+      "ultralytics": "8.4.202"
+    },
+    "warm_cache": {
+      "files": 7232,
+      "missing": 0,
+      "seconds": 61.75672609399953,
+      "mb": 253.80290000000002
+    },
+    "candidate": "yolo26n-ft",
+    "weights": "D1/yolo26n-ft/detector.pt",
+    "imgsz": 320,
+    "evaluation": "open_images_snake_boxes, every photo, read as load_rgb reads them",
+    "limit": null,
+    "seconds": 5.069889234000584
+  }
+}

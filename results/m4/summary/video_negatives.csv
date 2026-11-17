@@ -1,0 +1,7 @@
+clip,frames,snake_frames,locked_frames,verdicts_shown,content,model,clean,source,locked_to
+negative_chameleon_1915.mp4,301,301,0,[dangerous],"a chameleon, no snake",M3,True,results/m4/video/executed/24_video_lock_M3.ipynb,
+negative_eagle_goa.ogv,189,184,0,[dangerous],"a crested serpent eagle in flight, no snake",M3,True,results/m4/video/executed/24_video_lock_M3.ipynb,
+negative_river_wyoming.webm,301,151,234,[dangerous],"a river seen from a drone, no snake",M3,False,results/m4/video/executed/24_video_lock_M3.ipynb,
+negative_chameleon_1915.mp4,301,294,297,[dangerous],"a chameleon, no snake",A3,True,notebooks/24_video_lock.ipynb,[Echis carinatus]
+negative_eagle_goa.ogv,189,82,147,[dangerous],"a crested serpent eagle in flight, no snake",A3,True,notebooks/24_video_lock.ipynb,"[Hydrophis platurus, Laticauda colubrina]"
+negative_river_wyoming.webm,301,84,8,[dangerous],"a river seen from a drone, no snake",A3,False,notebooks/24_video_lock.ipynb,[Python bivittatus]

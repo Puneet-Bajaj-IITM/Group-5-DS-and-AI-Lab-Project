@@ -1,0 +1,20 @@
+E1_mvits: read 39212 files (5386 MB, 0 missing) into the page cache in 13 s
+E1_mvits on Tesla T4: 13611 training photos after caps, 17151 val, 7999 calibration, 451 unknown; subset 40196d19a68e
+Loading pretrained weights from Hugging Face hub (timm/mobilevit_s.cvnets_in1k)
+HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+HTTP Request: HEAD https://huggingface.co/timm/mobilevit_s.cvnets_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+HTTP Request: GET https://huggingface.co/api/models/timm/mobilevit_s.cvnets_in1k/xet-read-token/b531fe564ef88515b1aa1743ad4c40452b9f80ee "HTTP/1.1 200 OK"
+[timm/mobilevit_s.cvnets_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+E1_mvits epoch 2/20: macro-F1 0.123, top-1 0.403, top-3 0.592, loss 5.820, lr 2.98e-04, 74 photos/s, data wait 19%, epoch 183 s + eval 150 s
+E1_mvits epoch 4/20: macro-F1 0.180, top-1 0.466, top-3 0.658, loss 4.277, lr 2.82e-04, 73 photos/s, data wait 18%, epoch 186 s + eval 145 s
+E1_mvits epoch 6/20: macro-F1 0.214, top-1 0.498, top-3 0.684, loss 3.593, lr 2.52e-04, 73 photos/s, data wait 14%, epoch 185 s + eval 143 s
+E1_mvits epoch 8/20: macro-F1 0.228, top-1 0.510, top-3 0.699, loss 3.205, lr 2.10e-04, 73 photos/s, data wait 16%, epoch 185 s + eval 141 s
+E1_mvits epoch 10/20: macro-F1 0.233, top-1 0.519, top-3 0.704, loss 2.904, lr 1.62e-04, 74 photos/s, data wait 14%, epoch 182 s + eval 141 s
+E1_mvits epoch 12/20: macro-F1 0.247, top-1 0.520, top-3 0.709, loss 2.734, lr 1.13e-04, 75 photos/s, data wait 14%, epoch 180 s + eval 140 s
+E1_mvits epoch 14/20: macro-F1 0.245, top-1 0.527, top-3 0.717, loss 2.597, lr 6.80e-05, 74 photos/s, data wait 13%, epoch 183 s + eval 142 s
+E1_mvits epoch 16/20: macro-F1 0.249, top-1 0.533, top-3 0.717, loss 2.511, lr 3.16e-05, 75 photos/s, data wait 15%, epoch 181 s + eval 142 s
+E1_mvits epoch 18/20: macro-F1 0.253, top-1 0.535, top-3 0.720, loss 2.469, lr 8.13e-06, 76 photos/s, data wait 14%, epoch 179 s + eval 142 s
+E1_mvits epoch 20/20: macro-F1 0.256, top-1 0.534, top-3 0.719, loss 2.479, lr 0.00e+00, 76 photos/s, data wait 15%, epoch 180 s + eval 141 s
+E1_mvits best epoch 20: macro-F1 head 0.256, prototype 0.254, balanced 0.250; top-1 0.534, top-3 0.719; WHO recall 0.717, listed as not listed 0.283; ECE 0.019; 3.0 min/epoch, 88.1 min in all, data wait 17%

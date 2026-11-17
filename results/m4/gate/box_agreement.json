@@ -1,0 +1,9 @@
+{
+  "photos": 17082,
+  "of_val_snakes": 17151,
+  "mean_iou": 0.8504734271441263,
+  "median_iou": 0.9419863346953476,
+  "share_iou_at_least_0_5": 0.9089685048589158,
+  "share_iou_at_least_0_8": 0.7939351364008899,
+  "box_floor": 0.05
+}

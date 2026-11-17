@@ -1,6 +1,7 @@
 """Synthetic clips by M1 section 3.4's recipe, and the live-video steps the app shares.
 
-The shared steps: the frame schedule, 4-of-6 voting and how long a label must stay on screen.
+The shared steps: the frame schedule, 4-of-6 voting, how long a label must stay on screen, and the
+lock rule that pools the last frames' probabilities (M4).
 """
 import math
 import os
@@ -11,7 +12,9 @@ import cv2
 import numpy as np
 from PIL import Image
 
-from serpentguard.metrics import assert_no_test_paths
+from serpentguard.decide import decide_signals
+from serpentguard.metrics import assert_no_test_paths, round_robin  # noqa: F401  (re-export)
+from serpentguard.models import masked_cosine
 
 os.environ.setdefault("YOLO_OFFLINE", "1")  # ultralytics: no pip installs, no analytics
 
@@ -45,6 +48,11 @@ CENTRE_REGION = 0.5               # no usable mask: leaves cover a central ellip
 VOTE_K, VOTE_N = 4, 6
 VOTE = "vote_4_of_6"
 STABLE_SECONDS = 1.0
+POOL_FRAMES = 10                  # the lock pools the last 10 snake frames' probabilities
+SWITCH_SECONDS = 1.0              # another species must clearly lead this long to replace the lock
+TIME_EPSILON = 1e-9
+PART_NAMES = ("probs", "who", "genus", "family", "embedding")
+PERFECT_COSINE = 1.0              # the cosines when a frame has no embedding: no distance check
 TARGET_FPS = 10                   # the live-video target: at most 10 frames a second are processed
 
 
@@ -210,6 +218,112 @@ def vote_k_of_n(labels_seq, k=VOTE_K, n=VOTE_N, fallback=None):
     return shown
 
 
+def frame_parts(item):
+    """One frame's pool inputs as a dict; a bare array of species probabilities is accepted."""
+    parts = dict(item) if isinstance(item, dict) else {"probs": item}
+    return {name: None if parts.get(name) is None else np.asarray(parts[name], dtype=float)
+            for name in PART_NAMES}
+
+
+def pool_parts(window_parts):
+    """The mean of each part over the window; an embedding is re-normalised; a part is None
+    when any frame in the window lacks it."""
+    pooled = {}
+    for name in PART_NAMES:
+        values = [parts[name] for parts in window_parts]
+        pooled[name] = None if any(v is None for v in values) else np.mean(values, axis=0)
+    if pooled["embedding"] is not None:
+        pooled["embedding"] = pooled["embedding"] / max(np.linalg.norm(pooled["embedding"]), 1e-12)
+    return pooled
+
+
+def pooled_lock(probs_seq, times, conf, margin, window=POOL_FRAMES, switch_seconds=SWITCH_SECONDS):
+    """Per frame: "checking" until the pooled probabilities are sure, then "locked" to one species.
+
+    Each item is None (no snake: skipped) or a frame's outputs, a dict with the species
+    probabilities (`probs`) and optionally the WHO, genus and family head probabilities and the
+    embedding, or just the species probabilities. Every part is pooled over the last `window`
+    frames with a snake. It locks once a full window is pooled, its top species holds `conf` and
+    leads the runner-up by `margin`. A locked answer changes only when another species holds `conf`
+    and leads the locked one by more than `margin` on every frame for `switch_seconds`. A frame
+    with no snake repeats the previous step. A step holds `pooled` (species probabilities) and
+    `parts` (all the pooled parts).
+    """
+    recent, steps = [], []
+    locked, rival, since = None, None, None
+    for item, now in zip(probs_seq, np.asarray(times, dtype=float)):
+        if item is not None:
+            recent = (recent + [frame_parts(item)])[-window:]
+            parts = pool_parts(recent)
+            pooled = parts["probs"]
+            top = np.argsort(-pooled)[:2]
+            lead = pooled[top[0]] - (pooled[top[1]] if len(pooled) > 1 else 0.0)
+            if locked is None:
+                if len(recent) == window and pooled[top[0]] >= conf and lead >= margin:
+                    locked = int(top[0])
+            else:
+                leads = (top[0] != locked and pooled[top[0]] >= conf
+                         and pooled[top[0]] - pooled[locked] > margin)
+                if not leads:
+                    rival = since = None
+                else:
+                    if rival != top[0]:
+                        rival, since = int(top[0]), now
+                    if now - since >= switch_seconds - TIME_EPSILON:
+                        locked, rival, since = rival, None, None
+            steps.append({"state": "checking" if locked is None else "locked", "species": locked,
+                          "pooled": pooled, "parts": parts})
+        else:
+            steps.append(dict(steps[-1]) if steps else
+                         {"state": "checking", "species": None, "pooled": None, "parts": None})
+    return steps
+
+
+def found_from_parts(parts, prototypes, tables):
+    """The signals decide_signals reads, from one frame's or a pool's parts: the same path for both.
+
+    A part that is missing switches its check off, as in the photo path; with no embedding the
+    distance to the prototypes cannot be read, so the cosines stand in at their maximum.
+    """
+    probs = parts["probs"][None]
+    heads = {name: None if parts[name] is None else parts[name][None]
+             for name in ("who", "genus", "family")}
+    who = heads["who"]
+    best = second = np.array([PERFECT_COSINE])
+    if parts["embedding"] is not None and prototypes is not None:
+        cosine = np.sort(masked_cosine(parts["embedding"][None], prototypes), axis=1)
+        best, second = cosine[:, -1], cosine[:, -2]
+    return SimpleNamespace(
+        probs=probs, listed_mass=probs[:, tables.who != 0].sum(axis=1), who_head=who,
+        who_listed=None if who is None else 1 - who[:, 0], genus_head=heads["genus"],
+        family_head=heads["family"],
+        genus_mass=probs @ np.eye(len(tables.genus_names))[tables.genus_of_class],
+        best_cosine=best, second_cosine=second, raw_logits=None)
+
+
+def frame_verdict(parts, thresholds, prototypes, tables):
+    """The per-photo verdict of one frame's parts, by the same path the pool uses."""
+    found = found_from_parts(parts, prototypes, tables)
+    return str(decide_signals(found, thresholds, tables).label[0])
+
+
+def lock_verdicts(steps, thresholds, prototypes, tables):
+    """Per step the verdict from DR0 on the pooled outputs, or None while still checking.
+
+    All of DR0's triggers run on the pooled species, WHO, genus and family probabilities and the
+    pooled embedding's distance to the prototypes. "dangerous" may show while checking;
+    "not_listed" and "unknown" only once locked.
+    """
+    shown = []
+    for step in steps:
+        if step["parts"] is None:
+            shown.append(None)
+            continue
+        label = frame_verdict(step["parts"], thresholds, prototypes, tables)
+        shown.append(label if step["state"] == "locked" or label == "dangerous" else None)
+    return shown
+
+
 def video_metrics(verdicts_seq, true_label, times=None, end=None):
     """Flips, time to the first stable label, and whether the last stable label is right."""
     labels = list(verdicts_seq)
@@ -252,16 +366,3 @@ def schedule(n_frames, fps, latency):
         shown.append(free)
         last = newest
     return np.array(processed, dtype=int), np.array(shown)
-
-
-def round_robin(frame, n, seed=SEED):
-    """n photos taking the classes in turn, classes and photos in a seeded random order."""
-    assert_no_test_paths(frame)
-    rng = np.random.default_rng(seed)
-    shuffled = frame.iloc[rng.permutation(len(frame))]
-    species = shuffled["species"].unique()
-    class_rank = dict(zip(species, rng.permutation(len(species))))
-    shuffled = shuffled.assign(_turn=shuffled.groupby("species").cumcount(),
-                               _rank=shuffled["species"].map(class_rank))
-    picked = shuffled.sort_values(["_turn", "_rank"], kind="stable").head(n)
-    return picked.drop(columns=["_turn", "_rank"]).reset_index(drop=True)

@@ -1,0 +1,184 @@
+{
+  "path": "val/calliophis_bibroni/inaturalist_301417376.jpg",
+  "species": "Calliophis bibroni",
+  "class_id": 147,
+  "license": "cc-by-nc",
+  "attribution": "(c) Harikrishnan S., some rights reserved (CC BY-NC)",
+  "expected": "dangerous",
+  "who_listed": false,
+  "venomous_family": true,
+  "failure": null,
+  "verdict": "dangerous",
+  "message": "dangerous: WHO Category 2",
+  "note": "WHO Category 2",
+  "reason": [
+    "who_listed_mass",
+    "top_species_dangerous",
+    "venomous_family_mass"
+  ],
+  "top3": [
+    [
+      "Bungarus fasciatus",
+      0.4788
+    ],
+    [
+      "Calliophis bibroni",
+      0.3594
+    ],
+    [
+      "Bungarus andamanensis",
+      0.02
+    ]
+  ],
+  "genus_fallback": null,
+  "margin": 0.11934623040692516,
+  "snake_found": true,
+  "card": {
+    "id": "card-023",
+    "source": "SerpentGuard species card",
+    "page": null,
+    "citation": "SerpentGuard species card"
+  },
+  "passages": [
+    {
+      "id": "who-110-01",
+      "source": "WHO SEARO 2016",
+      "page": 110,
+      "citation": "WHO SEARO 2016, PDF p. 110 (printed p. 107)"
+    },
+    {
+      "id": "who-119-04",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-118-04",
+      "source": "WHO SEARO 2016",
+      "page": 118,
+      "citation": "WHO SEARO 2016, PDF p. 118 (printed p. 115)"
+    },
+    {
+      "id": "who-119-03",
+      "source": "WHO SEARO 2016",
+      "page": 119,
+      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+    },
+    {
+      "id": "who-120-02",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    },
+    {
+      "id": "who-120-05",
+      "source": "WHO SEARO 2016",
+      "page": 120,
+      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+    },
+    {
+      "id": "card-023",
+      "source": "SerpentGuard species card",
+      "page": null,
+      "citation": "SerpentGuard species card"
+    }
+  ],
+  "question_passages": [],
+  "total_ms": 84.419,
+  "clip": null,
+  "log": [
+    {
+      "node": "preprocess",
+      "ms": 7.31,
+      "summary": {
+        "mode": "RGB",
+        "size": [
+          500,
+          333
+        ],
+        "brightness": 83.2,
+        "input": [
+          320,
+          320
+        ]
+      }
+    },
+    {
+      "node": "front_end",
+      "ms": 14.658,
+      "summary": {
+        "mode": "F1 (box_crop)",
+        "box": [
+          27.2,
+          53.3,
+          470.0,
+          283.0
+        ],
+        "box_conf": 0.9300719499588013,
+        "tau_snake": 0.102,
+        "snake_found": true,
+        "input": "box_crop"
+      }
+    },
+    {
+      "node": "snakeid",
+      "ms": 62.088,
+      "summary": {
+        "backend": "torch",
+        "top1": "Bungarus fasciatus",
+        "top1_raw_prob": 0.6306,
+        "outputs": [
+          "embedding",
+          "family_logits",
+          "genus_logits",
+          "species_logits",
+          "who_logits"
+        ]
+      }
+    },
+    {
+      "node": "decision",
+      "ms": 0.323,
+      "summary": {
+        "verdict": "dangerous",
+        "reason": [
+          "who_listed_mass",
+          "top_species_dangerous",
+          "venomous_family_mass"
+        ],
+        "top1": [
+          "Bungarus fasciatus",
+          0.4788
+        ],
+        "message": "dangerous: WHO Category 2"
+      }
+    },
+    {
+      "node": "response",
+      "ms": 0.013,
+      "summary": {
+        "retriever": "R0 lookup",
+        "card": "card-023",
+        "passages": [
+          "who-110-01",
+          "who-119-04",
+          "who-118-04",
+          "who-119-03",
+          "who-120-02",
+          "who-120-05",
+          "card-023"
+        ],
+        "pages": [
+          110,
+          119,
+          118,
+          119,
+          120,
+          120,
+          null
+        ]
+      }
+    }
+  ],
+  "example": "dangerous"
+}

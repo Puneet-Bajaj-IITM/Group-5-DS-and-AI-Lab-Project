@@ -1,0 +1,41 @@
+{
+  "detection": {
+    "precision": 0.8227848101265823,
+    "recall": 0.2181208053691275,
+    "map50": 0.510067678677651,
+    "conf_threshold": 0.25,
+    "images": 284,
+    "gt_boxes": 298,
+    "predictions": 1154,
+    "predictions_at_conf": 79
+  },
+  "run": {
+    "subset_hash": "40196d19a68eb4917bef72f22e2f5fc9aea70bcdd19346c6044e754fbf38e188",
+    "train_photos": 13611,
+    "device": "cuda",
+    "limit": null,
+    "config": {
+      "frame_config": "E1_mnv4",
+      "front_end": "F0",
+      "frame_input_size": 320,
+      "slice_uploaded_from": "2022-01-01",
+      "batch": 64,
+      "workers": 4,
+      "subset": "/kaggle/input/datasets/puneetbajajiitm/serpentguard-m3-subset/subset.csv",
+      "expected_subset_hash": "40196d19a68e"
+    },
+    "run_id": "B5",
+    "baseline": "yolov8n-oiv7.pt (Open Images V7), as is",
+    "evaluation": "open_images_snake_boxes",
+    "weights": "yolov8n-oiv7.pt",
+    "snake_class": 470,
+    "conf": 0.25,
+    "all_conf": 0.001,
+    "iou_threshold": 0.5,
+    "batch": 16,
+    "images": 284,
+    "rotated_images": 3,
+    "boxes": "normalised to the photo; IoU doesn't change when each axis is scaled",
+    "seconds": 98.82434969899987
+  }
+}

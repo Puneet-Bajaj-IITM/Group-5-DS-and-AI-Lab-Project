@@ -1,0 +1,1 @@
+{"kind": "yolo26n-m4-full", "weights": "M4_detector.pt", "parameters": 2533886, "train_photos": 15001, "negative_photos": 1500, "seconds": 1148.6252477960002, "epochs": 20, "batch": 32, "size": 320, "seed": 42}

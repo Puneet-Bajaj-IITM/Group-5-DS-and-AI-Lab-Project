@@ -39,3 +39,28 @@ The Milestone 3 notebooks find the team's datasets the same way. Several also re
 | 14 | [`14_tuning`](14_tuning.ipynb) | Which learning rate, weight decay, ArcFace margin and augmentation strength work best, and whether the gain holds when the best settings are retrained | GPU T4 x2, internet on |
 | 15 | [`15_safety`](15_safety.ipynb) | How outputs become a verdict: thresholds, the decision rule study, whether the model looks at the snake or the scenery, unknown species and video stability | GPU T4, internet on |
 | 16 | [`16_app`](16_app.ipynb) | The whole app from a photo or clip to a verdict and WHO passages, the video demo, passage retrieval, and package size and speed on a laptop | local CPU |
+
+## Milestone 4
+
+The Milestone 4 notebooks work the same way: the Kaggle notebooks find the team's datasets and other runs' outputs by handle, and each notebook's first cell says what it reads. The repo keeps their result files under `results/m4/` and the summary tables under `results/m4/summary/`.
+
+| # | Notebook | Answers | Runs on |
+|---|---|---|---|
+| 17 | [`17_front_end_full`](17_front_end_full.ipynb) | A box and a mask for every training photo the cropping notebook did not cover, from the same detector and U-Net; not run on its own, since notebook 21 runs the same step | GPU, internet on |
+| 18 | [`18_background_arms`](18_background_arms.ipynb) | Whether the model can lean less on the scenery: three ways of showing it the snake (the arms) against Milestone 3's final model, one rule to pick one | GPU T4, internet on |
+| 19 | [`19_non_snake_set`](19_non_snake_set.ipynb) | A set of about 3,000 openly licensed photos with no snake in them, split by photographer | CPU, internet on |
+| 20 | [`20_no_snake_gate`](20_no_snake_gate.ipynb) | How often the front end sees a snake where there is none, the detector and U-Net retrained with the non-snake photos, and which gate the app uses | GPU T4, internet on |
+| 21 | [`21_full_training`](21_full_training.ipynb) | The chosen recipes trained on every training photo, and scored against the goals and against B1 | GPU T4, internet on |
+| 22 | [`22_head_pilot`](22_head_pilot.ipynb) | Whether open-vocabulary detectors can find a snake's head and tail | GPU, internet on |
+| 23 | [`23_head_arms`](23_head_arms.ipynb) | Whether a second, closer look the model picks itself (the detail crop) helps | GPU T4, internet on |
+| 24 | [`24_video_lock`](24_video_lock.ipynb) | Whether pooling frames and locking the answer steadies the shown species on a clip, with the shipped model behind the app's front end | local CPU |
+| 25 | [`25_m4_summary`](25_m4_summary.ipynb) | The goals and the report's tables, read from the saved result files | local CPU |
+
+Where each run is saved with its outputs:
+
+- Notebooks 19, 20, 22, 23 and 25 are saved here with the outputs of the run their results come from.
+- Notebook 18 ran once per arm. The copy here holds no outputs; each run is in `results/m4/arms/executed/18_background_arms_<arm>.ipynb` (A0 to A3).
+- Notebook 21 ran once per recipe. The copy here holds no outputs; each run is in `results/m4/full/executed/21_full_training_<run>.ipynb` (A1, H2 and A3).
+- Notebook 24 is saved here with its run on the shipped model, A3; its earlier run on the Milestone 3 model is `results/m4/video/executed/24_video_lock_M3.ipynb`.
+- Notebook 17 was not run on its own, so it has no outputs; its step ran inside each run of notebook 21.
+- Three numbers were measured by scripts on the laptop's CPU rather than by a notebook: the non-snake test split (goal G4), the app's front-end cost and the detail crop's laptop timing. The scripts are in [`../scripts/`](../scripts/README.md).

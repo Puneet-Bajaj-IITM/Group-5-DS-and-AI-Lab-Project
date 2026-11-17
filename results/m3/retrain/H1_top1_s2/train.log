@@ -1,0 +1,22 @@
+H1_top1_s2: read 39212 files (5386 MB, 0 missing) into the page cache in 13 s
+H1_top1_s2 on Tesla T4: 13611 training photos after caps, 17151 val, 7999 calibration, 451 unknown; subset 40196d19a68e; front-end predictions cover {'train': 0.9997795900374697, 'val': 0.9995335548947584, 'calibration': 0.9998749843730467, 'unknown': 1.0}
+Loading pretrained weights from Hugging Face hub (timm/mobilevit_s.cvnets_in1k)
+HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+HTTP Request: HEAD https://huggingface.co/timm/mobilevit_s.cvnets_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+HTTP Request: GET https://huggingface.co/api/models/timm/mobilevit_s.cvnets_in1k/xet-read-token/b531fe564ef88515b1aa1743ad4c40452b9f80ee "HTTP/1.1 200 OK"
+[timm/mobilevit_s.cvnets_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+/kaggle/working/repo/src/serpentguard/train.py:221: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  scheduler.step()
+H1_top1_s2 epoch 2/20: macro-F1 0.203, top-1 0.485, top-3 0.659, loss 13.660, lr 9.47e-04, 74 photos/s, data wait 17%, epoch 184 s + eval 133 s
+H1_top1_s2 epoch 4/20: macro-F1 0.279, top-1 0.544, top-3 0.708, loss 10.731, lr 8.96e-04, 74 photos/s, data wait 17%, epoch 183 s + eval 127 s
+H1_top1_s2 epoch 6/20: macro-F1 0.297, top-1 0.566, top-3 0.729, loss 9.139, lr 7.99e-04, 74 photos/s, data wait 17%, epoch 182 s + eval 125 s
+H1_top1_s2 epoch 8/20: macro-F1 0.327, top-1 0.595, top-3 0.747, loss 7.882, lr 6.68e-04, 75 photos/s, data wait 16%, epoch 180 s + eval 125 s
+H1_top1_s2 epoch 10/20: macro-F1 0.346, top-1 0.607, top-3 0.754, loss 7.120, lr 5.16e-04, 74 photos/s, data wait 17%, epoch 182 s + eval 130 s
+H1_top1_s2 epoch 12/20: macro-F1 0.353, top-1 0.599, top-3 0.749, loss 6.525, lr 3.60e-04, 73 photos/s, data wait 19%, epoch 187 s + eval 129 s
+H1_top1_s2 epoch 14/20: macro-F1 0.362, top-1 0.613, top-3 0.759, loss 6.070, lr 2.16e-04, 74 photos/s, data wait 17%, epoch 183 s + eval 130 s
+H1_top1_s2 epoch 16/20: macro-F1 0.366, top-1 0.615, top-3 0.761, loss 5.799, lr 1.00e-04, 73 photos/s, data wait 18%, epoch 185 s + eval 132 s
+H1_top1_s2 epoch 18/20: macro-F1 0.367, top-1 0.618, top-3 0.763, loss 5.721, lr 2.58e-05, 73 photos/s, data wait 18%, epoch 185 s + eval 132 s
+H1_top1_s2 epoch 20/20: macro-F1 0.366, top-1 0.620, top-3 0.764, loss 5.671, lr 0.00e+00, 73 photos/s, data wait 19%, epoch 187 s + eval 133 s
+H1_top1_s2 best epoch 18: macro-F1 head 0.367, prototype 0.362, balanced 0.363; top-1 0.618, top-3 0.763; WHO recall 0.763, listed as not listed 0.237; ECE 0.214; 3.1 min/epoch, 86.2 min in all, data wait 17%
