@@ -1,0 +1,113 @@
+clip,kind,split,species,licence,method,window,margin,snake_frames,changes_after_first_answer,answered,first_answer_s,final_shown,final_right,final_verdict,expected_verdict,dangerous_missed
+synthetic_489138162,synthetic_random,dev,Ophiophagus kaalinga,cc-by,vote,,,101,0,True,0.4,Ophiophagus hannah,False,,,
+synthetic_489138162,synthetic_random,dev,Ophiophagus kaalinga,cc-by,lock,5.0,0.05,101,0,True,0.5,Ophiophagus hannah,False,dangerous,dangerous,False
+synthetic_22679235,synthetic_random,dev,Ahaetulla malabarica,cc-by,vote,,,94,4,True,1.1,,False,,,
+synthetic_22679235,synthetic_random,dev,Ahaetulla malabarica,cc-by,lock,5.0,0.05,94,0,True,9.5,Rhabdophis helleri,False,dangerous,not_listed,False
+synthetic_462345804,synthetic_random,dev,Echis carinatus,cc-by,vote,,,101,2,True,0.5,Ahaetulla prasina,False,,,
+synthetic_462345804,synthetic_random,dev,Echis carinatus,cc-by,lock,5.0,0.05,101,0,False,,,False,dangerous,dangerous,False
+synthetic_104230244,synthetic_random,dev,Macrovipera lebetinus,cc-by,vote,,,101,0,True,0.5,Naja naja,False,,,
+synthetic_104230244,synthetic_random,dev,Macrovipera lebetinus,cc-by,lock,5.0,0.05,101,0,True,7.4,Macrovipera lebetinus,True,dangerous,dangerous,False
+synthetic_270423658,synthetic_random,dev,Atretium schistosum,cc-by,vote,,,101,0,True,1.0,Naja naja,False,,,
+synthetic_270423658,synthetic_random,dev,Atretium schistosum,cc-by,lock,5.0,0.05,101,0,False,,,False,dangerous,not_listed,False
+synthetic_523987697,synthetic_random,dev,Eryx johnii,cc-by,vote,,,101,0,True,1.5,,False,,,
+synthetic_523987697,synthetic_random,dev,Eryx johnii,cc-by,lock,5.0,0.05,101,0,False,,,False,dangerous,not_listed,False
+synthetic_700792998,synthetic_random,dev,Malayopython reticulatus,cc-by,vote,,,101,0,True,2.1,,False,,,
+synthetic_700792998,synthetic_random,dev,Malayopython reticulatus,cc-by,lock,5.0,0.05,101,0,False,,,False,dangerous,not_listed,False
+synthetic_397634905,synthetic_random,dev,Lycodon septentrionalis,cc-by,vote,,,98,3,True,0.4,Oligodon arnensis,False,,,
+synthetic_397634905,synthetic_random,dev,Lycodon septentrionalis,cc-by,lock,5.0,0.05,98,0,True,0.5,Bungarus caeruleus,False,dangerous,not_listed,False
+synthetic_669522177,synthetic_random,dev,Euprepiophis mandarinus,cc-by,vote,,,101,6,True,0.7,,False,,,
+synthetic_669522177,synthetic_random,dev,Euprepiophis mandarinus,cc-by,lock,5.0,0.05,101,0,True,0.6,Ophiophagus hannah,False,dangerous,not_listed,False
+synthetic_515579723,synthetic_random,dev,Boiga beddomei,cc-by,vote,,,101,5,True,0.8,Psammodynastes pulverulentus,False,,,
+synthetic_515579723,synthetic_random,dev,Boiga beddomei,cc-by,lock,5.0,0.05,101,0,True,5.9,Pareas carinatus,False,not_listed,not_listed,False
+synthetic_566733705,synthetic_random,dev,Rhabdophis helleri,cc0,vote,,,93,2,True,0.6,,False,,,
+synthetic_566733705,synthetic_random,dev,Rhabdophis helleri,cc0,lock,5.0,0.05,93,0,True,0.5,Rhabdophis helleri,True,dangerous,dangerous,False
+synthetic_81497741,synthetic_random,dev,Dendrelaphis cyanochloris,cc-by,vote,,,101,0,True,0.4,Dendrelaphis cyanochloris,True,,,
+synthetic_81497741,synthetic_random,dev,Dendrelaphis cyanochloris,cc-by,lock,5.0,0.05,101,0,True,0.5,Dendrelaphis cyanochloris,True,not_listed,not_listed,False
+synthetic_397634947,synthetic_random,dev,Ovophis zayuensis,cc-by,vote,,,73,0,True,0.7,Protobothrops mucrosquamatus,False,,,
+synthetic_397634947,synthetic_random,dev,Ovophis zayuensis,cc-by,lock,5.0,0.05,73,0,True,0.7,Protobothrops mucrosquamatus,False,dangerous,dangerous,False
+synthetic_244187392,synthetic_random,dev,Xenopeltis unicolor,cc-by,vote,,,100,0,True,0.7,,False,,,
+synthetic_244187392,synthetic_random,dev,Xenopeltis unicolor,cc-by,lock,5.0,0.05,100,0,True,0.5,Daboia russelii,False,dangerous,not_listed,False
+synthetic_640148271,synthetic_random,dev,Boiga trigonata,cc-by,vote,,,40,0,True,2.1,Naja naja,False,,,
+synthetic_640148271,synthetic_random,dev,Boiga trigonata,cc-by,lock,5.0,0.05,40,0,False,,,False,dangerous,not_listed,False
+synthetic_68070242,synthetic_random,dev,Acrochordus granulatus,cc-by,vote,,,101,0,True,0.4,Ophiophagus hannah,False,,,
+synthetic_68070242,synthetic_random,dev,Acrochordus granulatus,cc-by,lock,5.0,0.05,101,0,True,0.5,Ophiophagus hannah,False,dangerous,not_listed,False
+synthetic_109077170,synthetic_random,dev,Melanophidium wynaudense,cc-by,vote,,,101,5,True,0.4,,False,,,
+synthetic_109077170,synthetic_random,dev,Melanophidium wynaudense,cc-by,lock,5.0,0.05,101,0,True,0.5,Melanophidium wynaudense,True,dangerous,not_listed,False
+synthetic_440495704,synthetic_random,dev,Coelognathus flavolineatus,cc-by,vote,,,74,0,True,0.6,,False,,,
+synthetic_440495704,synthetic_random,dev,Coelognathus flavolineatus,cc-by,lock,5.0,0.05,74,0,False,,,False,dangerous,not_listed,False
+synthetic_658554014,synthetic_random,dev,Oreocryptophis porphyraceus,cc-by,vote,,,101,1,True,0.5,Oreocryptophis porphyraceus,True,,,
+synthetic_658554014,synthetic_random,dev,Oreocryptophis porphyraceus,cc-by,lock,5.0,0.05,101,1,True,0.5,Oreocryptophis porphyraceus,True,not_listed,not_listed,False
+synthetic_689076589,synthetic_random,dev,Grypotyphlops acutus,cc0,vote,,,101,0,True,1.6,,False,,,
+synthetic_689076589,synthetic_random,dev,Grypotyphlops acutus,cc0,lock,5.0,0.05,101,0,True,0.7,Indotyphlops braminus,False,dangerous,not_listed,False
+synthetic_450152288,synthetic_who_listed,dev,Bungarus caeruleus,cc-by,vote,,,100,1,True,1.1,,False,,,
+synthetic_450152288,synthetic_who_listed,dev,Bungarus caeruleus,cc-by,lock,5.0,0.05,100,0,False,,,False,dangerous,dangerous,False
+synthetic_347758473,synthetic_who_listed,dev,Naja naja,cc-by,vote,,,101,0,True,0.5,,False,,,
+synthetic_347758473,synthetic_who_listed,dev,Naja naja,cc-by,lock,5.0,0.05,101,0,False,,,False,dangerous,dangerous,False
+synthetic_228115560,synthetic_who_listed,dev,Naja naja,cc-by,vote,,,11,0,True,3.5,Naja naja,True,,,
+synthetic_228115560,synthetic_who_listed,dev,Naja naja,cc-by,lock,5.0,0.05,11,0,True,3.4,Naja naja,True,dangerous,dangerous,False
+synthetic_549336672,synthetic_who_listed,dev,Trimeresurus erythrurus,cc-by,vote,,,101,5,True,0.6,Craspedocephalus gramineus,False,,,
+synthetic_549336672,synthetic_who_listed,dev,Trimeresurus erythrurus,cc-by,lock,5.0,0.05,101,0,True,0.6,Gonyosoma oxycephalum,False,dangerous,dangerous,False
+synthetic_515161617,synthetic_who_listed,dev,Craspedocephalus malabaricus,cc-by,vote,,,101,0,True,0.4,Craspedocephalus malabaricus,True,,,
+synthetic_515161617,synthetic_who_listed,dev,Craspedocephalus malabaricus,cc-by,lock,5.0,0.05,101,0,True,0.5,Craspedocephalus malabaricus,True,dangerous,dangerous,False
+synthetic_695038231,synthetic_who_listed,dev,Hypnale hypnale,cc-by,vote,,,96,0,True,0.4,,False,,,
+synthetic_695038231,synthetic_who_listed,dev,Hypnale hypnale,cc-by,lock,5.0,0.05,96,0,True,0.5,Craspedocephalus malabaricus,False,dangerous,dangerous,False
+synthetic_53050309,synthetic_who_listed,dev,Daboia russelii,cc-by,vote,,,101,0,True,0.4,,False,,,
+synthetic_53050309,synthetic_who_listed,dev,Daboia russelii,cc-by,lock,5.0,0.05,101,0,True,0.5,Fowlea piscator,False,dangerous,dangerous,False
+synthetic_527874978,synthetic_who_listed,dev,Daboia russelii,cc-by,vote,,,101,2,True,0.5,,False,,,
+synthetic_527874978,synthetic_who_listed,dev,Daboia russelii,cc-by,lock,5.0,0.05,101,0,True,0.5,Boiga multomaculata,False,dangerous,dangerous,False
+synthetic_458169455,synthetic_who_listed,dev,Hypnale hypnale,cc-by,vote,,,84,0,True,0.4,,False,,,
+synthetic_458169455,synthetic_who_listed,dev,Hypnale hypnale,cc-by,lock,5.0,0.05,84,0,True,2.5,Psammodynastes pulverulentus,False,dangerous,dangerous,False
+synthetic_463384993,synthetic_who_listed,dev,Echis carinatus,cc-by,vote,,,98,2,True,0.6,Daboia russelii,False,,,
+synthetic_463384993,synthetic_who_listed,dev,Echis carinatus,cc-by,lock,5.0,0.05,98,0,True,1.7,Macrovipera lebetinus,False,dangerous,dangerous,False
+synthetic_309053703,synthetic_who_listed,dev,Craspedocephalus malabaricus,cc-by,vote,,,98,3,True,2.9,,False,,,
+synthetic_309053703,synthetic_who_listed,dev,Craspedocephalus malabaricus,cc-by,lock,5.0,0.05,98,0,True,1.2,Craspedocephalus malabaricus,True,unknown,dangerous,False
+synthetic_462345883,synthetic_who_listed,dev,Echis carinatus,cc-by,vote,,,101,1,True,2.7,,False,,,
+synthetic_462345883,synthetic_who_listed,dev,Echis carinatus,cc-by,lock,5.0,0.05,101,0,False,,,False,dangerous,dangerous,False
+synthetic_718925856,synthetic_who_listed,dev,Naja kaouthia,cc-by,vote,,,91,6,True,0.5,,False,,,
+synthetic_718925856,synthetic_who_listed,dev,Naja kaouthia,cc-by,lock,5.0,0.05,91,0,False,,,False,dangerous,dangerous,False
+synthetic_570997008,synthetic_who_listed,dev,Bungarus caeruleus,cc-by,vote,,,100,4,True,0.7,Gonyosoma oxycephalum,False,,,
+synthetic_570997008,synthetic_who_listed,dev,Bungarus caeruleus,cc-by,lock,5.0,0.05,100,0,True,4.3,Bungarus caeruleus,True,not_listed,dangerous,False
+synthetic_46690465,synthetic_who_listed,dev,Naja kaouthia,cc-by,vote,,,101,0,True,0.4,Naja kaouthia,True,,,
+synthetic_46690465,synthetic_who_listed,dev,Naja kaouthia,cc-by,lock,5.0,0.05,101,0,True,0.5,Naja kaouthia,True,dangerous,dangerous,False
+synthetic_645070031,synthetic_who_listed,dev,Macrovipera lebetinus,cc-by,vote,,,100,1,True,1.3,,False,,,
+synthetic_645070031,synthetic_who_listed,dev,Macrovipera lebetinus,cc-by,lock,5.0,0.05,100,0,False,,,False,dangerous,dangerous,False
+synthetic_100100085,synthetic_who_listed,dev,Macrovipera lebetinus,cc-by,vote,,,100,0,True,0.4,Macrovipera lebetinus,True,,,
+synthetic_100100085,synthetic_who_listed,dev,Macrovipera lebetinus,cc-by,lock,5.0,0.05,100,0,True,0.5,Macrovipera lebetinus,True,dangerous,dangerous,False
+synthetic_548519131,synthetic_who_listed,dev,Ophiophagus hannah,cc-by,vote,,,10,0,False,,,False,,,
+synthetic_548519131,synthetic_who_listed,dev,Ophiophagus hannah,cc-by,lock,5.0,0.05,10,0,False,,,False,dangerous,dangerous,False
+synthetic_635504723,synthetic_who_listed,dev,Ophiophagus hannah,cc-by,vote,,,101,4,True,1.1,Naja kaouthia,False,,,
+synthetic_635504723,synthetic_who_listed,dev,Ophiophagus hannah,cc-by,lock,5.0,0.05,101,0,True,0.5,Naja kaouthia,False,dangerous,dangerous,False
+synthetic_537918341,synthetic_who_listed,dev,Trimeresurus erythrurus,cc-by,vote,,,91,2,True,0.4,Gonyosoma oxycephalum,False,,,
+synthetic_537918341,synthetic_who_listed,dev,Trimeresurus erythrurus,cc-by,lock,5.0,0.05,91,2,True,0.5,Gonyosoma oxycephalum,False,not_listed,dangerous,False
+synthetic_223029311,synthetic_who_listed,dev,Craspedocephalus gramineus,cc-by,vote,,,101,0,True,0.4,Craspedocephalus gramineus,True,,,
+synthetic_223029311,synthetic_who_listed,dev,Craspedocephalus gramineus,cc-by,lock,5.0,0.05,101,0,True,0.5,Craspedocephalus gramineus,True,dangerous,dangerous,False
+synthetic_567656035,synthetic_who_listed,dev,Bungarus fasciatus,cc-by,vote,,,98,0,True,0.4,,False,,,
+synthetic_567656035,synthetic_who_listed,dev,Bungarus fasciatus,cc-by,lock,5.0,0.05,98,0,True,0.5,Bungarus fasciatus,True,dangerous,dangerous,False
+synthetic_445919824,synthetic_who_listed,dev,Bungarus niger,cc-by,vote,,,101,1,True,0.7,Dendrelaphis tristis,False,,,
+synthetic_445919824,synthetic_who_listed,dev,Bungarus niger,cc-by,lock,5.0,0.05,101,0,True,3.2,Dendrelaphis tristis,False,dangerous,dangerous,False
+synthetic_332646756,synthetic_who_listed,dev,Bungarus fasciatus,cc-by,vote,,,101,7,True,1.2,,False,,,
+synthetic_332646756,synthetic_who_listed,dev,Bungarus fasciatus,cc-by,lock,5.0,0.05,101,0,False,,,False,dangerous,dangerous,False
+synthetic_445919804,synthetic_who_listed,dev,Bungarus niger,cc-by,vote,,,96,7,True,0.4,Dendrelaphis tristis,False,,,
+synthetic_445919804,synthetic_who_listed,dev,Bungarus niger,cc-by,lock,5.0,0.05,96,0,True,1.5,Naja naja,False,dangerous,dangerous,False
+synthetic_247871264,synthetic_who_listed,dev,Ophiophagus kaalinga,cc-by,vote,,,101,2,True,0.8,,False,,,
+synthetic_247871264,synthetic_who_listed,dev,Ophiophagus kaalinga,cc-by,lock,5.0,0.05,101,0,False,,,False,dangerous,dangerous,False
+laticauda_colubrina_philippines.webm,real,dev,Laticauda colubrina,CC BY 3.0,vote,,,296,1,True,0.6,Laticauda colubrina,True,,,
+laticauda_colubrina_philippines.webm,real,dev,Laticauda colubrina,CC BY 3.0,lock,5.0,0.05,296,0,True,1.4,Laticauda colubrina,True,dangerous,dangerous,False
+laticauda_colubrina_fiji.webm,real,dev,Laticauda colubrina,CC BY 3.0,vote,,,290,0,True,1.1,Laticauda colubrina,True,,,
+laticauda_colubrina_fiji.webm,real,dev,Laticauda colubrina,CC BY 3.0,lock,5.0,0.05,290,0,True,1.1,Laticauda colubrina,True,dangerous,dangerous,False
+bungarus_fasciatus_milking.webm,real,dev,Bungarus fasciatus,CC BY 4.0,vote,,,17,0,True,0.4,Bungarus fasciatus,True,,,
+bungarus_fasciatus_milking.webm,real,dev,Bungarus fasciatus,CC BY 4.0,lock,5.0,0.05,17,0,True,0.5,Bungarus fasciatus,True,dangerous,dangerous,False
+python_bivittatus_zoo.ogv,real,dev,Python bivittatus,CC BY-SA 3.0,vote,,,142,6,True,2.1,Hydrophis platurus,False,,,
+python_bivittatus_zoo.ogv,real,dev,Python bivittatus,CC BY-SA 3.0,lock,5.0,0.05,142,0,True,0.5,Rhabdophis plumbicolor,False,dangerous,not_listed,False
+naja_naja_ditmars_1915.mp4,real,test,Naja naja,Public domain,vote,,,301,12,True,0.4,Fowlea piscator,False,,,
+naja_naja_ditmars_1915.mp4,real,test,Naja naja,Public domain,lock,5.0,0.05,301,2,True,0.5,Fowlea piscator,False,dangerous,dangerous,False
+gonyosoma_oxycephalum_mulu.webm,real,test,Gonyosoma oxycephalum,CC BY-SA 2.0,vote,,,68,0,True,0.4,Gonyosoma oxycephalum,True,,,
+gonyosoma_oxycephalum_mulu.webm,real,test,Gonyosoma oxycephalum,CC BY-SA 2.0,lock,5.0,0.05,68,0,True,0.5,Gonyosoma oxycephalum,True,not_listed,not_listed,False
+ahaetulla_borealis_kerala.webm,real,test,Ahaetulla borealis,CC BY-SA 4.0,vote,,,301,17,True,0.4,,False,,,
+ahaetulla_borealis_kerala.webm,real,test,Ahaetulla borealis,CC BY-SA 4.0,lock,5.0,0.05,301,0,False,,,False,,not_listed,False
+ptyas_mucosa_swimming.webm,real,test,Ptyas mucosa,CC BY-SA 4.0,vote,,,121,4,True,1.9,,False,,,
+ptyas_mucosa_swimming.webm,real,test,Ptyas mucosa,CC BY-SA 4.0,lock,5.0,0.05,121,0,True,16.3,Daboia russelii,False,dangerous,not_listed,False
+naja_cobra_2017.webm,real,test,Naja naja,CC BY 2.0,vote,,,291,2,True,0.4,Naja naja,,,,
+naja_cobra_2017.webm,real,test,Naja naja,CC BY 2.0,lock,5.0,0.05,291,0,True,0.5,Naja naja,,dangerous,dangerous,False
+naja_jaipur_charmer.webm,real,test,Naja naja,CC BY-SA 4.0,vote,,,148,2,True,0.5,,,,,
+naja_jaipur_charmer.webm,real,test,Naja naja,CC BY-SA 4.0,lock,5.0,0.05,148,0,True,0.5,Naja naja,,dangerous,dangerous,False

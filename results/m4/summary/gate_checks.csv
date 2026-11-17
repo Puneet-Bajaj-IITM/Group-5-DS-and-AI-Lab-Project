@@ -1,0 +1,6 @@
+check,value,mark,rule,photos,source
+M3 detector: box at the floor in both runs or neither,1.0,0.99,at least,25150,results/m4/gate/m3_reproduction.json
+M3 segmenter: mask agreement,1.0,0.99,at least,25150,results/m4/gate/m3_reproduction.json
+M3 cut-off refitted minus M3's,-4.789423942565263e-05,0.01,within,25150,results/m4/gate/m3_reproduction.json
+M4 against M3 detector boxes: median IoU,0.9419863346953476,,reported,17082,results/m4/gate/box_agreement.json
+M4 against M3 detector boxes: share at IoU 0.5 or more,0.9089685048589158,,reported,17082,results/m4/gate/box_agreement.json

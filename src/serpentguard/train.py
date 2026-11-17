@@ -15,12 +15,12 @@ import timm
 import torch
 import yaml
 
-from serpentguard.data import (PREDICTED_INPUT_MODES, TARGETS, class_sampling_probs, eval_loader,
-                               frame_files, has_input, input_mode, make_loaders, run_config,
-                               seed_everything, warm_cache)
+from serpentguard.data import (MASK_INPUT_MODES, PREDICTED_INPUT_MODES, TARGETS,
+                               class_sampling_probs, eval_loader, frame_files, has_input,
+                               input_mode, make_loaders, run_config, seed_everything, warm_cache)
 from serpentguard.metrics import (calibration, class_tables, photographer_groups, safety_report,
                                   softmax, species_report, taxonomy_report, write_json)
-from serpentguard.models import SnakeID, cosine_to, prototypes_from, total_loss
+from serpentguard.models import SnakeID, cosine_to, detail_batch, prototypes_from, total_loss
 
 CONFIG_FILE = "config.yaml"
 VERSIONS_FILE = "versions.json"
@@ -34,6 +34,8 @@ CALIBRATION_OUTPUTS = "calib_outputs.npz"
 UNKNOWN_OUTPUTS = "unknown_outputs.npz"
 HELDOUT_OUTPUTS = "heldout_outputs.npz"
 PROTOTYPES_FILE = "prototypes.npz"
+GRAD_CLIP_NORM = 5.0     # largest gradient norm per step
+ENCODER_LR_FACTOR = 0.1  # the encoder learns at this share of the run's lr
 
 
 def check_config(cfg):
@@ -54,9 +56,16 @@ def check_config(cfg):
     if (cfg["front_end"] == "F5") != (cfg["mask_head"] and cfg["pooling"] == "mask"):
         raise ValueError("F5, and only F5, pools with its mask: set mask_head true and pooling "
                          "'mask'")
-    if input_mode(cfg) in PREDICTED_INPUT_MODES and cfg["mask_source"] != "predicted":
-        raise ValueError(f"{cfg['front_end']} trains and validates on front-end predictions: "
+    # the box crop reads the front end's boxes whatever the mask source; SAM masks may drive a swap
+    if input_mode(cfg) in MASK_INPUT_MODES and cfg["mask_source"] != "predicted":
+        raise ValueError(f"{cfg['front_end']} cuts its input from the front end's masks: "
                          "set mask_source 'predicted'")
+    if cfg["detail_crop"] and cfg["mask_head"]:
+        raise ValueError("detail_crop trains on crops, which the photo's mask no longer fits: "
+                         "set mask_head false")
+    if cfg["detail_crop"] and not 0 < cfg["detail_threshold"] <= 1:
+        raise ValueError("detail_threshold is a share of the scaled activation map: it must be "
+                         f"above 0 and at most 1, got {cfg['detail_threshold']}")
 
 
 def train(cfg, out_dir, data_root, masks_root, subset_csv, preds_root=None, device="cuda",
@@ -103,13 +112,14 @@ def train(cfg, out_dir, data_root, masks_root, subset_csv, preds_root=None, devi
     train_counts = np.bincount(frames["train"]["class_id"], minlength=taxa.n_classes)
     frequencies = np.maximum(train_counts, 1) / train_counts.sum()  # no photo counts as one
     log_prior = torch.log(torch.as_tensor(frequencies, dtype=torch.float32)).to(device)
+    detail_rng = np.random.default_rng(cfg["seed"]) if cfg["detail_crop"] else None
 
     best_epoch, best_score, best_state, best_outputs, epochs, eval_seconds = (None, -math.inf, None,
                                                                               None, [], 0.0)
     for epoch in range(1, cfg["epochs"] + 1):
         drawn = np.zeros(taxa.n_classes, dtype=np.int64) if epoch == 1 else None
         stats = run_epoch(model, loader, optimizer, scheduler, scaler, cfg, device, log_prior,
-                          drawn)
+                          drawn, detail_rng)
         epochs.append(stats)
         if drawn is not None:
             write_json(out_dir / CLASS_MIX_FILE,
@@ -126,7 +136,9 @@ def train(cfg, out_dir, data_root, masks_root, subset_csv, preds_root=None, devi
                 "lr": stats["lr"], "seconds": stats["seconds"],
                 "photos_per_second": stats["photos"] / stats["seconds"],
                 "data_wait_share": stats["wait"] / stats["seconds"],
-                "eval_seconds": time.perf_counter() - eval_started}
+                "eval_seconds": time.perf_counter() - eval_started,
+                **({"detail_share": stats["detail_batches"] / stats["steps"]}
+                   if cfg["detail_crop"] else {})}
         eval_seconds += line["eval_seconds"]
         with open(out_dir / METRICS_FILE, "a") as log:
             log.write(f"{json.dumps(line)}\n")
@@ -195,12 +207,14 @@ def start_cuda(device):
     torch.cuda.reset_peak_memory_stats(device)
 
 
-def run_epoch(model, loader, optimizer, scheduler, scaler, cfg, device, log_prior, drawn=None):
+def run_epoch(model, loader, optimizer, scheduler, scaler, cfg, device, log_prior, drawn=None,
+              rng=None):
     """One pass over the loader; `drawn`, when given, counts the classes drawn."""
+    # rng draws which batches become detail crops; it is only read when detail_crop is on
     model.train()
     amp = scaler.is_enabled()
     targets = TARGETS + (("mask", "mask_valid") if model.mask_head is not None else ())
-    sums, steps, photos, wait = defaultdict(float), 0, 0, 0.0
+    sums, steps, photos, wait, detail_batches = defaultdict(float), 0, 0, 0.0, 0
     started = ready = time.perf_counter()
     for batch in loader:
         wait += time.perf_counter() - ready
@@ -210,13 +224,15 @@ def run_epoch(model, loader, optimizer, scheduler, scaler, cfg, device, log_prio
         on_device = {name: batch[name].to(device, non_blocking=True) for name in targets}
         # float16: the T4 has no bfloat16 cores
         with torch.autocast(device.type, dtype=torch.float16, enabled=amp):
-            out = model(images)
+            trained_on = training_images(model, images, on_device["class_id"], cfg, rng)
+            detail_batches += trained_on is not images
+            out = model(trained_on)
         out = {name: None if value is None else value.float() for name, value in out.items()}
         loss, parts = total_loss(out, on_device, cfg, log_prior=log_prior)
         optimizer.zero_grad(set_to_none=True)
         scaler.scale(loss).backward()
         scaler.unscale_(optimizer)
-        torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), GRAD_CLIP_NORM)
         scaler.step(optimizer)
         scaler.update()
         scheduler.step()
@@ -229,15 +245,23 @@ def run_epoch(model, loader, optimizer, scheduler, scaler, cfg, device, log_prio
         torch.cuda.synchronize(device)
     return {"seconds": time.perf_counter() - started, "photos": photos, "wait": wait,
             "losses": {name: total / steps for name, total in sums.items()},
-            "lr": optimizer.param_groups[-1]["lr"]}
+            "lr": optimizer.param_groups[-1]["lr"], "steps": steps,
+            "detail_batches": detail_batches}
+
+
+def training_images(model, images, class_ids, cfg, rng):
+    """The batch, or with probability detail_train_p its detail crops from the true class's map."""
+    if not cfg["detail_crop"] or rng.random() >= cfg["detail_train_p"]:
+        return images
+    return detail_batch(model, images, class_ids)
 
 
 def make_optimizer(model, cfg):
-    """AdamW with the encoder at 0.1 x lr and every other part at lr."""
+    """AdamW with the encoder at ENCODER_LR_FACTOR x lr and every other part at lr."""
     encoder = list(model.encoder.parameters())
     encoder_ids = {id(parameter) for parameter in encoder}
     rest = [parameter for parameter in model.parameters() if id(parameter) not in encoder_ids]
-    return torch.optim.AdamW([{"params": encoder, "lr": cfg["lr"] * 0.1},
+    return torch.optim.AdamW([{"params": encoder, "lr": cfg["lr"] * ENCODER_LR_FACTOR},
                               {"params": rest, "lr": cfg["lr"]}],
                              weight_decay=cfg["weight_decay"])
 

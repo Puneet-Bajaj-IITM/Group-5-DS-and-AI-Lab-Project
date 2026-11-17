@@ -1,0 +1,5 @@
+run,measurable,f1_at_least_0.3,f1_at_least_0.5,f1_at_least_0.7,median_f1,f1_zero,macro_f1,source,macro_f1_under_30_train,macro_f1_30_to_99_train,macro_f1_100_plus_train,pooled_recall_rare
+M3 final,158,85,56,17,0.33647798742138363,18,0.36685860512186735,results/m4/full/A1/per_class_counts.json; results/m4/arms/arms.csv,,,,
+A1,158,114,87,47,0.5515973630831643,23,0.48145720318887286,results/m4/full/A1/per_class_counts.json; results/m4/full/A1/final_metrics.json,0.18584656084656082,0.3699193698891389,0.5808965121217868,0.3191489361702128
+H2,158,106,74,34,0.47233115468409587,27,0.4368272537785323,results/m4/full/H2/per_class_counts.json; results/m4/full/H2/final_metrics.json,0.22156593406593406,0.31705657051662056,0.5305635449080065,0.3191489361702128
+A3,158,116,87,47,0.534405324273381,20,0.48118921658013375,results/m4/full/A3/per_class_counts.json; results/m4/full/A3/final_metrics.json,0.22612433862433864,0.37575252426953837,0.5720773712143945,0.3191489361702128

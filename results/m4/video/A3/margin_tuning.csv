@@ -1,0 +1,11 @@
+window,margin,median_changes,median_first_answer_s,never_answered,final_right,clean_negatives_locked,eligible,rule_met,chosen,note
+5,0.05,0.0,1.15,14,16,2,True,True,True,"pairs are eligible only if neither clean negative clip (chameleon, eagle) ever locks; every pair locks on 2 of 2 of them, so the pairs that lock on 2 are eligible"
+5,0.1,0.0,1.15,14,16,2,True,True,False,"pairs are eligible only if neither clean negative clip (chameleon, eagle) ever locks; every pair locks on 2 of 2 of them, so the pairs that lock on 2 are eligible"
+5,0.15,0.0,1.25,14,16,2,True,True,False,"pairs are eligible only if neither clean negative clip (chameleon, eagle) ever locks; every pair locks on 2 of 2 of them, so the pairs that lock on 2 are eligible"
+5,0.2,0.0,1.5,15,15,2,True,True,False,"pairs are eligible only if neither clean negative clip (chameleon, eagle) ever locks; every pair locks on 2 of 2 of them, so the pairs that lock on 2 are eligible"
+5,0.3,0.0,3.05,21,14,2,True,False,False,"pairs are eligible only if neither clean negative clip (chameleon, eagle) ever locks; every pair locks on 2 of 2 of them, so the pairs that lock on 2 are eligible"
+10,0.05,0.0,4.0,18,14,2,True,False,False,"pairs are eligible only if neither clean negative clip (chameleon, eagle) ever locks; every pair locks on 2 of 2 of them, so the pairs that lock on 2 are eligible"
+10,0.1,0.0,4.0,18,14,2,True,False,False,"pairs are eligible only if neither clean negative clip (chameleon, eagle) ever locks; every pair locks on 2 of 2 of them, so the pairs that lock on 2 are eligible"
+10,0.15,0.0,4.0,18,14,2,True,False,False,"pairs are eligible only if neither clean negative clip (chameleon, eagle) ever locks; every pair locks on 2 of 2 of them, so the pairs that lock on 2 are eligible"
+10,0.2,0.0,4.2,20,14,2,True,False,False,"pairs are eligible only if neither clean negative clip (chameleon, eagle) ever locks; every pair locks on 2 of 2 of them, so the pairs that lock on 2 are eligible"
+10,0.3,0.0,inf,25,14,2,True,False,False,"pairs are eligible only if neither clean negative clip (chameleon, eagle) ever locks; every pair locks on 2 of 2 of them, so the pairs that lock on 2 are eligible"

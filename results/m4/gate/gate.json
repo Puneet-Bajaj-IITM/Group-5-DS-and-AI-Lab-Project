@@ -1,0 +1,15 @@
+{
+  "kernel": "puneetbajajiitm/sg-m4-gate",
+  "detector": "M4_detector.pt",
+  "segmenter": "M4_segmenter.pt",
+  "rule": "both",
+  "thresholds": {
+    "box_conf": 0.00499307457357645,
+    "mask_area": 4.8e-05
+  },
+  "keep": 0.99,
+  "fpr_nonsnake_val": 0.2733333333333333,
+  "recall_snake_val": 0.9827998367442131,
+  "limit": null,
+  "epochs": null
+}

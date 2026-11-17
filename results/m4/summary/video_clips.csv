@@ -1,0 +1,41 @@
+clip,split,species,species_source,method,snake_frames,changes_after_first_answer,answered,within_g5,first_answer_s,final_shown,final_right,model,source
+laticauda_colubrina_philippines.webm,dev,Laticauda colubrina,stated,vote,301,10,True,no,1.5,Laticauda colubrina,True,M3,results/m4/video/M3/video_lock.csv
+laticauda_colubrina_philippines.webm,dev,Laticauda colubrina,stated,lock,301,4,True,no,1.7,Hydrophis lapemoides,False,M3,results/m4/video/M3/video_lock.csv
+laticauda_colubrina_fiji.webm,dev,Laticauda colubrina,stated,vote,296,4,True,no,0.6,Laticauda colubrina,True,M3,results/m4/video/M3/video_lock.csv
+laticauda_colubrina_fiji.webm,dev,Laticauda colubrina,stated,lock,296,0,True,yes,5.1,Laticauda colubrina,True,M3,results/m4/video/M3/video_lock.csv
+bungarus_fasciatus_milking.webm,dev,Bungarus fasciatus,stated,vote,294,17,True,no,0.4,Bungarus fasciatus,True,M3,results/m4/video/M3/video_lock.csv
+bungarus_fasciatus_milking.webm,dev,Bungarus fasciatus,stated,lock,294,1,True,yes,1.0,Bungarus caeruleus,False,M3,results/m4/video/M3/video_lock.csv
+python_bivittatus_zoo.ogv,dev,Python bivittatus,stated,vote,146,10,True,no,2.7,Craspedocephalus gramineus,False,M3,results/m4/video/M3/video_lock.csv
+python_bivittatus_zoo.ogv,dev,Python bivittatus,stated,lock,146,0,False,no answer,,,False,M3,results/m4/video/M3/video_lock.csv
+naja_naja_ditmars_1915.mp4,test,Naja naja,stated,vote,301,0,True,yes,0.4,,False,M3,results/m4/video/M3/video_lock.csv
+naja_naja_ditmars_1915.mp4,test,Naja naja,stated,lock,301,0,True,yes,1.0,Fowlea piscator,False,M3,results/m4/video/M3/video_lock.csv
+gonyosoma_oxycephalum_mulu.webm,test,Gonyosoma oxycephalum,stated,vote,68,0,True,yes,0.4,Gonyosoma oxycephalum,True,M3,results/m4/video/M3/video_lock.csv
+gonyosoma_oxycephalum_mulu.webm,test,Gonyosoma oxycephalum,stated,lock,68,0,True,yes,1.0,Gonyosoma oxycephalum,True,M3,results/m4/video/M3/video_lock.csv
+ahaetulla_borealis_kerala.webm,test,Ahaetulla borealis,category,vote,53,1,True,yes,22.8,Trimeresurus septentrionalis,False,M3,results/m4/video/M3/video_lock.csv
+ahaetulla_borealis_kerala.webm,test,Ahaetulla borealis,category,lock,53,0,True,yes,25.0,Ahaetulla prasina,False,M3,results/m4/video/M3/video_lock.csv
+ptyas_mucosa_swimming.webm,test,Ptyas mucosa,category,vote,268,9,True,no,0.8,,False,M3,results/m4/video/M3/video_lock.csv
+ptyas_mucosa_swimming.webm,test,Ptyas mucosa,category,lock,268,0,False,no answer,,,False,M3,results/m4/video/M3/video_lock.csv
+naja_cobra_2017.webm,test,Naja naja,inferred,vote,301,2,True,no,0.4,Naja naja,,M3,results/m4/video/M3/video_lock.csv
+naja_cobra_2017.webm,test,Naja naja,inferred,lock,301,0,True,yes,1.0,Naja naja,,M3,results/m4/video/M3/video_lock.csv
+naja_jaipur_charmer.webm,test,Naja naja,inferred,vote,158,0,True,yes,0.4,Ophiophagus hannah,,M3,results/m4/video/M3/video_lock.csv
+naja_jaipur_charmer.webm,test,Naja naja,inferred,lock,158,0,True,yes,1.0,Ophiophagus hannah,,M3,results/m4/video/M3/video_lock.csv
+laticauda_colubrina_philippines.webm,dev,Laticauda colubrina,stated,vote,296,1,True,yes,0.6,Laticauda colubrina,True,A3,results/m4/video/A3/video_lock.csv
+laticauda_colubrina_philippines.webm,dev,Laticauda colubrina,stated,lock,296,0,True,yes,1.4,Laticauda colubrina,True,A3,results/m4/video/A3/video_lock.csv
+laticauda_colubrina_fiji.webm,dev,Laticauda colubrina,stated,vote,290,0,True,yes,1.1,Laticauda colubrina,True,A3,results/m4/video/A3/video_lock.csv
+laticauda_colubrina_fiji.webm,dev,Laticauda colubrina,stated,lock,290,0,True,yes,1.1,Laticauda colubrina,True,A3,results/m4/video/A3/video_lock.csv
+bungarus_fasciatus_milking.webm,dev,Bungarus fasciatus,stated,vote,17,0,True,yes,0.4,Bungarus fasciatus,True,A3,results/m4/video/A3/video_lock.csv
+bungarus_fasciatus_milking.webm,dev,Bungarus fasciatus,stated,lock,17,0,True,yes,0.5,Bungarus fasciatus,True,A3,results/m4/video/A3/video_lock.csv
+python_bivittatus_zoo.ogv,dev,Python bivittatus,stated,vote,142,6,True,no,2.1,Hydrophis platurus,False,A3,results/m4/video/A3/video_lock.csv
+python_bivittatus_zoo.ogv,dev,Python bivittatus,stated,lock,142,0,True,yes,0.5,Rhabdophis plumbicolor,False,A3,results/m4/video/A3/video_lock.csv
+naja_naja_ditmars_1915.mp4,test,Naja naja,stated,vote,301,12,True,no,0.4,Fowlea piscator,False,A3,results/m4/video/A3/video_lock.csv
+naja_naja_ditmars_1915.mp4,test,Naja naja,stated,lock,301,2,True,no,0.5,Fowlea piscator,False,A3,results/m4/video/A3/video_lock.csv
+gonyosoma_oxycephalum_mulu.webm,test,Gonyosoma oxycephalum,stated,vote,68,0,True,yes,0.4,Gonyosoma oxycephalum,True,A3,results/m4/video/A3/video_lock.csv
+gonyosoma_oxycephalum_mulu.webm,test,Gonyosoma oxycephalum,stated,lock,68,0,True,yes,0.5,Gonyosoma oxycephalum,True,A3,results/m4/video/A3/video_lock.csv
+ahaetulla_borealis_kerala.webm,test,Ahaetulla borealis,category,vote,301,17,True,no,0.4,,False,A3,results/m4/video/A3/video_lock.csv
+ahaetulla_borealis_kerala.webm,test,Ahaetulla borealis,category,lock,301,0,False,no answer,,,False,A3,results/m4/video/A3/video_lock.csv
+ptyas_mucosa_swimming.webm,test,Ptyas mucosa,category,vote,121,4,True,no,1.9,,False,A3,results/m4/video/A3/video_lock.csv
+ptyas_mucosa_swimming.webm,test,Ptyas mucosa,category,lock,121,0,True,yes,16.3,Daboia russelii,False,A3,results/m4/video/A3/video_lock.csv
+naja_cobra_2017.webm,test,Naja naja,inferred,vote,291,2,True,no,0.4,Naja naja,,A3,results/m4/video/A3/video_lock.csv
+naja_cobra_2017.webm,test,Naja naja,inferred,lock,291,0,True,yes,0.5,Naja naja,,A3,results/m4/video/A3/video_lock.csv
+naja_jaipur_charmer.webm,test,Naja naja,inferred,vote,148,2,True,no,0.5,,,A3,results/m4/video/A3/video_lock.csv
+naja_jaipur_charmer.webm,test,Naja naja,inferred,lock,148,0,True,yes,0.5,Naja naja,,A3,results/m4/video/A3/video_lock.csv

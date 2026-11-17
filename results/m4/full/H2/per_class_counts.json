@@ -1,0 +1,25 @@
+{
+  "levels": [
+    0.3,
+    0.5,
+    0.7
+  ],
+  "min_val_photos": 5,
+  "source": "head.per_class of each run's final_metrics.json",
+  "M3 final": {
+    "measurable": 158,
+    "f1_at_least_0.3": 85,
+    "f1_at_least_0.5": 56,
+    "f1_at_least_0.7": 17,
+    "median_f1": 0.33647798742138363,
+    "f1_zero": 18
+  },
+  "M4_FULL": {
+    "measurable": 158,
+    "f1_at_least_0.3": 106,
+    "f1_at_least_0.5": 74,
+    "f1_at_least_0.7": 34,
+    "median_f1": 0.47233115468409587,
+    "f1_zero": 27
+  }
+}

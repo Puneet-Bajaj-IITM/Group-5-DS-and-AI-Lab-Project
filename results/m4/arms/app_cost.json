@@ -1,0 +1,101 @@
+{
+  "what": "CPU time per frame of the M3 front end A3 needs in the app: the detector (no-snake gate and box), and the U-Net mask for the crop to the mask's box; detector_plus_unet is one frame through both (the sum of the two timed steps of that frame)",
+  "photos": 50,
+  "photo_source": "a 300-photo sample of validation photos kept on the team laptop, 50 drawn with seed 42, app exposure fix applied",
+  "photo_sizes_px": {
+    "min_side": 227,
+    "max_side": 500
+  },
+  "warm_up_frames": 5,
+  "batch": 1,
+  "detector": {
+    "weights": "notebook 13's detector, frontends/D1/yolo26n-ft/detector.pt (sha256 099b36bd...)",
+    "conf": 0.05,
+    "imgsz": 320,
+    "call": "predict(bgr, rect=False)"
+  },
+  "unet": {
+    "weights": "notebook 13's U-Net, frontends/S1/unet/segmenter.pt (sha256 f7646444...)",
+    "input_size": 320,
+    "call": "front_end.Segmenter('unet').masks([rgb]): letterbox, U-Net, unletterbox, threshold 0.5",
+    "precision": "two ways: as front_end.Segmenter runs it (torch.autocast('cpu', float16), meant for the GPU) and plain float32, the same pre- and post-processing"
+  },
+  "machine": {
+    "cpu": "Apple M4 Pro (10 performance + 4 efficiency cores, 24 GB), the team laptop, from sysctl",
+    "cores": 14,
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.12.0",
+    "torch": "2.15.0"
+  },
+  "threads_note": "ultralytics' first predict call sets torch to min(8, cores - 1) threads (select_device), so in the app the U-Net runs on 8 threads here after the detector's first frame; the first run is that, the second is pinned to one thread (milestone 3's X1 convention)",
+  "runs": [
+    {
+      "torch_threads": 8,
+      "detector": {
+        "median_ms": 10.27,
+        "p90_ms": 11.85,
+        "mean_ms": 10.78
+      },
+      "unet_mask_as_front_end_runs_it": {
+        "median_ms": 3063.15,
+        "p90_ms": 3183.01,
+        "mean_ms": 3071.04
+      },
+      "detector_plus_unet_as_front_end_runs_it": {
+        "median_ms": 3073.65,
+        "p90_ms": 3196.28,
+        "mean_ms": 3081.81
+      },
+      "unet_mask_fp32": {
+        "median_ms": 63.85,
+        "p90_ms": 77.61,
+        "mean_ms": 65.62
+      },
+      "detector_plus_unet_fp32": {
+        "median_ms": 74.81,
+        "p90_ms": 87.91,
+        "mean_ms": 76.4
+      },
+      "unet_share_fp32_median": 0.859,
+      "mask_iou_fp32_vs_autocast": {
+        "median": 0.9995,
+        "min": 0.9924
+      }
+    },
+    {
+      "torch_threads": 1,
+      "detector": {
+        "median_ms": 12.98,
+        "p90_ms": 14.23,
+        "mean_ms": 13.3
+      },
+      "unet_mask_as_front_end_runs_it": {
+        "median_ms": 2881.73,
+        "p90_ms": 2958.78,
+        "mean_ms": 2893.17
+      },
+      "detector_plus_unet_as_front_end_runs_it": {
+        "median_ms": 2894.91,
+        "p90_ms": 2971.88,
+        "mean_ms": 2906.48
+      },
+      "unet_mask_fp32": {
+        "median_ms": 53.29,
+        "p90_ms": 64.28,
+        "mean_ms": 54.62
+      },
+      "detector_plus_unet_fp32": {
+        "median_ms": 66.07,
+        "p90_ms": 77.77,
+        "mean_ms": 67.92
+      },
+      "unet_share_fp32_median": 0.799,
+      "mask_iou_fp32_vs_autocast": {
+        "median": 0.9995,
+        "min": 0.9924
+      }
+    }
+  ],
+  "front_end_source": "src/serpentguard/front_end.py at commit 45f696c",
+  "script": "scripts/measure_app_cost.py"
+}
