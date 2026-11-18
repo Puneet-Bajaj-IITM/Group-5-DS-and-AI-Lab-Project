@@ -46,3 +46,33 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Older Flutter/Pub files
+.flutter-plugins
+.packages
+.pub-cache/
+
+# Flutter Version Manager
+.fvm/
+
+# Local secrets and signing (never commit these)
+.env
+.env.*
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+android/key.properties
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# Build outputs and local tooling
+*.apk
+*.aab
+*.ipa
+android/.gradle/
+android/build/
+android/.kotlin/
+android/app/.cxx/
+ios/Pods/
+macos/Pods/

@@ -48,6 +48,8 @@ dependencies:
   http: ^1.6.0
   crypto: ^3.0.8
 
+  material_ui: any
+  video_player: ^2.14.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -72,6 +74,8 @@ flutter:
 
   assets:
     - assets/species.json
+    - assets/videos/serpent_intro.mp4
+    - assets/images/splash_poster.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

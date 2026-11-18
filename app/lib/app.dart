@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import 'models/verdict.dart';
@@ -7,11 +7,15 @@ import 'screens/contacts_screen.dart';
 import 'screens/identify_screen.dart';
 import 'screens/map_screen.dart';
 import 'screens/sos_screen.dart';
+import 'screens/splash_screen.dart';
 import 'state/app_state.dart';
 import 'util/geo.dart';
 
 class SerpentGuardApp extends StatelessWidget {
-  const SerpentGuardApp({super.key});
+  const SerpentGuardApp({super.key, this.initFuture, this.showSplash = true});
+
+  final Future<void>? initFuture;
+  final bool showSplash;
 
   static const seed = Color(0xFF2F5D45);
 
@@ -45,7 +49,7 @@ class SerpentGuardApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: theme(Brightness.light),
       darkTheme: theme(Brightness.dark),
-      home: const HomeShell(),
+      home: showSplash ? SplashScreen(initFuture: initFuture) : const HomeShell(),
     );
   }
 }

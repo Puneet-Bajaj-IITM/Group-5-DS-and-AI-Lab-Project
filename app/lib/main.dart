@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import 'app.dart';
@@ -17,6 +17,10 @@ Future<void> main() async {
     classifier: DemoClassifier(catalog),
     store: store,
   );
-  runApp(ChangeNotifierProvider.value(value: state, child: const SerpentGuardApp()));
-  await state.init();
+  final initFuture = state.init();
+  runApp(ChangeNotifierProvider.value(
+    value: state,
+    child: SerpentGuardApp(initFuture: initFuture),
+  ));
+  await initFuture;
 }
