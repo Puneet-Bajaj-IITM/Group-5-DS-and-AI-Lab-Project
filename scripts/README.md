@@ -33,6 +33,23 @@ The five photos cover each outcome: a cobra called dangerous, a trinket snake ca
 saw-scaled viper whose top species is wrong but which is still called dangerous, a vine snake the model cannot place
 between species, and a cat snake the gate drops because the segmenter finds no snake pixels.
 
+## Bias or variance: `check_train_vs_val.py` and `check_ensemble.py`
+
+Two CPU checks of where the shipped model's errors come from. They write `results/m4/bias_variance/`.
+
+- `check_train_vs_val.py` scores A3 on 1,500 of its own training photos and 1,500 validation photos, drawn the same
+  way and run through the training code's evaluation path with no augmentation. A large gap between the two means
+  high variance; low scores on both mean high bias. It downloads the photos from iNaturalist into a cache folder
+  outside the repo and keeps a photo only when its SHA-1 matches the dataset's.
+- `check_ensemble.py` averages the full runs' saved validation predictions. A gain from averaging is a sign of
+  variance. It makes no new predictions.
+
+```bash
+python scripts/check_train_vs_val.py --run <A3 Kaggle output> --masks <M3 front-end dataset> \
+    --metadata <clean dataset>/metadata.csv --photos <cache folder>
+python scripts/check_ensemble.py A1=<A1 output>/M4_FULL H2=<H2 output>/M4_FULL A3=<A3 output>/M4_FULL
+```
+
 ## Provenance
 
 The four measurement scripts are the code that ran. After the runs, only comments, descriptive text strings and one hard-coded

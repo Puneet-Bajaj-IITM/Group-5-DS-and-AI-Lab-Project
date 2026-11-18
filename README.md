@@ -37,7 +37,7 @@ documentation/          milestone reports and slides (one folder per milestone)
 notebooks/              the notebook chain, from raw download to full training, the video lock and the summary
 src/                    the serpentguard package the notebooks share
 results/                Milestone 4's result files and summary tables, and the Milestone 3 files other notebooks read; start at results/README.md
-scripts/                four CPU scripts behind three measurements, and verify_inference.py (see scripts/README.md)
+scripts/                CPU scripts: four measurements, verify_inference.py and two bias-variance checks (see scripts/README.md)
 data/                   class table and processing reports (images live on Kaggle, never in git)
 work-contribution-log.md  weekly per-member contributions
 ```
