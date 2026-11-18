@@ -1,0 +1,5 @@
+package `in`.serpentguard.serpentguard
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()
