@@ -74,10 +74,15 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Row(children: [
-          Icon(Icons.shield_moon_rounded, color: SerpentGuardApp.seed),
-          SizedBox(width: 10),
-          Text('SerpentGuard'),
+        title: Row(children: [
+          Image.asset(
+            'assets/images/app_logo.png',
+            width: 30,
+            height: 30,
+            filterQuality: FilterQuality.medium,
+          ),
+          const SizedBox(width: 10),
+          const Text('SerpentGuard'),
         ]),
       ),
       body: SafeArea(

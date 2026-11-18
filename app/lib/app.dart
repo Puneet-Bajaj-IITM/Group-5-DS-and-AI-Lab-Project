@@ -63,7 +63,15 @@ class HomeShell extends StatefulWidget {
 
 class _HomeShellState extends State<HomeShell> {
   int _tab = 0;
+  final Set<int> _visitedTabs = {0};
   AppState? _state;
+
+  void _selectTab(int index) {
+    setState(() {
+      _tab = index;
+      _visitedTabs.add(index);
+    });
+  }
 
   @override
   void didChangeDependencies() {
@@ -108,7 +116,7 @@ class _HomeShellState extends State<HomeShell> {
         TextButton(
           onPressed: () {
             messenger.hideCurrentMaterialBanner();
-            setState(() => _tab = 2);
+            _selectTab(2);
           },
           child: const Text('View'),
         ),
@@ -123,7 +131,12 @@ class _HomeShellState extends State<HomeShell> {
   @override
   Widget build(BuildContext context) {
     final alerts = context.select<AppState, int>((s) => s.alertBook.active(DateTime.now()).length);
-    const pages = [IdentifyScreen(), MapScreen(), AlertsScreen(), ContactsScreen()];
+    final pages = [
+      const IdentifyScreen(),
+      _visitedTabs.contains(1) ? const MapScreen() : const SizedBox.shrink(),
+      _visitedTabs.contains(2) ? const AlertsScreen() : const SizedBox.shrink(),
+      _visitedTabs.contains(3) ? const ContactsScreen() : const SizedBox.shrink(),
+    ];
     return Scaffold(
       body: IndexedStack(index: _tab, children: pages),
       floatingActionButton: _tab == 0
@@ -138,7 +151,7 @@ class _HomeShellState extends State<HomeShell> {
             ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _tab,
-        onDestinationSelected: (i) => setState(() => _tab = i),
+        onDestinationSelected: _selectTab,
         destinations: [
           const NavigationDestination(
               icon: Icon(Icons.center_focus_strong_outlined),

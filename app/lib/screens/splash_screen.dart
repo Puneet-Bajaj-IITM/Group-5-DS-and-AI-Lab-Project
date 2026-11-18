@@ -12,7 +12,7 @@ import 'sos_screen.dart';
 ///
 /// Layers from back to front:
 /// 1. Hardware-decoded muted MP4 loop (`assets/videos/serpent_intro.mp4`).
-/// 2. Frame-0 poster image (`assets/images/splash_poster.png`) that fades out on play.
+/// 2. Frame-0 poster image (`assets/images/splash_poster.jpg`) that fades out on play.
 /// 3. Top and bottom obsidian-emerald vignette gradients.
 /// 4. Native 60fps emerald spore particles and shield glow pulse.
 /// 5. Crisp native Flutter typography and startup readiness indicator.
@@ -43,7 +43,9 @@ class _SplashScreenState extends State<SplashScreen>
   late final AnimationController _progressController;
 
   Timer? _minTimer;
+  bool _precached = false;
   bool _videoPlaying = false;
+  bool _posterHidden = false;
   bool _minElapsed = false;
   bool _initDone = false;
   bool _navigated = false;
@@ -69,6 +71,15 @@ class _SplashScreenState extends State<SplashScreen>
     _armTransitions();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_precached) {
+      _precached = true;
+      precacheImage(const AssetImage('assets/images/splash_poster.jpg'), context);
+    }
+  }
+
   Future<void> _initVideo() async {
     try {
       final controller = VideoPlayerController.asset(
@@ -83,9 +94,6 @@ class _SplashScreenState extends State<SplashScreen>
       if (!mounted || _navigated) return;
       controller.addListener(_onVideoTick);
       await controller.play();
-      if (mounted) {
-        setState(() => _videoPlaying = controller.value.isPlaying);
-      }
     } catch (error) {
       // Fall back gracefully to the Frame-0 poster + native particle layer.
       debugPrint('Splash video fallback: $error');
@@ -95,7 +103,10 @@ class _SplashScreenState extends State<SplashScreen>
   void _onVideoTick() {
     final controller = _videoController;
     if (controller == null || !mounted || _videoPlaying) return;
-    if (controller.value.isInitialized && controller.value.isPlaying) {
+    final value = controller.value;
+    if (value.isInitialized &&
+        value.isPlaying &&
+        value.position >= const Duration(milliseconds: 40)) {
       setState(() => _videoPlaying = true);
     }
   }
@@ -136,6 +147,9 @@ class _SplashScreenState extends State<SplashScreen>
     if (_navigated || !mounted) return;
     _navigated = true;
     _minTimer?.cancel();
+    _ambientController.stop();
+    _progressController.stop();
+    _videoController?.pause();
 
     final navigator = Navigator.of(context);
     navigator.pushReplacement(_buildRoute(widget.nextScreen));
@@ -148,19 +162,15 @@ class _SplashScreenState extends State<SplashScreen>
 
   PageRoute<void> _buildRoute(Widget target) {
     return PageRouteBuilder<void>(
-      transitionDuration: const Duration(milliseconds: 600),
+      transitionDuration: const Duration(milliseconds: 450),
       pageBuilder: (_, _, _) => target,
       transitionsBuilder: (_, animation, _, child) {
-        final curved = CurvedAnimation(
-          parent: animation,
-          curve: Curves.easeOutCubic,
-        );
         return FadeTransition(
-          opacity: curved,
-          child: ScaleTransition(
-            scale: Tween<double>(begin: 1.03, end: 1.0).animate(curved),
-            child: child,
+          opacity: CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeInOutCubic,
           ),
+          child: child,
         );
       },
     );
@@ -234,14 +244,23 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Widget _buildPosterLayer() {
+    if (_posterHidden) {
+      return const SizedBox.shrink();
+    }
     return IgnorePointer(
       child: AnimatedOpacity(
         opacity: _videoPlaying ? 0.0 : 1.0,
-        duration: const Duration(milliseconds: 280),
+        duration: const Duration(milliseconds: 220),
         curve: Curves.easeOut,
+        onEnd: () {
+          if (_videoPlaying && mounted) {
+            setState(() => _posterHidden = true);
+          }
+        },
         child: Image.asset(
-          'assets/images/splash_poster.png',
+          'assets/images/splash_poster.jpg',
           fit: BoxFit.cover,
+          gaplessPlayback: true,
           width: double.infinity,
           height: double.infinity,
         ),
@@ -514,11 +533,8 @@ class _GuardianAtmospherePainter extends CustomPainter {
       ).createShader(Rect.fromCircle(center: haloCenter, radius: haloRadius));
     canvas.drawCircle(haloCenter, haloRadius, haloPaint);
 
-    // Drifting emerald spores across the screen.
+    // Drifting emerald spores across the screen (pre-softened circles, zero blur).
     final dotPaint = Paint()..style = PaintingStyle.fill;
-    final glowPaint = Paint()
-      ..style = PaintingStyle.fill
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5);
 
     for (final s in _spores) {
       final yProgress = (s.yOffset - t * s.speed) % 1.0;
@@ -529,11 +545,12 @@ class _GuardianAtmospherePainter extends CustomPainter {
       final opacity = s.alpha * edgeFade;
       if (opacity <= 0.02) continue;
 
-      glowPaint.color = const Color(0xFF35D99B).withValues(alpha: opacity * 0.45);
-      canvas.drawCircle(Offset(x, y), s.radius * 2.4, glowPaint);
+      final center = Offset(x, y);
+      dotPaint.color = const Color(0xFF35D99B).withValues(alpha: opacity * 0.22);
+      canvas.drawCircle(center, s.radius * 2.4, dotPaint);
 
       dotPaint.color = const Color(0xFFA7F3D0).withValues(alpha: opacity);
-      canvas.drawCircle(Offset(x, y), s.radius, dotPaint);
+      canvas.drawCircle(center, s.radius, dotPaint);
     }
   }
 

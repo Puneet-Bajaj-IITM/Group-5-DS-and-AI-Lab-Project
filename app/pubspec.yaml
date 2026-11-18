@@ -75,7 +75,8 @@ flutter:
   assets:
     - assets/species.json
     - assets/videos/serpent_intro.mp4
-    - assets/images/splash_poster.png
+    - assets/images/splash_poster.jpg
+    - assets/images/app_logo.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
