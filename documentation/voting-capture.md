@@ -1,6 +1,6 @@
 # Community review from photo and live video
 
-One sighting represents one snake encounter and gets one community ballot. The app's 4-of-6 live verdict uses model outputs to steady the display. A reviewed sighting can have multiple stills, and each reviewer submits one species or genus identification for the sighting. [Milestone 3 demo](../notebooks/16_app.ipynb) · [Lean Multiclass Crowdsourcing](https://authors.library.caltech.edu/records/5qptj-5zy81)
+One sighting represents one snake encounter and gets one community ballot. The M4 live-camera lock pools model outputs to steady the display; it is separate from community voting. A reviewed sighting can have multiple stills, and each reviewer submits one species or genus identification for the sighting. [M4 report, section 7](milestone%204/project-report.md#7-video-the-lock) · [Lean Multiclass Crowdsourcing](https://authors.library.caltech.edu/records/5qptj-5zy81)
 
 | Input | Evidence to queue on Android |
 |---|---|
@@ -61,4 +61,4 @@ The ZIP contains a versioned JSONL manifest and sanitized JPEGs. Each manifest r
 
 ## Android integration and validation
 
-The companion Flutter app adds a Community tab, local SQLite drafts/outbox, photo/gallery sharing and live-camera still capture. Its classifier remains a demo; community submissions require confirmation and exclude simulated model predictions. Foreground sync, Android background sync and cached review are implemented. Real model integration and physical-device acceptance remain pending; see [app setup and handoff](../app/README.md). Compare one image versus up to three on a labeled sample of real encounters. Record whether more views improve reviewer accuracy or merely add upload time. Use independent expert labels and real reviewer votes to measure species and genus accuracy and coverage before calibrating the consensus thresholds.
+The companion Flutter app adds a Community tab, local SQLite drafts/outbox, photo/gallery sharing and live-camera still capture. PR #25 connects the real A3 model and M4 video lock; the recorded model checks used an Android emulator. Community submissions require confirmation and exclude simulated predictions when the app falls back to its demo. Foreground sync, Android background sync and cached review are implemented. Physical-device acceptance and reviewer calibration remain pending; see [app setup and handoff](../app/README.md). Compare one image versus up to three on a labeled sample of real encounters. Record whether more views improve reviewer accuracy or merely add upload time. Use independent expert labels and real reviewer votes to measure species and genus accuracy and coverage before calibrating the consensus thresholds.
