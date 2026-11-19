@@ -22,13 +22,15 @@ The team's datasets are private and owned by `puneetbajajiitm`. Ask the team to 
 Notes:
 
 - Notebooks 03, 06 and 07 and the full analysis are saved with the outputs of their 31 October 2026 runs on the clean dataset. Notebooks 08 and 09 keep their 30 October outputs, and their photos aren't in the main dataset.
+- Notebooks 01, 02, 04 and 05 and `load_dataset_example` are saved without outputs; their runs are on Kaggle. Notebook 02's report is `data/split_report.json`, notebook 03's is `data/processing_report.json`, and the Milestone 2 report gives the numbers of the download and the masks (see [`../data/README.md`](../data/README.md)).
+- Notebook 06 is the Milestone 2 record of the preprocessing; the code that training uses is `src/serpentguard/data.py`, which keeps the same steps. Its `class_weights.csv` and the `rgbm_4ch` mode were not used later.
 - Notebook 02 pins scikit-learn 1.9.1, because `StratifiedGroupKFold` assigns folds differently between releases.
 - Scheduled Kaggle runs can only read attached datasets, so attach each one before you save and run.
 - Always take class ids from `classes.csv`. `val/` and `test/` lack some species folders, so plain `ImageFolder` would mislabel photos.
 
 ## Milestone 3
 
-The Milestone 3 notebooks find the team's datasets the same way. Several also read another notebook's Kaggle output, so declare that kernel as a source; each notebook's first cell says which. Each notebook is saved with the outputs of its run, and its result files stay in that run's Kaggle output. The repo keeps only the few files another notebook reads: the run tables in `results/m3/summary/`, `results/m3/q1/retrieval.csv`, the `results/m3/x1_laptop` CSVs and the shipped decision file `results/m3/final/H1_top1_s1/decision_metrics.json`.
+The Milestone 3 notebooks find the team's datasets the same way. Several also read another notebook's Kaggle output, so declare that kernel as a source; each notebook's first cell says which. Each notebook is saved with the outputs of its run, and its result files stay in that run's Kaggle output. The repo keeps only the few files another notebook reads: the run tables in `results/m3/summary/`, `results/m3/q1/retrieval.csv` and `ranks.csv`, the `results/m3/x1_laptop` files, the shipped decision file `results/m3/final/H1_top1_s1/decision_metrics.json`, and the final model's scenery test `results/m3/r1/H1_top1_s1/robustness_metrics.json`, which the Milestone 4 notebooks compare against. The full run records are archived; see [`../results/README.md`](../results/README.md).
 
 | # | Notebook | Answers | Runs on |
 |---|---|---|---|
@@ -40,14 +42,35 @@ The Milestone 3 notebooks find the team's datasets the same way. Several also re
 | 15 | [`15_safety`](15_safety.ipynb) | How outputs become a verdict: thresholds, the decision rule study, whether the model looks at the snake or the scenery, unknown species and video stability | GPU T4, internet on |
 | 16 | [`16_app`](16_app.ipynb) | The whole app from a photo or clip to a verdict and WHO passages, the video demo, passage retrieval, and package size and speed on a laptop | local CPU |
 
-## Milestone 4 community voting
+## Milestone 4
+
+The Milestone 4 notebooks work the same way: the Kaggle notebooks find the team's datasets and other runs' outputs by handle, and each notebook's first cell says what it reads. The repo keeps their result files under `results/m4/` and the summary tables under `results/m4/summary/`.
 
 | # | Notebook | Answers | Runs on |
 |---|---|---|---|
+| 17 | [`17_front_end_full`](17_front_end_full.ipynb) | A box and a mask for every training photo the cropping notebook did not cover, from the same detector and U-Net; not run on its own, since notebook 21 runs the same step | GPU, internet on |
+| 18 | [`18_background_arms`](18_background_arms.ipynb) | Whether the model can lean less on the scenery: three ways of showing it the snake (the arms) against Milestone 3's final model, one rule to pick one | GPU T4, internet on |
+| 19 | [`19_non_snake_set`](19_non_snake_set.ipynb) | A set of about 3,000 openly licensed photos with no snake in them, split by photographer | CPU, internet on |
+| 20 | [`20_no_snake_gate`](20_no_snake_gate.ipynb) | How often the front end sees a snake where there is none, the detector and U-Net retrained with the non-snake photos, and which gate the app uses | GPU T4, internet on |
+| 21 | [`21_full_training`](21_full_training.ipynb) | The chosen recipes trained on every training photo, and scored against the goals and against B1 | GPU T4, internet on |
+| 22 | [`22_head_pilot`](22_head_pilot.ipynb) | Whether open-vocabulary detectors can find a snake's head and tail | GPU, internet on |
+| 23 | [`23_head_arms`](23_head_arms.ipynb) | Whether a second, closer look the model picks itself (the detail crop) helps | GPU T4, internet on |
+| 24 | [`24_video_lock`](24_video_lock.ipynb) | Whether pooling frames and locking the answer steadies the shown species on a clip, with the shipped model behind the app's front end | local CPU |
+| 25 | [`25_m4_summary`](25_m4_summary.ipynb) | The goals and the report's tables, read from the saved result files | local CPU |
 | 26 | [`26_community_voting`](26_community_voting.ipynb) | Taxonomic Bayesian species/genus consensus: eight vote scenarios, replacement and repeat submissions, invalid votes, genus-only evidence and threshold boundaries; saved with executed outputs | local CPU; Python standard library |
+| 27 | [`27_m4_figures`](27_m4_figures.ipynb) | The report's figures: learning curves, calibration before and after temperature scaling, and sample predictions on credited validation photos, from saved outputs | local CPU, internet on |
 
 Run from the repository root with `.venv/bin/python scripts/run_voting_notebook.py`.
 The runner executes this notebook's plain Python cells in order, saves actual
 stream outputs and execution counts, and stops without saving if an assertion
 fails. It does not require Jupyter. The notebook validates the voting algorithm;
 the SQLAlchemy service and Android SQLite queue implement application storage and sync.
+
+Where each run is saved with its outputs:
+
+- Notebooks 19, 20, 22, 23 and 25 are saved here with the outputs of the run their results come from. Notebook 27 is saved with its run; it writes its figures to [`../documentation/milestone 4/assets/`](../documentation/milestone%204/assets/figures.md).
+- Notebook 18 ran once per arm. The copy here holds no outputs; each run is in `results/m4/arms/executed/18_background_arms_<arm>.ipynb` (A0 to A3).
+- Notebook 21 ran once per recipe. The copy here holds no outputs; each run is in `results/m4/full/executed/21_full_training_<run>.ipynb` (A1, H2 and A3).
+- Notebook 24 is saved here with its run on the shipped model, A3; its earlier run on the Milestone 3 model is `results/m4/video/executed/24_video_lock_M3.ipynb`.
+- Notebook 17 was not run on its own, so it has no outputs; its step ran inside each run of notebook 21.
+- Three numbers were measured by scripts on the laptop's CPU rather than by a notebook: the non-snake test split (goal G4), the app's front-end cost and the detail crop's laptop timing. The scripts are in [`../scripts/`](../scripts/README.md).

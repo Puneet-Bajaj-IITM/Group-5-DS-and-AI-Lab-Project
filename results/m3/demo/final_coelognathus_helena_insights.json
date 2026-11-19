@@ -1,160 +1,26 @@
 {
   "input": {
-    "kind": "photo",
     "photo": {
       "path": "val/coelognathus_helena/inaturalist_557437621.jpg",
       "species": "Coelognathus helena",
       "license": "cc-by",
       "attribution": "(c) Seema Merchant, some rights reserved (CC BY)",
-      "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/557437621/medium.jpg",
-      "expected_verdict": "not_listed"
+      "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/557437621/medium.jpg"
     },
-    "source_size": [
-      500,
-      396
-    ],
     "clip_seed": 42,
-    "recipe": "video.synthesize_clip: V1's recipe (M1 section 3.4), leaves over a central ellipse",
-    "clip_params": {
-      "seed": 42,
-      "seconds": 10,
-      "fps": 15,
-      "frames": 150,
-      "size": [
-        500,
-        396
-      ],
-      "pan": [
-        [
-          0.0657,
-          -0.0147
-        ],
-        [
-          0.0861,
-          0.0474
-        ],
-        [
-          -0.0974,
-          0.1141
-        ],
-        [
-          0.0627,
-          0.0687
-        ]
-      ],
-      "zoom": [
-        1.0448,
-        1.1576,
-        1.1298,
-        1.3244
-      ],
-      "rotation_deg": [
-        3.4528,
-        7.7463,
-        -1.3581,
-        -6.5463
-      ],
-      "shake_share": 0.007545847870158348,
-      "exposure_share": 0.3446720792729227,
-      "light_gain": 0.8448680547933239,
-      "noise_sigma": 3.3499471264475,
-      "jpeg_quality": 48,
-      "leaf_cover_target": 0.4418103872519473,
-      "occluder_region": "centre",
-      "leaves": 15,
-      "leaf_cover": 0.4734412852224914,
-      "leaf_centres": [
-        [
-          154,
-          240
-        ],
-        [
-          324,
-          205
-        ],
-        [
-          170,
-          141
-        ],
-        [
-          215,
-          142
-        ],
-        [
-          231,
-          253
-        ],
-        [
-          144,
-          194
-        ],
-        [
-          169,
-          231
-        ],
-        [
-          255,
-          246
-        ],
-        [
-          222,
-          167
-        ],
-        [
-          253,
-          294
-        ],
-        [
-          245,
-          224
-        ],
-        [
-          224,
-          143
-        ],
-        [
-          330,
-          179
-        ],
-        [
-          244,
-          245
-        ],
-        [
-          277,
-          190
-        ]
-      ]
-    },
-    "max_seconds": null,
-    "fps": 15.0,
-    "frames": 150,
-    "seconds": 10.0,
-    "frame_size": [
-      500,
-      396
-    ],
-    "annotated_size": [
-      500,
-      396
-    ]
+    "fps": 15,
+    "frames": 150
   },
   "model": {
     "run_id": "H1_top1_s1",
     "encoder": "mobilevit_s",
-    "front_end": "F1",
     "input_size": 320,
-    "backend": "torch",
-    "scorer": "head",
-    "checkpoint_sha256": "93e41e20b3a2e9cac00583ceb6b6b156c603d734d8e4ef375fde1660250ee75c",
     "detector": "yolo26n-ft",
     "tau_snake": 0.102
   },
   "decision": {
     "file": "decision_metrics.json",
-    "sha256": "7bae8a20585f84aaa08a3e8ad543b866e9d9c940dac7c08d5c7627fb4cba55bc",
-    "recall_bound": "lower",
-    "recall_bound_recorded": true,
+    "smoothing": "vote_4_of_6",
     "thresholds": {
       "temperature": 1.9086784115427977,
       "temperature_who": 0.9690096288687304,
@@ -164,38 +30,34 @@
       "theta_conf": 0.360998147721644,
       "theta_v": 0.5,
       "theta_genus": 0.5
-    },
-    "smoothing": "vote_4_of_6"
+    }
   },
   "final": {
     "verdict": "not_listed",
     "message": "not on the WHO list, still keep away",
     "reason": [],
-    "reason_text": null,
-    "note": null,
+    "note": "",
     "top3": [
       [
         "Coelognathus helena",
-        0.9134
+        0.9133603210984722
       ],
       [
         "Sibynophis subpunctatus",
-        0.0244
+        0.02442250172776054
       ],
       [
         "Coelognathus radiatus",
-        0.0108
+        0.010820105117684126
       ]
     ],
     "genus_fallback": null,
-    "final_stable": "not_listed",
-    "majority": true
+    "majority": true,
+    "final_stable": "not_listed"
   },
   "timing": {
-    "first_stable_verdict": "not_listed",
     "time_to_first_stable_s": 0.5,
-    "first_majority_at_s": 0.5,
-    "stable_means": "on screen for 1.0 s"
+    "first_majority_at_s": 0.5
   },
   "flips": {
     "raw": 20,
@@ -204,11 +66,6 @@
       "not_listed": 87,
       "dangerous": 9,
       "unknown": 5
-    },
-    "smoothed_counts": {
-      "unknown": 7,
-      "not_listed": 88,
-      "dangerous": 6
     }
   },
   "species_top1": [
@@ -228,146 +85,57 @@
       "frames": 8
     }
   ],
-  "species_top1_by_second": [
-    {
-      "second": 0,
-      "species": "Coelognathus helena",
-      "share": 1.0,
-      "frames": 10
-    },
-    {
-      "second": 1,
-      "species": "Coelognathus helena",
-      "share": 0.6,
-      "frames": 6
-    },
-    {
-      "second": 2,
-      "species": "Coelognathus helena",
-      "share": 0.6,
-      "frames": 6
-    },
-    {
-      "second": 3,
-      "species": "Coelognathus helena",
-      "share": 0.8,
-      "frames": 8
-    },
-    {
-      "second": 4,
-      "species": "Coelognathus helena",
-      "share": 0.8,
-      "frames": 8
-    },
-    {
-      "second": 5,
-      "species": "Coelognathus helena",
-      "share": 0.8,
-      "frames": 8
-    },
-    {
-      "second": 6,
-      "species": "Coelognathus helena",
-      "share": 0.9,
-      "frames": 9
-    },
-    {
-      "second": 7,
-      "species": "Coelognathus helena",
-      "share": 0.9,
-      "frames": 9
-    },
-    {
-      "second": 8,
-      "species": "Coelognathus helena",
-      "share": 0.8,
-      "frames": 8
-    },
-    {
-      "second": 9,
-      "species": "Coelognathus helena",
-      "share": 1.0,
-      "frames": 11
-    }
-  ],
-  "species_card": {
-    "id": "card-024",
-    "source": "SerpentGuard species card",
-    "page": null,
-    "citation": "SerpentGuard species card",
-    "species": "Coelognathus helena"
-  },
   "passages": [
     {
       "id": "note-not-listed",
       "source": "SerpentGuard",
-      "page": null,
-      "citation": "SerpentGuard"
+      "page": null
     },
     {
       "id": "card-024",
       "source": "SerpentGuard species card",
-      "page": null,
-      "citation": "SerpentGuard species card"
+      "page": null
     },
     {
       "id": "who-110-01",
       "source": "WHO SEARO 2016",
-      "page": 110,
-      "citation": "WHO SEARO 2016, PDF p. 110 (printed p. 107)"
+      "page": 110
     },
     {
       "id": "who-119-04",
       "source": "WHO SEARO 2016",
-      "page": 119,
-      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+      "page": 119
     },
     {
       "id": "who-118-04",
       "source": "WHO SEARO 2016",
-      "page": 118,
-      "citation": "WHO SEARO 2016, PDF p. 118 (printed p. 115)"
+      "page": 118
     },
     {
       "id": "who-119-03",
       "source": "WHO SEARO 2016",
-      "page": 119,
-      "citation": "WHO SEARO 2016, PDF p. 119 (printed p. 116)"
+      "page": 119
     },
     {
       "id": "who-120-02",
       "source": "WHO SEARO 2016",
-      "page": 120,
-      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+      "page": 120
     },
     {
       "id": "who-120-05",
       "source": "WHO SEARO 2016",
-      "page": 120,
-      "citation": "WHO SEARO 2016, PDF p. 120 (printed p. 117)"
+      "page": 120
     }
   ],
   "speed": {
+    "frames_read": 101,
+    "mean_frame_ms": 81.839,
     "mean_ms": {
-      "preprocess": 4.323,
-      "front_end": 14.36,
-      "snakeid": 62.568,
-      "decision": 0.329
-    },
-    "mean_frame_ms": 81.58,
-    "clip_ms": {
-      "decision": 0.478,
-      "response": 0.024
-    },
-    "total_ms": 8242.566,
-    "effective_fps": 10.00000000000002,
-    "skipped_share": 0.32666666666666666,
-    "processed": 101,
-    "frames": 150,
-    "skipping": "the 10 frames-per-second cap"
-  },
-  "annotated": {
-    "file": "annotated.mp4",
-    "codec": "avc1"
+      "preprocess": 0.321,
+      "detector": 12.373,
+      "model": 68.709,
+      "verdict": 0.43,
+      "passages": 0.006
+    }
   }
 }

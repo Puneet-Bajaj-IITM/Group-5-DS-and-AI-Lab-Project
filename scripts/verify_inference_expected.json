@@ -1,0 +1,166 @@
+[
+ {
+  "photo_id": "228115560",
+  "true_species": "Naja naja",
+  "gate": {
+   "rule": "both",
+   "snake": true,
+   "box_conf": 0.46034255623817444,
+   "mask_area": 0.1878734693877551
+  },
+  "crop": "mask box",
+  "top3": [
+   {
+    "species": "Naja naja",
+    "probability": 0.9975960565744113,
+    "who_category": "1"
+   },
+   {
+    "species": "Naja kaouthia",
+    "probability": 0.0002791159072023191,
+    "who_category": "1"
+   },
+   {
+    "species": "Naja oxiana",
+    "probability": 0.00022130615342191097,
+    "who_category": "2"
+   }
+  ],
+  "who_category": "1",
+  "verdict": "dangerous",
+  "reason": [
+   "who_listed_mass",
+   "who_head",
+   "top_species_dangerous",
+   "venomous_family_mass"
+  ],
+  "message": "dangerous: WHO Category 1",
+  "genus_fallback": null
+ },
+ {
+  "photo_id": "557437621",
+  "true_species": "Coelognathus helena",
+  "gate": {
+   "rule": "both",
+   "snake": true,
+   "box_conf": 0.8356838822364807,
+   "mask_area": 0.07568181818181818
+  },
+  "crop": "mask box",
+  "top3": [
+   {
+    "species": "Coelognathus helena",
+    "probability": 0.9953016112349751,
+    "who_category": "not_listed"
+   },
+   {
+    "species": "Platyceps josephi",
+    "probability": 0.0007617843889871035,
+    "who_category": "not_listed"
+   },
+   {
+    "species": "Coelognathus radiatus",
+    "probability": 0.0004678958915392386,
+    "who_category": "not_listed"
+   }
+  ],
+  "who_category": "not_listed",
+  "verdict": "not_listed",
+  "reason": [],
+  "message": "not on the WHO list, still keep away",
+  "genus_fallback": null
+ },
+ {
+  "photo_id": "462345804",
+  "true_species": "Echis carinatus",
+  "gate": {
+   "rule": "both",
+   "snake": true,
+   "box_conf": 0.5404952764511108,
+   "mask_area": 0.0938978978978979
+  },
+  "crop": "mask box",
+  "top3": [
+   {
+    "species": "Elaphe taeniura",
+    "probability": 0.2631256151868247,
+    "who_category": "not_listed"
+   },
+   {
+    "species": "Dendrelaphis tristis",
+    "probability": 0.06218878518288804,
+    "who_category": "not_listed"
+   },
+   {
+    "species": "Ptyas mucosa",
+    "probability": 0.0564014723870468,
+    "who_category": "not_listed"
+   }
+  ],
+  "who_category": "not_listed",
+  "verdict": "dangerous",
+  "reason": [
+   "who_listed_mass"
+  ],
+  "message": "dangerous: could be a WHO-listed species: 11% combined probability",
+  "genus_fallback": null
+ },
+ {
+  "photo_id": "22679235",
+  "true_species": "Ahaetulla malabarica",
+  "gate": {
+   "rule": "both",
+   "snake": true,
+   "box_conf": 0.24452807009220123,
+   "mask_area": 0.045130666666666666
+  },
+  "crop": "mask box",
+  "top3": [
+   {
+    "species": "Ahaetulla oxyrhynca",
+    "probability": 0.22709924751041707,
+    "who_category": "not_listed"
+   },
+   {
+    "species": "Ahaetulla prasina",
+    "probability": 0.20853987628335727,
+    "who_category": "not_listed"
+   },
+   {
+    "species": "Ahaetulla borealis",
+    "probability": 0.19913743858143348,
+    "who_category": "not_listed"
+   }
+  ],
+  "who_category": "not_listed",
+  "verdict": "unknown",
+  "reason": [
+   "unclear_between_species"
+  ],
+  "message": "we don't know: unclear between species",
+  "genus_fallback": {
+   "genus": "Ahaetulla",
+   "probability": 0.945963538696216,
+   "who_listed": false
+  }
+ },
+ {
+  "photo_id": "640148271",
+  "true_species": "Boiga trigonata",
+  "gate": {
+   "rule": "both",
+   "snake": false,
+   "box_conf": 0.5355983376502991,
+   "mask_area": 0.0
+  },
+  "crop": null,
+  "top3": [],
+  "who_category": null,
+  "verdict": "unknown",
+  "reason": [
+   "no_snake"
+  ],
+  "message": "we don't know: no snake found",
+  "genus_fallback": null
+ }
+]

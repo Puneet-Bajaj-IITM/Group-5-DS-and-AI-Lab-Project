@@ -1,0 +1,21 @@
+window,margin,median_changes,median_first_answer_s,never_answered,final_right,clean_negatives_locked,eligible,rule_met,chosen,model,pool_frames,source
+5,0.05,0.0,3.15,15,14,2,False,False,False,M3,10,results/m4/video/M3/margin_tuning.csv; src/serpentguard/video.py
+5,0.1,0.0,3.15,15,14,2,False,False,False,M3,10,results/m4/video/M3/margin_tuning.csv; src/serpentguard/video.py
+5,0.15,0.0,3.15,15,14,2,False,False,False,M3,10,results/m4/video/M3/margin_tuning.csv; src/serpentguard/video.py
+5,0.2,0.0,3.15,15,14,2,False,False,False,M3,10,results/m4/video/M3/margin_tuning.csv; src/serpentguard/video.py
+5,0.3,0.0,4.1,17,12,2,False,False,False,M3,10,results/m4/video/M3/margin_tuning.csv; src/serpentguard/video.py
+10,0.05,0.0,6.2,22,10,0,True,False,True,M3,10,results/m4/video/M3/margin_tuning.csv; src/serpentguard/video.py
+10,0.1,0.0,6.2,22,10,0,True,False,False,M3,10,results/m4/video/M3/margin_tuning.csv; src/serpentguard/video.py
+10,0.15,0.0,6.2,22,10,0,True,False,False,M3,10,results/m4/video/M3/margin_tuning.csv; src/serpentguard/video.py
+10,0.2,0.0,6.5,22,11,0,True,False,False,M3,10,results/m4/video/M3/margin_tuning.csv; src/serpentguard/video.py
+10,0.3,0.0,9.100000000000001,24,10,0,True,False,False,M3,10,results/m4/video/M3/margin_tuning.csv; src/serpentguard/video.py
+5,0.05,0.0,1.15,14,16,2,True,True,True,A3,10,results/m4/video/A3/margin_tuning.csv; src/serpentguard/video.py
+5,0.1,0.0,1.15,14,16,2,True,True,False,A3,10,results/m4/video/A3/margin_tuning.csv; src/serpentguard/video.py
+5,0.15,0.0,1.25,14,16,2,True,True,False,A3,10,results/m4/video/A3/margin_tuning.csv; src/serpentguard/video.py
+5,0.2,0.0,1.5,15,15,2,True,True,False,A3,10,results/m4/video/A3/margin_tuning.csv; src/serpentguard/video.py
+5,0.3,0.0,3.05,21,14,2,True,False,False,A3,10,results/m4/video/A3/margin_tuning.csv; src/serpentguard/video.py
+10,0.05,0.0,4.0,18,14,2,True,False,False,A3,10,results/m4/video/A3/margin_tuning.csv; src/serpentguard/video.py
+10,0.1,0.0,4.0,18,14,2,True,False,False,A3,10,results/m4/video/A3/margin_tuning.csv; src/serpentguard/video.py
+10,0.15,0.0,4.0,18,14,2,True,False,False,A3,10,results/m4/video/A3/margin_tuning.csv; src/serpentguard/video.py
+10,0.2,0.0,4.2,20,14,2,True,False,False,A3,10,results/m4/video/A3/margin_tuning.csv; src/serpentguard/video.py
+10,0.3,0.0,inf,25,14,2,True,False,False,A3,10,results/m4/video/A3/margin_tuning.csv; src/serpentguard/video.py

@@ -1,0 +1,9 @@
+model,prompting,part,photos,boxes_drawn,right,pass_at,passed,source
+dino_tiny,both parts in one prompt,head,50,47,4,40,False,results/m4/heads/pilot.csv
+dino_tiny,both parts in one prompt,tail,50,48,1,40,False,results/m4/heads/pilot.csv
+dino_tiny,one prompt per part,head,50,49,4,40,False,results/m4/heads/pilot_retry.csv
+dino_tiny,one prompt per part,tail,50,49,1,40,False,results/m4/heads/pilot_retry.csv
+dino_base,one prompt per part,head,50,50,3,40,False,results/m4/heads/pilot_retry.csv
+dino_base,one prompt per part,tail,50,50,0,40,False,results/m4/heads/pilot_retry.csv
+owlv2,one prompt per part,head,50,42,4,40,False,results/m4/heads/pilot_retry.csv
+owlv2,one prompt per part,tail,50,45,3,40,False,results/m4/heads/pilot_retry.csv

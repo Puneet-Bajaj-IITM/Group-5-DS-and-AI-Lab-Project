@@ -1,0 +1,6 @@
+photo_id,path,species,url,sha1,licence,credit
+228115560,val/naja_naja/inaturalist_228115560.jpg,Naja naja,https://inaturalist-open-data.s3.amazonaws.com/photos/228115560/medium.jpg,28eb17f47bfaeb69792b5ba9e05a8b60f295c23d,cc-by,"(c) Seema Merchant, some rights reserved (CC BY)"
+557437621,val/coelognathus_helena/inaturalist_557437621.jpg,Coelognathus helena,https://inaturalist-open-data.s3.amazonaws.com/photos/557437621/medium.jpg,e2cf3fe4343cb4b767e9c82824222451cb6383c1,cc-by,"(c) Seema Merchant, some rights reserved (CC BY)"
+462345804,val/echis_carinatus/inaturalist_462345804.jpg,Echis carinatus,https://inaturalist-open-data.s3.amazonaws.com/photos/462345804/medium.jpg,eb27723a15c9cb67c8999f065f63513c0d859a0d,cc-by,"(c) Teja Yantrapalli, some rights reserved (CC BY)"
+22679235,val/ahaetulla_malabarica/inaturalist_22679235.jpg,Ahaetulla malabarica,https://inaturalist-open-data.s3.amazonaws.com/photos/22679235/medium.jpg,f4563c8d8847727320886beb519a0b92b73013b4,cc-by,"(c) Nathan Earley, some rights reserved (CC BY)"
+640148271,val/boiga_trigonata/inaturalist_640148271.jpg,Boiga trigonata,https://inaturalist-open-data.s3.amazonaws.com/photos/640148271/medium.jpg,ac55e19fefc8e7f9a810693acea49912adb309bf,cc-by,"(c) Teja Yantrapalli, some rights reserved (CC BY)"

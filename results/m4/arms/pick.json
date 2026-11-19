@@ -1,0 +1,13 @@
+{
+  "rule": "an arm qualifies if its macro-F1 >= A0's - 0.005 and its WHO recall (DR0, refit on calibration, lower-bound fit) >= A0's - 0.006; of A0 and the qualifying arms the smallest gap between top-1 as is and with the scenery swapped wins (same photos); a tie goes to the higher macro-F1",
+  "f1_floor": 0.36185860512186735,
+  "who_floor": 0.9419117785077429,
+  "arms_scored": [
+    "A0",
+    "A1",
+    "A2",
+    "A3"
+  ],
+  "winner": "A3",
+  "winner_run": "M4_A3"
+}

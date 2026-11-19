@@ -1,0 +1,74 @@
+{
+ "run": "M4_FULL",
+ "label": "A1",
+ "kernel": "puneetbajajiitm/sg-m4-full",
+ "built_from_commit": "fcf1899",
+ "winner_config": "results/m4/arms/A1/config.yaml",
+ "executed_notebook": "results/m4/full/executed/21_full_training_A1.ipynb",
+ "not_in_repo": {
+  "full/frontend_preds.csv": {
+   "sha256": "84140c320fe9a368c2cb3c219d26b4b34af7009ea1be75fc32d69283a17e169e",
+   "bytes": 11730336,
+   "rows": 78379
+  },
+  "full/full_train.csv": {
+   "sha256": "425f8b9bd5fa0f3432ff56cae50f185276ed15774ff4c226ccf9c1beec817362",
+   "bytes": 2581453,
+   "rows": 49782
+  },
+  "M4_FULL/best.pt": {
+   "sha256": "7dab53fbfd63d410bfa4918107ee8dee9cd3b723d9f8d5bc82e3a237903d9df2",
+   "bytes": 20820579
+  },
+  "M4_FULL/val_outputs.npz": {
+   "sha256": "2b0f3cf8b9ad5b901875a38488cf6c6c09a03bee5f358ddb64064cdf54b11dab",
+   "bytes": 26775345
+  },
+  "M4_FULL/calib_outputs.npz": {
+   "sha256": "461c961a6f2a6b87ff3e0f51868bc02fe55e57bc7faa53831a6f8fb92a603ea2",
+   "bytes": 12518884
+  },
+  "M4_FULL/unknown_outputs.npz": {
+   "sha256": "d883527e867a51a9666ddc5288bdb3f7cffa3389723ac24eb6fbef3b6efa7025",
+   "bytes": 714925
+  },
+  "M4_FULL/prototypes.npz": {
+   "sha256": "f9d0ed3cab916a7080174de54fbb789f2e008160e3c6199ba179412d5f4ce26a",
+   "bytes": 348679
+  },
+  "M4_FULL/r1/robustness_as_is.npz": {
+   "sha256": "37e9c5913e93f77c9fa07cbb6102438f5ee1a1575460958e18480eab4d2cd006",
+   "bytes": 18934984
+  },
+  "M4_FULL/r1/robustness_blanked.npz": {
+   "sha256": "116c597b642a711a6d6c5875064955dc98cad95deee12872b96689a6416df125",
+   "bytes": 17549465
+  },
+  "M4_FULL/r1/robustness_swapped.npz": {
+   "sha256": "0dd26a5f93c1b110ddcff2bb75b560adea5dff47647a9b9f88d7cff8b42791dc",
+   "bytes": 17908685
+  },
+  "M4_FULL/class_mix.json": {
+   "sha256": "18eed57b5c45c4eca07c7d0ac126effb1f5c53a124e1244ae0edfd7e4e199b9e",
+   "bytes": 34470
+  }
+ },
+ "copied": {
+  "b1_62.json": "720ae5a205a7218680f038f07cfacb5e5e52c7a595088d8a43ffaf4c4356f0c2",
+  "decision_metrics.json": "41b4cd93387f2b7ec121d63ff3c06edae7b445ad7e2f8473fde05a5fd48b52cc",
+  "per_class_counts.json": "acfd79e9aa1cf883af60096a254ed2a29f7edcec9b280370765adedccdda776f",
+  "robustness_metrics.json": "5ea136cace7c3ca2f57084f3d66ab968a5f54775a6f3401ba5e4a91e4c74fcba",
+  "config.yaml": "fc8166a4e37256818c8aa07428ba5dd4d31c944c2deff55cc5927df9b011a495",
+  "final_metrics.json": "e3ec123a6f4938fdd2a22f9bd15e7832fcaa53dde857fe7e16f7edc05f5cf076",
+  "metrics.jsonl": "0d65b1058ff9ee75016837f7102eb4d33141ec495aa05fbe448b075928903ec6",
+  "versions.json": "db53232ccc4412f00bc60ea2130b11a818529b483773d79d3b733486f3249271",
+  "subset_hash.txt": "519a5b6ac06cb996ea9ee0a03270f3956a856013ea23e779dc2c2ef7345c5ad5"
+ },
+ "copied_original": {
+  "b1_62.json": "744a5e3118ea58d343186f2a03908cc8deeafb0e6524c1faedf27f97dfc620fc",
+  "decision_metrics.json": "65c5ab494938ff49f7b0dec144c63c90eaee52f178435c07cfaabe36fb59c9d1",
+  "robustness_metrics.json": "3bd62eeb1f01fb1dac9c45e8159db401c5018b5d3deec9ca0078b9c5349b607d",
+  "final_metrics.json": "b6ca671da096c2c22a2253bcd0280c935a89274a8ae55135486dbdcd9bd4303b"
+ },
+ "note": "Result JSON files over 200 lines were rewritten without indentation on 17 Nov 2026 to keep the repo readable; every value is unchanged. copied_original holds the SHA-256 of the files as the run wrote them."
+}

@@ -17,6 +17,7 @@ WHO_RISK_ID = {"not_listed": 0, "2": 1, "1": 2}  # 1 = WHO Category 2, 2 = WHO C
 DANGEROUS_FAMILIES = ("Viperidae", "Elapidae")
 VERDICTS = ("dangerous", "not_listed", "unknown")
 BOOTSTRAP_RESAMPLES, BOOTSTRAP_SEED = 1000, 42
+SAMPLE_SEED = 42
 
 
 def share(flags):
@@ -194,6 +195,22 @@ def grouped_bootstrap(fn, groups, n=BOOTSTRAP_RESAMPLES, seed=BOOTSTRAP_SEED):
     return float(low), float(high)
 
 
+def paired_difference_ci(y_true, ours_pred, theirs_pred, groups, score_fn, n=BOOTSTRAP_RESAMPLES,
+                         seed=BOOTSTRAP_SEED):
+    """(score_fn(ours) - score_fn(theirs), low, high): the 95% interval resamples photographers."""
+    arrays = [np.asarray(values) for values in (y_true, ours_pred, theirs_pred, groups)]
+    if len({len(values) for values in arrays}) != 1:
+        raise ValueError(f"one row per photo in every input, got lengths "
+                         f"{[len(values) for values in arrays]}")
+    y_true, ours_pred, theirs_pred, groups = arrays
+
+    def difference(rows):
+        return score_fn(y_true[rows], ours_pred[rows]) - score_fn(y_true[rows], theirs_pred[rows])
+
+    low, high = grouped_bootstrap(difference, groups, n, seed)
+    return float(difference(np.arange(len(y_true)))), low, high
+
+
 def grouped_resamples(groups, n=BOOTSTRAP_RESAMPLES, seed=BOOTSTRAP_SEED):
     """Row indices of n resamples, each drawing whole groups with replacement."""
     _, group_of = np.unique(np.asarray(groups), return_inverse=True)
@@ -264,3 +281,16 @@ def write_json(path, payload):
     text = json.dumps(payload, indent=2, default=plain)
     Path(path).write_text(text)
     return json.loads(text)
+
+
+def round_robin(frame, n, seed=SAMPLE_SEED):
+    """n photos taking the classes in turn, classes and photos in a seeded random order."""
+    assert_no_test_paths(frame)
+    rng = np.random.default_rng(seed)
+    shuffled = frame.iloc[rng.permutation(len(frame))]
+    species = shuffled["species"].unique()
+    class_rank = dict(zip(species, rng.permutation(len(species))))
+    shuffled = shuffled.assign(_turn=shuffled.groupby("species").cumcount(),
+                               _rank=shuffled["species"].map(class_rank))
+    picked = shuffled.sort_values(["_turn", "_rank"], kind="stable").head(n)
+    return picked.drop(columns=["_turn", "_rank"]).reset_index(drop=True)

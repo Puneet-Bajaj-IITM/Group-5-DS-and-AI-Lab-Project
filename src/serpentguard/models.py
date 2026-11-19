@@ -12,13 +12,16 @@ import torch.nn.functional as F
 from timm.data import resolve_model_data_config
 from timm.models.mobilenetv3 import MobileNetV3
 from torch import nn
+from torchvision.ops import roi_align
 
-from serpentguard.data import IMAGENET_MEAN, IMAGENET_STD, run_config
+from serpentguard.data import DEFAULTS, IMAGENET_MEAN, IMAGENET_STD, run_config
 
 MOBILE_ENCODERS = ("mobilenetv4_conv_small", "efficientnet_b0", "mobilevit_s")
 DINOV2 = "vit_small_patch14_dinov2"
 ARCFACE_S = 30.0    # the default cosine scale of the ArcFace head
 STRIDE_8_STAGE = 2  # timm feature index of the stride-8 map
+DETAIL_MIN_SIDE = 0.25  # the detail box covers at least this share of each side
+FLAT_SPAN = 1e-6        # an activation map whose range is below this counts as flat
 
 
 class InputNormalization(nn.Module):
@@ -147,7 +150,8 @@ class SnakeID(nn.Module):
     """The model; forward(images) returns a dict of embedding, features and each head's logits."""
     # genus and family logits are None without hierarchy, mask_logits None without a mask head.
     # The linear head reads features, the ArcFace head the embedding. F4 trains the mask head but
-    # pools with "gap"; F5 pools with "mask".
+    # pools with "gap"; F5 pools with "mask". With detail_crop, eval averages the photo's features
+    # with those of its detail crop; training passes images through once.
 
     def __init__(self, cfg, n_classes, n_genus, n_family, pretrained=True):
         super().__init__()
@@ -158,22 +162,107 @@ class SnakeID(nn.Module):
                                                input_size=cfg["input_size"])
         self.mask_head = MaskHead(channels) if cfg["mask_head"] else None
         self.head, self.pooling, self.mask_keep = cfg["head"], cfg["pooling"], cfg["mask_keep"]
+        self.detail_crop, self.detail_threshold = cfg["detail_crop"], cfg["detail_threshold"]
+        self.input_size = cfg["input_size"]
         self.embed = nn.Sequential(nn.Linear(channels[-1], dim, bias=False), nn.BatchNorm1d(dim))
         self.species_head = (ArcFaceHead(dim, n_classes, cfg["arcface_s"], cfg["arcface_m"])
                              if self.head == "arcface" else nn.Linear(dim, n_classes))
         self.hierarchy_heads = HierarchyHeads(dim, n_genus, n_family, taxonomy=cfg["hierarchy"])
 
-    def forward(self, images):
+    def encode(self, images):
+        """(maps, mask_logits, features) of one pass: encoder, mask head, pooling, embed layer."""
         maps = self.encoder(images)
         mask_logits = None if self.mask_head is None else self.mask_head(maps, images.shape[-2:])
         pooled = (mask_guided_pool(maps[-1], mask_logits, self.mask_keep) if self.pooling == "mask"
                   else maps[-1].mean((2, 3)))
-        features = self.embed(pooled)
+        return maps, mask_logits, self.embed(pooled)
+
+    def heads(self, features, mask_logits):
         embedding = F.normalize(features, dim=1)
         species_logits = (self.species_head.s * self.species_head(embedding)
                           if self.head == "arcface" else self.species_head(features))
         return {"embedding": embedding, "features": features, "species_logits": species_logits,
                 **self.hierarchy_heads(features), "mask_logits": mask_logits}
+
+    def detail_crops(self, images, maps, class_ids):
+        """Each photo's detail box, from class_ids' activation on maps, resized to input_size."""
+        boxes = detail_box(class_activation(self, maps[-1], class_ids), self.detail_threshold)
+        return crop_boxes(images, boxes, self.input_size)
+
+    def forward(self, images):
+        maps, mask_logits, features = self.encode(images)
+        if self.detail_crop and not self.training:
+            top = self.heads(features, mask_logits)["species_logits"].argmax(1)
+            detail = self.encode(self.detail_crops(images, maps, top))[2]
+            features = (features + detail) / 2
+        return self.heads(features, mask_logits)
+
+
+def class_activation(model, maps, class_ids):
+    """(B, h, w): the embed layer at each cell of maps, dotted with the class's unit weight."""
+    # the embed BatchNorm runs in eval form (running stats), so the cells' mean is the pooled
+    # features dotted with the class's unit weight: |features| x the head's cosine
+    linear, norm = model.embed
+    with torch.autocast(maps.device.type, enabled=False):
+        cells = F.linear(maps.float().permute(0, 2, 3, 1), linear.weight.float())
+        cells = F.batch_norm(cells.flatten(0, 2), norm.running_mean, norm.running_var,
+                             norm.weight, norm.bias, training=False,
+                             eps=norm.eps).view_as(cells)
+        weights = F.normalize(model.species_head.weight.float(), dim=1)[class_ids]
+        return torch.einsum("bhwd,bd->bhw", cells, weights)
+
+
+def detail_box(cam, threshold=DEFAULTS["detail_threshold"], min_side=DETAIL_MIN_SIDE):
+    """(B, 4) boxes (x1, y1, x2, y2) in [0, 1] around the cells at or above threshold."""
+    # threshold is on the min-max scaled map, as WS-DAN; a flat map keeps every cell. Each side
+    # is widened about its centre to min_side, then moved back inside the photo.
+    batch, height, width = cam.shape
+    flat = cam.reshape(batch, -1).float()
+    low, high = flat.min(1).values, flat.max(1).values
+    span = high - low
+    scaled = (flat - low[:, None]) / span.clamp_min(FLAT_SPAN)[:, None]
+    hot = ((scaled >= threshold) | (span < FLAT_SPAN)[:, None]).view(batch, height, width)
+    rows, cols = hot.any(2), hot.any(1)
+    y1, y2 = edges(rows)
+    x1, x2 = edges(cols)
+    x1, x2 = widened(x1 / width, x2 / width, min_side)
+    y1, y2 = widened(y1 / height, y2 / height, min_side)
+    return torch.stack([x1, y1, x2, y2], 1)
+
+
+def edges(hot):
+    """(first, last + 1) index of the True entries of each row of hot, as floats."""
+    index = torch.arange(hot.shape[1], device=hot.device, dtype=torch.float32)
+    first = torch.where(hot, index, torch.inf).min(1).values
+    last = torch.where(hot, index, -torch.inf).max(1).values
+    return first, last + 1
+
+
+def widened(start, end, min_side):
+    """Each span grown about its centre to at least min_side, then shifted inside [0, 1]."""
+    side = (end - start).clamp(min=min_side, max=1.0)
+    start = torch.minimum(((start + end) / 2 - side / 2).clamp_min(0.0), 1.0 - side)
+    return start, start + side
+
+
+def crop_boxes(images, boxes, size):
+    """Each image's box (x1, y1, x2, y2 in [0, 1]) resampled to size x size by roi_align."""
+    height, width = images.shape[-2:]
+    scale = boxes.new_tensor([width, height, width, height])
+    index = torch.arange(len(boxes), device=boxes.device, dtype=boxes.dtype)[:, None]
+    rois = torch.cat([index, boxes * scale], 1).to(images.dtype)
+    return roi_align(images, rois, output_size=(size, size), aligned=True)
+
+
+@torch.no_grad()
+def detail_batch(model, images, class_ids):
+    """Detail crops from each photo's true-class map, in eval mode, so BatchNorm stats stay put."""
+    was_training = model.training
+    model.eval()
+    try:
+        return model.detail_crops(images, model.encoder(images), class_ids)
+    finally:
+        model.train(was_training)
 
 
 def build_model(cfg, n_classes=184, n_genus=69, n_family=13, pretrained=True):

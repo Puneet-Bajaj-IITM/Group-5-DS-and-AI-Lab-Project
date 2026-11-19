@@ -1,4 +1,4 @@
-# Milestone 3 environment, pinned to the versions the tests ran on
+# The versions the laptop notebooks (10, 16, 24, 25 and 27) and scripts/ ran on; each Kaggle run records its own in versions.json
 albumentations==2.0.8
 matplotlib==3.11.2
 numpy==2.5.4

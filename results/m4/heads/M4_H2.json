@@ -1,0 +1,49 @@
+{
+  "arm": "detail",
+  "run": "M4_H2",
+  "front_end": "F1",
+  "macro_f1": 0.3831247194929012,
+  "who_recall_dr0": 0.9488503050211169,
+  "top1": 0.6338486574450773,
+  "top1_swapped": 0.5408399574388183,
+  "top1_blanked": 0.11585404018276273,
+  "swap_photos": 15977,
+  "bank_sha256": "2eed027132bfacf956e85895b29131fa09f845c5b60bfcfa58272a687544fa5e",
+  "gap": 0.09300870000625905,
+  "approach": "detail",
+  "winner": "M4_A1",
+  "settings": {
+    "detail_crop": true,
+    "detail_threshold": 0.5,
+    "detail_train_p": 0.5
+  },
+  "top3": 0.768293393971197,
+  "ms_per_frame": {
+    "machine": "x86_64",
+    "threads": 2,
+    "one look": 89.5162675001302,
+    "with the detail crop": 182.5170909996814
+  },
+  "detail_boxes": {
+    "photos": 17151,
+    "median_area": 0.44999998807907104,
+    "whole_photo_share": 0.1644802052358463,
+    "corner_share": 0.4602064019590694,
+    "smallest_area": 0.062499985098838806
+  },
+  "minutes": 88.78753048976263,
+  "training": {
+    "best_epoch": 16,
+    "epochs": 20,
+    "train_photos": 13611,
+    "val_photos": 17151
+  },
+  "laptop_ms_per_frame": {
+    "machine": "the team laptop (Apple arm64, 10 threads), PyTorch 2.15 on the CPU",
+    "frames": "six 320 x 320 snake photos, cycled; median of 30 timed runs after 5 warm-up, two rounds",
+    "m3_final_one_look": 80.7,
+    "one look": 80.7,
+    "with the detail crop": 162.3,
+    "script": "scripts/time_detail_crop.py"
+  }
+}
