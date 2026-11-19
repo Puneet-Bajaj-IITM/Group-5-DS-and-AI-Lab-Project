@@ -29,7 +29,7 @@ Both clips are test clips from Milestone 4's video study, and the app gives the 
 | Splash screen and app branding | GitHub user Moon-Wrecker | [PR #22](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/22) |
 | Community voting backend | Vikas | [PR #19](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/19) |
 | Offline community voting, live camera screen, model interfaces in the app | Vikas | [PR #24](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/24) |
-| Real model in the app: Dart port of the pipeline and decision rules, ONNX Runtime, Android decoding, video check, live-camera adapter, golden tests, regional names | Jayesh Bansal | [PR #MODEL_PR](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/MODEL_PR) |
+| Real model in the app: Dart port of the pipeline and decision rules, ONNX Runtime, Android decoding, video check, live-camera adapter, golden tests, regional names | Jayesh Bansal | [PR #25](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/25) |
 
 ## How the app runs the model
 
