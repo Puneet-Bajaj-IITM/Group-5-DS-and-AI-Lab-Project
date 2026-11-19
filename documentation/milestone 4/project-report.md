@@ -505,6 +505,17 @@ On main on 19 November, `flutter test` passes 44 tests; 2 are skipped because th
 
 **Bottlenecks.** GPU time: free Kaggle T4s, 12-hour sessions and three accounts, with about 6 h a run, so one seed per recipe. Private outputs cannot be read across accounts, so the non-snake test scoring ran afterwards on a laptop (notebook 21, cell 45). Each run first cropped 38,853 photos, and SAM masks cover only 77.3% of the full list (U-Net 94.3%). On a CPU the U-Net under float16 autocast takes 3,063 ms a frame against 64 ms in float32 ([`app_cost.json`](../../results/m4/arms/app_cost.json)). A3, the M4 detector and the U-Net are 53.0 MB as float32 files, against a 25 to 30 MB budget, and the app's debug build is 339 MB with every CPU architecture; a release build has not been measured. Species photographed by at most 10 people reach 0.261 top-1, against 0.667 for the rest.
 
+**Three more tries at G4.** After the M4 runs we tried three ways to stop non-snakes, on validation only (the non-snake test split was not read again). Each rule was fitted to keep 99% of calibration snakes and scored on the 600 non-snake validation photos and the validation snakes.
+
+| Rule | Non-snakes called a snake | Snakes kept |
+|---|---:|---:|
+| Today's gate, same 1,999 validation snakes | 27.3% | 98.8% |
+| 1. A cut-off on the classifier's own scores (prototype cosine, logits, top probability) | 57% or more | 98.4% to 98.9% |
+| 2. A snake / not-snake head (boosted trees) on A3's embedding and scores, no gate | 24.8% (21.5% to 28.2%) | 99.2% |
+| 3. Detector and U-Net retrained with 1,317 more lookalike photos (notebook 20's protocol, all 17,151 validation snakes, where today's gate keeps 98.3%) | 28.7% | 97.7% |
+
+Only the head improves both numbers, and it is still five times the 5% mark. Retraining the front end on more lookalikes made it worse: it drops more real snakes, most of all the eel-like ones (sea snakes and sea kraits kept: 96.9% to 92.9%). Under every rule caecilians, glass lizards, eels and earthworms are still called a snake 60% to 100% of the time: the front end and A3 were trained to find a snake's shape, and these animals share it. The scripts and results are not in this repository yet; the retraining is the private Kaggle run `puneetbajajiitm/sg-m5-gate-hard`.
+
 **Still open.**
 - G3, G4 and G5 are not met.
 - WHO recall behind the app's own front end is not measured.
@@ -514,7 +525,7 @@ On main on 19 November, `flutter test` passes 44 tests; 2 are skipped because th
 **Plans for Milestone 5.**
 1. Measure WHO recall behind the app's front end and gate.
 2. Fine-tune A3 on M4 front-end crops.
-3. Train the gate on more lookalike and animal photos; reject non-snakes before the lock.
+3. Stop non-snakes with a separate snake / not-snake classifier trained end to end, with lookalikes as their own class, since more lookalikes in the gate's training made it worse (above); judge it once on a new non-snake test set, and reject non-snakes before the video lock.
 4. Try the energy score for the unknown flag (AUROC 0.787 against 0.768).
 5. Log validation loss, save the full checkpoint state, and add two seeds of A3 if the quota allows.
 6. Rare species overfit (training macro-F1 0.888 against 0.272 on validation): add regularisation (dropout, DropPath), more photos where licences allow, and test a two-model average within the app's size and time budget. Common species underfit too: try a longer schedule or a larger input before a larger encoder, since the package is already over its size budget.
