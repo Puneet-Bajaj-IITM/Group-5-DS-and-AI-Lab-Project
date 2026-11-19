@@ -14,6 +14,7 @@ Start with [`m4/summary/goals.csv`](m4/summary/goals.csv). It lists the Mileston
 | How often does the front end call a non-snake a snake? | `m4/summary/gates.csv`, `gate_categories.csv`, `gate_snake_groups.csv`, `gate_checks.csv` | `m4/gate/` |
 | Did head crops help? | `m4/summary/heads.csv`, `head_pilot.csv` | `m4/heads/` |
 | Does the video lock steady the answer? | `m4/summary/video.csv`, `video_clips.csv`, `video_tuning.csv`, `video_negatives.csv`, `front_end_shift.csv` | `m4/video/A3/`, `m4/video/M3/` |
+| Are the errors bias or variance? | `m4/bias_variance/train_vs_val.json`, `ensemble.json` | `scripts/check_train_vs_val.py`, `scripts/check_ensemble.py` |
 
 ## Folders
 
