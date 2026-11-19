@@ -34,3 +34,4 @@ wandb/
 
 # Secrets
 .env
+*:Zone.Identifier
