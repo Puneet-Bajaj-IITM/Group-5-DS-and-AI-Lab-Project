@@ -25,6 +25,16 @@ subprojects {
     }
     if (state.executed) pointAtInstalledSdk(this) else afterEvaluate { pointAtInstalledSdk(this) }
 }
+// camera_android_camerax compiles against camera-core 1.5.x, whose API jar
+// references CallbackToFutureAdapter from concurrent-futures; without it on
+// the plugin's compile classpath javac fails ("class file ... not found").
+subprojects {
+    if (name == "camera_android_camerax") {
+        pluginManager.withPlugin("com.android.library") {
+            dependencies.add("implementation", "androidx.concurrent:concurrent-futures:1.2.0")
+        }
+    }
+}
 subprojects {
     project.evaluationDependsOn(":app")
 }
