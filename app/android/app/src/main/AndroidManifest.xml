@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Hospitals (OpenStreetMap) and map tiles, when online -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <!-- Foreground location: sightings, SOS message, nearest hospitals -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -15,6 +16,7 @@
     <uses-feature android:name="android.hardware.location.gps" android:required="false" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <application
+        android:allowBackup="false"
         android:label="SerpentGuard"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -52,6 +54,9 @@
 
          In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
     <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
         <!-- url_launcher: dialler, SMS app, maps and browser -->
         <intent>
             <action android:name="android.intent.action.DIAL" />

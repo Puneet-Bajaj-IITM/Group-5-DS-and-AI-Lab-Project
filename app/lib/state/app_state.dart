@@ -25,11 +25,11 @@ class AppState extends ChangeNotifier {
     HospitalService? hospitals,
     BleAlertRadio? radio,
     SosService? sos,
-  })  : _store = store,
-        _location = location ?? LocationService(),
-        _hospitals = hospitals ?? HospitalService(store),
-        radio = radio ?? BleAlertRadio(),
-        sos = sos ?? SosService();
+  }) : _store = store,
+       _location = location ?? LocationService(),
+       _hospitals = hospitals ?? HospitalService(store),
+       radio = radio ?? BleAlertRadio(),
+       sos = sos ?? SosService();
 
   final SpeciesCatalog catalog;
   final SnakeClassifier classifier;
@@ -96,7 +96,22 @@ class AppState extends ChangeNotifier {
     notifyListeners();
     if (locationStatus != LocationStatus.granted) return;
     final fix = await _location.current();
-    if (fix != null) _setFix(fix.point, fix.accuracy);
+    if (fix != null) {
+      _setFix(fix.point, fix.accuracy);
+      try {
+        final saved = await _hospitals.savedNear(fix.point);
+        hospitals = saved.hospitals;
+        hospitalsFetched = saved.oldest;
+        hospitalsError = hospitals.isEmpty
+            ? 'No hospitals saved within 50 km of this location.'
+            : null;
+        notifyListeners();
+      } catch (_) {
+        hospitals = hospitals
+            .where((h) => distanceMeters(fix.point, h.location) <= 50000)
+            .toList();
+      }
+    }
     _location.watch(_setFix);
     if (hospitals.isEmpty && position != null) unawaited(refreshHospitals());
   }
@@ -107,7 +122,8 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> openLocationSettings() => locationStatus == LocationStatus.serviceOff
+  Future<void> openLocationSettings() =>
+      locationStatus == LocationStatus.serviceOff
       ? _location.openSettings()
       : _location.openAppSettings();
 
@@ -153,10 +169,17 @@ class AppState extends ChangeNotifier {
 
   // ---------------------------------------------------------------- hospitals
 
-  List<Hospital> get hospitalsNearby =>
-      position == null ? hospitals : HospitalService.sortedByDistance(hospitals, position!);
+  List<Hospital> get hospitalsNearby => position == null
+      ? hospitals
+      : HospitalService.sortedByDistance(
+          hospitals
+              .where((h) => distanceMeters(position!, h.location) <= 50000)
+              .toList(),
+          position!,
+        );
 
   Future<void> refreshHospitals() async {
+    if (hospitalsLoading) return;
     final centre = position;
     if (centre == null) {
       hospitalsError = 'Location is needed to find hospitals.';
@@ -201,7 +224,9 @@ class AppState extends ChangeNotifier {
     await _store.setBool(_kAlertsOn, true);
     notifyListeners();
     await radio.startListening(_onRadioAlert);
-    await radio.startBroadcasting(() => alertBook.outgoing(DateTime.now(), relay: relayOn));
+    await radio.startBroadcasting(
+      () => alertBook.outgoing(DateTime.now(), relay: relayOn),
+    );
   }
 
   Future<void> setRelayOn(bool on) async {
@@ -221,8 +246,12 @@ class AppState extends ChangeNotifier {
 
   /// Sends a warning to phones nearby. Returns a message for the user.
   Future<String> sendAlert(Identification id) async {
+    if (id.isDemo) return 'Demo results cannot be broadcast to nearby phones.';
+    if (!id.snakeFound) return 'A snake sighting is required to send an alert.';
     if (!alertsOn) return 'Turn on nearby alerts first (Alerts tab).';
-    if (!radio.canBroadcast) return 'Sending alerts works on Android phones only.';
+    if (!radio.canBroadcast) {
+      return 'Sending alerts works on Android phones only.';
+    }
     final where = position;
     if (where == null) return 'Location is needed to send an alert.';
     final now = DateTime.now();
@@ -230,32 +259,35 @@ class AppState extends ChangeNotifier {
     if (wait != null) {
       return 'Alert limit reached. You can send another in ${wait.difference(now).inMinutes + 1} min.';
     }
-    alertBook.recordSent(SnakeAlert(
-      id: SnakeAlert.newId(),
-      speciesId: id.topSpecies?.id ?? SnakeAlert.unknownSpecies,
-      verdict: id.verdict,
-      location: where,
-      time: now,
-    ));
+    alertBook.recordSent(
+      SnakeAlert(
+        id: SnakeAlert.newId(),
+        speciesId: id.topSpecies?.id ?? SnakeAlert.unknownSpecies,
+        verdict: id.verdict,
+        location: where,
+        time: now,
+      ),
+    );
     notifyListeners();
-    return 'Alert sent to phones nearby for the next ${SnakeAlert.lifetime.inMinutes} minutes.';
+    return 'Alert queued for Bluetooth broadcast for ${SnakeAlert.lifetime.inMinutes} minutes. '
+        'Delivery to nearby phones is not confirmed.';
   }
 
   /// For testing on one phone: pretend an alert arrived from someone else.
   void simulateIncomingAlert() {
     final here = position ?? const GeoPoint(12.9716, 77.5946);
     final krait = catalog.all.firstWhere((s) => s.name == 'Bungarus caeruleus');
-    _onRadioAlert(
-      SnakeAlert(
-        id: SnakeAlert.newId(),
-        speciesId: krait.id,
-        verdict: Verdict.dangerous,
-        location: GeoPoint(here.lat + 0.0021, here.lon + 0.0015),
-        time: DateTime.now().subtract(const Duration(minutes: 3)),
-        hops: 1,
-      ),
-      -78,
+    final alert = SnakeAlert(
+      id: SnakeAlert.newId(),
+      speciesId: krait.id,
+      verdict: Verdict.dangerous,
+      location: GeoPoint(here.lat + 0.0021, here.lon + 0.0015),
+      time: DateTime.now().subtract(const Duration(minutes: 3)),
+      hops: 1,
     );
+    // Exercise the banner only. Test packets must never enter the relay book.
+    incoming = ReceivedAlert(alert, DateTime.now(), -78);
+    notifyListeners();
   }
 
   @override

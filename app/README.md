@@ -9,6 +9,8 @@ The phone app for SerpentGuard AI. Android first; it also builds for iOS, with t
 | Feature | Where | Notes |
 |---|---|---|
 | Identify from camera or gallery | `screens/identify_screen.dart`, `screens/result_screen.dart` | Verdict (dangerous / not on the WHO list / we don't know), top 3 species, WHO category. Uses `DemoClassifier` for now |
+| Live camera | `screens/live_review_screen.dart` | Continuous preview, separate from photos; `LiveSnakeClassifier` is the frame adapter for verified model integration. Select 1–3 stills for one review encounter |
+| Community | `screens/community_screen.dart`, `services/voting_queue.dart` | SQLite drafts/outbox, secure remembered accounts, Android background sync, cached species/genus voting, conflict reconciliation and consensus status |
 | Verdict rules | `models/verdict.dart` | Same shape as `src/serpentguard/decide.py`; the thresholds are placeholders |
 | Location | `services/location_service.dart` | Foreground only. Tags sightings, fills the SOS message, finds hospitals |
 | SOS | `screens/sos_screen.dart`, `services/sos_service.dart` | Calls 112 / 108 / 102, texts your location to emergency contacts, has an "I've been bitten" path. Always opens the phone's dialler or SMS app; never calls on its own |
@@ -32,10 +34,30 @@ Testing Bluetooth alerts needs **two real Android phones**, because emulators ca
 
 ## Adding the trained model
 
-1. Export the detector and SnakeID to ONNX (notebook 16 already does this: fp16 SnakeID, int8-weight YOLO26n) and put them in `assets/models/`.
-2. Add an ONNX runtime package and write an `OnnxClassifier implements SnakeClassifier` (`services/classifier.dart`). It should letterbox to 320×320, crop to the detector box +6%, run SnakeID, then return the species probabilities.
-3. Load the shipped thresholds from `results/m3/final/H1_top1_s1/decision_metrics.json` into `DecisionRule`.
-4. Swap `DemoClassifier` for it in `main.dart`. The demo badge disappears because `isDemo` becomes false.
+1. Use the supplied **FP32 M4 bundle**: classifier, detector **and segmenter**, `pipeline.json`, `tables.json` and `reference_pipeline.py`. Keep all model assets under ignored `assets/models/` or `outputs/`, and keep the ZIP out of Git.
+2. Implement `SnakeClassifier.identify` using the reference's exact exposure correction, letterbox/normalisation, both-network gate, mask cleanup/crop and A3 scoring. The M3 detector-only crop is not the M4 reference pipeline.
+3. Replace the placeholder `DecisionRule` with the supplied A3 calibrated rules, including WHO/family/genus heads, prototype scoring, class ordering and messages. The supplied decision and photo goldens must match on Android before removing the demo state.
+4. Implement `LiveSnakeClassifier` for continuous frames. The live screen supplies copied planes, row/pixel strides, format, dimensions, sensor/device orientation, lens direction and timestamps; it drops new frames while inference is busy. The adapter owns preprocessing and the actual temporal rules, reset by `resetLiveSession`. Late results after camera restart are ignored.
+5. Swap the verified adapter into `main.dart`, then run a real video on a phone. Verify unknown/no-snake handling, orientation, pause/resume, memory and latency. Photo parity does not establish Android video parity.
+
+The supplied Python reference passed 200/200 decision fixtures and 5/5 SHA-1-checked photo fixtures here; all five model/config hashes matched. The supplied `parity.json` reports an additional 300-photo PyTorch comparison, which was not rerun here. `scripts/verify_mobile_bundle.py` reproduces the smaller verification without committing weights or photos. Jayesh owns real Android model wiring and video acceptance.
+
+## Offline community setup
+
+Capture works without an account: confirmed evidence is saved as a local SQLite draft. Attaching drafts to an account requires confirmation. UUIDs, manifests and JPEG bytes stay unchanged on retries. Model predictions from the demo are excluded from community submissions.
+
+Provision tokens and start the SQLAlchemy backend from the repository root:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m serpentguard.voting_api --db outputs/community-voting.sqlite3 add-user citizen
+PYTHONPATH=src .venv/bin/python -m serpentguard.voting_api --db outputs/community-voting.sqlite3 serve
+```
+
+Use `http://10.0.2.2:8080` on the emulator. For USB, run `adb reverse tcp:8080 tcp:8080` and use `http://127.0.0.1:8080`. Debug HTTP is limited to local hosts; remote servers require HTTPS. Review with a separate account because self-voting is rejected. The backend is supplied by PR #19.
+
+Remembered tokens use secure storage; WorkManager receives only an account identifier. SQLite leases prevent simultaneous foreground/background drains. Session-only mode and manual Sync are available; disconnect clears saved credentials and cancels scheduled jobs. Feed pagination caches at most 100 encounters, and every still must be cached before reviewing. Vote-edit conflicts require `/my-vote` reconciliation. Cached consensus is labelled potentially stale. Labels need curator approval before training export; no automatic retraining occurs.
+
+Run the real backend integration test with `SERPENTGUARD_PYTHON="$PWD/../.venv/bin/python" flutter test`. The Python environment needs `requirements-voting.txt`; without that environment variable, the backend integration test is skipped.
 
 `assets/species.json` is generated from the repo's species cards by `python3 tool/build_species_asset.py`. Rerun it whenever the class list or the danger table changes.
 
@@ -44,6 +66,6 @@ Testing Bluetooth alerts needs **two real Android phones**, because emulators ca
 - **Alerts work only while the app is open.** There's no background service yet.
 - **iPhones can receive alerts but not send them.** iOS doesn't allow manufacturer data in an advertisement.
 - **Alerts use the Bluetooth SIG's test company id, `0xFFFF`.** A released app needs its own id.
-- **Hospital lists depend on public OpenStreetMap servers, which are often busy.** The planned fix is a bundled per-state hospital file.
+- **Hospital lists need downloaded regional coverage.** SQLite/R-tree searches preserve saved regions across restarts, but no complete regional bundle or offline road graph is included. Hospital tags do not establish current antivenom stock.
 - **There's no bulk "download my district" for the map.** OSM's tile policy forbids it, so we'd need our own tile source.
-- **The WHO first-aid text isn't included.** It's waiting on the licence decision (see the Milestone 3 report, section 7).
+- **Reviewed regional first-aid text is not bundled.** The card loader expects an approved English/Hindi/Tamil/Telugu pack at `assets/first_aid.json`. Native Android speech selects an installed offline voice for the actual text language; missing content/voices are reported.

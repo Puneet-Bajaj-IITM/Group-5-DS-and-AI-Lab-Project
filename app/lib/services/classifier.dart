@@ -8,12 +8,47 @@ import '../models/verdict.dart';
 
 /// Turns a photo into species probabilities and a verdict.
 ///
-/// The trained pipeline (YOLO26n crop, then SnakeID in fp16 ONNX) will
-/// implement this interface; until then [DemoClassifier] stands in so the
-/// rest of the app can be built and tested.
+/// The supplied M4 FP32 classifier/detector/segmenter reference pipeline
+/// will implement this interface; until then [DemoClassifier] stands in so
+/// the rest of the app can be built and tested.
 abstract class SnakeClassifier {
   bool get isDemo;
   Future<Identification> identify(Uint8List imageBytes);
+}
+
+/// Optional adapter for continuous camera analysis. Implement this together
+/// with photo identify() when the verified mobile models are connected.
+/// The adapter owns preprocessing, rotation and the shipped temporal rules.
+abstract class LiveSnakeClassifier implements SnakeClassifier {
+  Future<void> resetLiveSession();
+
+  /// Null means temporal warm-up/no stable display yet. A non-snake decision
+  /// must set snakeFound=false, rather than invent species probabilities.
+  Future<Identification?> identifyFrame(LiveCameraFrame frame);
+}
+
+class LiveCameraPlane {
+  const LiveCameraPlane(this.bytes, this.bytesPerRow, this.bytesPerPixel);
+  final Uint8List bytes;
+  final int bytesPerRow;
+  final int? bytesPerPixel;
+}
+
+class LiveCameraFrame {
+  const LiveCameraFrame({
+    required this.width,
+    required this.height,
+    required this.format,
+    required this.planes,
+    required this.offsetMs,
+    required this.sensorOrientation,
+    required this.deviceOrientation,
+    required this.frontFacing,
+  });
+  final int width, height, offsetMs, sensorOrientation;
+  final String format, deviceOrientation;
+  final bool frontFacing;
+  final List<LiveCameraPlane> planes;
 }
 
 /// Simulated results. The same photo always gives the same answer (seeded by
@@ -30,8 +65,14 @@ class DemoClassifier implements SnakeClassifier {
 
   @override
   Future<Identification> identify(Uint8List imageBytes) async {
-    final seed = sha256.convert(imageBytes).bytes.take(4).fold<int>(0, (a, b) => (a << 8) | b);
-    await Future<void>.delayed(const Duration(milliseconds: 600)); // feels like inference
+    final seed = sha256
+        .convert(imageBytes)
+        .bytes
+        .take(4)
+        .fold<int>(0, (a, b) => (a << 8) | b);
+    await Future<void>.delayed(
+      const Duration(milliseconds: 600),
+    ); // feels like inference
     return _rule.decide(simulatedProbs(seed), isDemo: true);
   }
 
