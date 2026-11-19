@@ -3,14 +3,17 @@ import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
 
+import '../inference/decision.dart';
+import '../inference/image_ops.dart';
+import '../inference/pipeline.dart';
+import '../inference/video_lock.dart';
 import '../models/species.dart';
 import '../models/verdict.dart';
 
 /// Turns a photo into species probabilities and a verdict.
 ///
-/// The supplied M4 FP32 classifier/detector/segmenter reference pipeline
-/// will implement this interface; until then [DemoClassifier] stands in so
-/// the rest of the app can be built and tested.
+/// [OnnxSnakeClassifier] is the real model; [DemoClassifier] stands in only
+/// when the model files are not in the build.
 abstract class SnakeClassifier {
   bool get isDemo;
   Future<Identification> identify(Uint8List imageBytes);
@@ -51,13 +54,15 @@ class LiveCameraFrame {
   final List<LiveCameraPlane> planes;
 }
 
-/// Simulated results. The same photo always gives the same answer (seeded by
-/// the photo's hash), and results lean towards common lookalikes so every
-/// verdict shows up while testing. It does not look at the image content.
+/// Simulated results, used only when the model files are not in the build.
+/// The same photo always gives the same answer (seeded by the photo's hash).
+/// It does not look at the image content, and the screen says so. The
+/// verdict still comes from the real A3 decision rules.
 class DemoClassifier implements SnakeClassifier {
-  DemoClassifier(this.catalog) : _rule = DecisionRule(catalog: catalog);
+  DemoClassifier(this.catalog, this.rules) : _rule = DecisionRule(catalog: catalog, rules: rules);
 
   final SpeciesCatalog catalog;
+  final DecisionRules rules;
   final DecisionRule _rule;
 
   @override
@@ -73,7 +78,7 @@ class DemoClassifier implements SnakeClassifier {
     await Future<void>.delayed(
       const Duration(milliseconds: 600),
     ); // feels like inference
-    return _rule.decide(simulatedProbs(seed), isDemo: true);
+    return _rule.decide(simulatedParts(seed), isDemo: true);
   }
 
   /// Also used by the "try a species" picker on the result screen.
@@ -82,10 +87,10 @@ class DemoClassifier implements SnakeClassifier {
     final rest = (1 - confidence) / (n - 1);
     final probs = List<double>.filled(n, rest);
     probs[speciesId] = confidence;
-    return _rule.decide(probs, isDemo: true);
+    return _rule.decide(_parts(probs), isDemo: true);
   }
 
-  List<double> simulatedProbs(int seed) {
+  DecisionParts simulatedParts(int seed) {
     final rnd = math.Random(seed);
     final n = catalog.all.length;
     // A peaked softmax over random logits, with the peak on 1 to 3 species.
@@ -94,9 +99,154 @@ class DemoClassifier implements SnakeClassifier {
     for (var i = 0; i < peaks; i++) {
       logits[rnd.nextInt(n)] += 4 + rnd.nextDouble() * 3;
     }
-    final maxLogit = logits.reduce(math.max);
-    final exps = logits.map((l) => math.exp(l - maxLogit)).toList();
-    final total = exps.reduce((a, b) => a + b);
-    return exps.map((e) => e / total).toList(growable: false);
+    return _parts(softmax(logits));
   }
+
+  /// Heads consistent with the species probabilities: WHO and genus heads
+  /// are the species mass per category, the family head points at a
+  /// non-venomous family, and the embedding is the top species' prototype.
+  DecisionParts _parts(List<double> probs) {
+    final t = rules.tables;
+    final who = Float64List(3), genus = Float64List(t.numGenera);
+    for (var k = 0; k < probs.length; k++) {
+      who[t.who[k]] += probs[k];
+      genus[t.genusOfClass[k]] += probs[k];
+    }
+    final family = Float64List(t.venomousFamily.length);
+    family[t.venomousFamily.indexOf(false)] = 1;
+    final top = argmax(probs);
+    return DecisionParts(
+      probs: Float64List.fromList(probs),
+      who: who,
+      genus: genus,
+      family: family,
+      embedding: t.unitPrototypes[top],
+    );
+  }
+}
+
+/// The shipped model: A3 behind the M4 front end (detector + U-Net gate,
+/// mask crop), fp32 ONNX, with the reference pipeline's decision rules.
+/// Photos go through [identify]; the live camera and video files go through
+/// the M4 video lock.
+class OnnxSnakeClassifier implements LiveSnakeClassifier {
+  /// [pipeline] may still be opening (copying the models out on first
+  /// launch takes a few seconds); every call waits for it.
+  OnnxSnakeClassifier(this.catalog, DecisionRules rules, this.pipeline)
+      : _rule = DecisionRule(catalog: catalog, rules: rules),
+        _lock = VideoLock(rules: rules),
+        _rules = rules;
+
+  final SpeciesCatalog catalog;
+  final Future<SnakePipeline> pipeline;
+  final DecisionRule _rule;
+  final DecisionRules _rules;
+  final VideoLock _lock;
+
+  /// Phone video frames are scaled to this long side, as in M4's clips.
+  static const frameMaxSide = 640;
+
+  @override
+  bool get isDemo => false;
+
+  @override
+  Future<Identification> identify(Uint8List imageBytes) async =>
+      identifyImage(await SnakePipeline.decode(imageBytes));
+
+  Future<Identification> identifyImage(RgbImage image) async {
+    final r = await (await pipeline).run(image);
+    return _rule.fromAnswer(r.answer, details: r);
+  }
+
+  /// One frame through the pipeline, without the video lock.
+  Future<PipelineResult> runFrame(RgbImage frame) async => (await pipeline).run(_phoneSize(frame));
+
+  static RgbImage _phoneSize(RgbImage img) {
+    final long = math.max(img.width, img.height);
+    if (long <= frameMaxSide) return img;
+    final scale = frameMaxSide / long;
+    return resizeArea(img, math.max(1, (img.width * scale).round()), math.max(1, (img.height * scale).round()));
+  }
+
+  @override
+  Future<void> resetLiveSession() async => _lock.reset();
+
+  @override
+  Future<Identification?> identifyFrame(LiveCameraFrame frame) async {
+    final rgb = cameraFrameToRgb(frame);
+    if (rgb == null) throw UnsupportedError('camera format ${frame.format}');
+    final r = await runFrame(rgb);
+    final step = _lock.add(r.parts, frame.offsetMs / 1000);
+    if (!r.gate.snake && step.pooled == null) {
+      return _rule.fromAnswer(ModelAnswer.noSnake, details: r);
+    }
+    final shown = step.shown;
+    return shown == null ? null : _rule.fromAnswer(shown, details: r);
+  }
+
+  /// A new video lock for analysing a clip.
+  VideoLock newLock() => VideoLock(rules: _rules);
+
+  Identification fromAnswer(ModelAnswer a, {PipelineResult? details}) =>
+      _rule.fromAnswer(a, details: details);
+}
+
+/// Converts a camera frame (YUV 4:2:0 in three planes, NV21, or BGRA) to
+/// upright RGB, using full-range BT.601 as Android cameras deliver.
+RgbImage? cameraFrameToRgb(LiveCameraFrame f) {
+  final w = f.width, h = f.height;
+  final out = Uint8List(w * h * 3);
+  int clamp(double v) => v < 0 ? 0 : (v > 255 ? 255 : v.round());
+  void put(int i, int y, int u, int v) {
+    final cu = u - 128, cv = v - 128;
+    out[i * 3] = clamp(y + 1.402 * cv);
+    out[i * 3 + 1] = clamp(y - 0.344136 * cu - 0.714136 * cv);
+    out[i * 3 + 2] = clamp(y + 1.772 * cu);
+  }
+
+  if ((f.format == 'yuv420' && f.planes.length >= 3)) {
+    final yp = f.planes[0], up = f.planes[1], vp = f.planes[2];
+    final uvPixel = up.bytesPerPixel ?? 1;
+    for (var y = 0; y < h; y++) {
+      for (var x = 0; x < w; x++) {
+        final uv = (y >> 1) * up.bytesPerRow + (x >> 1) * uvPixel;
+        put(y * w + x, yp.bytes[y * yp.bytesPerRow + x], up.bytes[uv], vp.bytes[uv]);
+      }
+    }
+  } else if (f.format == 'nv21' && f.planes.isNotEmpty) {
+    final p = f.planes[0];
+    final stride = p.bytesPerRow;
+    final uvStart = stride * h;
+    for (var y = 0; y < h; y++) {
+      for (var x = 0; x < w; x++) {
+        final uv = uvStart + (y >> 1) * stride + (x & ~1);
+        put(y * w + x, p.bytes[y * stride + x], p.bytes[uv + 1], p.bytes[uv]);
+      }
+    }
+  } else if (f.format == 'bgra8888' && f.planes.isNotEmpty) {
+    final p = f.planes[0];
+    for (var y = 0; y < h; y++) {
+      for (var x = 0; x < w; x++) {
+        final s = y * p.bytesPerRow + x * 4, d = (y * w + x) * 3;
+        out[d] = p.bytes[s + 2];
+        out[d + 1] = p.bytes[s + 1];
+        out[d + 2] = p.bytes[s];
+      }
+    }
+  } else {
+    return null;
+  }
+  var img = RgbImage(w, h, out);
+  // Turn the sensor image upright for the way the phone is held.
+  final device = switch (f.deviceOrientation) {
+    'landscapeLeft' => 90,
+    'portraitDown' => 180,
+    'landscapeRight' => 270,
+    _ => 0,
+  };
+  final rotation = f.frontFacing
+      ? (f.sensorOrientation + device) % 360
+      : (f.sensorOrientation - device + 360) % 360;
+  img = img.rotate(rotation);
+  return f.frontFacing ? img.flipHorizontal() : img;
 }

@@ -13,6 +13,7 @@ class Species {
     required this.family,
     required this.who,
     required this.dangerous,
+    this.regionalNames = const [],
   });
 
   factory Species.fromJson(Map<String, dynamic> json) => Species(
@@ -23,6 +24,10 @@ class Species {
         family: json['family'] as String,
         who: WhoCategory.parse(json['who'] as String),
         dangerous: json['dangerous'] as bool,
+        regionalNames: [
+          for (final r in (json['regional'] as List? ?? const []))
+            RegionalName.fromJson(r as Map<String, dynamic>),
+        ],
       );
 
   final int id;
@@ -34,6 +39,9 @@ class Species {
 
   /// On our danger table: WHO-listed, a viper or elapid, or a Rhabdophis keelback.
   final bool dangerous;
+
+  /// Names in Indian languages (draft, see tool/regional_names.csv).
+  final List<RegionalName> regionalNames;
 
   String get displayName => commonName ?? name;
 
@@ -76,4 +84,31 @@ class SpeciesCatalog {
   /// "not listed" for these when it is unsure (the M3 decision rule).
   late final Set<String> dangerousGenera =
       all.where((s) => s.dangerous).map((s) => s.genus).toSet();
+}
+
+/// A species' name in one Indian language, in its script and in Latin letters.
+class RegionalName {
+  const RegionalName({required this.lang, required this.name, required this.latin});
+
+  factory RegionalName.fromJson(Map<String, dynamic> j) =>
+      RegionalName(lang: j['lang'] as String, name: j['name'] as String, latin: j['latin'] as String);
+
+  /// ISO 639-1 code: hi, mr, bn, ta, te, kn, ml.
+  final String lang;
+  final String name, latin;
+
+  static const languages = {
+    'hi': 'Hindi',
+    'mr': 'Marathi',
+    'bn': 'Bengali',
+    'ta': 'Tamil',
+    'te': 'Telugu',
+    'kn': 'Kannada',
+    'ml': 'Malayalam',
+  };
+
+  String get language => languages[lang] ?? lang;
+
+  @override
+  String toString() => '$name ($latin, $language)';
 }

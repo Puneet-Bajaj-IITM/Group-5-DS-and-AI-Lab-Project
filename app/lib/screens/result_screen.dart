@@ -170,6 +170,15 @@ class _ResultScreenState extends State<ResultScreen> {
                     )
                   : null,
             ),
+            if (_id.genusFallback != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  'Most likely genus: ${_id.genusFallback}'
+                  '${_id.genusFallback!.whoListed ? ', which has species on the WHO list' : ''}',
+                  style: text.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+                ),
+              ),
             ..._id.top.map((t) => _SpeciesRow(score: t)),
             const SectionTitle('First aid'),
             OutlinedButton.icon(
@@ -256,6 +265,14 @@ class _SpeciesRow extends StatelessWidget {
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                   color: scheme.onSurfaceVariant,
+                ),
+              ),
+            if (sp.regionalNames.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(
+                  sp.regionalNames.map((n) => '${n.name} (${n.latin})').join(' · '),
+                  style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 13),
                 ),
               ),
             const SizedBox(height: 8),

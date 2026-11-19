@@ -2,6 +2,8 @@ import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import 'app.dart';
+import 'inference/decision.dart';
+import 'inference/pipeline.dart';
 import 'models/species.dart';
 import 'services/classifier.dart';
 import 'services/store.dart';
@@ -11,11 +13,21 @@ import 'state/app_state.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final (catalog, store) = await (SpeciesCatalog.load(), Store.open()).wait;
+  final (catalog, store, config, bundled) = await (
+    SpeciesCatalog.load(),
+    Store.open(),
+    SnakePipeline.loadConfig(),
+    SnakePipeline.modelsBundled(),
+  ).wait;
+  final (settings, tables) = config;
+  final rules = DecisionRules(settings.thresholds, tables);
   final state = AppState(
     catalog: catalog,
-    // Swap for the ONNX classifier once the trained model is bundled.
-    classifier: DemoClassifier(catalog),
+    // The real model when its files are in the build (assets/models/, see
+    // README); otherwise a clearly marked demo.
+    classifier: bundled
+        ? OnnxSnakeClassifier(catalog, rules, SnakePipeline.load(settings, tables))
+        : DemoClassifier(catalog, rules),
     store: store,
   );
   final initFuture = Future<void>.delayed(

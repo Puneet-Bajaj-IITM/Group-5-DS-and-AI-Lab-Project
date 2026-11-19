@@ -1,4 +1,8 @@
+import '../inference/decision.dart';
+import '../inference/pipeline.dart';
 import 'species.dart';
+
+export '../inference/decision.dart' show GenusFallback;
 
 /// The three things the screen can say, as in the Milestone 3 decision layer.
 enum Verdict {
@@ -33,9 +37,15 @@ class Identification {
     required this.top,
     required this.isDemo,
     this.snakeFound = true,
+    this.message,
+    this.reasons = const [],
+    this.genusFallback,
+    this.details,
   });
 
   final Verdict verdict;
+
+  /// The short reason the banner shows.
   final String reason;
 
   /// Top species, most likely first. Empty when no snake was found.
@@ -45,77 +55,70 @@ class Identification {
   final bool isDemo;
   final bool snakeFound;
 
+  /// The reference pipeline's full message, e.g. "dangerous: WHO Category 1".
+  final String? message;
+
+  /// The reasons that fired, in the reference's order (e.g. "who_head").
+  final List<String> reasons;
+
+  /// When the verdict is "we don't know": the likely genus, if the genus
+  /// head is sure enough, e.g. "Lycodon (80%)".
+  final GenusFallback? genusFallback;
+
+  /// The pipeline's intermediate values (gate, crop, timings), when a real
+  /// model produced this.
+  final PipelineResult? details;
+
   Species? get topSpecies => top.isEmpty ? null : top.first.species;
 }
 
-/// Turns species probabilities into a verdict. This mirrors the shape of the
-/// M3 rule (`src/serpentguard/decide.py`); the thresholds here are
-/// placeholders until the shipped thresholds file is wired in.
+/// The decision rules: DR0 with A3's calibrated thresholds, ported from the
+/// model bundle's `reference_pipeline.py` (see `lib/inference/decision.dart`,
+/// tested against `golden_decisions.json`). This maps their answer onto
+/// what the screens show.
 class DecisionRule {
-  const DecisionRule({
-    required this.catalog,
-    this.dangerThreshold = 0.30,
-    this.unsureThreshold = 0.35,
-  });
+  const DecisionRule({required this.catalog, required this.rules});
 
   final SpeciesCatalog catalog;
+  final DecisionRules rules;
 
-  /// Total probability on dangerous species that makes a photo "dangerous".
-  final double dangerThreshold;
+  static const _dangerPrefix = 'dangerous: ';
+  static const _unknownPrefix = "we don't know: ";
 
-  /// Below this top-species probability the model is "unsure".
-  final double unsureThreshold;
+  Identification decide(DecisionParts parts, {bool isDemo = false}) =>
+      fromAnswer(rules.verdict(parts), isDemo: isDemo);
 
-  Identification decide(List<double> probs, {bool isDemo = false}) {
-    assert(probs.length == catalog.all.length);
-    final ranked = List.generate(probs.length, (i) => i)
-      ..sort((a, b) => probs[b].compareTo(probs[a]));
-    final top = ranked
-        .take(3)
-        .map((i) => SpeciesScore(catalog.all[i], probs[i]))
-        .toList(growable: false);
-    final best = top.first;
-
-    var dangerMass = 0.0;
-    for (final s in catalog.all) {
-      if (s.dangerous) dangerMass += probs[s.id];
-    }
-
-    if (best.species.dangerous) {
-      return Identification(
-        verdict: Verdict.dangerous,
-        reason: best.species.who == WhoCategory.notListed
-            ? 'Venomous family, not on WHO\'s priority list'
-            : best.species.who.label,
-        top: top,
-        isDemo: isDemo,
-      );
-    }
-    if (dangerMass >= dangerThreshold) {
-      return Identification(
-        verdict: Verdict.dangerous,
-        reason: 'Could be a dangerous species '
-            '(${(dangerMass * 100).round()}% on dangerous species)',
-        top: top,
-        isDemo: isDemo,
-      );
-    }
-    if (best.probability < unsureThreshold) {
-      final genusRisk = catalog.dangerousGenera.contains(best.species.genus);
-      return Identification(
-        verdict: Verdict.unknown,
-        reason: genusRisk
-            ? 'Unclear, and its genus has dangerous species'
-            : 'Unclear between species',
-        top: top,
-        isDemo: isDemo,
-      );
+  Identification fromAnswer(ModelAnswer a, {bool isDemo = false, PipelineResult? details}) {
+    final noSnake = a.reasons.contains('no_snake');
+    final verdict = switch (a.label) {
+      dangerousLabel => Verdict.dangerous,
+      notListedLabel => Verdict.notListed,
+      _ => Verdict.unknown,
+    };
+    final top = [
+      for (final t in a.top3)
+        if (catalog.byId(t.classId) != null) SpeciesScore(catalog.byId(t.classId)!, t.probability)
+    ];
+    final String reason;
+    if (a.message.startsWith(_dangerPrefix)) {
+      reason = _sentence(a.message.substring(_dangerPrefix.length));
+    } else if (a.message.startsWith(_unknownPrefix)) {
+      reason = _sentence(a.message.substring(_unknownPrefix.length));
+    } else {
+      reason = top.isEmpty ? 'Not on the WHO list' : 'Most likely ${top.first.species.displayName}';
     }
     return Identification(
-      verdict: Verdict.notListed,
-      reason: 'Most likely ${best.species.displayName}',
+      verdict: verdict,
+      reason: reason,
       top: top,
       isDemo: isDemo,
+      snakeFound: !noSnake,
+      message: a.message,
+      reasons: a.reasons,
+      genusFallback: a.genusFallback,
+      details: details,
     );
   }
+
+  static String _sentence(String s) => s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
 }

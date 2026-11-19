@@ -69,7 +69,8 @@ ios/Runner/GoogleService-Info.plist
 # Build outputs and local tooling
 *.apk
 *.aab
-/assets/models/
+/assets/models/*
+!/assets/models/README.md
 *.ipa
 android/.gradle/
 android/build/

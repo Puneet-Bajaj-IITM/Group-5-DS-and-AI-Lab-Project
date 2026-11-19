@@ -55,6 +55,7 @@ dependencies:
 
   material_ui: any
   video_player: ^2.14.1
+  flutter_onnxruntime: ^1.9.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -66,6 +67,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   sqflite_common_ffi: ^2.3.6
+  integration_test:
+    sdk: flutter
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -80,6 +83,10 @@ flutter:
 
   assets:
     - assets/
+    # A3 decision settings and tables (committed) and the fp32 models
+    # (not committed: copy them in, see assets/models/README.md)
+    - assets/model/
+    - assets/models/
     - assets/videos/serpent_intro.mp4
     - assets/images/splash_poster.jpg
     - assets/images/app_logo.png

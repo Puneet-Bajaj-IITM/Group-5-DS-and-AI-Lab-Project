@@ -68,7 +68,7 @@ void main() {
       );
     await icon.load();
     final catalog = loadCatalog();
-    final demo = DemoClassifier(catalog);
+    final demo = DemoClassifier(catalog, loadRules());
     final state = AppState(
       catalog: catalog,
       classifier: demo,
