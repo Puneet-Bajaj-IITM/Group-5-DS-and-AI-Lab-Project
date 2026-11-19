@@ -10,7 +10,7 @@ void main() {
   test('demo classifications never enter the real broadcast queue', () async {
     SharedPreferences.setMockInitialValues({});
     final catalog = loadCatalog();
-    final demo = DemoClassifier(catalog);
+    final demo = DemoClassifier(catalog, loadRules());
     final state = AppState(
       catalog: catalog,
       classifier: demo,
@@ -30,7 +30,7 @@ void main() {
       final catalog = loadCatalog();
       final state = AppState(
         catalog: catalog,
-        classifier: DemoClassifier(catalog),
+        classifier: DemoClassifier(catalog, loadRules()),
         store: await Store.open(),
       );
       state.simulateIncomingAlert();

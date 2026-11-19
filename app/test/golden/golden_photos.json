@@ -1,0 +1,382 @@
+{
+ "tolerance": 0.01,
+ "photos": [
+  {
+   "photo_id": "228115560",
+   "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/228115560/medium.jpg",
+   "sha1": "28eb17f47bfaeb69792b5ba9e05a8b60f295c23d",
+   "credit": "(c) Seema Merchant, some rights reserved (CC BY)",
+   "licence": "cc-by",
+   "steps": {
+    "height": 500,
+    "width": 490,
+    "mean_brightness": 104.3732843537415,
+    "exposure_fixed": false,
+    "gate": {
+     "rule": "both",
+     "snake": true,
+     "box_conf": 0.4603417217731476,
+     "mask_area": 0.1878734693877551
+    },
+    "mask_pixels": 46029,
+    "cleaned_mask_pixels": 46006,
+    "crop_window_top_bottom_left_right": [
+     95,
+     500,
+     108,
+     355
+    ],
+    "classifier_input_mean": -0.24964016675949097,
+    "classifier_input_std": 0.8642624616622925,
+    "top_species_logits": [
+     {
+      "class_id": 8,
+      "logit": 27.31844711303711
+     },
+     {
+      "class_id": 40,
+      "logit": 12.539560317993164
+     },
+     {
+      "class_id": 150,
+      "logit": 12.120314598083496
+     },
+     {
+      "class_id": 36,
+      "logit": 11.032083511352539
+     },
+     {
+      "class_id": 39,
+      "logit": 10.446346282958984
+     }
+    ],
+    "best_cosine": 0.8917517386594864
+   },
+   "answer": {
+    "gate": {
+     "rule": "both",
+     "snake": true,
+     "box_conf": 0.46034255623817444,
+     "mask_area": 0.1878734693877551
+    },
+    "crop": "mask box",
+    "top3": [
+     {
+      "species": "Naja naja",
+      "probability": 0.9975960565744113,
+      "who_category": "1"
+     },
+     {
+      "species": "Naja kaouthia",
+      "probability": 0.0002791159072023191,
+      "who_category": "1"
+     },
+     {
+      "species": "Naja oxiana",
+      "probability": 0.00022130615342191097,
+      "who_category": "2"
+     }
+    ],
+    "verdict": "dangerous",
+    "reason": [
+     "who_listed_mass",
+     "who_head",
+     "top_species_dangerous",
+     "venomous_family_mass"
+    ],
+    "message": "dangerous: WHO Category 1",
+    "genus_fallback": null
+   }
+  },
+  {
+   "photo_id": "557437621",
+   "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/557437621/medium.jpg",
+   "sha1": "e2cf3fe4343cb4b767e9c82824222451cb6383c1",
+   "credit": "(c) Seema Merchant, some rights reserved (CC BY)",
+   "licence": "cc-by",
+   "steps": {
+    "height": 396,
+    "width": 500,
+    "mean_brightness": 117.78999663299663,
+    "exposure_fixed": false,
+    "gate": {
+     "rule": "both",
+     "snake": true,
+     "box_conf": 0.8356838226318359,
+     "mask_area": 0.07568181818181818
+    },
+    "mask_pixels": 14985,
+    "cleaned_mask_pixels": 15008,
+    "crop_window_top_bottom_left_right": [
+     107,
+     372,
+     6,
+     395
+    ],
+    "classifier_input_mean": 0.010288004763424397,
+    "classifier_input_std": 0.5022399425506592,
+    "top_species_logits": [
+     {
+      "class_id": 24,
+      "logit": 25.493831634521484
+     },
+     {
+      "class_id": 183,
+      "logit": 12.532757759094238
+     },
+     {
+      "class_id": 25,
+      "logit": 11.652278900146484
+     },
+     {
+      "class_id": 178,
+      "logit": 11.651782989501953
+     },
+     {
+      "class_id": 109,
+      "logit": 11.455492973327637
+     }
+    ],
+    "best_cosine": 0.846345158989477
+   },
+   "answer": {
+    "gate": {
+     "rule": "both",
+     "snake": true,
+     "box_conf": 0.8356838822364807,
+     "mask_area": 0.07568181818181818
+    },
+    "crop": "mask box",
+    "top3": [
+     {
+      "species": "Coelognathus helena",
+      "probability": 0.9953016112349751,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Platyceps josephi",
+      "probability": 0.0007617843889871035,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Coelognathus radiatus",
+      "probability": 0.0004678958915392386,
+      "who_category": "not_listed"
+     }
+    ],
+    "verdict": "not_listed",
+    "reason": [],
+    "message": "not on the WHO list, still keep away",
+    "genus_fallback": null
+   }
+  },
+  {
+   "photo_id": "462345804",
+   "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/462345804/medium.jpg",
+   "sha1": "eb27723a15c9cb67c8999f065f63513c0d859a0d",
+   "credit": "(c) Teja Yantrapalli, some rights reserved (CC BY)",
+   "licence": "cc-by",
+   "steps": {
+    "height": 333,
+    "width": 500,
+    "mean_brightness": 5.793791791791792,
+    "exposure_fixed": true,
+    "gate": {
+     "rule": "both",
+     "snake": true,
+     "box_conf": 0.5404959917068481,
+     "mask_area": 0.0938978978978979
+    },
+    "mask_pixels": 15634,
+    "cleaned_mask_pixels": 14356,
+    "crop_window_top_bottom_left_right": [
+     83,
+     205,
+     146,
+     347
+    ],
+    "classifier_input_mean": -0.8149557113647461,
+    "classifier_input_std": 0.7762395143508911,
+    "top_species_logits": [
+     {
+      "class_id": 11,
+      "logit": 20.219722747802734
+     },
+     {
+      "class_id": 20,
+      "logit": 17.61409568786621
+     },
+     {
+      "class_id": 2,
+      "logit": 17.437641143798828
+     },
+     {
+      "class_id": 8,
+      "logit": 16.78232192993164
+     },
+     {
+      "class_id": 0,
+      "logit": 16.76817512512207
+     }
+    ],
+    "best_cosine": 0.7354887293890056
+   },
+   "answer": {
+    "gate": {
+     "rule": "both",
+     "snake": true,
+     "box_conf": 0.5404952764511108,
+     "mask_area": 0.0938978978978979
+    },
+    "crop": "mask box",
+    "top3": [
+     {
+      "species": "Elaphe taeniura",
+      "probability": 0.2631256151868247,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Dendrelaphis tristis",
+      "probability": 0.06218878518288804,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Ptyas mucosa",
+      "probability": 0.0564014723870468,
+      "who_category": "not_listed"
+     }
+    ],
+    "verdict": "dangerous",
+    "reason": [
+     "who_listed_mass"
+    ],
+    "message": "dangerous: could be a WHO-listed species: 11% combined probability",
+    "genus_fallback": null
+   }
+  },
+  {
+   "photo_id": "22679235",
+   "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/22679235/medium.jpg",
+   "sha1": "f4563c8d8847727320886beb519a0b92b73013b4",
+   "credit": "(c) Nathan Earley, some rights reserved (CC BY)",
+   "licence": "cc-by",
+   "steps": {
+    "height": 500,
+    "width": 375,
+    "mean_brightness": 111.30793777777778,
+    "exposure_fixed": false,
+    "gate": {
+     "rule": "both",
+     "snake": true,
+     "box_conf": 0.24452832341194153,
+     "mask_area": 0.045130666666666666
+    },
+    "mask_pixels": 8462,
+    "cleaned_mask_pixels": 8361,
+    "crop_window_top_bottom_left_right": [
+     124,
+     207,
+     137,
+     375
+    ],
+    "classifier_input_mean": -0.21453739702701569,
+    "classifier_input_std": 0.5277289152145386,
+    "top_species_logits": [
+     {
+      "class_id": 31,
+      "logit": 29.006502151489258
+     },
+     {
+      "class_id": 1,
+      "logit": 28.85249900817871
+     },
+     {
+      "class_id": 41,
+      "logit": 28.769163131713867
+     },
+     {
+      "class_id": 55,
+      "logit": 28.696067810058594
+     },
+     {
+      "class_id": 65,
+      "logit": 26.676767349243164
+     }
+    ],
+    "best_cosine": 0.9685232796789249
+   },
+   "answer": {
+    "gate": {
+     "rule": "both",
+     "snake": true,
+     "box_conf": 0.24452807009220123,
+     "mask_area": 0.045130666666666666
+    },
+    "crop": "mask box",
+    "top3": [
+     {
+      "species": "Ahaetulla oxyrhynca",
+      "probability": 0.22709924751041707,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Ahaetulla prasina",
+      "probability": 0.20853987628335727,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Ahaetulla borealis",
+      "probability": 0.19913743858143348,
+      "who_category": "not_listed"
+     }
+    ],
+    "verdict": "unknown",
+    "reason": [
+     "unclear_between_species"
+    ],
+    "message": "we don't know: unclear between species",
+    "genus_fallback": {
+     "genus": "Ahaetulla",
+     "probability": 0.945963538696216,
+     "who_listed": false
+    }
+   }
+  },
+  {
+   "photo_id": "640148271",
+   "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/640148271/medium.jpg",
+   "sha1": "ac55e19fefc8e7f9a810693acea49912adb309bf",
+   "credit": "(c) Teja Yantrapalli, some rights reserved (CC BY)",
+   "licence": "cc-by",
+   "steps": {
+    "height": 375,
+    "width": 500,
+    "mean_brightness": 124.45360177777778,
+    "exposure_fixed": false,
+    "gate": {
+     "rule": "both",
+     "snake": false,
+     "box_conf": 0.535597562789917,
+     "mask_area": 0.0
+    },
+    "mask_pixels": 0
+   },
+   "answer": {
+    "gate": {
+     "rule": "both",
+     "snake": false,
+     "box_conf": 0.5355983376502991,
+     "mask_area": 0.0
+    },
+    "crop": null,
+    "top3": [],
+    "verdict": "unknown",
+    "reason": [
+     "no_snake"
+    ],
+    "message": "we don't know: no snake found",
+    "genus_fallback": null
+   }
+  }
+ ]
+}

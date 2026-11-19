@@ -10,7 +10,9 @@ import '../services/location_service.dart';
 import '../state/app_state.dart';
 import '../util/geo.dart';
 import '../widgets/common.dart';
+import '../services/classifier.dart';
 import 'result_screen.dart';
+import 'video_check_screen.dart';
 import 'live_review_screen.dart';
 import 'community_screen.dart';
 
@@ -75,6 +77,23 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
     } finally {
       if (mounted) setState(() => _busy = false);
     }
+  }
+
+  Future<void> _pickVideo() async {
+    if (_busy) return;
+    final state = context.read<AppState>();
+    final messenger = ScaffoldMessenger.of(context);
+    final classifier = state.classifier;
+    if (classifier is! OnnxSnakeClassifier) {
+      messenger.showSnackBar(const SnackBar(
+          content: Text('Video checks need the model files, which are not in this build.')));
+      return;
+    }
+    final file = await ImagePicker().pickVideo(source: ImageSource.gallery);
+    if (file == null || !mounted) return;
+    await Navigator.of(context).push(MaterialPageRoute(
+      builder: (_) => VideoCheckScreen(path: file.path, classifier: classifier),
+    ));
   }
 
   /// The picker's file lives in a cache that Android may clear.
@@ -196,10 +215,12 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                           ),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Text(
-                          'Continuous preview. Live model identification is awaiting integration.',
+                          context.read<AppState>().classifier.isDemo
+                              ? 'Continuous preview. The model files are not in this build, so results are a demo.'
+                              : 'Identifies continuously and settles on one answer once the frames agree.',
                         ),
                       ),
                       SizedBox(
@@ -222,6 +243,16 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                           onPressed: () => _pick(ImageSource.gallery),
                           icon: const Icon(Icons.photo_library_outlined),
                           label: const Text('Choose from gallery'),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 52,
+                        child: OutlinedButton.icon(
+                          onPressed: _pickVideo,
+                          icon: const Icon(Icons.movie_outlined),
+                          label: const Text('Check a video'),
                         ),
                       ),
                     ],

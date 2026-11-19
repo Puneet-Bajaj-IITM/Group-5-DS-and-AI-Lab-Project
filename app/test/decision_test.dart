@@ -11,45 +11,50 @@ import 'helpers.dart';
 
 void main() {
   final catalog = loadCatalog();
-  final rule = DecisionRule(catalog: catalog);
+  final rules = loadRules();
+  final demo = DemoClassifier(catalog, rules);
 
-  List<double> probs(Map<String, double> named) {
-    final n = catalog.all.length;
-    final rest = 1 - named.values.fold(0.0, (a, b) => a + b);
-    final p = List<double>.filled(n, rest / (n - named.length));
-    named.forEach((name, v) => p[byName(catalog, name).id] = v);
-    return p;
-  }
-
-  test('catalog matches the M3 danger table', () {
+  test('catalog matches the M3 danger table and the model tables', () {
     expect(catalog.all.length, 184);
     expect(catalog.all.where((s) => s.dangerous).length, 50);
     expect(byName(catalog, 'Bungarus caeruleus').who, WhoCategory.category1);
+    // species.json id i is species_logits[i]
+    for (final s in catalog.all) {
+      expect(rules.tables.species[s.id], s.name);
+      expect(rules.tables.dangerous[s.id], s.dangerous);
+    }
   });
 
-  test('a dangerous top species is dangerous', () {
-    final id = rule.decide(probs({'Daboia russelii': 0.8}));
+  test('WHO-listed Big Four species carry regional names', () {
+    for (final name in ['Naja naja', 'Bungarus caeruleus', 'Daboia russelii', 'Echis carinatus']) {
+      final langs = byName(catalog, name).regionalNames.map((n) => n.lang).toSet();
+      expect(langs, containsAll(['hi', 'ta', 'te', 'ml']), reason: name);
+    }
+    expect(byName(catalog, 'Naja naja').regionalNames.first.toString(), 'नाग (Naag, Hindi)');
+  });
+
+  test('a confident dangerous species is dangerous with its WHO note', () {
+    final id = demo.forSpecies(byName(catalog, 'Daboia russelii').id);
     expect(id.verdict, Verdict.dangerous);
+    expect(id.message, 'dangerous: WHO Category 1');
     expect(id.reason, 'WHO Category 1');
     expect(id.top.first.species.name, 'Daboia russelii');
   });
 
-  test('enough mass on dangerous species is dangerous even if the top is harmless', () {
-    final id = rule.decide(probs({'Boiga siamensis': 0.45, 'Naja naja': 0.2, 'Daboia russelii': 0.15}));
-    expect(id.verdict, Verdict.dangerous);
-  });
-
   test('a confident harmless species is not listed, an unsure one is unknown', () {
-    expect(rule.decide(probs({'Ptyas mucosa': 0.85})).verdict, Verdict.notListed);
-    expect(rule.decide(probs({'Ptyas mucosa': 0.2, 'Coelognathus helena': 0.18})).verdict,
-        Verdict.unknown);
+    final id = demo.forSpecies(byName(catalog, 'Coelognathus helena').id, confidence: 0.95);
+    expect(id.verdict, Verdict.notListed);
+    expect(id.message, 'not on the WHO list, still keep away');
+    final unsure = demo.forSpecies(byName(catalog, 'Coelognathus helena').id, confidence: 0.2);
+    expect(unsure.verdict, Verdict.unknown);
+    expect(unsure.reason, 'Unclear between species');
   });
 
   test('demo classifier is deterministic and every verdict is reachable', () {
-    final demo = DemoClassifier(catalog);
-    expect(demo.simulatedProbs(5), demo.simulatedProbs(5));
+    expect(demo.simulatedParts(5).probs, demo.simulatedParts(5).probs);
+    final rule = DecisionRule(catalog: catalog, rules: rules);
     final seen = <Verdict>{
-      for (var seed = 0; seed < 400; seed++) rule.decide(demo.simulatedProbs(seed)).verdict
+      for (var seed = 0; seed < 400; seed++) rule.decide(demo.simulatedParts(seed)).verdict
     };
     expect(seen, Verdict.values.toSet());
   });

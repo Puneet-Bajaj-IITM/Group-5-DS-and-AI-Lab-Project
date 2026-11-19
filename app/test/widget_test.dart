@@ -17,7 +17,7 @@ void main() {
   testWidgets('SOS omits simulated species claims', (tester) async {
     SharedPreferences.setMockInitialValues({});
     final catalog = loadCatalog();
-    final demo = DemoClassifier(catalog);
+    final demo = DemoClassifier(catalog, loadRules());
     final state = AppState(
       catalog: catalog,
       classifier: demo,
@@ -45,7 +45,7 @@ void main() {
     (tester) async {
       SharedPreferences.setMockInitialValues({});
       final catalog = loadCatalog();
-      final demo = DemoClassifier(catalog);
+      final demo = DemoClassifier(catalog, loadRules());
       final state = AppState(
         catalog: catalog,
         classifier: demo,
@@ -78,7 +78,7 @@ void main() {
     final catalog = loadCatalog();
     final state = AppState(
       catalog: catalog,
-      classifier: DemoClassifier(catalog),
+      classifier: DemoClassifier(catalog, loadRules()),
       store: await Store.open(),
     );
 
@@ -110,7 +110,7 @@ void main() {
       final catalog = loadCatalog();
       final state = AppState(
         catalog: catalog,
-        classifier: DemoClassifier(catalog),
+        classifier: DemoClassifier(catalog, loadRules()),
         store: await Store.open(),
       );
       final initCompleter = Completer<void>();
@@ -144,7 +144,7 @@ void main() {
       final catalog = loadCatalog();
       final state = AppState(
         catalog: catalog,
-        classifier: DemoClassifier(catalog),
+        classifier: DemoClassifier(catalog, loadRules()),
         store: await Store.open(),
       );
 
