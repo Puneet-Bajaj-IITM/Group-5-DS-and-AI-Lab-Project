@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'models/verdict.dart';
 import 'screens/alerts_screen.dart';
 import 'screens/contacts_screen.dart';
+import 'screens/community_screen.dart';
 import 'screens/identify_screen.dart';
 import 'screens/map_screen.dart';
 import 'screens/sos_screen.dart';
@@ -19,37 +20,39 @@ class SerpentGuardApp extends StatelessWidget {
 
   static const seed = Color(0xFF2F5D45);
 
+  static ThemeData theme(Brightness b) {
+    final scheme = ColorScheme.fromSeed(seedColor: seed, brightness: b);
+    return ThemeData(
+      colorScheme: scheme,
+      useMaterial3: true,
+      cardTheme: CardThemeData(
+        elevation: 0,
+        color: scheme.surfaceContainerLow,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        margin: EdgeInsets.zero,
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: scheme.surface,
+        centerTitle: false,
+        titleTextStyle: TextStyle(
+          color: scheme.onSurface,
+          fontSize: 22,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    ThemeData theme(Brightness b) {
-      final scheme = ColorScheme.fromSeed(seedColor: seed, brightness: b);
-      return ThemeData(
-        colorScheme: scheme,
-        useMaterial3: true,
-        cardTheme: CardThemeData(
-          elevation: 0,
-          color: scheme.surfaceContainerLow,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          margin: EdgeInsets.zero,
-        ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: scheme.surface,
-          centerTitle: false,
-          titleTextStyle: TextStyle(
-            color: scheme.onSurface,
-            fontSize: 22,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-      );
-    }
-
     return MaterialApp(
       title: 'SerpentGuard',
       debugShowCheckedModeBanner: false,
       theme: theme(Brightness.light),
       darkTheme: theme(Brightness.dark),
-      home: showSplash ? SplashScreen(initFuture: initFuture) : const HomeShell(),
+      home: showSplash
+          ? SplashScreen(initFuture: initFuture)
+          : const HomeShell(),
     );
   }
 }
@@ -99,43 +102,55 @@ class _HomeShellState extends State<HomeShell> {
     final where = s.position == null
         ? ''
         : ' · ${formatDistance(distanceMeters(s.position!, r.alert.location))} '
-            '${compassPoint(bearingDegrees(s.position!, r.alert.location))}';
+              '${compassPoint(bearingDegrees(s.position!, r.alert.location))}';
     final messenger = ScaffoldMessenger.of(context);
     messenger.hideCurrentMaterialBanner();
-    messenger.showMaterialBanner(MaterialBanner(
-      backgroundColor: r.alert.verdict == Verdict.dangerous
-          ? const Color(0xFFFFDAD6)
-          : Theme.of(context).colorScheme.tertiaryContainer,
-      leading: const Icon(Icons.campaign_rounded, color: Color(0xFF8C1D18)),
-      content: Text(
-        'Snake reported nearby: ${species?.displayName ?? 'unidentified snake'} '
-        '(${r.alert.verdict.title})$where',
-        style: const TextStyle(color: Color(0xFF410002), fontWeight: FontWeight.w600),
+    messenger.showMaterialBanner(
+      MaterialBanner(
+        backgroundColor: r.alert.verdict == Verdict.dangerous
+            ? const Color(0xFFFFDAD6)
+            : Theme.of(context).colorScheme.tertiaryContainer,
+        leading: const Icon(Icons.campaign_rounded, color: Color(0xFF8C1D18)),
+        content: Text(
+          'Snake reported nearby: ${species?.displayName ?? 'unidentified snake'} '
+          '(${r.alert.verdict.title})$where',
+          style: const TextStyle(
+            color: Color(0xFF410002),
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              messenger.hideCurrentMaterialBanner();
+              _selectTab(2);
+            },
+            child: const Text('View'),
+          ),
+          TextButton(
+            onPressed: messenger.hideCurrentMaterialBanner,
+            child: const Text('Dismiss'),
+          ),
+        ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            messenger.hideCurrentMaterialBanner();
-            _selectTab(2);
-          },
-          child: const Text('View'),
-        ),
-        TextButton(
-          onPressed: messenger.hideCurrentMaterialBanner,
-          child: const Text('Dismiss'),
-        ),
-      ],
-    ));
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final alerts = context.select<AppState, int>((s) => s.alertBook.active(DateTime.now()).length);
+    final alerts = context.select<AppState, int>(
+      (s) => s.alertBook.active(DateTime.now()).length,
+    );
     final pages = [
       const IdentifyScreen(),
       _visitedTabs.contains(1) ? const MapScreen() : const SizedBox.shrink(),
       _visitedTabs.contains(2) ? const AlertsScreen() : const SizedBox.shrink(),
-      _visitedTabs.contains(3) ? const ContactsScreen() : const SizedBox.shrink(),
+      _visitedTabs.contains(3)
+          ? const ContactsScreen()
+          : const SizedBox.shrink(),
+      _visitedTabs.contains(4)
+          ? const CommunityScreen()
+          : const SizedBox.shrink(),
     ];
     return Scaffold(
       body: IndexedStack(index: _tab, children: pages),
@@ -147,18 +162,25 @@ class _HomeShellState extends State<HomeShell> {
               foregroundColor: Colors.white,
               onPressed: () => openSos(context),
               icon: const Icon(Icons.emergency_rounded),
-              label: const Text('SOS', style: TextStyle(fontWeight: FontWeight.w800)),
+              label: const Text(
+                'SOS',
+                style: TextStyle(fontWeight: FontWeight.w800),
+              ),
             ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _tab,
         onDestinationSelected: _selectTab,
         destinations: [
           const NavigationDestination(
-              icon: Icon(Icons.center_focus_strong_outlined),
-              selectedIcon: Icon(Icons.center_focus_strong),
-              label: 'Identify'),
+            icon: Icon(Icons.center_focus_strong_outlined),
+            selectedIcon: Icon(Icons.center_focus_strong),
+            label: 'Identify',
+          ),
           const NavigationDestination(
-              icon: Icon(Icons.map_outlined), selectedIcon: Icon(Icons.map), label: 'Map'),
+            icon: Icon(Icons.map_outlined),
+            selectedIcon: Icon(Icons.map),
+            label: 'Map',
+          ),
           NavigationDestination(
             icon: Badge(
               isLabelVisible: alerts > 0,
@@ -169,17 +191,29 @@ class _HomeShellState extends State<HomeShell> {
             label: 'Alerts',
           ),
           const NavigationDestination(
-              icon: Icon(Icons.contacts_outlined),
-              selectedIcon: Icon(Icons.contacts),
-              label: 'Contacts'),
+            icon: Icon(Icons.contacts_outlined),
+            selectedIcon: Icon(Icons.contacts),
+            label: 'Contacts',
+          ),
+          const NavigationDestination(
+            icon: Icon(Icons.groups_outlined),
+            selectedIcon: Icon(Icons.groups),
+            label: 'Community',
+          ),
         ],
       ),
     );
   }
 }
 
-void openSos(BuildContext context, {bool bitten = false, Identification? identification}) {
-  Navigator.of(context).push(MaterialPageRoute(
-    builder: (_) => SosScreen(bitten: bitten, identification: identification),
-  ));
+void openSos(
+  BuildContext context, {
+  bool bitten = false,
+  Identification? identification,
+}) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (_) => SosScreen(bitten: bitten, identification: identification),
+    ),
+  );
 }

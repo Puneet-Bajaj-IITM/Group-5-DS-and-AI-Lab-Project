@@ -10,6 +10,7 @@ import '../models/verdict.dart';
 import '../services/classifier.dart';
 import '../state/app_state.dart';
 import '../widgets/common.dart';
+import 'first_aid_screen.dart';
 
 class ResultScreen extends StatefulWidget {
   const ResultScreen({super.key, required this.identification, this.photoPath});
@@ -46,8 +47,14 @@ class _ResultScreenState extends State<ResultScreen> {
           'Your name and number are not shared.',
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Send alert')),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Send alert'),
+          ),
         ],
       ),
     );
@@ -65,7 +72,9 @@ class _ResultScreenState extends State<ResultScreen> {
       builder: (_) => _SpeciesPicker(catalog: state.catalog),
     );
     if (picked == null || state.classifier is! DemoClassifier) return;
-    setState(() => _id = (state.classifier as DemoClassifier).forSpecies(picked.id));
+    setState(
+      () => _id = (state.classifier as DemoClassifier).forSpecies(picked.id),
+    );
   }
 
   @override
@@ -74,7 +83,9 @@ class _ResultScreenState extends State<ResultScreen> {
     final text = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
     final rescuers = s.contacts
-        .where((c) => c.kind == ContactKind.rescuer || c.kind == ContactKind.forest)
+        .where(
+          (c) => c.kind == ContactKind.rescuer || c.kind == ContactKind.forest,
+        )
         .toList();
 
     return Scaffold(
@@ -83,83 +94,114 @@ class _ResultScreenState extends State<ResultScreen> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
           children: [
-            if (widget.photoPath != null && File(widget.photoPath!).existsSync())
+            if (widget.photoPath != null &&
+                File(widget.photoPath!).existsSync())
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: AspectRatio(
                   aspectRatio: 4 / 3,
-                  child: Image.file(File(widget.photoPath!), fit: BoxFit.cover, cacheWidth: 1200),
+                  child: Image.file(
+                    File(widget.photoPath!),
+                    fit: BoxFit.cover,
+                    cacheWidth: 1200,
+                  ),
                 ),
               ),
             const SizedBox(height: 14),
-            if (_id.isDemo) ...[
-              const DemoBadge(),
-              const SizedBox(height: 12),
-            ],
+            if (_id.isDemo) ...[const DemoBadge(), const SizedBox(height: 12)],
             VerdictBanner(verdict: _id.verdict, reason: _id.reason),
             const SizedBox(height: 16),
             if (_id.verdict.escalate) ...[
               EmergencyButton(
                 label: 'Someone was bitten: get help',
-                onPressed: () => openSos(context, bitten: true, identification: _id),
+                onPressed: () =>
+                    openSos(context, bitten: true, identification: _id),
               ),
               const SizedBox(height: 10),
             ],
             if (_id.verdict == Verdict.notListed && rescuers.isNotEmpty)
-              ...rescuers.map((c) => Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 52,
-                      child: FilledButton.tonalIcon(
-                        onPressed: () => s.sos.call(c.phone),
-                        icon: const Icon(Icons.call_rounded),
-                        label: Text('Call ${c.name} (${c.kind.label.toLowerCase()})'),
+              ...rescuers.map(
+                (c) => Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: FilledButton.tonalIcon(
+                      onPressed: () => s.sos.call(c.phone),
+                      icon: const Icon(Icons.call_rounded),
+                      label: Text(
+                        'Call ${c.name} (${c.kind.label.toLowerCase()})',
                       ),
                     ),
-                  )),
+                  ),
+                ),
+              ),
             if (_id.verdict == Verdict.notListed && rescuers.isEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Text(
                   'Tip: add a local snake rescuer or forest office in Contacts so you can '
                   'call them from here to move the snake safely.',
-                  style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+                  style: text.bodyMedium?.copyWith(
+                    color: scheme.onSurfaceVariant,
+                  ),
                 ),
               ),
             SizedBox(
               width: double.infinity,
               height: 52,
               child: OutlinedButton.icon(
-                onPressed: _sendAlert,
+                onPressed: _id.isDemo || !_id.snakeFound ? null : _sendAlert,
                 icon: const Icon(Icons.campaign_outlined),
-                label: const Text('Warn people nearby'),
+                label: Text(
+                  _id.isDemo
+                      ? 'Broadcast unavailable for demo results'
+                      : 'Warn people nearby',
+                ),
               ),
             ),
-            SectionTitle('Most likely species',
-                trailing: _id.isDemo
-                    ? TextButton.icon(
-                        onPressed: _pickDemoSpecies,
-                        icon: const Icon(Icons.swap_horiz_rounded, size: 18),
-                        label: const Text('Try another (demo)'),
-                      )
-                    : null),
+            SectionTitle(
+              'Most likely species',
+              trailing: _id.isDemo
+                  ? TextButton.icon(
+                      onPressed: _pickDemoSpecies,
+                      icon: const Icon(Icons.swap_horiz_rounded, size: 18),
+                      label: const Text('Try another (demo)'),
+                    )
+                  : null,
+            ),
             ..._id.top.map((t) => _SpeciesRow(score: t)),
             const SectionTitle('First aid'),
+            OutlinedButton.icon(
+              onPressed: () => Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (_) => const FirstAidScreen())),
+              icon: const Icon(Icons.translate),
+              label: const Text('Regional first-aid cards and offline audio'),
+            ),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text('If someone is bitten, go to the nearest hospital with anti-snake '
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'If someone is bitten, go to the nearest hospital with anti-snake '
                       'venom (ASV) straight away and call 108 or 112.',
-                      style: text.bodyLarge?.copyWith(fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 8),
-                  Text(
-                    'The WHO first-aid passages will appear here once the team has '
-                    'permission to include the guideline text.',
-                    style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
-                  ),
-                ]),
+                      style: text.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'The WHO first-aid passages will appear here once the team has '
+                      'permission to include the guideline text.',
+                      style: text.bodySmall?.copyWith(
+                        color: scheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -188,35 +230,57 @@ class _SpeciesRow extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(children: [
-            Expanded(
-              child: Text(sp.displayName,
-                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    sp.displayName,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                Text(
+                  '$pct%',
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ],
             ),
-            Text('$pct%', style: const TextStyle(fontWeight: FontWeight.w700)),
-          ]),
-          if (sp.commonName != null)
-            Text(sp.name,
-                style: TextStyle(fontStyle: FontStyle.italic, color: scheme.onSurfaceVariant)),
-          const SizedBox(height: 8),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: score.probability.clamp(0, 1),
-              minHeight: 6,
-              color: sp.dangerous ? const Color(0xFFB3261E) : scheme.primary,
-              backgroundColor: scheme.surfaceContainerHighest,
+            if (sp.commonName != null)
+              Text(
+                sp.name,
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  color: scheme.onSurfaceVariant,
+                ),
+              ),
+            const SizedBox(height: 8),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: LinearProgressIndicator(
+                value: score.probability.clamp(0, 1),
+                minHeight: 6,
+                color: sp.dangerous ? const Color(0xFFB3261E) : scheme.primary,
+                backgroundColor: scheme.surfaceContainerHighest,
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Wrap(spacing: 6, runSpacing: 6, children: [
-            _Tag(sp.who.label, danger: sp.who != WhoCategory.notListed),
-            if (sp.dangerous && sp.who == WhoCategory.notListed)
-              const _Tag('Venomous family', danger: true),
-            _Tag(sp.family),
-          ]),
-        ]),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: [
+                _Tag(sp.who.label, danger: sp.who != WhoCategory.notListed),
+                if (sp.dangerous && sp.who == WhoCategory.notListed)
+                  const _Tag('Venomous family', danger: true),
+                _Tag(sp.family),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -236,11 +300,14 @@ class _Tag extends StatelessWidget {
         color: danger ? scheme.errorContainer : scheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(6),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: danger ? scheme.onErrorContainer : scheme.onSurfaceVariant)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: danger ? scheme.onErrorContainer : scheme.onSurfaceVariant,
+        ),
+      ),
     );
   }
 }
@@ -260,43 +327,50 @@ class _SpeciesPickerState extends State<_SpeciesPicker> {
   Widget build(BuildContext context) {
     final q = _q.toLowerCase();
     final list = widget.catalog.all
-        .where((s) =>
-            q.isEmpty ||
-            s.name.toLowerCase().contains(q) ||
-            (s.commonName?.toLowerCase().contains(q) ?? false))
+        .where(
+          (s) =>
+              q.isEmpty ||
+              s.name.toLowerCase().contains(q) ||
+              (s.commonName?.toLowerCase().contains(q) ?? false),
+        )
         .toList();
     return SizedBox(
       height: MediaQuery.sizeOf(context).height * 0.75,
-      child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-          child: TextField(
-            autofocus: true,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.search),
-              hintText: 'Search 184 species',
-              border: OutlineInputBorder(),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+            child: TextField(
+              autofocus: true,
+              decoration: const InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                hintText: 'Search 184 species',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (v) => setState(() => _q = v),
             ),
-            onChanged: (v) => setState(() => _q = v),
           ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: list.length,
-            itemBuilder: (_, i) {
-              final s = list[i];
-              return ListTile(
-                title: Text(s.displayName),
-                subtitle: Text(s.commonName == null ? s.family : s.name),
-                trailing: s.dangerous
-                    ? const Icon(Icons.warning_amber_rounded, color: Color(0xFFB3261E))
-                    : null,
-                onTap: () => Navigator.pop(context, s),
-              );
-            },
+          Expanded(
+            child: ListView.builder(
+              itemCount: list.length,
+              itemBuilder: (_, i) {
+                final s = list[i];
+                return ListTile(
+                  title: Text(s.displayName),
+                  subtitle: Text(s.commonName == null ? s.family : s.name),
+                  trailing: s.dangerous
+                      ? const Icon(
+                          Icons.warning_amber_rounded,
+                          color: Color(0xFFB3261E),
+                        )
+                      : null,
+                  onTap: () => Navigator.pop(context, s),
+                );
+              },
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }
