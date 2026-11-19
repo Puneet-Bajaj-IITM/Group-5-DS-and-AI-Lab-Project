@@ -1,0 +1,2 @@
+SQLAlchemy==2.0.57
+pillow==13.0.0

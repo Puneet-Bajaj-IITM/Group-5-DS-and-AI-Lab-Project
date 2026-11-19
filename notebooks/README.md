@@ -57,7 +57,14 @@ The Milestone 4 notebooks work the same way: the Kaggle notebooks find the team'
 | 23 | [`23_head_arms`](23_head_arms.ipynb) | Whether a second, closer look the model picks itself (the detail crop) helps | GPU T4, internet on |
 | 24 | [`24_video_lock`](24_video_lock.ipynb) | Whether pooling frames and locking the answer steadies the shown species on a clip, with the shipped model behind the app's front end | local CPU |
 | 25 | [`25_m4_summary`](25_m4_summary.ipynb) | The goals and the report's tables, read from the saved result files | local CPU |
+| 26 | [`26_community_voting`](26_community_voting.ipynb) | Taxonomic Bayesian species/genus consensus: eight vote scenarios, replacement and repeat submissions, invalid votes, genus-only evidence and threshold boundaries; saved with executed outputs | local CPU; Python standard library |
 | 27 | [`27_m4_figures`](27_m4_figures.ipynb) | The report's figures: learning curves, calibration before and after temperature scaling, and sample predictions on credited validation photos, from saved outputs | local CPU, internet on |
+
+Run from the repository root with `.venv/bin/python scripts/run_voting_notebook.py`.
+The runner executes this notebook's plain Python cells in order, saves actual
+stream outputs and execution counts, and stops without saving if an assertion
+fails. It does not require Jupyter. The notebook validates the voting algorithm;
+the SQLAlchemy service and Android SQLite queue implement application storage and sync.
 
 Where each run is saved with its outputs:
 
