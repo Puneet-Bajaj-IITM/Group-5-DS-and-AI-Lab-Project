@@ -34,6 +34,7 @@ wandb/
 
 # Secrets
 .env
+*:Zone.Identifier
 
 # Run diagnostics kept in the runs' Kaggle outputs (each full run's manifest.json lists their SHA-256)
 results/**/class_mix.json
