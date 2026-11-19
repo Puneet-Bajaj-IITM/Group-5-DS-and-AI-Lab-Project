@@ -34,7 +34,7 @@ Testing Bluetooth alerts needs **two real Android phones**, because emulators ca
 
 ## The model
 
-The path from photo to verdict is a Dart port of the model bundle's `reference_pipeline.py` (`lib/inference/`). The full write-up is [documentation/milestone 4/app-and-model-integration.md](../documentation/milestone%204/app-and-model-integration.md).
+The path from photo to verdict is a Dart port of the model bundle's `reference_pipeline.py` (`lib/inference/`). The full write-up is [section 8 of the Milestone 4 report](../documentation/milestone%204/project-report.md#8-the-model-in-the-app).
 
 1. Copy `classifier.onnx`, `detector.onnx` and `segmenter.onnx` (fp32) from the bundle's `models/` into `assets/models/`, and check them against its `SHA256SUMS`. They are git-ignored (54 MB). `assets/model/pipeline.json` and `tables.json` are committed.
 2. `flutter test` runs the 200 golden decisions (`test/golden_decisions_test.dart`). With `SG_CV_FIXTURES` set, it also runs the pixel checks against cv2 (`test/image_ops_test.dart`; make the fixtures with `tool/make_cv_fixtures.py` and opencv-python-headless 5.0.0.93).
