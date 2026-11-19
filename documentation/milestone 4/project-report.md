@@ -19,8 +19,8 @@ Milestone 3 left two problems: the model leaned on the scenery around the snake,
 | G3, against B1 on its 62 species, photos from 2022 | Top-1 −0.081 (−0.100 to −0.064), macro-F1 −0.025 (−0.043 to −0.001). **Not met** |
 | G4, non-snakes called a snake | 170 of 600 test photos (28.3%), mark at most 5% (Milestone 3's gate: 95.7%). **Not met** |
 | G5, changes after the first answer on a real clip | At most 2, mark 1 (Milestone 3's vote: 9). **Not met** |
-| Safety, WHO recall | Calibration lower bound 0.958, mark 0.95. **Met**; validation 0.9545 (0.938 to 0.969) |
-| On the phone | The app runs A3 behind the M4 front end; 5 of 5 golden photos give the reference answer on Android, in 0.5 to 1.0 s each |
+| Safety, WHO recall | Calibration lower bound 0.958, mark 0.95. **Met**; validation 0.9545 (0.938 to 0.969). Behind the app's own front end the app uses thresholds refitted for it: bound 0.954, validation 0.965 (0.953 to 0.977) (section 7.7) |
+| On the phone | The app runs A3 behind the M4 front end; 5 of 5 golden photos give the reference answer on Android, in 0.5 to 1.0 s each (run before the threshold refit of section 7.7; to repeat) |
 
 What we learned, good and bad:
 
@@ -47,7 +47,7 @@ Table 1. Goals, judged once on the shipped model by [notebook 25](../../notebook
 | G5 | Most changes of the shown species after the first answer, per real test clip | at most 1 | 2 | 9 | No |
 | Safety | WHO recall, lower bound on calibration | at least 0.95 | 0.958 | 0.952 | Yes |
 
-G3 is judged on the 11,931 validation photos uploaded from 2022 on, which B1 cannot have trained on. G5's Milestone 3 number uses its 4-of-6 vote. The safety thresholds are fitted until the calibration bound reaches 0.95, so that row shows the fit succeeded; the held-out check is validation recall, 0.954 (0.938 to 0.969). The safety number is measured behind Milestone 3's box gate on its crops, not behind the app's M4 front end. That front end drops 1.72% of validation snakes (3.1% of sea snakes and sea kraits), so WHO recall behind it is still to be measured (section 7.7).
+G3 is judged on the 11,931 validation photos uploaded from 2022 on, which B1 cannot have trained on. G5's Milestone 3 number uses its 4-of-6 vote. The safety thresholds are fitted until the calibration bound reaches 0.95, so that row shows the fit succeeded; the held-out check is validation recall, 0.954 (0.938 to 0.969). Both safety numbers use Milestone 3's crops: the calibration bound with no gate, the validation recall behind Milestone 3's box gate. The app's M4 front end crops differently and drops 1.72% of validation snakes (3.1% of sea snakes and sea kraits). On its crops A3's thresholds give a calibration bound of 0.947 without the gate and 0.937 behind it, so the app uses thresholds refitted for its front end, which reach 0.954 behind the gate (section 7.7).
 
 **Why these marks.** We set them in the Milestone 4 design on 16 November 2026, before any Milestone 4 run. G1 halves the scenery gap, the TA's main concern at the Milestone 3 review. G2 asks that over half the measurable species reach F1 0.5. G3 accepts a tie within the photographer-bootstrap interval. G4 keeps 99% of real snakes, so the gate cannot pass by dropping snakes.
 
@@ -68,7 +68,6 @@ Table 2. The Milestone 1 targets that still apply. M3 model: [Milestone 3 report
 **Not in this report.**
 - Validation loss, which was not logged; the training against validation gap is measured in accuracy instead (section 6).
 - The full checkpoint state (section 8).
-- WHO recall behind the app's own front end (section 7.7).
 - An untuned model on the full data, Grad-CAM maps, the market products and a live camera test on a real snake.
 
 Every number here is on validation photos, which also picked the epoch and the recipe. The snake test split is scored once, in Milestone 5.
@@ -387,7 +386,18 @@ The app uses "both". It misses G4 (5%) and keeps 98.3% of snakes, not the 99% we
 
 The highest-scoring lookalike of each category among the 164 non-snake validation photos the gate passes.
 
-**The app's front end differs from A3's training crops.** A3 trained on M3 crops; the app uses the M4 pair, whose boxes agree with M3's at a median IoU of 0.942 on 17,082 validation photos ([`gate_checks.csv`](../../results/m4/summary/gate_checks.csv)). On 300 validation photos drawn evenly across species (176 species, seed 42), A3's top-1 is 0.443 through the app's front end and 0.477 through its own crops, 3.3 points lower (paired exact test p = 0.052; laptop rerun of the M3 crops 0.480; [`front_end_shift.csv`](../../results/m4/summary/front_end_shift.csv)). **The safety numbers in Tables 1 and 2 were measured behind the M3 gate, on M3 crops**; the app's gate alone drops 1.72% of validation snakes.
+**The app's front end differs from A3's training crops.** A3 trained on M3 crops; the app uses the M4 pair, whose boxes agree with M3's at a median IoU of 0.942 on 17,082 validation photos ([`gate_checks.csv`](../../results/m4/summary/gate_checks.csv)). On 300 validation photos drawn evenly across species (176 species, seed 42), A3's top-1 is 0.443 through the app's front end and 0.477 through its own crops, 3.3 points lower (paired exact test p = 0.052; laptop rerun of the M3 crops 0.480; [`front_end_shift.csv`](../../results/m4/summary/front_end_shift.csv)). **The safety numbers in Tables 1 and 2 were measured on M3 crops** (the calibration bound with no gate, the validation recall behind the M3 gate); the app's gate alone drops 1.72% of validation snakes.
+
+**Safety behind the app's front end.** We ran all 7,999 calibration photos and 17,143 of the 17,151 validation photos (8 are no longer on iNaturalist) through the app's own path: the M4 detector and U-Net, the "both" gate, the crop to the cleaned mask's box and the fp32 ONNX classifier. A WHO-listed snake the gate drops counts as a miss. With A3's thresholds the calibration bound is 0.947 on the app's crops without the gate and 0.937 behind it, both under the 0.95 mark (0.958 on M3 crops). So we refitted the thresholds on those calibration photos with the same code (`decide.fit_thresholds`), raising its target in steps of 0.0025 until the bound behind the gate reached 0.95. The validation photos were not used for the refit. The app now uses the refitted thresholds (`app/assets/model/pipeline.json`). The record of the refit is in this repository; the scripts that ran it (`app_outputs.py`, `refit_search.py`, `eval_refit.py`, `apply_refit.py`) are not yet.
+
+Table 18b. A3 behind the app's front end ([`decision_app_front_end.json`](../../results/m4/full/A3/decision_app_front_end.json)).
+
+| Thresholds | Calibration bound, behind the gate | Validation WHO recall, behind the gate | False alarms (validation) | "We don't know" (validation) |
+|---|---:|---:|---:|---:|
+| A3's, fitted on M3 crops | 0.937 | 0.957 (0.943 to 0.970) | 22.3% | 2,670 |
+| Refitted for the app's front end (target 0.96) | 0.954 | 0.965 (0.953 to 0.977) | 24.9% | 2,389 |
+
+The refit lowers theta_d from 0.084 to 0.058 and raises theta_who from 0.139 to 0.192, so the app calls a photo dangerous a little sooner. That meets the safety rule behind the app's own front end and keeps the whole validation interval above 0.95, at 2.7 points more false alarms. Before the refit, the same code applied to A3's saved outputs reproduced the reported bound (0.958), and two separate implementations (`decide.py` and the app's Python reference) gave the same recall on the same photos.
 
 ### 7.8 Video: the lock (G5)
 
@@ -434,7 +444,7 @@ The Flutter app runs A3 on the phone, offline, for a photo, the live camera or a
 | Gate | Detector box score and U-Net mask area ("both", section 7.7) | same |
 | Crop | Mask closed, small parts dropped, crop to its box plus 6% | same |
 | Classifier | A3 in fp32 ONNX: species, WHO, genus and family heads and the embedding | `flutter_onnxruntime` 1.9.0 [6] |
-| Decision | DR0 with A3's thresholds, replacing the app's placeholder rule | `lib/inference/decision.dart` |
+| Decision | DR0 with A3's thresholds refitted for the app's front end (section 7.7), replacing the app's placeholder rule | `lib/inference/decision.dart` |
 | Video and live camera | The lock of section 7.8, at most 10 frames a second | `lib/inference/video_lock.dart` |
 
 The image steps are written in plain Dart following OpenCV's algorithms, so the app's tests need no native build. The cv2 wheel itself rounds `INTER_LINEAR` differently on ARM and x86. The app uses OpenCV's generic bit-exact version, which on the golden photos changes no answer and moves probabilities by under 0.001.
@@ -442,11 +452,11 @@ The image steps are written in plain Dart following OpenCV's algorithms, so the 
 | Check | Result |
 |---|---|
 | The ONNX files against the repo's PyTorch path (`check_parity.py` in the model bundle) | 0 of 17,151 saved validation outputs give a different decision; whole path on 300 validation photos: same gate, crop, top species, verdict and message on all 300, probabilities within 0.00001. fp16 files changed 1 verdict of 300, so the app uses fp32 |
-| Decision rules on 200 saved model outputs (`golden_decisions.json`) | 200 of 200: same verdict, reasons, message, genus fallback and top 3; probabilities within 1e-6 |
+| Decision rules on 200 saved model outputs (`golden_decisions.json`) | 200 of 200: same verdict, reasons, message, genus fallback and top 3; probabilities within 1e-6. Recomputed at the refitted thresholds (20 rows change verdict), checked against the Python reference (200 of 200), and passing in `flutter test` |
 | Image steps against cv2 5.0 on the 5 golden photos | Identical, except a one-level difference on under 0.1% of pixels in two INTER_AREA downscales |
-| Whole path on Android (emulator, arm64, Android 15) against `golden_photos.json` | 5 of 5: same gate, crop, top 3, verdict and message; probabilities within 0.01; 0.5 to 1.0 s per photo |
-| Video, *Naja naja* clip (Wikimedia Commons, CC BY 2.0) | "Dangerous: WHO Category 1, Spectacled (Indian) cobra" from the first frame, locked, 0 changes over 200 frames; 393 ms per frame |
-| Video, *Gonyosoma oxycephalum* clip (Wikimedia Commons, CC BY-SA 2.0) | "Not on the WHO list, *Gonyosoma oxycephalum*", first answer at 0.4 s, 0 changes over 67 frames |
+| Whole path on Android (emulator, arm64, Android 15) against `golden_photos.json` | 5 of 5: same gate, crop, top 3, verdict and message; probabilities within 0.01; 0.5 to 1.0 s per photo. Run with A3's original thresholds; at the refitted ones the five verdicts stay the same and the expected probabilities were recomputed, and the device run is still to repeat |
+| Video, *Naja naja* clip (Wikimedia Commons, CC BY 2.0) | "Dangerous: WHO Category 1, Spectacled (Indian) cobra" from the first frame, locked, 0 changes over 200 frames; 393 ms per frame. Measured with A3's original thresholds, not re-run after the refit |
+| Video, *Gonyosoma oxycephalum* clip (Wikimedia Commons, CC BY-SA 2.0) | "Not on the WHO list, *Gonyosoma oxycephalum*", first answer at 0.4 s, 0 changes over 67 frames. Measured with A3's original thresholds, not re-run after the refit |
 
 Both clips are test clips from section 7.8, and the app gives the answer notebook 24 recorded. The screen recordings are not in git, because they show other people's videos.
 
@@ -464,6 +474,7 @@ Table 21. Artifacts behind A3; SHA-256 of each in [`artifacts.md`](../../results
 | Front-end predictions for training | same | `full/frontend_preds.csv` (78,379 rows) | 11,730,336 |
 | M4 detector and U-Net | Kaggle output `puneetbajajiitm/sg-m4-gate` | `m4_front_end/detector/M4_detector.pt`, `m4_front_end/M4_segmenter.pt` | 5,407,301 and 26,796,107 |
 | Thresholds; config with seed and dataset paths | this repo | [`decision_metrics.json`](../../results/m4/full/A3/decision_metrics.json), [`config.yaml`](../../results/m4/full/A3/config.yaml) | 13,662 and 824 |
+| The app's thresholds, refitted for its front end (section 7.7) | this repo | [`decision_app_front_end.json`](../../results/m4/full/A3/decision_app_front_end.json), copied into `app/assets/model/pipeline.json` | 3,817 |
 | Metric histories, manifests, executed notebooks | this repo | `results/m4/full/` | |
 | The three models as fp32 ONNX for the app (54 MB) | the model bundle shared with the team, not in git | copied into `app/assets/models/` before a build | |
 
@@ -485,7 +496,7 @@ shasum -a 256 sg-m4-full-a3/M4_FULL/best.pt
 python scripts/verify_inference.py --models <folder>
 ```
 
-`verify_inference.py` exits with 1 if the gate's result, the top species or the verdict differs from [`verify_inference_expected.json`](../../scripts/verify_inference_expected.json), or a score moves by more than 0.01 ([`scripts/README.md`](../../scripts/README.md)).
+`verify_inference.py` exits with 1 if the gate's result, the top species or the verdict differs from [`verify_inference_expected.json`](../../scripts/verify_inference_expected.json), or a score moves by more than 0.01 ([`scripts/README.md`](../../scripts/README.md)). It applies A3's thresholds from `decision_metrics.json`, not the app's refitted ones; the app's own tests (`flutter test` and the golden files) check those.
 
 The app's checks run from `app/` ([app README](../../app/README.md)):
 
@@ -499,13 +510,13 @@ On main on 19 November, `flutter test` passes 44 tests; 2 are skipped because th
 
 ## 9. Key Findings and Bottlenecks
 
-**What worked.** Full training with unchanged settings (macro-F1 0.367 to 0.481; 56 to 87 species at F1 0.5). The scenery swap, which cut the swap gap from 0.168 to 0.063 on the subset without lowering subset scores (Table 10). Temperature scaling (ECE 0.142 to 0.040). Non-snake photos in the front end's training (people called a snake: about 93% to 8.9%). Porting the model to the phone with golden test files, so the app gives the same answers as the repo.
+**What worked.** Full training with unchanged settings (macro-F1 0.367 to 0.481; 56 to 87 species at F1 0.5). The scenery swap, which cut the swap gap from 0.168 to 0.063 on the subset without lowering subset scores (Table 10). Temperature scaling (ECE 0.142 to 0.040). Non-snake photos in the front end's training (people called a snake: about 93% to 8.9%). Porting the model to the phone with golden test files, so the app gives the same answers as the repo's model at the app's thresholds (section 7.7).
 
 **What did not.** Head crops: open-vocabulary detectors drew at most 4 right head boxes of 50. Snake-only input (A2): swap gap 0.006, but macro-F1 0.333, under the floor. Also the detail crop at full scale, the gate on lookalikes and animals, the video lock on clips with no snake, and the unknown-species flag.
 
 **Bottlenecks.** GPU time: free Kaggle T4s, 12-hour sessions and three accounts, with about 6 h a run, so one seed per recipe. Private outputs cannot be read across accounts, so the non-snake test scoring ran afterwards on a laptop (notebook 21, cell 45). Each run first cropped 38,853 photos, and SAM masks cover only 77.3% of the full list (U-Net 94.3%). On a CPU the U-Net under float16 autocast takes 3,063 ms a frame against 64 ms in float32 ([`app_cost.json`](../../results/m4/arms/app_cost.json)). A3, the M4 detector and the U-Net are 53.0 MB as float32 files, against a 25 to 30 MB budget, and the app's debug build is 339 MB with every CPU architecture; a release build has not been measured. Species photographed by at most 10 people reach 0.261 top-1, against 0.667 for the rest.
 
-**Three more tries at G4.** After the M4 runs we tried three ways to stop non-snakes, on validation only (the non-snake test split was not read again). Each rule was fitted to keep 99% of calibration snakes and scored on the 600 non-snake validation photos and the validation snakes.
+**More tries at G3 and G4.** After the M4 runs we tried four ways to stop non-snakes, on validation only (the non-snake test split was not read again). Each rule was fitted to keep 99% of calibration snakes and scored on the 600 non-snake validation photos and the validation snakes.
 
 | Rule | Non-snakes called a snake | Snakes kept |
 |---|---:|---:|
@@ -513,19 +524,22 @@ On main on 19 November, `flutter test` passes 44 tests; 2 are skipped because th
 | 1. A cut-off on the classifier's own scores (prototype cosine, logits, top probability) | 57% or more | 98.4% to 98.9% |
 | 2. A snake / not-snake head (boosted trees) on A3's embedding and scores, no gate | 24.8% (21.5% to 28.2%) | 99.2% |
 | 3. Detector and U-Net retrained with 1,317 more lookalike photos (notebook 20's protocol, all 17,151 validation snakes, where today's gate keeps 98.3%) | 28.7% | 97.7% |
+| 4. The head of rule 2 on BioCLIP's features [12] as well as A3's, no gate | 13.7% (11.0% to 16.5%) | 99.5% |
 
-Only the head improves both numbers, and it is still five times the 5% mark. Retraining the front end on more lookalikes made it worse: it drops more real snakes, most of all the eel-like ones (sea snakes and sea kraits kept: 96.9% to 92.9%). Under every rule caecilians, glass lizards, eels and earthworms are still called a snake 60% to 100% of the time: the front end and A3 were trained to find a snake's shape, and these animals share it. The scripts and results are not in this repository yet; the retraining is the private Kaggle run `puneetbajajiitm/sg-m5-gate-hard`.
+Rule 4 halves the false snakes and keeps more snakes than the gate. It calls 5.6% of the 500 Open Images non-snakes (people, ropes, T-shirts, animals) a snake, but 54% of the 100 lookalikes. The same head trained on shuffled labels fails (AUROC 0.39), so the check can fail. It keeps 99.4% of the 1,625 snakes uploaded from 2022 and all 374 older ones; BioCLIP's training data includes iNaturalist photos up to 2020 and Encyclopedia of Life images gathered in 2023, so some of these photos may be in it. BioCLIP is 599 MB, too large for the phone, so the rule is not in the app. Five BioCLIP variants were compared on the same validation photos, so its numbers are optimistic until a new non-snake test set is scored. Retraining the front end on more lookalikes made it worse: it drops more real snakes, most of all the eel-like ones (sea snakes and sea kraits kept: 96.9% to 92.9%). Under rules 1 to 3 caecilians, glass lizards, eels and earthworms are still called a snake 60% to 100% of the time: the front end and A3 were trained to find a snake's shape, and these animals share it.
+
+For G3, averaging A1's and A3's predictions ties B1 on macro-F1 (+0.009, −0.010 to +0.033) but still loses on top-1 (−0.049, −0.069 to −0.030), On the app's own crops A3 is at top-1 −0.087 against B1, and averaging each photo with its mirror image brings it back to −0.081. G3 stays missed. The scripts and results of these tries are not in this repository yet; the retraining is the private Kaggle run `puneetbajajiitm/sg-m5-gate-hard`.
 
 **Still open.**
 - G3, G4 and G5 are not met.
-- WHO recall behind the app's own front end is not measured.
+- The Android run of the five golden photos is to repeat at the refitted thresholds (section 7.10).
 - The app has run only on an emulator: speed, memory and battery on a mid-range phone, and a real snake filmed with the live camera, are still to test.
 - Regional names and first-aid text need review by native speakers, and the WHO text needs the licence decision from Milestone 3.
 
 **Plans for Milestone 5.**
-1. Measure WHO recall behind the app's front end and gate.
+1. Refit the thresholds on calibration photos whenever the app's front end changes, as in section 7.7.
 2. Fine-tune A3 on M4 front-end crops.
-3. Stop non-snakes with a separate snake / not-snake classifier trained end to end, with lookalikes as their own class, since more lookalikes in the gate's training made it worse (above); judge it once on a new non-snake test set, and reject non-snakes before the video lock.
+3. Stop non-snakes with a phone-sized snake / not-snake classifier, with lookalikes as their own class, taught by the BioCLIP head of rule 4 (more lookalikes in the gate's training made it worse, above). Judge it once on a new non-snake test set, and reject non-snakes before the video lock.
 4. Try the energy score for the unknown flag (AUROC 0.787 against 0.768).
 5. Log validation loss, save the full checkpoint state, and add two seeds of A3 if the quota allows.
 6. Rare species overfit (training macro-F1 0.888 against 0.272 on validation): add regularisation (dropout, DropPath), more photos where licences allow, and test a two-model average within the app's size and time budget. Common species underfit too: try a longer schedule or a larger input before a larger encoder, since the package is already over its size budget.
@@ -627,7 +641,7 @@ The app shows fixed first-aid cards chosen by the verdict. A reviewed English, H
 |---|---|
 | Jayesh Bansal | The Flutter app ([PR #21](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/21)); the model in the app, video check and live-camera adapter, regional names ([PR #25](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/25)); section 7.10 |
 | Vikas | Community voting backend and notebook 26 ([PR #19](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/19)); offline community voting and the live camera screen ([PR #24](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/24)); the retrieval experiment (section 10.3) |
-| Puneet Bajaj | Arms, non-snake set and gate, full training, head pilot and detail crop, video lock, summary and figures ([PR #20](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/20)); the training against validation check; the model bundle for the app; the training sections of this report |
+| Puneet Bajaj | Arms, non-snake set and gate, full training, head pilot and detail crop, video lock, summary and figures ([PR #20](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/20)); the training against validation check; the model bundle for the app; the safety refit for the app's front end and the tries at G3 and G4 after the M4 runs; the training sections of this report |
 | Manas Rastogi | PENDING |
 
 Kaggle runs: A1 on Puneet Bajaj's account, H2 on Vikas's, A3 on Jayesh Bansal's. The account owner is named as the account, not the author.
@@ -675,6 +689,7 @@ OpenAI Codex helped Jayesh Bansal draft earlier milestone notes, which the team 
 9. Akiba T. et al. (2019). [Optuna: a next-generation hyperparameter optimization framework](https://arxiv.org/abs/1907.10902). KDD.
 10. Hutter F., Hoos H., Leyton-Brown K. (2014). [An efficient approach for assessing hyperparameter importance](https://proceedings.mlr.press/v32/hutter14.html). ICML.
 11. Cormack G. V., Clarke C. L. A., Büttcher S. (2009). [Reciprocal rank fusion outperforms Condorcet and individual rank learning methods](https://cormack.uwaterloo.ca/cormack/cormacksigir09-rrf.pdf). SIGIR.
+12. Stevens S. et al. (2024). [BioCLIP: a vision foundation model for the tree of life](https://arxiv.org/abs/2311.18803). CVPR.
 
 <div style="page-break-before: always"></div>
 

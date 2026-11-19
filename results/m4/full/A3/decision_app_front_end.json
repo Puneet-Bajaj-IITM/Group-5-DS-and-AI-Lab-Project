@@ -1,0 +1,138 @@
+{
+ "what": "A3's decision thresholds refitted for the app's own front end (M4 detector and U-Net, gate 'both', crop to the cleaned mask's box), which the app uses instead of the thresholds in decision_metrics.json",
+ "why": "behind the app's front end the shipped thresholds give a WHO recall lower bound of 0.9373 on calibration, under the 0.95 mark",
+ "how": "all 7,999 calibration photos run through the app's path (fp32 ONNX); serpentguard.decide.fit_thresholds on those outputs with its WHO recall target raised in steps of 0.0025 from 0.95 until the lower bound with the gate (a WHO-listed snake the gate drops counts as a miss) reached 0.95; validation not read",
+ "thresholds_shipped": {
+  "temperature": 1.8063878832523812,
+  "temperature_who": 0.900229169416258,
+  "theta_d": 0.08444897149976041,
+  "theta_who": 0.13886448924583186,
+  "tau_unknown": 0.6049401338910584,
+  "theta_conf": 0.2893185279317441,
+  "theta_v": 0.5,
+  "theta_genus": 0.5
+ },
+ "thresholds_app": {
+  "temperature": 1.804163182698958,
+  "temperature_who": 0.9080483666259787,
+  "theta_d": 0.05750810697252624,
+  "theta_who": 0.1915754651475782,
+  "tau_unknown": 0.6009883119502198,
+  "theta_conf": 0.2869610547177443,
+  "theta_v": 0.5,
+  "theta_genus": 0.5
+ },
+ "target_used": 0.96,
+ "calibration_behind_gate": {
+  "shipped": {
+   "bound_behind_gate": 0.9372819177500531,
+   "recall_behind_gate": 0.9540636042402827,
+   "false_alarm_calibration": 0.18878648233486944,
+   "unknown_share_calibration": 0.11551443930491312
+  },
+  "app": {
+   "target": 0.96,
+   "bound_behind_gate": 0.9538717531935532,
+   "recall_behind_gate": 0.9681978798586572,
+   "false_alarm_calibration": 0.21428571428571427,
+   "unknown_share_calibration": 0.10163770471308914
+  }
+ },
+ "validation_behind_gate": {
+  "shipped": {
+   "photos": 17143,
+   "who_listed": 2131,
+   "who_recall": 0.9568277803847959,
+   "who_recall_ci": [
+    0.9425398465817628,
+    0.9698048001580216
+   ],
+   "false_alarm": 0.2229668674698795,
+   "verdicts": {
+    "total": 17143,
+    "dangerous": 6633,
+    "not_listed": 7840,
+    "unknown": 2670,
+    "reasons": {
+     "who_listed_mass": 4751,
+     "who_head": 3652,
+     "top_species_dangerous": 4702,
+     "venomous_family_mass": 3790,
+     "dangerous_genus": 16,
+     "no_snake": 294,
+     "unclear_between_species": 2106,
+     "unfamiliar": 421,
+     "poor_image": 0
+    }
+   }
+  },
+  "refit": {
+   "photos": 17143,
+   "who_listed": 2131,
+   "who_recall": 0.9652745190051619,
+   "who_recall_ci": [
+    0.9527880883384973,
+    0.976616259078184
+   ],
+   "false_alarm": 0.24947289156626506,
+   "verdicts": {
+    "total": 17143,
+    "dangerous": 7015,
+    "not_listed": 7739,
+    "unknown": 2389,
+    "reasons": {
+     "who_listed_mass": 5298,
+     "who_head": 3295,
+     "top_species_dangerous": 4702,
+     "venomous_family_mass": 3790,
+     "dangerous_genus": 15,
+     "no_snake": 294,
+     "unclear_between_species": 1881,
+     "unfamiliar": 303,
+     "poor_image": 0
+    }
+   }
+  }
+ },
+ "unknown_species_behind_gate": {
+  "shipped": {
+   "total": 451,
+   "dangerous": 199,
+   "not_listed": 147,
+   "unknown": 105,
+   "reasons": {
+    "who_listed_mass": 137,
+    "who_head": 99,
+    "top_species_dangerous": 131,
+    "venomous_family_mass": 107,
+    "dangerous_genus": 0,
+    "no_snake": 2,
+    "unclear_between_species": 67,
+    "unfamiliar": 63,
+    "poor_image": 0
+   }
+  },
+  "refit": {
+   "total": 451,
+   "dangerous": 216,
+   "not_listed": 142,
+   "unknown": 93,
+   "reasons": {
+    "who_listed_mass": 164,
+    "who_head": 82,
+    "top_species_dangerous": 131,
+    "venomous_family_mass": 107,
+    "dangerous_genus": 0,
+    "no_snake": 2,
+    "unclear_between_species": 58,
+    "unfamiliar": 55,
+    "poor_image": 0
+   }
+  }
+ },
+ "photos_missing_from_inaturalist": {
+  "validation": 8,
+  "calibration": 0,
+  "unknown": 0
+ }
+}

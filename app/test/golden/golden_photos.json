@@ -56,24 +56,24 @@
     "gate": {
      "rule": "both",
      "snake": true,
-     "box_conf": 0.46034255623817444,
+     "box_conf": 0.4603417217731476,
      "mask_area": 0.1878734693877551
     },
     "crop": "mask box",
     "top3": [
      {
       "species": "Naja naja",
-      "probability": 0.9975960565744113,
+      "probability": 0.9976255393971313,
       "who_category": "1"
      },
      {
       "species": "Naja kaouthia",
-      "probability": 0.0002791159072023191,
+      "probability": 0.00027632747564578414,
       "who_category": "1"
      },
      {
       "species": "Naja oxiana",
-      "probability": 0.00022130615342191097,
+      "probability": 0.00021903024801139608,
       "who_category": "2"
      }
     ],
@@ -143,24 +143,24 @@
     "gate": {
      "rule": "both",
      "snake": true,
-     "box_conf": 0.8356838822364807,
+     "box_conf": 0.8356838226318359,
      "mask_area": 0.07568181818181818
     },
     "crop": "mask box",
     "top3": [
      {
       "species": "Coelognathus helena",
-      "probability": 0.9953016112349751,
+      "probability": 0.9953521021878966,
       "who_category": "not_listed"
      },
      {
       "species": "Platyceps josephi",
-      "probability": 0.0007617843889871035,
+      "probability": 0.0007551156438783738,
       "who_category": "not_listed"
      },
      {
       "species": "Coelognathus radiatus",
-      "probability": 0.0004678958915392386,
+      "probability": 0.0004635177742703556,
       "who_category": "not_listed"
      }
     ],
@@ -225,24 +225,24 @@
     "gate": {
      "rule": "both",
      "snake": true,
-     "box_conf": 0.5404952764511108,
+     "box_conf": 0.5404959917068481,
      "mask_area": 0.0938978978978979
     },
     "crop": "mask box",
     "top3": [
      {
       "species": "Elaphe taeniura",
-      "probability": 0.2631256151868247,
+      "probability": 0.26378128966831454,
       "who_category": "not_listed"
      },
      {
       "species": "Dendrelaphis tristis",
-      "probability": 0.06218878518288804,
+      "probability": 0.062233289214323265,
       "who_category": "not_listed"
      },
      {
       "species": "Ptyas mucosa",
-      "probability": 0.0564014723870468,
+      "probability": 0.05643479832105755,
       "who_category": "not_listed"
      }
     ],
@@ -309,24 +309,24 @@
     "gate": {
      "rule": "both",
      "snake": true,
-     "box_conf": 0.24452807009220123,
+     "box_conf": 0.24452832341194153,
      "mask_area": 0.045130666666666666
     },
     "crop": "mask box",
     "top3": [
      {
       "species": "Ahaetulla oxyrhynca",
-      "probability": 0.22709924751041707,
+      "probability": 0.2272035533615194,
       "who_category": "not_listed"
      },
      {
       "species": "Ahaetulla prasina",
-      "probability": 0.20853987628335727,
+      "probability": 0.20861416634005886,
       "who_category": "not_listed"
      },
      {
       "species": "Ahaetulla borealis",
-      "probability": 0.19913743858143348,
+      "probability": 0.19919725731113744,
       "who_category": "not_listed"
      }
     ],
@@ -337,7 +337,7 @@
     "message": "we don't know: unclear between species",
     "genus_fallback": {
      "genus": "Ahaetulla",
-     "probability": 0.945963538696216,
+     "probability": 0.9459658669238186,
      "who_listed": false
     }
    }
@@ -365,7 +365,7 @@
     "gate": {
      "rule": "both",
      "snake": false,
-     "box_conf": 0.5355983376502991,
+     "box_conf": 0.535597562789917,
      "mask_area": 0.0
     },
     "crop": null,

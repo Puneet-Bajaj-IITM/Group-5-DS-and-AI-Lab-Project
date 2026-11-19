@@ -25,6 +25,7 @@ The course asks for this log to be updated every week with each member's contrib
 | Training against validation check | A3 on its own training photos against validation photos, and an A1 and A3 average ([`check_train_vs_val.py`](scripts/check_train_vs_val.py), [`check_ensemble.py`](scripts/check_ensemble.py)) | Puneet Bajaj | 18 Nov 2026 | Pending team review |
 | Model bundle for the app | A3, the M4 detector and the U-Net as fp32 ONNX with their settings, a Python reference of the whole path and golden test files ([`app/test/golden/`](app/test/golden)); checked against the repo: 0 of 17,151 decisions and 0 of 300 photos differ | Puneet Bajaj | 18 Nov 2026 | Pending team review |
 | Milestone 4 report | Training sections of the [report](documentation/milestone%204/project-report.md) | Puneet Bajaj | 17 to 19 Nov 2026 | Pending team review |
+| Safety behind the app's front end | All calibration and validation photos run through the app's own path; A3's thresholds give a calibration bound of 0.937 there, so they were refitted (bound 0.954, validation WHO recall 0.965) and put into `app/assets/model/pipeline.json`, with the golden test answers recomputed ([record](results/m4/full/A3/decision_app_front_end.json), [report section 7.7](documentation/milestone%204/project-report.md#77-the-no-snake-gate-g4)) | Puneet Bajaj | 19 to 20 Nov 2026 | Pending team review |
 
 ### Member contribution summary
 
@@ -32,7 +33,7 @@ The course asks for this log to be updated every week with each member's contrib
 |---|---|---|---|
 | Jayesh Bansal | Flutter app (Week 4); the model in the app, video check, live-camera adapter and regional names; report section 7.10. A3's full run is on his Kaggle account | [project-report.md, section 7.10](documentation/milestone%204/project-report.md#710-the-model-in-the-app), [PR #21](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/21), [PR #25](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/25) | Jayesh Bansal |
 | Vikas | Community voting backend, notebook 26, offline community voting and the live camera screen | [PR #19](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/19), [PR #24](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/24) | |
-| Puneet Bajaj | Milestone 4 goals, non-snake set and gate, background arms, full training, head pilot and detail crop, video lock, summary and figures; the training against validation check; the model bundle for the app; the report's training sections | [PR #20](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/20), [project-report.md](documentation/milestone%204/project-report.md) | |
+| Puneet Bajaj | Milestone 4 goals, non-snake set and gate, background arms, full training, head pilot and detail crop, video lock, summary and figures; the training against validation check; the model bundle for the app; the safety refit for the app's front end and the tries at G3 and G4 after the M4 runs; the report's training sections | [PR #20](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/20), [project-report.md](documentation/milestone%204/project-report.md) | |
 | Manas Rastogi | TO BE FILLED BY Manas Rastogi | | |
 
 ### Milestone 4 acknowledgment
