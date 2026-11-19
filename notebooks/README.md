@@ -39,3 +39,15 @@ The Milestone 3 notebooks find the team's datasets the same way. Several also re
 | 14 | [`14_tuning`](14_tuning.ipynb) | Which learning rate, weight decay, ArcFace margin and augmentation strength work best, and whether the gain holds when the best settings are retrained | GPU T4 x2, internet on |
 | 15 | [`15_safety`](15_safety.ipynb) | How outputs become a verdict: thresholds, the decision rule study, whether the model looks at the snake or the scenery, unknown species and video stability | GPU T4, internet on |
 | 16 | [`16_app`](16_app.ipynb) | The whole app from a photo or clip to a verdict and WHO passages, the video demo, passage retrieval, and package size and speed on a laptop | local CPU |
+
+## Milestone 4 community voting
+
+| # | Notebook | Answers | Runs on |
+|---|---|---|---|
+| 26 | [`26_community_voting`](26_community_voting.ipynb) | Taxonomic Bayesian species/genus consensus: eight vote scenarios, replacement and repeat submissions, invalid votes, genus-only evidence and threshold boundaries; saved with executed outputs | local CPU; Python standard library |
+
+Run from the repository root with `.venv/bin/python scripts/run_voting_notebook.py`.
+The runner executes this notebook's plain Python cells in order, saves actual
+stream outputs and execution counts, and stops without saving if an assertion
+fails. It does not require Jupyter. The notebook validates the voting algorithm;
+the SQLAlchemy service and Android SQLite queue implement application storage and sync.

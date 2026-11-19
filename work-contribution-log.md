@@ -5,6 +5,14 @@ Team: Group 5, DS and AI Lab Project. Team lead Jayesh Bansal; members Vikas, Pu
 
 The course asks for this log to be updated every week with each member's contributions. Add each new week above the previous one. Members check their own rows, and everyone also signs the acknowledgment page of each milestone report.
 
+## Week 5: 15 to 21 November 2026 (Milestone 4, community voting and app integration)
+
+### Contribution entries
+
+| Work item | Contribution / evidence | Contributor(s) | Date or period | Reviewed / confirmed by |
+|---|---|---|---|---|
+| Community voting notebook execution | Ran [notebook 26](notebooks/26_community_voting.ipynb) with the project Python environment and saved its actual outputs and execution counts; checked eight scenarios, species/genus fallback, vote replacement, repeat submissions, invalid inputs and threshold boundaries. Added its [README row](notebooks/README.md#milestone-4-community-voting) and a standard-library [runner](scripts/run_voting_notebook.py). | Vikas | 19 Nov 2026 | Pending team review |
+
 ## Week 3: 1 to 7 November 2026 (Milestone 3, model selection, baselines, tuning, end-to-end pipeline)
 
 ### Contribution entries
