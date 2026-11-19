@@ -23,7 +23,7 @@ The course asks for this log to be updated every week with each member's contrib
 | Jayesh Bansal | Flutter app (Week 4); the model in the app, video check, live-camera adapter and regional names; report section 8. A3's full run is on his Kaggle account | [project-report.md, section 8](documentation/milestone%204/project-report.md#8-the-model-in-the-app), [PR #21](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/21), [PR #25](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/25) | Jayesh Bansal |
 | Vikas | Community voting backend, notebook 26, offline community voting and the live camera screen | [PR #19](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/19), [PR #24](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/24) | |
 | Puneet Bajaj | TO BE FILLED BY Puneet Bajaj | [PR #20](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/20) | |
-| Manas Rastogi | TO BE FILLED BY Manas Rastogi | | |
+| Manas Rastogi | RAG chat text feature | [PR #22](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/22) | Manas Rastogi |
 
 ### Milestone 4 acknowledgment
 
@@ -32,7 +32,7 @@ The course asks for this log to be updated every week with each member's contrib
 | Jayesh Bansal | 24f100185 | ![Jayesh Bansal](https://drive.google.com/uc?export=download&id=1imepTm_t9vgJVL367tWU-LPYcLq9Zet0) | 19/11/2026 |
 | Vikas | 23f3001800 | | |
 | Puneet Bajaj | 23f3002416 | | |
-| Manas Rastogi | 22f3001477 | | |
+| Manas Rastogi | 22f3001477 | ![Manas Rastogi](https://drive.google.com/uc?export=download&id=1j9vC0yjI-eb3lGfETUdnK3GAXq77__lT) | 19/11/2026 |
 
 ## Week 4: 8 to 14 November 2026 (Milestone 4, model training and the phone app)
 
