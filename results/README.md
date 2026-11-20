@@ -14,12 +14,14 @@ Start with [`m4/summary/goals.csv`](m4/summary/goals.csv). It lists the Mileston
 | How often does the front end call a non-snake a snake? | `m4/summary/gates.csv`, `gate_categories.csv`, `gate_snake_groups.csv`, `gate_checks.csv` | `m4/gate/` |
 | Did head crops help? | `m4/summary/heads.csv`, `head_pilot.csv` | `m4/heads/` |
 | Does the video lock steady the answer? | `m4/summary/video.csv`, `video_clips.csv`, `video_tuning.csv`, `video_negatives.csv`, `front_end_shift.csv` | `m4/video/A3/`, `m4/video/M3/` |
+| Are the errors bias or variance? | `m4/bias_variance/train_vs_val.json`, `ensemble.json` | `scripts/check_train_vs_val.py`, `scripts/check_ensemble.py` |
 
 ## Folders
 
 Result JSON files longer than 200 lines are stored on one line, without indentation; any JSON reader loads them. Their values are as the runs wrote them, and each full run's `manifest.json` keeps the SHA-256 of the original files under `copied_original`. A3's `decision_metrics.json` is kept byte for byte, because notebook 24 and `scripts/verify_inference.py` compare it with the model folder's copy.
 
 - `m4/arms/`: the background arms on the experiment subset, one folder per arm (`M4_A1` to `M4_A3`), the re-scored Milestone 3 model (`A0_check`), the pick (`arms.csv`, `pick.json`), the app's time per frame (`app_cost.json`), and each arm's run of notebook 18 in `executed/`.
+- `m4/full/A3/decision_app_front_end.json`: the decision thresholds the app uses, refitted on the calibration photos run through the app's own front end, with the calibration and validation numbers behind its gate (report section 7.7).
 - `m4/full/`: the three full-training runs (`A1`, `H2`, `A3`), each with its config, training curve, metrics and a `manifest.json` that lists the SHA-256 of everything kept outside the repo, and each run of notebook 21 in `executed/`.
 - `m4/gate/`: the no-snake gate, before and after the detector and U-Net were retrained with non-snake photos, and the one scoring of the non-snake test split.
 - `m4/heads/`: the head and tail pilot (`pilot.csv`, `pilot_retry.csv`) and the detail-crop arm (`M4_H2`).

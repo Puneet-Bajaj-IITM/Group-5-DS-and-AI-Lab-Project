@@ -41,13 +41,19 @@ void main() {
     expect(id.top.first.species.name, 'Daboia russelii');
   });
 
-  test('a confident harmless species is not listed, an unsure one is unknown', () {
+  test('a confident harmless species is not listed; an unsure, evenly spread one is dangerous', () {
     final id = demo.forSpecies(byName(catalog, 'Coelognathus helena').id, confidence: 0.95);
     expect(id.verdict, Verdict.notListed);
     expect(id.message, 'not on the WHO list, still keep away');
-    final unsure = demo.forSpecies(byName(catalog, 'Coelognathus helena').id, confidence: 0.2);
-    expect(unsure.verdict, Verdict.unknown);
-    expect(unsure.reason, 'Unclear between species');
+    // The demo spreads the other 80% evenly, so the 16 WHO-listed species hold 16 x 0.8 / 183 = 7.0% of it.
+    // That is above theta_d (0.0575 since the refit for the app's front end), and danger comes before "unclear".
+    // "We don't know" stays reachable; the next test checks every verdict occurs.
+    const confidence = 0.2;
+    final listed = rules.tables.who.where((w) => w > 0).length;
+    expect(listed, 16);
+    expect(listed * (1 - confidence) / (catalog.all.length - 1), greaterThanOrEqualTo(rules.thresholds.thetaD));
+    final unsure = demo.forSpecies(byName(catalog, 'Coelognathus helena').id, confidence: confidence);
+    expect(unsure.verdict, Verdict.dangerous);
   });
 
   test('demo classifier is deterministic and every verdict is reachable', () {
