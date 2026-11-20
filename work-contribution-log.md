@@ -21,6 +21,8 @@ The course asks for this log to be updated every week with each member's contrib
 | Real model in the app | Ported the model bundle's `reference_pipeline.py` to Dart and connected the fp32 A3 classifier, detector and segmenter with ONNX Runtime; replaced the placeholder decision rule with DR0 at A3's thresholds (200/200 [golden decisions](app/test/golden_decisions_test.dart)); image steps matched to cv2 with the report's documented INTER_AREA rounding exceptions ([test](app/test/image_ops_test.dart)); Android decoding fix; 5/5 [golden photos on the Android emulator](app/integration_test/golden_photos_test.dart). [Section](documentation/milestone%204/project-report.md#8-the-model-in-the-app), [PR #25](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/25) | Jayesh Bansal | 18 to 19 Nov 2026 | Pending team review |
 | Video check and live camera | Video check screen (up to 10 frames a second, M4 video lock) and the live-camera adapter for PR #24's screen; demo on two Wikimedia clips: cobra "Dangerous, WHO Category 1" with 0 changes, red-tailed ratsnake "Not on the WHO list" ([section](documentation/milestone%204/project-report.md#8-the-model-in-the-app)) | Jayesh Bansal | 19 Nov 2026 | Pending team review |
 | Regional names | Names in up to 7 Indian languages for 9 of the 16 WHO-listed species in `species.json`; draft until native speakers check them ([list](app/tool/regional_names.csv)) | Jayesh Bansal | 19 Nov 2026 | Pending team review |
+| Flutter startup and branding | Built the animated splash screen with a fallback image, Skip, automatic navigation, and direct access to snakebite SOS. Refined the transition from the fallback image to video. Loaded the species catalog and local store in parallel and deferred building secondary tabs until first use. Added Android and iOS launcher icons, source artwork and video, and [three widget tests](app/test/widget_test.dart) for Skip, automatic navigation, and SOS access. [PR #22](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/22) | Manas Rastogi | 18 Nov 2026 | Manas Rastogi |
+| Android CameraX build fix | Added the AndroidX concurrent-futures dependency to the CameraX plugin compile classpath so javac can resolve CallbackToFutureAdapter. [PR #28](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/28) | Manas Rastogi | 20 Nov 2026 | Manas Rastogi |
 
 ### Member contribution summary
 
@@ -29,7 +31,7 @@ The course asks for this log to be updated every week with each member's contrib
 | Jayesh Bansal | Flutter app (Week 4); the model in the app, video check, live-camera adapter and regional names; report section 8. A3's full run is on his Kaggle account | [project-report.md, section 8](documentation/milestone%204/project-report.md#8-the-model-in-the-app), [PR #21](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/21), [PR #25](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/25) | Jayesh Bansal |
 | Vikas | Community backend and curator export, executed notebook 26, offline SQLite review/sync, live-camera screen, supplied Python model-bundle verification, M3 slide corrections, M4 team presentation PDF and Markdown report updates. H2 ran on his Kaggle account; that fact alone is not training-code authorship. | [PR #19](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/19), [PR #24](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/24), [M4 report](documentation/milestone%204/project-report.md), [slides](documentation/milestone%204/SerpentGuard_AI_M4_Presentation.pdf) | Pending review |
 | Puneet Bajaj | Background arms, non-snake set/gate, full training, head/detail-crop studies, video lock, summary tables/figures and model bundle, as recorded in the M4 report | [PR #20](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/20), [M4 report](documentation/milestone%204/project-report.md) | Pending review |
-| Manas Rastogi | TO BE FILLED BY Manas Rastogi | | |
+| Manas Rastogi | Built the animated Flutter splash screen with Skip and direct access to snakebite SOS. Improved startup and video playback, added launcher branding for Android and iOS, wrote three widget tests, and fixed the Android CameraX build. | [PR #22](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/22), [PR #28](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/28) | Manas Rastogi |
 
 ### Milestone 4 acknowledgment
 
@@ -38,7 +40,7 @@ The course asks for this log to be updated every week with each member's contrib
 | Jayesh Bansal | 24f100185 | ![Jayesh Bansal](https://drive.google.com/uc?export=download&id=1imepTm_t9vgJVL367tWU-LPYcLq9Zet0) | 19/11/2026 |
 | Vikas | 23f3001800 | | |
 | Puneet Bajaj | 23f3002416 | | |
-| Manas Rastogi | 22f3001477 | | |
+| Manas Rastogi | 22f3001477 | ![Manas Rastogi](https://drive.google.com/uc?export=download&id=1j9vC0yjI-eb3lGfETUdnK3GAXq77__lT) | 19/11/2026 |
 
 ## Week 4: 8 to 14 November 2026 (Milestone 4, model training and the phone app)
 
