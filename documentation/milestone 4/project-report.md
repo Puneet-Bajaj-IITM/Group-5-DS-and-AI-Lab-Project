@@ -697,6 +697,12 @@ The course policy on AI use ([ai_policy.html](https://bsc-iitm.github.io/dsai-la
 
 OpenAI Codex helped Jayesh Bansal draft earlier milestone notes, which the team reviewed and rewrote. Claude Code (Anthropic) helped him write the app code in PR #21 and PR #25, and section 7.10. The original Android emulator and video checks come from PR #25; the threshold refit and updated decision fixtures come from PR #26 and its saved records.
 
+
+| Tool and problem | Prompt (paraphrased) | Relevant response | Action taken |
+|---|---|---|---|
+| Claude Code: plan for Milestone 4 | Make the model predict without learning the background, beat the existing solution on the classes it covers, stop calling non-snakes a snake, and show a video verdict only when confident | The goals G1 to G5 with pass marks, the scenery-swap arms A1 to A3, a non-snake photo set with a retrained gate, and a pooled video lock | We agreed the goals before any run, ran the arms on the subset and picked the shipped recipe by a fixed rule|
+| Claude Code: full training | Run the full training on Kaggle across the team's accounts | Training notebooks, a short trial pass before each full run, and a separate script that rechecks each run's outputs | Three full runs were completed and checked; A3 was shipped by the fixed rule (sections 4 and 7) |
+
 ### Vikas: OpenAI Codex
 
 The significant prompts below summarize the requests used in this work; they are not presented as a verbatim transcript.
@@ -736,5 +742,5 @@ Each team member signs one row after the review. By signing, each member confirm
 |---|---|---|---|
 | Jayesh Bansal | 24f100185 | PENDING (re-sign: sections added after the first signature) | PENDING |
 | Vikas | 23f3001800 | PENDING | PENDING |
-| Puneet Bajaj | 23f3002416 | PENDING | PENDING |
+| Puneet Bajaj | 23f3002416 | Puneet Bajaj | Puneet Bajaj |
 | Manas Rastogi | 22f3001477 | PENDING (review expanded report; earlier acknowledgment is in the work log) | PENDING |
