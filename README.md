@@ -24,7 +24,7 @@ Each member's weekly contributions are in [work-contribution-log.md](work-contri
 | 1 | Problem definition and literature review | 22 Oct | Submitted | [Report](documentation/milestone%201/project-report.md) · [Slides](documentation/milestone%201/assets/SerpentGuard_AI_Group5_Presentation.pdf) |
 | 2 | Dataset preparation | 29 Oct | Submitted | [Report](documentation/milestone%202/project-report.md) · [Slides](documentation/milestone%202/SerpentGuard_AI_M2_Presentation.pdf) (the slides show the dataset before the licence filter; the report's numbers are the final ones) · [Notebooks](notebooks/README.md) |
 | 3 | Model architecture and end-to-end pipeline | 5 Nov | Submitted | [Report](documentation/milestone%203/project-report.md) · [Slides](documentation/milestone%203/SerpentGuard_AI_M3_Presentation.pdf) · [Notebooks](notebooks/README.md) |
-| 4 | Model training | 19 Nov | In review | [Report](documentation/milestone%204/project-report.md) · [Results](results/README.md) · [Figures](documentation/milestone%204/assets/figures.md) · [Notebooks](notebooks/README.md#milestone-4) |
+| 4 | Model training | 19 Nov | In review | [Report](documentation/milestone%204/project-report.md) · [Slides PDF](documentation/milestone%204/SerpentGuard_AI_M4_Presentation.pdf) · [Results](results/README.md) · [Notebooks](notebooks/README.md#milestone-4) |
 | 5 | Evaluation and analysis | 26 Nov | Planned | |
 | 6 | Deployment and documentation | 10 Dec | Planned | |
 
@@ -38,7 +38,7 @@ documentation/          milestone reports and slides (one folder per milestone)
 notebooks/              the notebook chain, from raw download to full training, the video lock and the summary
 src/                    the serpentguard package the notebooks share
 results/                Milestone 4's result files and summary tables, and the Milestone 3 files other notebooks read; start at results/README.md
-scripts/                four CPU scripts behind three measurements, and verify_inference.py (see scripts/README.md)
+scripts/                CPU scripts: four measurements, verify_inference.py and two bias-variance checks (see scripts/README.md)
 data/                   class table and processing reports (images live on Kaggle, never in git)
 work-contribution-log.md  weekly per-member contributions
 ```

@@ -74,17 +74,17 @@
   "scorer": "head",
   "prototype_set": "plain",
   "thresholds": {
-   "temperature": 1.8063878832523812,
-   "temperature_who": 0.900229169416258,
-   "theta_d": 0.08444897149976041,
-   "theta_who": 0.13886448924583186,
-   "tau_unknown": 0.6049401338910584,
-   "theta_conf": 0.2893185279317441,
+   "temperature": 1.804163182698958,
+   "temperature_who": 0.9080483666259787,
+   "theta_d": 0.05750810697252624,
+   "theta_who": 0.1915754651475782,
+   "tau_unknown": 0.6009883119502198,
+   "theta_conf": 0.2869610547177443,
    "theta_v": 0.5,
    "theta_genus": 0.5
   },
   "arcface_s": 30.0,
-  "source": "decision_metrics.json of the A3 run"
+  "source": "results/m4/full/A3/decision_app_front_end.json: A3's thresholds refitted on the 7,999 calibration photos run through this app's front end, so the WHO recall lower bound behind the gate is 0.95"
  },
  "front_end_box_floor": 0.001,
  "source_weights_sha256": {

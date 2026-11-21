@@ -44,24 +44,24 @@ PYTHONPATH=src .venv/bin/python scripts/evaluate_hybrid_retrieval.py \
 
 | Area | Integration and device check |
 |---|---|
-| Camera and models | Wire the app’s camera analyzer to the matched detector, segmenter, and A3 classifier. Verify crop preprocessing and output parity before timing the live pipeline. [CameraX image analysis](https://developer.android.com/media/camera/camerax/analyze) · [ONNX Runtime Mobile](https://onnxruntime.ai/docs/tutorials/mobile/) |
+| Camera and models | The detector, segmenter and A3 classifier are wired in PR #25. Repeat device goldens and live/video checks after the threshold refit in PR #26 before timing the live pipeline. [CameraX image analysis](https://developer.android.com/media/camera/camerax/analyze) · [ONNX Runtime Mobile](https://onnxruntime.ai/docs/tutorials/mobile/) |
 | Regional cards | Bundle the reviewed pack and select the voice for the displayed text. Check `Voice.isNetworkConnectionRequired()` and installation state. Keep the card visible when an offline voice is unavailable. Test all four languages in airplane mode. [Android TTS voice API](https://developer.android.com/reference/android/speech/tts/Voice) |
 | Community voting | Reuse the photo/video sighting upload contract. Queue evidence and votes in SQLite, then test capture, process restart, reconnect, and a conflicting vote edit on a physical phone. [Voting capture contract](voting-capture.md) |
 | BLE, hospital lookup, and SOS | Integrate and test in the Android checkout. Validate BLE payload size, permissions, duplicate handling and TTL independently from inference. Use a reviewed facility dataset with source dates, and distinguish straight-line proximity from road routing. Exercise SOS with test destinations. |
 
-The Android source and the selected model weights are external inputs to this checkout. The first device pass depends on both.
+Android/Flutter source is in `app/`. The selected ONNX weights remain external, ignored inputs under `app/assets/models/`. The recorded checks used an emulator; the post-refit device pass and physical-phone acceptance remain pending.
 
 ### Running the frontend
 
-With Jayesh's Android source, open its Gradle project in Android Studio and run the debug build on an emulator or an attached phone. The project’s Gradle wrapper can also run `assembleDebug`. A debug APK can be installed with `adb install <path-to-debug.apk>`. For local voting tests over USB, `adb reverse tcp:8080 tcp:8080` forwards the phone’s port to a backend reachable at host port 8080. With Windows ADB and a WSL backend, verify the server first from Windows at `http://127.0.0.1:8080`. [Android build commands](https://developer.android.com/build/building-cmdline) · [Local server forwarding](https://developer.android.com/develop/ui/views/layout/webapps/access-local-server)
+Run the Flutter project from `app/` with `flutter pub get` and `flutter run` after copying the ignored model files into `app/assets/models/`. See the [app README](../app/README.md) for model checks, emulator/USB setup and voting accounts. Bluetooth needs two physical Android phones for its acceptance test.
 
-This checkout can run the voting backend in WSL and the Python inference prototype once the listed model artifacts are available. It contains no Android project or APK.
+This checkout contains the Flutter app and can run the voting backend in WSL. Capture and cached review work offline; shared votes sync when the backend is reachable. Generated APKs, models and archives stay out of Git.
 
 ## Phase 5: validation evidence and open items
 
 | Evidence | Status |
 |---|---|
-| Human and non-snake rejection | M4 false triggers were 170/600 (28.3%) versus 574/600 (95.7%) for M3. End-to-end WHO recall through the M4 front end remains unmeasured. |
+| Human and non-snake rejection | M4 false triggers were 170/600 (28.3%) versus 574/600 (95.7%) for M3. With thresholds refitted for the M4 front end, validation WHO recall is 0.965 (0.953–0.977), with a calibration lower bound of 0.954 and false alarms of 24.9%; see [`decision_app_front_end.json`](../results/m4/full/A3/decision_app_front_end.json). The post-refit device run remains pending. |
 | Larger training set | A3 trained on 49,782 eligible photos for 30 epochs. Validation top-1 was 66.4%. The proposed 85,067-photo experiment has no result. |
 | Sub-Center ArcFace | The K=1 versus K=3 comparison awaits the K=3 run. |
 | Hybrid retrieval | The 59-question English comparison above is reproducible. Regional search and the whole-app size target remain unverified. |
