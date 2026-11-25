@@ -4,7 +4,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../models/verdict.dart';
 import '../state/app_state.dart';
 import '../util/geo.dart';
 import '../widgets/common.dart';
@@ -74,7 +73,7 @@ class _MapScreenState extends State<MapScreen> {
               height: 40,
               child: _Pin(
                 icon: Icons.campaign_rounded,
-                color: r.alert.verdict == Verdict.dangerous
+                color: r.alert.verdict.warns
                     ? const Color(0xFFB3261E)
                     : const Color(0xFFE8A317),
               ),

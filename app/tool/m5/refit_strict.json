@@ -1,0 +1,333 @@
+{
+ "note": "POST-TEST change for the app copy; calibration fit, validation check only; test never read",
+ "variant": "KD flip + prior",
+ "tau": 0.5,
+ "mark": 0.97,
+ "search": [
+  {
+   "target": 0.955,
+   "bound_behind_gate": 0.9540796112422782,
+   "recall_behind_gate": 0.9681978798586572,
+   "false_alarm_calibration": 0.1870967741935484,
+   "unknown_share_calibration": 0.08651081385173147,
+   "thresholds": {
+    "temperature": 1.5851841617545683,
+    "temperature_who": 0.7729837681215675,
+    "theta_d": 0.09202129880019957,
+    "theta_who": Infinity,
+    "tau_unknown": 0.6611798278209527,
+    "theta_conf": 0.354303269142032,
+    "theta_v": 0.5,
+    "theta_genus": 0.5
+   }
+  },
+  {
+   "target": 0.9575,
+   "bound_behind_gate": 0.9540796112422782,
+   "recall_behind_gate": 0.9681978798586572,
+   "false_alarm_calibration": 0.1870967741935484,
+   "unknown_share_calibration": 0.08651081385173147,
+   "thresholds": {
+    "temperature": 1.5851841617545683,
+    "temperature_who": 0.7729837681215675,
+    "theta_d": 0.09202129880019957,
+    "theta_who": Infinity,
+    "tau_unknown": 0.6611798278209527,
+    "theta_conf": 0.354303269142032,
+    "theta_v": 0.5,
+    "theta_genus": 0.5
+   }
+  },
+  {
+   "target": 0.96,
+   "bound_behind_gate": 0.9540796112422782,
+   "recall_behind_gate": 0.9681978798586572,
+   "false_alarm_calibration": 0.1870967741935484,
+   "unknown_share_calibration": 0.08651081385173147,
+   "thresholds": {
+    "temperature": 1.5851841617545683,
+    "temperature_who": 0.7729837681215675,
+    "theta_d": 0.09202129880019957,
+    "theta_who": Infinity,
+    "tau_unknown": 0.6611798278209527,
+    "theta_conf": 0.354303269142032,
+    "theta_v": 0.5,
+    "theta_genus": 0.5
+   }
+  },
+  {
+   "target": 0.9625,
+   "bound_behind_gate": 0.9540796112422782,
+   "recall_behind_gate": 0.9681978798586572,
+   "false_alarm_calibration": 0.1870967741935484,
+   "unknown_share_calibration": 0.08651081385173147,
+   "thresholds": {
+    "temperature": 1.5851841617545683,
+    "temperature_who": 0.7729837681215675,
+    "theta_d": 0.09202129880019957,
+    "theta_who": Infinity,
+    "tau_unknown": 0.6611798278209527,
+    "theta_conf": 0.354303269142032,
+    "theta_v": 0.5,
+    "theta_genus": 0.5
+   }
+  },
+  {
+   "target": 0.965,
+   "bound_behind_gate": 0.9630249087115285,
+   "recall_behind_gate": 0.9752650176678446,
+   "false_alarm_calibration": 0.20583717357910905,
+   "unknown_share_calibration": 0.0766345793224153,
+   "thresholds": {
+    "temperature": 1.5851841617545683,
+    "temperature_who": 0.7729837681215675,
+    "theta_d": 0.07269143597756854,
+    "theta_who": Infinity,
+    "tau_unknown": 0.6611798278209527,
+    "theta_conf": 0.354303269142032,
+    "theta_v": 0.5,
+    "theta_genus": 0.5
+   }
+  },
+  {
+   "target": 0.9675,
+   "bound_behind_gate": 0.9630249087115285,
+   "recall_behind_gate": 0.9752650176678446,
+   "false_alarm_calibration": 0.20583717357910905,
+   "unknown_share_calibration": 0.0766345793224153,
+   "thresholds": {
+    "temperature": 1.5851841617545683,
+    "temperature_who": 0.7729837681215675,
+    "theta_d": 0.07269143597756854,
+    "theta_who": Infinity,
+    "tau_unknown": 0.6611798278209527,
+    "theta_conf": 0.354303269142032,
+    "theta_v": 0.5,
+    "theta_genus": 0.5
+   }
+  },
+  {
+   "target": 0.97,
+   "bound_behind_gate": 0.9630249087115285,
+   "recall_behind_gate": 0.9752650176678446,
+   "false_alarm_calibration": 0.20583717357910905,
+   "unknown_share_calibration": 0.0766345793224153,
+   "thresholds": {
+    "temperature": 1.5851841617545683,
+    "temperature_who": 0.7729837681215675,
+    "theta_d": 0.07269143597756854,
+    "theta_who": Infinity,
+    "tau_unknown": 0.6611798278209527,
+    "theta_conf": 0.354303269142032,
+    "theta_v": 0.5,
+    "theta_genus": 0.5
+   }
+  },
+  {
+   "target": 0.9725,
+   "bound_behind_gate": 0.9630249087115285,
+   "recall_behind_gate": 0.9752650176678446,
+   "false_alarm_calibration": 0.20583717357910905,
+   "unknown_share_calibration": 0.0766345793224153,
+   "thresholds": {
+    "temperature": 1.5851841617545683,
+    "temperature_who": 0.7729837681215675,
+    "theta_d": 0.07269143597756854,
+    "theta_who": Infinity,
+    "tau_unknown": 0.6611798278209527,
+    "theta_conf": 0.354303269142032,
+    "theta_v": 0.5,
+    "theta_genus": 0.5
+   }
+  },
+  {
+   "target": 0.975,
+   "bound_behind_gate": 0.9644665059629536,
+   "recall_behind_gate": 0.9770318021201413,
+   "false_alarm_calibration": 0.2152073732718894,
+   "unknown_share_calibration": 0.07288411051381423,
+   "thresholds": {
+    "temperature": 1.5851841617545683,
+    "temperature_who": 0.7729837681215675,
+    "theta_d": 0.06466651057454345,
+    "theta_who": Infinity,
+    "tau_unknown": 0.6611798278209527,
+    "theta_conf": 0.354303269142032,
+    "theta_v": 0.5,
+    "theta_genus": 0.5
+   }
+  },
+  {
+   "target": 0.9775,
+   "bound_behind_gate": 0.9750768168431329,
+   "recall_behind_gate": 0.9840989399293286,
+   "false_alarm_calibration": 0.25453149001536096,
+   "unknown_share_calibration": 0.059882485310663834,
+   "thresholds": {
+    "temperature": 1.5851841617545683,
+    "temperature_who": 0.7729837681215675,
+    "theta_d": 0.03937253097004445,
+    "theta_who": Infinity,
+    "tau_unknown": 0.6611798278209527,
+    "theta_conf": 0.354303269142032,
+    "theta_v": 0.5,
+    "theta_genus": 0.5
+   }
+  }
+ ],
+ "chosen": {
+  "target": 0.9775,
+  "bound_behind_gate": 0.9750768168431329,
+  "recall_behind_gate": 0.9840989399293286,
+  "false_alarm_calibration": 0.25453149001536096,
+  "unknown_share_calibration": 0.059882485310663834,
+  "thresholds": {
+   "temperature": 1.5851841617545683,
+   "temperature_who": 0.7729837681215675,
+   "theta_d": 0.03937253097004445,
+   "theta_who": Infinity,
+   "tau_unknown": 0.6611798278209527,
+   "theta_conf": 0.354303269142032,
+   "theta_v": 0.5,
+   "theta_genus": 0.5
+  }
+ },
+ "frozen": {
+  "thresholds": {
+   "temperature": 1.5851841617545683,
+   "temperature_who": 0.7729837681215675,
+   "theta_d": 0.09202129880019957,
+   "theta_who": Infinity,
+   "tau_unknown": 0.6611798278209527,
+   "theta_conf": 0.354303269142032,
+   "theta_v": 0.5,
+   "theta_genus": 0.5
+  },
+  "calibration": {
+   "bound_behind_gate": 0.9540796112422782,
+   "recall_behind_gate": 0.9681978798586572,
+   "false_alarm_calibration": 0.1870967741935484,
+   "unknown_share_calibration": 0.08651081385173147
+  },
+  "validation": {
+   "photos": 17143,
+   "who_listed": 2131,
+   "who_recall": 0.9624589394650399,
+   "who_recall_ci": [
+    0.9498404419911022,
+    0.9732083026570443
+   ],
+   "false_alarm": 0.21875,
+   "verdicts": {
+    "total": 17143,
+    "dangerous": 6608,
+    "not_listed": 8637,
+    "unknown": 1898,
+    "reasons": {
+     "who_listed_mass": 4893,
+     "who_head": 0,
+     "top_species_dangerous": 4387,
+     "venomous_family_mass": 3926,
+     "dangerous_genus": 14,
+     "no_snake": 294,
+     "unclear_between_species": 1108,
+     "unfamiliar": 662,
+     "poor_image": 0
+    }
+   },
+   "unknown_species_verdicts": {
+    "total": 451,
+    "dangerous": 209,
+    "not_listed": 118,
+    "unknown": 124,
+    "reasons": {
+     "who_listed_mass": 157,
+     "who_head": 0,
+     "top_species_dangerous": 125,
+     "venomous_family_mass": 111,
+     "dangerous_genus": 0,
+     "no_snake": 2,
+     "unclear_between_species": 63,
+     "unfamiliar": 96,
+     "poor_image": 0
+    }
+   },
+   "who_recall_lower_bound": 0.9518547273982056,
+   "warned_who_recall": 0.9723134678554669,
+   "warned_who_recall_lower_bound": 0.963786227749886,
+   "warned_false_alarm": 0.33606927710843376
+  }
+ },
+ "strict": {
+  "thresholds": {
+   "temperature": 1.5851841617545683,
+   "temperature_who": 0.7729837681215675,
+   "theta_d": 0.03937253097004445,
+   "theta_who": Infinity,
+   "tau_unknown": 0.6611798278209527,
+   "theta_conf": 0.354303269142032,
+   "theta_v": 0.5,
+   "theta_genus": 0.5
+  },
+  "calibration": {
+   "bound_behind_gate": 0.9750768168431329,
+   "recall_behind_gate": 0.9840989399293286,
+   "false_alarm_calibration": 0.25453149001536096,
+   "unknown_share_calibration": 0.059882485310663834
+  },
+  "validation": {
+   "photos": 17143,
+   "who_listed": 2131,
+   "who_recall": 0.9793524167057719,
+   "who_recall_ci": [
+    0.9687303197469215,
+    0.9878110716099543
+   ],
+   "false_alarm": 0.30082831325301207,
+   "verdicts": {
+    "total": 17143,
+    "dangerous": 7767,
+    "not_listed": 8041,
+    "unknown": 1335,
+    "reasons": {
+     "who_listed_mass": 6209,
+     "who_head": 0,
+     "top_species_dangerous": 4387,
+     "venomous_family_mass": 3926,
+     "dangerous_genus": 12,
+     "no_snake": 294,
+     "unclear_between_species": 643,
+     "unfamiliar": 476,
+     "poor_image": 0
+    }
+   },
+   "unknown_species_verdicts": {
+    "total": 451,
+    "dangerous": 267,
+    "not_listed": 107,
+    "unknown": 77,
+    "reasons": {
+     "who_listed_mass": 227,
+     "who_head": 0,
+     "top_species_dangerous": 125,
+     "venomous_family_mass": 111,
+     "dangerous_genus": 0,
+     "no_snake": 2,
+     "unclear_between_species": 28,
+     "unfamiliar": 64,
+     "poor_image": 0
+    }
+   },
+   "who_recall_lower_bound": 0.9712086472661919,
+   "warned_who_recall": 0.981698732989207,
+   "warned_who_recall_lower_bound": 0.9745278335480907,
+   "warned_false_alarm": 0.37838855421686746
+  }
+ },
+ "negative_control_shuffled_logits": {
+  "bound_behind_gate": 0.36820913889999657,
+  "recall_behind_gate": 0.3992932862190813,
+  "false_alarm_calibration": 0.39416282642089095,
+  "unknown_share_calibration": 0.059757469683710464
+ }
+}

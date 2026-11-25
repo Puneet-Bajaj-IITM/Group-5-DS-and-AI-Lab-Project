@@ -107,7 +107,7 @@ class _HomeShellState extends State<HomeShell> {
     messenger.hideCurrentMaterialBanner();
     messenger.showMaterialBanner(
       MaterialBanner(
-        backgroundColor: r.alert.verdict == Verdict.dangerous
+        backgroundColor: r.alert.verdict.warns
             ? const Color(0xFFFFDAD6)
             : Theme.of(context).colorScheme.tertiaryContainer,
         leading: const Icon(Icons.campaign_rounded, color: Color(0xFF8C1D18)),

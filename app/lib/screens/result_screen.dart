@@ -109,7 +109,7 @@ class _ResultScreenState extends State<ResultScreen> {
               ),
             const SizedBox(height: 14),
             if (_id.isDemo) ...[const DemoBadge(), const SizedBox(height: 12)],
-            VerdictBanner(verdict: _id.verdict, reason: _id.reason),
+            VerdictBanner(verdict: _id.verdict, reason: _id.reason, snakeFound: _id.snakeFound),
             const SizedBox(height: 16),
             if (_id.verdict.escalate) ...[
               EmergencyButton(

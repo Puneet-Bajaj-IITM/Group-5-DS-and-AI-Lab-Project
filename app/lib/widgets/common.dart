@@ -9,28 +9,37 @@ class VerdictStyle {
   final Color foreground;
   final IconData icon;
 
+  static const _urgent = Color(0xFFB3261E);
+
   static VerdictStyle of(Verdict v) => switch (v) {
-        Verdict.dangerous =>
-          const VerdictStyle(Color(0xFFB3261E), Colors.white, Icons.dangerous_rounded),
-        Verdict.unknown =>
-          const VerdictStyle(Color(0xFFE8A317), Color(0xFF231A00), Icons.help_rounded),
+        Verdict.dangerous => const VerdictStyle(_urgent, Colors.white, Icons.dangerous_rounded),
+        Verdict.unknown => const VerdictStyle(_urgent, Colors.white, Icons.warning_rounded),
         Verdict.notListed =>
           const VerdictStyle(Color(0xFF3D6B4F), Colors.white, Icons.visibility_rounded),
       };
+
+  /// No snake in the photo: neutral, not a warning and not an all-clear.
+  static const noSnake = VerdictStyle(Color(0xFF49454F), Colors.white, Icons.search_off_rounded);
 }
 
+const noSnakeTitle = 'No snake found';
+const noSnakeAdvice = 'This does not mean the area is safe. If you can see a snake, keep away and try another photo.';
+
 class VerdictBanner extends StatelessWidget {
-  const VerdictBanner({super.key, required this.verdict, required this.reason});
+  const VerdictBanner({super.key, required this.verdict, required this.reason, this.snakeFound = true});
   final Verdict verdict;
   final String reason;
+  final bool snakeFound;
 
   @override
   Widget build(BuildContext context) {
-    final s = VerdictStyle.of(verdict);
+    final s = snakeFound ? VerdictStyle.of(verdict) : VerdictStyle.noSnake;
+    final title = snakeFound ? verdict.title : noSnakeTitle;
+    final advice = snakeFound ? verdict.advice : noSnakeAdvice;
     final text = Theme.of(context).textTheme;
     return Semantics(
       liveRegion: true,
-      label: '${verdict.title}. $reason. ${verdict.advice}',
+      label: snakeFound ? '$title. $reason. $advice' : '$title. $advice',
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(20),
@@ -43,15 +52,17 @@ class VerdictBanner extends StatelessWidget {
                 Icon(s.icon, color: s.foreground, size: 34),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(verdict.title,
+                  child: Text(title,
                       style: text.headlineSmall
                           ?.copyWith(color: s.foreground, fontWeight: FontWeight.w800)),
                 ),
               ]),
-              const SizedBox(height: 8),
-              Text(reason, style: text.titleMedium?.copyWith(color: s.foreground)),
+              if (snakeFound) ...[
+                const SizedBox(height: 8),
+                Text(reason, style: text.titleMedium?.copyWith(color: s.foreground)),
+              ],
               const SizedBox(height: 6),
-              Text(verdict.advice,
+              Text(advice,
                   style: text.bodyLarge
                       ?.copyWith(color: s.foreground, fontWeight: FontWeight.w600)),
             ],

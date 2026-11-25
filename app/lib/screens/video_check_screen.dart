@@ -140,7 +140,7 @@ class _VideoCheckScreenState extends State<VideoCheckScreen> {
           const Text("Still checking at the end: the frames never agreed on one snake, or there was no snake. "
               "Keep away anyway.")
         else ...[
-          VerdictBanner(verdict: finalId.verdict, reason: _reason(finalId)),
+          VerdictBanner(verdict: finalId.verdict, reason: _reason(finalId), snakeFound: finalId.snakeFound),
           const SizedBox(height: 12),
           if (finalId.verdict.escalate)
             EmergencyButton(
@@ -175,10 +175,11 @@ class _VideoCheckScreenState extends State<VideoCheckScreen> {
 
   Widget _overlay(VideoStep? step, Identification? shown) {
     if (step == null) return const SizedBox.shrink();
-    final style = shown == null ? null : VerdictStyle.of(shown.verdict);
-    final text = shown == null
+    final answer = shown != null && shown.snakeFound ? shown : null;
+    final style = answer == null ? null : VerdictStyle.of(answer.verdict);
+    final text = answer == null
         ? (step.frame.gate.snake ? 'Checking…' : 'Looking for a snake…')
-        : '${shown.verdict.title} · ${shown.topSpecies?.displayName ?? shown.reason}';
+        : '${answer.verdict.title} · ${answer.topSpecies?.displayName ?? answer.reason}';
     return Align(
       alignment: Alignment.topLeft,
       child: Container(
@@ -240,7 +241,7 @@ class _Timeline extends StatelessWidget {
               () {
                 final s = analysis.steps[i];
                 final end = i + 1 < analysis.steps.length ? analysis.steps[i + 1].seconds : total;
-                final color = s.shown == null
+                final color = s.shown == null || !s.shown!.snakeFound
                     ? scheme.surfaceContainerHighest
                     : VerdictStyle.of(s.shown!.verdict).background;
                 return Positioned(
