@@ -1,0 +1,52 @@
+{
+ "variant": "shuffled",
+ "backbone": "efficientnet_b0.ra_in1k",
+ "distil_weight": 0.0,
+ "shuffle_labels": true,
+ "epochs": 3,
+ "samples_per_epoch": 48000,
+ "class_share": {
+  "snake": 0.5,
+  "lookalike": 0.3,
+  "other": 0.2
+ },
+ "batch": 96,
+ "lr": 0.0006,
+ "weight_decay": 0.02,
+ "label_smoothing": 0.05,
+ "input_size": 256,
+ "pad_rgb": [
+  124,
+  116,
+  104
+ ],
+ "training_photos": {
+  "snake": 77068,
+  "lookalike": 5759,
+  "other": 3279
+ },
+ "history": [
+  {
+   "epoch": 1,
+   "ce": 1.033069801926613,
+   "distil": 0.0,
+   "accuracy": 0.4912083476781845,
+   "seconds": 846
+  },
+  {
+   "epoch": 2,
+   "ce": 0.9690916156768798,
+   "distil": 0.0,
+   "accuracy": 0.5389583504199982,
+   "seconds": 545
+  },
+  {
+   "epoch": 3,
+   "ce": 0.8425477738380432,
+   "distil": 0.0,
+   "accuracy": 0.6246666876673699,
+   "seconds": 468
+  }
+ ],
+ "torch": "2.11.0+cu130"
+}

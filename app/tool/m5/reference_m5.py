@@ -15,8 +15,8 @@ import onnxruntime as ort
 
 HERE = Path(__file__).resolve().parent
 APP = HERE.parents[1]
-WORK = APP.parents[1]
-_spec = importlib.util.spec_from_file_location("reference_frozen", WORK / "results/m5/test/g5/reference_frozen.py")
+REPO = APP.parent
+_spec = importlib.util.spec_from_file_location("reference_frozen", REPO / "results/m5/test/g5/reference_frozen.py")
 frozen = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(frozen)
 ref = frozen._ref

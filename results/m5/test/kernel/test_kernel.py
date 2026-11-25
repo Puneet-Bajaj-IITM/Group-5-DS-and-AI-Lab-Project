@@ -1,6 +1,6 @@
 """SerpentGuard M5: the one score of the locked held-out split (test + test_extra) with the frozen pipeline.
 
-Runs on Kaggle (Jayesh's account, two T4s). Every model and setting is the one in results/m5/test/FREEZE.md; this
+Runs on Kaggle (Jayesh's account, two T4s). Every model and setting is the one in m5-results/test/FREEZE.md; this
 kernel only produces per-photo outputs, with the validation code paths (front_end.extend_predictions, the training
 code's predict / save_outputs, robustness.robustness_metrics, b1_teacher.py, the G4 kernel's own scoring functions,
 reference_pipeline.Pipeline.gate). The metrics are computed on the laptop by score_test.py.

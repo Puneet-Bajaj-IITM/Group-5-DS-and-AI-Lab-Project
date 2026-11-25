@@ -6,9 +6,10 @@ import random
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-WORK = HERE.parents[3]
-MANIFEST = WORK / "kaggle/m4_runs/non_snake/out_full/manifest.csv"
-SCORES = WORK / "results/m5/g4/runs/distil_oi/scores_kernel/scores_nonsnake_val.csv"
+REPO = HERE.parents[2]
+WORKSPACE = REPO.parent  # the team's working folder, which holds the M4 Kaggle downloads
+MANIFEST = WORKSPACE / "kaggle/m4_runs/non_snake/out_full/manifest.csv"
+SCORES = REPO / "results/m5/g4/runs/distil_oi/scores_kernel/scores_nonsnake_val.csv"
 CUTOFF = 0.20484977503483762
 CATEGORIES = ("person", "rope_hose_belt", "cat", "dog", "hand_arm", "eel", "legless_lizard", "caecilian")
 FALSE_SNAKES = 2

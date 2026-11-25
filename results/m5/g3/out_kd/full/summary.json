@@ -1,0 +1,13 @@
+{
+  "best epoch": 1,
+  "macro-F1, validation": 0.47839071479199613,
+  "top-1, validation": 0.6745962334557751,
+  "WHO recall lower bound, calibration": 0.9522925982676131,
+  "WHO recall, validation": 0.9436884091975598,
+  "false alarms, validation": 0.21289885611077664,
+  "species at F1 >= 0.5 (of 158)": 88,
+  "scenery gap (G1)": 0.05483146067415734,
+  "G3 top-1, ours minus B1": -0.06101751739166872,
+  "G3 macro-F1, ours minus B1": -0.018279535902941513,
+  "G3 passed": false
+}

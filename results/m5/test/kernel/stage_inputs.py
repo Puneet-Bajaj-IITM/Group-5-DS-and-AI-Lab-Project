@@ -4,7 +4,7 @@ Holds only frozen files (FREEZE.md) and validation expectations for the in-kerne
 photo is read here (they stay in the shared clean dataset). The 600 non-snake test photos are copied from the M4
 fetch. Every staged file's SHA-256 goes into inputs/manifest.json; the frozen ones are checked against FREEZE.md.
 
-Usage: m3-final/.venv/bin/python -I results/m5/test/kernel/stage_inputs.py
+Usage: m3-final/.venv/bin/python -I m5-results/test/kernel/stage_inputs.py
 """
 import hashlib
 import json
@@ -16,7 +16,7 @@ import pandas as pd
 
 WORK = Path(__file__).resolve().parents[3]
 OUT = Path(__file__).resolve().parent / "inputs"
-G3, G4 = WORK / "results/m5/g3", WORK / "results/m5/g4/runs/distil_oi"
+G3, G4 = WORK / "m5-results/g3", WORK / "m5-results/g4/runs/distil_oi"
 M5_KD = G3 / "out_kd/M5_KD"
 APP = WORK / "m4-final/for-jayesh"
 NON_SNAKE_PHOTOS = WORK / "kaggle/m4_runs/gate/non_snake_test_photos"

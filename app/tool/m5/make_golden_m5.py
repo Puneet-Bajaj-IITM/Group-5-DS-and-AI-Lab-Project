@@ -8,7 +8,7 @@ test/golden/golden_decisions.json  200 rows of M5_KD's saved VALIDATION outputs 
 test/golden/golden_photos.json     the five demo photos and ten VALIDATION non-snakes (pick_nonsnakes.py): where to
                                    download them, each step's values and the reference answer
 
-Usage: m3-final/.venv/bin/python m5-app/app/tool/m5/make_golden_m5.py --photos <folder with <photo_id>.jpg>
+Usage, from the repo root: python app/tool/m5/make_golden_m5.py --photos <folder with <photo_id>.jpg>
 """
 import argparse
 import csv
@@ -26,7 +26,7 @@ APP = m5.APP
 sys.path.insert(0, str(APP.parent / "src"))
 from serpentguard import decide  # noqa: E402
 
-KD_RUN = m5.WORK / "results/m5/g3/out_kd/M5_KD"
+KD_RUN = m5.REPO / "results/m5/g3/out_kd/M5_KD"
 OUTPUT_KEYS = ("embedding", "species_logits", "who_logits", "genus_logits", "family_logits")
 HEADS = OUTPUT_KEYS[1:]
 DECISION_ROWS = 200

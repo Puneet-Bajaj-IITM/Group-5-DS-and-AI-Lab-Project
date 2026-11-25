@@ -3,7 +3,7 @@
 The bundle: m5-wt's src/ and data/, scripts/b1_teacher.py, and this folder's test_kernel.py and gate_worker.py. It
 is unpacked under /kaggle/tmp/repo (outside the saved output) and test_kernel.py runs from there.
 
-Usage: m3-final/.venv/bin/python -I results/m5/test/kernel/build_kernel.py
+Usage: m3-final/.venv/bin/python -I m5-results/test/kernel/build_kernel.py
 """
 import base64
 import hashlib

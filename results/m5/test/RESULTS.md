@@ -99,14 +99,14 @@ cannot tell a good classifier from a scrambled one; it tests the lock only.
   two paths differed by < 0.001 in G3.
 - The non-snake test photos had already been read once in M4 (by the old gate). The laptop code check of the kernel
   script also passed them through the snake check before the kernel ran; that output was deleted unread
-  (`local_smoke/NOTE_nonsnake_deleted.txt`).
+  (`NOTE_nonsnake_deleted.txt`, written at 20:45, after the freeze and before the kernel ran).
 - Label quality of the test photos and the YouTube clip licences were not audited.
 
 ## Files (all under `results/m5/test/`)
 
 `FREEZE.md`, `FREEZE_scripts.sha256`; `test_scores.json` (every number above), `val_dry_run.json`;
 `predictions_heldout.csv` (18,533 rows: true species, frozen / A3 / B1 prediction, top-3, gate call, P(snake),
-verdict), `predictions_heldout.npz` (frozen and A3 logits), `predictions_nonsnake_test.csv`,
+verdict) and `predictions_heldout.npz` (frozen and A3 logits), both outside git for size; `predictions_nonsnake_test.csv`,
 `false_snakes_nonsnake_test.csv`, `per_species_heldout.csv`, `confusions_heldout.csv`, `analysis_heldout.json`;
 `kernel/` (stage, build, kernel code), `kernel_out/` (raw kernel outputs and log); `g5/results/` (frozen G5 scores,
 `g5_summary.csv`, negatives), `g5/control_results/`, `g5/instrument_a3/`.

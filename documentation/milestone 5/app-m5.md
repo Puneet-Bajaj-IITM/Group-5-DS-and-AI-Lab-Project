@@ -1,11 +1,11 @@
-# SerpentGuard app with the M5 pipeline (demo copy)
+# The app with the M5 pipeline
 
-This branch is cut from `main` (4f69f99). It carries the M5 training changes and
-`m5-g5`'s uncommitted video-lock work (`app/lib/inference/video_lock.dart` and its tests, plus `src/serpentguard/video.py`
-and `tests/test_video_lock.py`, which the Dart lock is ported from).
+This document covers what changed in the Flutter app for Milestone 5, how we checked the Dart code against the Python
+reference, and what is still untested. The video lock in `app/lib/inference/video_lock.dart` is ported from
+`src/serpentguard/video.py`, and both are tested (`app/test/video_lock_test.dart`, `tests/test_video_lock.py`).
 
 The models, cut-offs, tau and lock settings are the frozen M5 pipeline (`results/m5/test/FREEZE.md`). **Two changes
-come after the test score and are not part of it** (see the last two sections). The official M5 test number stays 0.926.
+come after the test score and are not part of it** (the last two sections). The official M5 safety bound stays 0.926.
 
 ## What changed in the app
 
@@ -17,14 +17,14 @@ come after the test score and are not part of it** (see the last two sections). 
 | Prototypes (unfamiliar check) | A3's | M5_KD's `plain` prototypes (`tables.json`) |
 | Decision thresholds | A3 refit | **stricter post-test refit** (bound 0.97); the frozen refit is stored beside it as `frozen_thresholds` |
 | "Unknown" on screen | amber "We don't know" | **red "Could be dangerous"**: keep away, treat it as venomous, the SOS / first-aid button (post-test) |
-| Video lock | M4 lock | `m5-g5` lock (window 0.5 s, margin 0.05, switch 3 s, hold 2 s); lock confidence = `theta_conf` 0.354 |
+| Video lock | M4 lock | the M5 lock (window 0.5 s, margin 0.05, switch 3 s, hold 2 s; `results/m5/g5/README.md`); lock confidence = `theta_conf` 0.354 |
 
 Code: `lib/inference/pipeline.dart` (snake check, mirror pass), `lib/inference/flip_prior.dart` (mirror + prior),
 `lib/inference/bundle.dart` (settings), `lib/inference/image_ops.dart` (`RgbImage.mirrored`), `lib/models/verdict.dart`,
 `lib/widgets/common.dart` and the result, video and map screens (unknown warning). Every number is read from
 `assets/model/pipeline.json`; none is typed into Dart.
 
-Tools in `app/tool/m5/` (Python, `m3-final/.venv`):
+Tools in `app/tool/m5/` (Python 3.12 with `requirements-m3.txt`, run from the repo root):
 
 - `build_assets.py`: writes `pipeline.json` and `tables.json` from the committed A3 versions and copies the four ONNX
   files into `assets/models/`, checking each source against its FREEZE.md SHA-256 and the prior vector against its
@@ -95,8 +95,7 @@ The fp16 segmenter (13.3 MB) would save 13.2 MB but is not what the frozen pipel
 ## Running the demo on the Android emulator
 
 ```sh
-cd work-dirs/ds-lab-feasibility
-python app/tool/m5/build_assets.py     # models into assets/models (not in git)
+python app/tool/m5/build_assets.py     # from the repo root: models into assets/models (not in git)
 ~/Library/Android/sdk/emulator/emulator -avd Medium_Phone_API_36.1 &
 cd app
 flutter run --no-pub -d emulator-5554
@@ -110,13 +109,13 @@ flutter test --no-pub integration_test/golden_photos_test.dart -d emulator-5554 
   --dart-define-from-file=build/golden_defines.json
 ```
 
-To rebuild the goldens: `python app/tool/m5/make_golden_m5.py --photos <folder of <photo_id>.jpg>`
-(the photos used are in `work-dirs/ds-lab-feasibility/m5-app-golden/photos`).
+To rebuild the goldens: `python app/tool/m5/make_golden_m5.py --photos <folder of <photo_id>.jpg>`. The photos are
+listed with their URLs and SHA-1 in `test/golden/golden_photos.json`.
 
 ## Not tested
 
 - **The integration test on the emulator.** The emulator booted (`Medium_Phone_API_36.1`), but the first Android build
-  needs Gradle 9.3.1, which is not cached on this laptop, and its download from services.gradle.org timed out. So the
+  needs Gradle 9.3.1, which was not cached on the laptop, and its download from services.gradle.org timed out. So the
   whole path in Dart (ONNX Runtime on Android, BitmapFactory decode, mirror pass, snake check) is untested against
   the Python reference; only the decision rules, the mirror + prior step and the snake-check input are.
 - **fp16 on Android.** The snake check has fp16 weights with fp32 input and output; it matches fp32 on the laptop
@@ -128,8 +127,8 @@ To rebuild the goldens: `python app/tool/m5/make_golden_m5.py --photos <folder o
 
 ## Post-test safety change: stricter thresholds
 
-POST-TEST, app copy only. `tool/m5/refit_strict.py` repeats `results/m5/g3/refit_new.py` for "KD flip + prior": the
-same app-gate setup (the M4 gate's call per photo from `m5-targets/app_outputs`), `decide.fit_thresholds` on the
+POST-TEST, app only. `tool/m5/refit_strict.py` repeats `results/m5/g3/refit_new.py` for "KD flip + prior": the
+same app-gate setup (the M4 gate's call for each photo, as in `refit_new.py`), `decide.fit_thresholds` on the
 7,999 **calibration** photos only, target raised in steps of 0.0025 until the WHO recall lower bound behind the gate
 reaches 0.97. It stopped at target 0.9775 (calibration bound 0.9751; the step before gave 0.9645). Only `theta_d`
 moves: 0.0920 to 0.0394. Checked on **validation** only (17,143 photos, 2,131 WHO-listed); the test split was not read.

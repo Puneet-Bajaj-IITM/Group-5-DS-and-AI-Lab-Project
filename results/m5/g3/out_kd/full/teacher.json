@@ -1,0 +1,10 @@
+{
+  "check": {
+    "photos": 64,
+    "max_abs_diff": 0.0,
+    "top1_agreement": 1.0,
+    "swapped_channels_max_abs_diff": 0.9627665877342224
+  },
+  "training_photos": 37847,
+  "of": 37847
+}

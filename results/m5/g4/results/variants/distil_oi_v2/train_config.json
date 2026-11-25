@@ -1,0 +1,117 @@
+{
+ "variant": "distil_oi_v2",
+ "backbone": "efficientnet_b0.ra_in1k",
+ "distil_weight": 1.0,
+ "seed": 42,
+ "class_share": {
+  "snake": 0.45,
+  "lookalike": 0.3,
+  "other": 0.25
+ },
+ "strict_data": true,
+ "require_origin": "negatives_v2",
+ "epochs": 12,
+ "samples_per_epoch": 48000,
+ "batch": 96,
+ "lr": 0.0006,
+ "weight_decay": 0.02,
+ "label_smoothing": 0.05,
+ "input_size": 256,
+ "pad_rgb": [
+  124,
+  116,
+  104
+ ],
+ "training_photos": {
+  "snake": 77068,
+  "lookalike": 10150,
+  "other": 8619
+ },
+ "history": [
+  {
+   "epoch": 1,
+   "ce": 0.5404616111516952,
+   "distil": 0.42841082966327665,
+   "accuracy": 0.8120208514332772,
+   "seconds": 276
+  },
+  {
+   "epoch": 2,
+   "ce": 0.3878532237410545,
+   "distil": 0.3089068500995636,
+   "accuracy": 0.8972708534002304,
+   "seconds": 254
+  },
+  {
+   "epoch": 3,
+   "ce": 0.3449857655465603,
+   "distil": 0.29467710757255555,
+   "accuracy": 0.9188333522081376,
+   "seconds": 258
+  },
+  {
+   "epoch": 4,
+   "ce": 0.31261837989091873,
+   "distil": 0.2839573785066605,
+   "accuracy": 0.9343333539962768,
+   "seconds": 253
+  },
+  {
+   "epoch": 5,
+   "ce": 0.2907959299087524,
+   "distil": 0.2776490187644958,
+   "accuracy": 0.9436458535194397,
+   "seconds": 255
+  },
+  {
+   "epoch": 6,
+   "ce": 0.26950666058063505,
+   "distil": 0.2711607512831688,
+   "accuracy": 0.9547083518505096,
+   "seconds": 258
+  },
+  {
+   "epoch": 7,
+   "ce": 0.2534193620979786,
+   "distil": 0.2651648235619068,
+   "accuracy": 0.9634166874885559,
+   "seconds": 261
+  },
+  {
+   "epoch": 8,
+   "ce": 0.24136474558711052,
+   "distil": 0.25970067009329795,
+   "accuracy": 0.9684166867733002,
+   "seconds": 260
+  },
+  {
+   "epoch": 9,
+   "ce": 0.2266954351067543,
+   "distil": 0.256176155179739,
+   "accuracy": 0.9746041865348816,
+   "seconds": 256
+  },
+  {
+   "epoch": 10,
+   "ce": 0.223197993516922,
+   "distil": 0.2533137720823288,
+   "accuracy": 0.9769375200271606,
+   "seconds": 259
+  },
+  {
+   "epoch": 11,
+   "ce": 0.21516941404342652,
+   "distil": 0.25066595298051836,
+   "accuracy": 0.980312520980835,
+   "seconds": 258
+  },
+  {
+   "epoch": 12,
+   "ce": 0.21406621757149696,
+   "distil": 0.250392562687397,
+   "accuracy": 0.981458353638649,
+   "seconds": 254
+  }
+ ],
+ "torch": "2.11.0+cu130"
+}

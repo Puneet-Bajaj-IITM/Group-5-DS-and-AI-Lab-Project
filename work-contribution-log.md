@@ -5,6 +5,33 @@ Team: Group 5, DS and AI Lab Project. Team lead Jayesh Bansal; members Vikas, Pu
 
 The course asks for this log to be updated every week with each member's contributions. Add each new week above the previous one. Members check their own rows, and everyone also signs the acknowledgment page of each milestone report.
 
+## Week 6: 22 to 28 November 2026 (Milestone 5, evaluation and analysis)
+
+### Contribution entries
+
+| Work item | Contribution / evidence | Contributor(s) | Date or period | Reviewed / confirmed by |
+|---|---|---|---|---|
+| G3: species classifier against B1 | A3 fine-tuned on the M4 front end's crops and distilled from B1, with the mirror pass and the training prior; validation loss and full checkpoints in `train.py`; distillation pilot; safety refit for the new classifier ([notes](results/m5/g3/README.md), notebooks [28](notebooks/28_m5_finetune.ipynb) and [29](notebooks/29_m5_kd_pilot.ipynb)) | Puneet Bajaj | 23 to 24 Nov 2026 | Pending team review |
+| G4: snake check | The 8.1 MB snake check: new non-snake photos, five trained variants and a control, ONNX export, parity and latency ([notes](results/m5/g4/README.md)) | Puneet Bajaj | 23 to 24 Nov 2026 | Pending team review |
+| G5: video lock | The M4 lock's bugs checked one by one; a lock in seconds with expiry, in Python and Dart; retuned on dev clips; 22 new real test clips collected with credits ([notes](results/m5/g5/README.md)) | Puneet Bajaj | 23 to 24 Nov 2026 | Pending team review |
+| Freeze and locked test | The freeze record written before any test photo was opened, the scorer checked on validation, one scoring pass with negative controls ([FREEZE](results/m5/test/FREEZE.md), [results](results/m5/test/RESULTS.md)) | Puneet Bajaj | 24 Nov 2026 | Pending team review |
+| Robustness, Grad-CAM, compression | Stress tests on all held-out photos, Grad-CAM with a random-weights control, fp16 and int8 checks ([notes](results/m5/robustness/README.md)) | Puneet Bajaj | 24 to 25 Nov 2026 | Pending team review |
+| M5 pipeline in the app | Snake check first, M5_KD with mirror pass and prior, the new lock, the "Could be dangerous" warning; Dart parity tests ([app changes](documentation/milestone%205/app-m5.md)) | Puneet Bajaj | 24 to 25 Nov 2026 | Pending team review |
+| Milestone 5 report | [Report](documentation/milestone%205/project-report.md), results guide and number check ([`check_numbers.py`](results/m5/check_numbers.py)) | Puneet Bajaj | 25 Nov 2026 | Pending team review |
+| G3 and test runs | The fine-tune, distillation, pilot and locked-test kernels ran on Jayesh Bansal's Kaggle account; the account owner is named as the account, not the author | Kaggle account | 23 to 24 Nov 2026 | Pending team review |
+| G4 and robustness runs | The snake-check kernels and part of the robustness runs ran on Vikas's Kaggle account; the account owner is named as the account, not the author | Kaggle account | 23 to 25 Nov 2026 | Pending team review |
+
+Jayesh Bansal, Vikas and Manas Rastogi add their own Week 6 rows.
+
+### Member contribution summary
+
+| Member name | Work completed | Evidence / report sections | Member confirmation |
+|---|---|---|---|
+| Jayesh Bansal | | | |
+| Vikas | | | |
+| Puneet Bajaj | G3, G4 and G5 work on validation; the freeze, the locked test and its error analysis; robustness, Grad-CAM and compression; the M5 pipeline in the app; the Milestone 5 report | [M5 report](documentation/milestone%205/project-report.md), [results](results/m5/README.md) | |
+| Manas Rastogi | | | |
+
 ## Week 5: 15 to 21 November 2026 (Milestone 4, community voting and app integration)
 
 ### Contribution entries

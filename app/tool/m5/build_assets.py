@@ -9,7 +9,7 @@ Frozen M5 pipeline (results/m5/test/FREEZE.md):
 - decision thresholds: POST-TEST, the stricter refit of tool/m5/refit_strict.py (bound 0.97); the frozen refit
   (refit_new.json, "KD flip + prior", chosen) is kept beside them as "frozen_thresholds"
 
-Every input file is checked against its FREEZE.md hash. Usage: m3-final/.venv/bin/python m5-app/app/tool/m5/build_assets.py
+Every input file is checked against its FREEZE.md hash. Usage, from the repo root: python app/tool/m5/build_assets.py
 """
 import hashlib
 import json
@@ -23,14 +23,15 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 APP = HERE.parents[1]
-WORK = APP.parents[1]
-sys.path.insert(0, str(WORK / "results/m5/g3"))
+REPO = APP.parent
+WORKSPACE = REPO.parent  # the team's working folder, which holds the M4 app bundle
+sys.path.insert(0, str(REPO / "results/m5/g3"))
 import prior  # noqa: E402
 
-G3 = WORK / "results/m5/g3"
+G3 = REPO / "results/m5/g3"
 KD_RUN = G3 / "out_kd/M5_KD"
-SNAKE_RUN = WORK / "results/m5/g4/runs/distil_oi"
-M4_MODELS = WORK / "m4-final/for-jayesh/models"
+SNAKE_RUN = REPO / "results/m5/g4/runs/distil_oi"
+M4_MODELS = WORKSPACE / "m4-final/for-jayesh/models"
 STRICT = HERE / "refit_strict.json"
 
 TAU = 0.5
@@ -116,7 +117,7 @@ def main():
     assert np.asarray(tables["prototypes"]).shape == prototypes.shape
     tables["prototypes"] = prototypes.tolist()
     (APP / "assets/model/tables.json").write_text(json.dumps(tables) + "\n")
-    reference = json.loads((WORK / "results/m5/test/g5/tables_frozen.json").read_text())
+    reference = json.loads((REPO / "results/m5/test/g5/tables_frozen.json").read_text())
     assert reference == tables, "tables differ from the frozen G5 tables"
 
     target = APP / "assets/models"

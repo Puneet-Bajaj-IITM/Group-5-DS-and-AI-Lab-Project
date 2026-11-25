@@ -1,35 +1,30 @@
 # G5: the video lock, fixed and retuned
 
-G5: at most 1 change of the shown species after the first answer, on every real test clip.
+**The goal.** G5 asks the video answer to change its shown species at most once after the first answer, on every
+real test clip. In M4 one clip changed twice. The TA's review also found that no-snake clips locked onto a species.
 
-**Result.** On 22 new real test clips that nothing was tuned on, scored once, the new lock meets G5 at
-0.1, 0.25 and 0.4 s a frame (most changes 1, no clip over 1). At 0.8 s a frame (a slow live camera)
-it fails on 1 of 22 clips (`indotyphlops_braminus_almeria.mp4`, 2 changes). As a second look, the 6
-old test clips meet G5 at all four speeds; `naja_naja_ditmars_1915` now has 0 changes. Two things are
-not fixed. Every no-snake clip, old and new, still locks onto a species and shows "Dangerous". The
-"dangerous" safety latch also ends 12 of 13 safe-species new clips on "Dangerous".
+**What we found first.** The M4 numbers described a screen the app never showed. Notebook 24 scored the locked
+class, but the app displayed the current pool's top species, which moved far more (problem 1 below). We fixed the
+lock in Python and Dart together, retuned it on dev clips only, and scored it once on 22 new real clips.
 
-Everything here ran on the laptop CPU with no paid calls. Code changes are uncommitted in
-`m5-g5` (branch m5-g5):
+**The answer.** With A3 and A3's thresholds (how the clips were first scored), the new lock meets G5 at 0.1, 0.25
+and 0.4 s a frame. At 0.8 s a frame one clip of 22 changes twice. With the frozen M5 classifier, the locked test
+shows at most 1 change at all four speeds (`../test/g5/`; report, section 4.4). Two things are not fixed:
 
-- `src/serpentguard/video.py`: the lock (`lock_settings`, `pooled_lock`, `lock_verdicts`, new constants)
-- `app/lib/inference/video_lock.dart`: the Dart port (`LockSettings`, `VideoLock`, `LockStep.event`)
-- `tests/test_video_lock.py`
-- `app/test/video_lock_test.dart`, `app/test/video_lock_parity_test.dart`, `app/test/camera_frame_test.dart`
-- `app/test/golden/video_lock_parity.json`: 2.3 MB, generated
+- every no-snake clip still locks onto a species and shows "Dangerous";
+- the "dangerous" latch ends 12 of 13 safe-species clips on "Dangerous".
+
+Everything here ran on the laptop CPU.
 
 ## 1. The review's problems, checked one by one
 
-The M4 lock (git HEAD `video.py`) was rerun on notebook 24's saved A3 outputs. The output is
-`bug_check_m4_lock.csv`, made by `code/verify_old_bugs.py`.
+We reran the M4 lock (`code/old/video_m4.py`, a copy of M4's `video.py`) on notebook 24's saved A3 outputs.
+`code/verify_old_bugs.py` writes the result to `bug_check_m4_lock.csv`.
 
-### Problem 1: the shown species did not hold
+**Problem 1: the shown species did not hold. Confirmed, fixed.** Once locked, the app showed the decision rules'
+answer on the current pool. So the species on screen was the pool's top species at that frame, not the locked one.
 
-**Verified.** Once locked, the app showed DR0's verdict on the current pool, so the species on screen
-was the pool's top species at that frame, not the locked one. Notebook 24 scored G5 on the locked
-class. Changes after the first answer, scored vs displayed:
-
-| Test clip | Changes, as notebook 24 scored (locked class) | Changes, as the app displayed |
+| Test clip | Changes as notebook 24 scored them (locked class) | Changes as the app showed them |
 |---|---|---|
 | naja_naja_ditmars_1915 | 2 | 21 |
 | gonyosoma_oxycephalum_mulu | 0 | 0 |
@@ -38,34 +33,25 @@ class. Changes after the first answer, scored vs displayed:
 | naja_cobra_2017 | 0 | 2 |
 | naja_jaipur_charmer | 0 | 3 |
 
-So the M4 G5 numbers described a screen the app never showed.
+Now `lock_verdicts` (Python) and `VideoLock.add` (Dart) always show the locked species:
 
-**Fix.** `lock_verdicts` (Python) and `VideoLock.add` (Dart) now always show the locked species.
-- **Verdict while locked.** The verdict is DR0's on the pool at the frame the lock was set or switched.
-- **Safety latch.** If DR0 on the current pool says "dangerous" while locked, the shown verdict turns
+- **While locked**, the verdict is the decision rules' answer on the pool at the frame the lock was set or switched.
+- **The safety latch.** If the rules call the current pool "dangerous" while locked, the shown verdict turns
   "dangerous" and stays so until the lock changes.
-- **While checking.** Only "dangerous" can show, with no species named (empty top 3).
+- **While checking**, only "dangerous" can show, with no species named.
 
-### Problem 2: the window counted frames
+**Problem 2: the window counted frames. Confirmed, fixed.** It was 5 snake frames, tuned at 0.1 s a frame. The
+window is now in seconds (`window_seconds`), as are the switch time and the new hold. The pool also never holds
+fewer than the last `min_frames` snake frames, so a slow phone still pools. Every tuning run and result below was
+simulated at 0.1, 0.25, 0.4 and 0.8 s a frame with `video.schedule`, on every frame of each clip.
 
-**Verified.** It was 5 snake frames, tuned at 0.1 s a frame. **Fix:**
-- The window is now `window_seconds`.
-- Every other rule was already in seconds or is now: the switch time, and the new hold and window.
-- The pool also never holds fewer than the last `min_frames` snake frames, so a slow phone still pools.
-- The tuning and every result below were run at 0.1, 0.25, 0.4 and 0.8 s a frame, using `video.schedule` on every frame of each clip.
+**Problem 3: the window never expired. Confirmed, fixed.** Old frames stayed in the pool for ever, and a no-snake
+frame only repeated the last step. Now frames older than the window drop out. After `hold_seconds` (2 s) with no
+snake frame, the lock and the pool are dropped, so the next snake starts afresh. With no gap, panning to another
+snake switches once the rival has clearly led for `switch_seconds` (section 5).
 
-### Problem 3: the window never expired
-
-**Verified.** Old frames stayed in the pool forever; a no-snake frame just repeated the last step.
-**Fix:**
-- Frames older than the window drop out of the pool.
-- After `hold_seconds` (2 s) with no snake frame, the lock and the pool are dropped. The next snake then starts afresh.
-- With no gap, panning to another snake switches after the rival has clearly led for `switch_seconds` (see section 5).
-
-### Problem 4: no-snake clips locked
-
-**Verified, and not fixed.** With the M4 lock, all 3 negatives lock and show "dangerous". The cause
-is the front end, not the lock: the gate calls a snake on most frames of these clips.
+**Problem 4: no-snake clips locked. Confirmed, not fixed.** With the M4 lock all 3 old negatives lock and show
+"dangerous". The cause is the front end, not the lock: the gate calls a snake on most frames of these clips.
 
 | Clip | Frames the gate called a snake |
 |---|---|
@@ -78,120 +64,92 @@ is the front end, not the lock: the gate calls a snake on most frames of these c
 | eagle | 82/189 |
 | river | 84/301 |
 
-So a gate-share rule cannot separate them. It was tuned (`gate_share` 0, 0.5, 0.8) and made no
-difference to locking on any dev or negative clip (it only delayed a few first answers), so it ships at 0.
+So a gate-share rule cannot separate them. We tuned one anyway (`gate_share` 0, 0.5 and 0.8). It changed locking on
+no dev or negative clip and only delayed a few first answers, so it ships at 0. A higher lock confidence
+(`results/tuning_lock_conf.csv`) does reject negatives, but at a cost:
 
-A higher lock confidence was also tried (`results/tuning_lock_conf.csv`):
-
-| Lock confidence | Fewest negative clip × speed pairs locked (of 6) | Dev clips never answered, at 0.4 s |
+| Lock confidence | Fewest negative clip-speed pairs locked (of 6) | Dev clips never answered, at 0.4 s |
 |---|---|---|
 | theta_conf 0.287 | 4 | 15/50 |
 | 0.4 | 3 | 22/50 |
 | 0.5 | 2 | 27/50 |
 | 0.6 | 0 | 27/50 |
 
-Rejecting the negatives costs about half the real answers, so the lock confidence stays theta_conf.
-Fixing this needs a better no-snake gate (a non-snake class or a stricter gate), not a lock rule.
+Rejecting the negatives this way costs about half the real answers, so the lock confidence stays at theta_conf.
+The fix belongs in the no-snake gate, not in the lock. The snake check (G4) is that gate, but it is not yet used in
+video.
 
-### Problem 5: thresholds
+**Problem 5: thresholds. Done.** Every run uses the app's `pipeline.json` with the thresholds refitted to the
+app's front end: temperatures, decision thresholds, and lock confidence = theta_conf 0.2870. Prototypes come from
+the app's `tables.json`, and a test fixture checks that its theta_conf equals the app's.
 
-**Done.**
-- Every run uses the app's `app/assets/model/pipeline.json` (the refitted thresholds from
-  `decision_app_front_end.json`): temperatures, DR0 thresholds, and lock confidence = theta_conf 0.2870.
-- Prototypes come from the app's `tables.json`.
-- The test fixture checks that its `theta_conf` equals the app's.
+**Problem 6: video frames are resized differently. Confirmed, not fixed in this branch.** The app's video path asks
+Android for frames at `maxSide: 640`, scaled bilinearly. The live camera path and notebook 24 use area resizing. We
+reran the test clips with bilinear scaling (`outputs_linear/`, `results/bilinear_frames/`). On 28 clips (22 new, 6
+old) the gate decision agrees on 10,153 of 10,212 frames, and the top-1 species on 94.6% of the frames where both
+pass (8,577 of 9,069). G5 on the new clips is unchanged. The difference moves single frames, not the G5 result.
+The simple fix is to pass a large `maxSide` in `video_analyzer.dart` so that Dart's area resize does the 640 px
+step, as in live and in notebook 24.
 
-### Problem 6: video frames are resized differently
-
-**Verified, not fixed (the file belongs to another team member).** The app's video path resizes
-differently from notebook 24:
-- `VideoAnalyzer` asks the Android side for frames at `maxSide: 640`.
-- `VideoFrames.kt` scales them bilinear (line 128), so `OnnxSnakeClassifier._phoneSize`'s INTER_AREA
-  `resizeArea` is then a no-op.
-- The live camera path does use `resizeArea`.
-
-**Measured effect.** The test clips were rerun with `cv2.INTER_LINEAR` frame scaling
-(`outputs_linear/`, `results/bilinear_frames/`): on 28 test clips (22 new, 6 old):
-- The gate decision agrees on 10,153 of 10,212 frames.
-- The top-1 species agrees on 94.6% of frames where both pass (8,577 of 9,069).
-- G5 on the new clips is unchanged: met at 0.1, 0.25 and 0.4 s, and 1 clip over 1 change at 0.8 s.
-
-So the difference moves single frames but not the G5 result.
-
-**Simple fix for Manas.** In `video_analyzer.dart`, pass a large `maxSide` (for example 4096, or the
-native size) so Dart's `resizeArea` does the 640 px step, as in live and in notebook 24.
-
-### Problem 7: no tests
-
-**Done for VideoLock and cameraFrameToRgb.** VideoAnalyzer is not tested: it needs a mocked platform
-channel and a model, and its file is being changed by Manas.
+**Problem 7: no tests. Done** for `VideoLock` and `cameraFrameToRgb` (section 6). `VideoAnalyzer` is not tested: it
+needs a mocked platform channel and a model.
 
 ## 2. The lock now
 
-Python: `video.pooled_lock(items, times, conf, **settings)` and `video.lock_verdicts(steps, ...)`.
-Dart: `VideoLock(rules:, settings: LockSettings(...))`. The setting names are the same on both sides.
+Python: `video.pooled_lock(items, times, conf, **settings)` and `video.lock_verdicts(steps, ...)`. Dart:
+`VideoLock(rules:, settings: LockSettings(...))`. The setting names are the same on both sides.
 
 | Setting | Value | What it does |
 |---|---|---|
-| `window_seconds` | 0.5 | Pool the snake frames of the last 0.5 s. A lock also needs the sighting to have lasted 0.5 s |
+| `window_seconds` | 0.5 | Pool the snake frames of the last 0.5 s; a lock also needs the sighting to have lasted 0.5 s |
 | `min_frames` | 1 | Never pool fewer than the last N snake frames; a lock needs N |
-| `margin` | 0.05 | The pooled top species must lead the runner-up by this to lock, and a rival must lead by more than this to switch |
+| `margin` | 0.05 | The pooled top species must lead the runner-up by this to lock; a rival must lead by more to switch |
 | `switch_seconds` | 3.0 | A rival must lead on every snake frame for this long to replace the lock |
 | `gate_share` | 0.0 | Share of the spanned frames the gate must pass to lock (no effect found) |
 | `hold_seconds` | 2.0 | No snake for this long drops the lock (fixed, not tuned) |
-| lock confidence | theta_conf = 0.2870 | The pooled top species must hold this to lock or to switch |
+| lock confidence | theta_conf = 0.2870 | The pooled top species must hold this to lock or switch |
 
-### API change for the app screens (Manas)
+For the app screens the public API is kept (`add(parts, seconds)` returning `LockStep`, `reset()`, `lockedClass`),
+with four changes:
 
-The public API is kept: `VideoLock(rules: ...)`, `add(parts, seconds)` returning `LockStep`, `reset()`,
-`lockedClass`. Changes:
+1. `VideoLock` takes an optional `settings: LockSettings`. The old `window`, `margin` and `switchSeconds`
+   arguments are gone.
+2. `LockStep` adds `event` (`'lock'` or `'switch'` on the frame the lock is set or changed) and a `repeated`
+   getter.
+3. Once locked, `LockStep.shown` has the locked class as `top3[0]`. While checking, `shown` is null or a "dangerous"
+   answer with an empty top 3, which the screens show as "Dangerous" with no species name.
+4. After 2 s with no snake, `add(null, t)` returns a step with `pooled == null`, and the screen shows "no snake
+   found".
 
-1. `VideoLock` takes an optional `settings: LockSettings` (defaults above). The old `window`, `margin`
-   and `switchSeconds` constructor arguments are gone.
-2. `LockStep` adds `event` (`'lock'` or `'switch'` on the frame the lock is set or changed, else null)
-   and a `repeated` getter.
-3. `LockStep.shown`, once locked, has the locked class as `top3[0]`, with its pooled probability, then
-   the next two. While checking, `shown` is either null or a "dangerous" answer with **an empty top 3**:
-   the screens should show "Dangerous" with no species name. `video_check_screen.dart` already falls
-   back to the reason when `topSpecies` is null.
-4. After 2 s with no snake, `add(null, t)` returns a step with `pooled == null`.
-   `OnnxSnakeClassifier.identifyFrame` then shows "no snake found", as it does before the first snake.
+Notebook 24 calls `video.pooled_lock(..., window=5)`. That now raises `TypeError` on purpose. Its saved outputs are
+the M4 record, and `code/lock_eval.py` does the M5 run. `video.POOL_FRAMES = 10` stays because notebook 25 reads it.
 
-`classifier.dart` needed no change.
+## 3. Retune on dev clips only
 
-**Notebook 24** calls `video.pooled_lock(..., window=5)`, which now raises `TypeError`, on purpose.
-Its saved outputs are the M4 record. Rerunning it needs its lock calls moved to the new settings;
-`code/lock_eval.py` does this run for M5. `video.POOL_FRAMES = 10` is kept because notebook 25 reads it.
+- **Clips.** 50 dev clips: notebook 24's 46 synthetic clips (the same draw and seeds) and its 4 real dev clips. The
+  3 old negatives decided eligibility.
+- **How each clip was run.** Every frame (at most 15 fps, 30 s) went through the app's path: the fp32 ONNX reference
+  pipeline, with the app's refitted thresholds applied at scoring time.
+- **Speeds.** 0.1, 0.4 and 0.8 s a frame, simulated with `video.schedule`.
+- **Grid.** 360 settings: window 0.5, 1, 1.5, 2 or 3 s; margin 0.05, 0.1, 0.2 or 0.3; switch 1, 2 or 3 s; gate share
+  0 or 0.5; min frames 1, 2 or 3. The full table is `results/tuning.csv`.
+- **Selection rule**, in order:
+  1. no dev clip over 1 change at any speed;
+  2. median first answer of 3 s or less at every speed (never answered counts as never);
+  3. fewest negative clips locked;
+  4. most right final answers;
+  5. fastest;
+  6. then the shortest window, smallest margin, shortest switch, lowest gate share.
 
-## 3. Retune (dev clips only)
+**The rule changed once, after we saw dev numbers.** This was on dev clips only, before any test clip was scored.
+The first rule ranked fewest negatives locked first. It picked a 3 s window with margin 0.3, which never answers on
+32 of 50 dev clips. We moved negatives below G5 and speed; that first pass is in `results/superseded/`. The pool
+rule also changed between passes: we added "at least `min_frames`" after seeing that a 0.5 s window holds no frame
+to pool at 0.8 s a frame.
 
-- **Clips.** 50 dev clips: notebook 24's 46 synthetic clips (same draw, same seeds) and its 4 real dev
-  clips. Tuning eligibility used the 3 old negatives.
-- **How each clip was run.** Every frame (at most 15 fps, 30 s) went through the app's path: the ONNX
-  reference pipeline (`m4-final/for-jayesh`, fp32), with the app's refitted thresholds applied at
-  scoring time.
-- **Speeds simulated.** 0.1, 0.4 and 0.8 s a frame, with `video.schedule`.
-- **Grid.** 360 settings: window 0.5, 1, 1.5, 2 or 3 s; margin 0.05, 0.1, 0.2 or 0.3; switch 1, 2 or
-  3 s; gate share 0 or 0.5; min frames 1, 2 or 3. Full table: `results/tuning.csv`.
-- **Rule**, applied in order:
-  1. No dev clip over 1 change at any speed.
-  2. Median first answer ≤ 3 s at every speed (never answered counts as never).
-  3. Fewest negative clips locked.
-  4. Most right final answers.
-  5. Fastest.
-  6. Then the shortest window, smallest margin, shortest switch, lowest gate share.
-
-**The rule changed once, after seeing dev numbers (dev only, before any test clip was scored).**
-- The first rule ranked fewest negatives locked first. It picked window 3 s and margin 0.3, which never
-  answers on 32 of 50 dev clips.
-- I moved negatives below G5 and speed. That pass is in `results/superseded/`.
-- The pool rule also changed between passes. "At least `min_frames`" was added after I saw that a
-  0.5 s window holds no frames to pool at 0.8 s a frame.
-
-Excerpt from `results/tuning.csv` (rank 1 is chosen). Columns:
-- over 1 = dev clip × speed pairs with more than 1 change.
-- neg locked = old negative clip × speed pairs that lock, of 9.
-- median first = median first answer in seconds, at each speed.
+An excerpt of `results/tuning.csv`; rank 1 is the chosen setting. "Over 1" counts dev clip-speed pairs with more
+than 1 change. "Neg locked" counts old negative clip-speed pairs that lock, of 9. "Median first" is the median first
+answer in seconds at each speed.
 
 | rank | window s | margin | switch s | min frames | over 1 | neg locked | median first @0.1 | @0.4 | @0.8 | never @0.4 | final right @0.4 |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -202,32 +160,31 @@ Excerpt from `results/tuning.csv` (rank 1 is chosen). Columns:
 | 221 | 0.5 | 0.05 | 3 | 2 | 0 | 9 | 1.3 | 2.2 | 3.2 | 15/50 | 14/50 |
 | 237 | 1 | 0.05 | 3 | 1 | 0 | 9 | 4.0 | 2.2 | 5.2 | 17/50 | 12/50 |
 
-**Chosen** (`results/chosen_settings.json`): window 0.5 s, margin 0.05, switch 3 s, gate share 0,
-min frames 1, hold 2 s.
+The chosen setting (`results/chosen_settings.json`) is window 0.5 s, margin 0.05, switch 3 s, gate share 0, min
+frames 1 and hold 2 s. On dev at 0.1, 0.25, 0.4 and 0.8 s a frame it gives at most 1 change, with no clip over 1.
+Never answered: 14, 11, 15 and 14 of 50 (many synthetic clips never reach theta_conf). Right at the end: 14 to 15 of
+50.
 
-On dev at 0.1, 0.25, 0.4 and 0.8 s a frame:
-- Most changes: 1, with no clip over 1.
-- Never answered: 14, 11, 15 and 14 of 50. Many synthetic clips never reach theta_conf.
-- Right at the end: 14 to 15 of 50.
+## 4. The new test clips
 
-## 4. New test clips
+We collected 27 new clips: 22 of snakes and 5 with no snake. Their credits are in `new_clips.csv` and
+`new_negatives.csv`, and every candidate we looked at, with the reason it was kept or dropped, is in
+`search/candidates.csv` (963 rows). The search covered 206 binomial and common-name queries on Wikimedia Commons and
+YouTube. Internet Archive gave nothing usable. The clips themselves are downloads (360p) and are not in the repo. We
+fixed the set before scoring any of it, and scored it once.
 
-27 new clips, all in `new_clips/`. They are untrusted downloads, not in the repo. Full credits are in
-`new_clips.csv` and `new_negatives.csv`; every candidate looked at is in `search/candidates.csv`
-(963 rows). Contact sheets are in `new_clips_sheets/`.
+- **Licences.** 2 snake clips and 2 negatives come from Wikimedia Commons, with a stated licence and author. 20
+  snake clips and 3 negatives are YouTube uploads whose licence field reads "Creative Commons Attribution licence
+  (reuse allowed)", which is CC BY with no version. The uploader is not always the author:
+  `daboia_russelii_closeup` comes from a channel named "Royalty Free Footage". This subset needs review before we
+  quote or show it.
+- **How we know the species.** For 19 clips the page names the species. For 3 we inferred it, so they count for G5
+  but not for "final species right". In `naja_kaouthia_bangladesh_hood` the last frames show a coiled dark snake
+  that may be a different animal.
+- **Coverage.** Commons has very few videos of our species. No *Naja naja*, *Echis* or *Bungarus caeruleus* clip
+  passed the checks, and we found no *Hydrophis*.
 
-The set was fixed before any of it was scored and was scored once. I looked at 3 contact sheets myself
-(Daboia, a Naja kaouthia clip and the slowworm); the rest are as the search recorded them.
-
-**Licence caveat.**
-- 2 snake clips and 2 negatives are Wikimedia Commons, with a stated licence and author.
-- 20 snake clips and 3 negatives are YouTube uploads whose licence field reads "Creative Commons
-  Attribution licence (reuse allowed)", i.e. CC BY with no version.
-- The uploader is not always the author: `daboia_russelii_closeup` is from a channel named
-  "Royalty Free Footage". Please review that subset before quoting it.
-- Downloads are 360p.
-
-| Clip | Species | How the species is known | Licence | Credit | Source |
+| Clip | Species | Species known | Licence | Credit | Source |
 |---|---|---|---|---|---|
 | `ophiophagus_hannah_singapore_hunting` | *Ophiophagus hannah* | stated | CC BY-SA 4.0 | Jason Quinn | [Commons](https://commons.wikimedia.org/wiki/File:King_Cobra_(Ophiophagus_hannah)_hunting_in_the_afternoon_in_Singapore's_Sungei_Buloh_Wetland_Reserve_(May_27,_2023).ogg), from 12 s |
 | `ptyas_mucosa_india_drinking` | *Ptyas mucosa* | inferred | CC BY 2.0 | Ganesh Subramaniam | [Commons](https://commons.wikimedia.org/wiki/File:Rat_snake_drinking_water.webm) |
@@ -252,14 +209,7 @@ The set was fixed before any of it was scored and was scored once. I looked at 3
 | `fowlea_piscator_rock` | *Fowlea piscator* | stated | CC BY | Bird Watching - India | [YouTube VEEsXjK9Ni8](https://www.youtube.com/watch?v=VEEsXjK9Ni8) |
 | `lycodon_aulicus_baby` | *Lycodon aulicus* | stated | CC BY | SDM Astronomy & Adventure | [YouTube aGA4ANO5d-w](https://www.youtube.com/watch?v=aGA4ANO5d-w) |
 
-**Notes on individual clips.**
-- 3 clips are `inferred` (the page does not name the binomial). They count for G5 but not for "final
-  species right".
-- `naja_kaouthia_bangladesh_hood`: its last frames show a coiled dark snake that may be another animal.
-
-**Negatives (no snake).**
-
-| Clip | What it shows | Licence | Credit | Source |
+| Negative clip | What it shows | Licence | Credit | Source |
 |---|---|---|---|---|
 | `negative_eels_hawaii` | two eels | CC0 | John Veit | [Commons](https://commons.wikimedia.org/wiki/File:2_eels_-_Anguilliformes_in_a_tidepool_near_Kona,_Hawaii_get_into_a_fight.ogv) |
 | `negative_slug_austria` | a slug | CC BY-SA 4.0 | Martinvie | [Commons](https://commons.wikimedia.org/wiki/File:Limax.webm) |
@@ -267,22 +217,14 @@ The set was fixed before any of it was scored and was scored once. I looked at 3
 | `negative_slowworm` | a slowworm | CC BY | Gary Crowder | [YouTube EEBWWyjrZr4](https://www.youtube.com/watch?v=EEBWWyjrZr4) |
 | `negative_bengal_monitor` | a monitor lizard | CC BY | Gonzalo Mucientes | [YouTube 5yoXZSawtXo](https://www.youtube.com/watch?v=5yoXZSawtXo) |
 
-**Coverage.**
-- Commons has very few videos of our species. The search ran 206 binomial and common-name searches,
-  and Internet Archive gave nothing usable.
-- No *Naja naja*, *Echis* or *Bungarus caeruleus* clip passed the checks. Hydrophis was not found.
+## 5. G5 results with A3 (as first scored)
 
-## 5. G5 results
+"Changes" counts changes of the shown species after the first answer. "First answer" is when a species is first
+named. "Final right" means the species on screen at the end is the clip's species. It is counted only on clips whose
+species is stated, and "Checking..." or "no snake" at the end counts as wrong. Files: `results/g5_summary.csv` and
+the per-clip `results/*_scores.csv`.
 
-Measures:
-- Changes = changes of the shown species after the first answer.
-- First answer = when a species is first named.
-- Final right = the species on screen at the end is the clip's species. Counted only on `stated` and
-  `category` clips; "Checking..." or "no snake" at the end counts as wrong.
-
-Files: `results/g5_summary.csv` and the per-clip `results/*_scores.csv`.
-
-### New real test clips: 22 clips, scored once
+**The 22 new clips, scored once:**
 
 | s per frame | Most changes | Clips over 1 | G5 | Median first answer | Never answered | Final species right |
 |---|---|---|---|---|---|---|
@@ -291,28 +233,21 @@ Files: `results/g5_summary.csv` and the per-clip `results/*_scores.csv`.
 | 0.4 | 1 | 0 | **met** | 1.2 s | 0 | 12/19 |
 | 0.8 | 2 | 1 | **not met** | 1.6 s | 0 | 11/19 |
 
-**Why the 0.8 s clip fails.** At 0.8 s, `indotyphlops_braminus_almeria` locks on *Indotyphlops
-braminus*, switches to *Dendrelaphis tristis* at 16.8 s, then switches back at 27.2 s. With min frames
-1, a slow phone pools a single frame, so 5 frames in a row favouring the wrong species pass the 3 s
-switch rule. At 0.4 s the same clip has 0 changes.
+At 0.8 s, `indotyphlops_braminus_almeria` locks on *Indotyphlops braminus*, switches to *Dendrelaphis tristis* at
+16.8 s, and switches back at 27.2 s. With min frames 1, a slow phone pools a single frame, so 5 frames in a row
+that favour the wrong species pass the 3 s switch rule. At 0.4 s the same clip has 0 changes. The clips with 1
+change are those where the first lock was wrong and the lock then corrected itself. For example
+`indotyphlops_braminus_home` goes from *Echis carinatus* to *Indotyphlops braminus*, and
+`oreocryptophis_porphyraceus_box` from *Naja naja* to *O. porphyraceus*.
 
-The clips with 1 change are those where the first lock was wrong and the lock corrected itself. For
-example, `indotyphlops_braminus_home` goes *Echis carinatus* → *Indotyphlops braminus*, and
-`oreocryptophis_porphyraceus_box` goes *Naja naja* → *O. porphyraceus*.
+**Verdicts on the new clips** at 0.4 s a frame: every dangerous-species clip showed "dangerous" at some point (9 of
+9). But 12 of 13 safe-species clips end on "Dangerous". Without the latch, the rules on the final pool would say
+"dangerous" for 5 of 13. So the latch keeps many false alarms on screen, and keeping it is a safety-against-false-
+alarm choice for the team. The other option shows "dangerous" only while the current pool says so: the species
+still holds, and the verdict can flip. The shown verdict changes at most 2 times on a clip (4 at 0.8 s), for
+example "dangerous" while checking, then "not listed" at the lock, then the latch.
 
-**Verdicts on the new clips** (0.4 s a frame):
-- Every dangerous-species clip showed "dangerous" at some point: 9/9.
-- Safe species ending on "Dangerous": 12/13. Without the latch, DR0 on the final pool would say
-  "dangerous" for 5/13.
-- The latch therefore keeps a lot of false alarms on screen. That is a safety-vs-false-alarm choice
-  for the team. The non-sticky option shows "dangerous" only while the current pool says so: the
-  species still holds, the verdict can flip.
-- The shown verdict changes at most 2 times on a clip (4 at 0.8 s), for example "dangerous" while
-  checking, then "not listed" at the lock, then the latch.
-
-### Old 6 test clips: second look
-
-These clips already judged the old lock, so this is not a fresh test.
+**The 6 old test clips, a second look.** These clips already judged the old lock, so this is not a fresh test.
 
 | s per frame | Most changes | G5 | Median first answer | Never answered | Final species right |
 |---|---|---|---|---|---|
@@ -321,13 +256,11 @@ These clips already judged the old lock, so this is not a fresh test.
 | 0.4 | 0 | met | 1.2 s | 1 | 1/4 |
 | 0.8 | 1 | met | 1.6 s | 1 | 1/4 |
 
-- `naja_naja_ditmars_1915`: 0 changes, but it locks on *Fowlea piscator* (still "dangerous" via the latch).
-- `ahaetulla_borealis_kerala` mostly never answers. `ptyas_mucosa_swimming` ends with no snake on screen.
-- The 2 `inferred` Naja clips are right.
+`naja_naja_ditmars_1915` now has 0 changes, but it locks on *Fowlea piscator* (still "dangerous", through the
+latch). `ahaetulla_borealis_kerala` mostly never answers, and `ptyas_mucosa_swimming` ends with no snake on screen.
+The 2 inferred *Naja* clips are right.
 
-### No-snake clips: what the screen shows
-
-Every one locks onto a species and shows "Dangerous" at every speed. The species shown at 0.4 s:
+**No-snake clips.** Every one locks onto a species and shows "Dangerous" at every speed. At 0.4 s:
 
 | Clip | Frames the gate called a snake (0.4 s) | Species shown |
 |---|---|---|
@@ -340,75 +273,66 @@ Every one locks onto a species and shows "Dangerous" at every speed. The species
 | slowworm (new) | 45/45 | *Naja naja* |
 | monitor (new) | 61/61 | *Naja naja* |
 
-### Panning test (dev clips only)
-
-Two dev clips of different species are put back to back, each one the lock gets right on its own.
-File: `results/panning.csv`.
-
-- **No gap (4 pairs × 4 speeds).** The answer switched to the second species in **15 of 16**, 3.0 to
-  10 s into the second clip.
-- **The miss.** *Daboia* → *Naja kaouthia* at 0.1 s. There the first clip had locked on the wrong
-  species (*Boiga multomaculata*), and the second clip never made a rival lead it for 3 s.
-- **3 s gap with no snake (2 pairs × 4 speeds).** The lock is dropped after 2 s, and the second species
-  shows in **8 of 8**, 0.5 to 0.8 s into the second clip.
+**Panning (dev clips only, `results/panning.csv`).** We joined two dev clips of different species, each one the lock
+gets right on its own. With no gap (4 pairs at 4 speeds), the answer switched to the second species in **15 of 16**
+runs, 3.0 to 10 s into the second clip. The one miss was *Daboia* to *Naja kaouthia* at 0.1 s: the first clip had
+locked on the wrong species (*Boiga multomaculata*), and in the second clip no rival led it for 3 s. With a 3 s gap
+and no snake (2 pairs at 4 speeds), the lock dropped after 2 s and the second species showed in **8 of 8**, 0.5 to
+0.8 s into the second clip.
 
 ## 6. Parity and tests
 
-- **Python tests** (`tests/test_video_lock.py`): 10 passed. They cover the window in seconds at three
-  speeds, a short rival, one switch, hold expiry, gate share, no snake, unknown settings refused, and
-  the slow phone still pooling.
-- **Dart unit tests** (`app/test/video_lock_test.dart`, 12 tests): window timing at 10, 2.5 and 1.25
-  fps, min frames at 0.8 s a frame, the species held through a short rival, one switch, hold expiry,
-  a short gap keeping the lock, gate share, never locking when unsure, "dangerous" while checking
-  with no species, the dangerous latch, and reset.
-- **cameraFrameToRgb** (`app/test/camera_frame_test.dart`, 5 tests): BGRA with row stride, YUV 4:2:0
-  grey and red, NV21 order, sensor rotation and the front-camera mirror, and an unknown format.
-- **Parity** (`app/test/video_lock_parity_test.dart`): 7 real dev-clip sequences from
-  `code/make_parity.py`, 627 steps in all. They cover lock, switch, hold reset, "dangerous" while
-  checking, the latch, a not-listed lock, and gate share with a 1.5 s window. Every step matches
-  Python on checking, locked class, event, shown verdict and shown species. Values are rounded to 7
-  decimals before Python computes the expected steps.
-- **Full suite.** `flutter test` in `m5-g5/app`: **69 passed, 2 skipped** (baseline was 44 passed, 2 skipped).
-- **Mutation check.** Each of these was killed by the tests:
-  - showing the pooled top species instead of the locked one: 7 failures;
-  - removing the hold reset;
-  - removing the dangerous latch.
-- **The ONNX outputs agree with notebook 24's PyTorch cache** on a sample of 11 clips: gate decision
-  100%, top-1 100% (`code/check_outputs.py`). A control with the frames misaligned agrees only 56%.
-  The control is high because the cobra film is mostly one species.
+- **Python** (`tests/test_video_lock.py`, 10 tests): the window in seconds at three speeds, a short rival, one
+  switch, hold expiry, gate share, no snake, unknown settings refused, a slow phone still pooling.
+- **Dart** (`app/test/video_lock_test.dart`, 12 tests): window timing at 10, 2.5 and 1.25 fps, min frames at 0.8 s a
+  frame, the species held through a short rival, one switch, hold expiry, a short gap keeping the lock, gate share,
+  never locking when unsure, "dangerous" while checking with no species, the latch, reset.
+- **cameraFrameToRgb** (`app/test/camera_frame_test.dart`, 5 tests): BGRA with row stride, YUV 4:2:0 grey and red,
+  NV21 order, sensor rotation with the front-camera mirror, an unknown format.
+- **Python against Dart** (`app/test/video_lock_parity_test.dart`): 7 real dev-clip sequences from
+  `code/make_parity.py`, 627 steps in all. They cover a lock, a switch, a hold reset, "dangerous" while checking, the
+  latch, a not-listed lock, and gate share with a 1.5 s window. Every step matches Python on checking, locked class,
+  event, shown verdict and shown species. Values are rounded to 7 decimals before Python computes the expected
+  steps.
+- **Mutation check.** The tests catch each of these deliberate bugs: showing the pooled top species instead of the
+  locked one (7 failures), removing the hold reset, and removing the latch.
+- **ONNX against notebook 24's PyTorch outputs**, on 11 clips (`code/check_outputs.py`): gate decision 100%, top-1
+  100%. A control with the frames misaligned agrees on only 56%. It is that high because the cobra film is mostly
+  one species.
 
-## 7. What I could not check
+`flutter test` on the G5 branch gave 69 passed and 2 skipped, against 44 passed and 2 skipped before. The full M5
+branch count is in the app doc.
 
-- **On a phone or emulator.** The Dart lock is tested only in unit and parity tests, on real model
-  outputs. Real phone latency was simulated with `video.schedule`, not measured.
-- **The YouTube licences.** I did not verify them beyond the page field, and did not review all
-  contact sheets by eye. Several species IDs rest on the uploader's title.
-- **The new test set's balance.** It is small and lopsided: 3 *Naja kaouthia*, 2 *Bungarus
-  fasciatus*, 2 *Indotyphlops*. G5 on 22 clips at the passing speeds is consistent with "at most 1
-  change", but one clip failing at 0.8 s shows the margin is thin.
-- **VideoAnalyzer tests** were not written (see problem 7).
-- **Streaming video** in the app was dropped from scope (owned by Manas).
-- **Notebook 24** was not rerun under the new lock.
+## Not checked
+
+- **A phone or emulator.** The Dart lock is tested only in unit and parity tests, on real model outputs. Phone speed
+  was simulated with `video.schedule`, not measured.
+- **The YouTube licences**, beyond the page field. We did not review every contact sheet by eye, and several species
+  IDs rest on the uploader's title.
+- **Balance of the new test set.** It is small and lopsided: 3 *Naja kaouthia*, 2 *Bungarus fasciatus*, 2
+  *Indotyphlops*. G5 on 22 clips at the passing speeds is consistent with "at most 1 change", but the one failure at
+  0.8 s shows the margin is thin.
+- **`VideoAnalyzer` tests**, and streaming video in the app, which is outside this branch.
+- **Notebook 24 under the new lock** (not rerun).
 
 ## Files
 
 | Path | What it is |
 |---|---|
-| `code/clip_outputs.py` | Every frame of every clip through the ONNX reference pipeline. `--models` is the models folder, so it is model-agnostic. Set `RESIZE=linear` for the bilinear check |
-| `code/lock_eval.py` | Tuning, scoring and panning on the saved outputs. Takes `--pipeline` and `--tables` (the app's) |
+| `code/clip_outputs.py` | Runs every frame of every clip through the ONNX reference pipeline. `--models` takes the models folder, so it works for any model. `RESIZE=linear` gives the bilinear check |
+| `code/lock_eval.py` | Tuning, scoring and panning on the saved outputs. Takes the app's `--pipeline` and `--tables` |
 | `code/make_parity.py` | The Dart parity fixture |
 | `code/summarize.py` | Builds `results/g5_summary.csv` |
-| `code/verify_old_bugs.py` | The M4 lock checks behind `bug_check_m4_lock.csv` |
-| `code/check_outputs.py` | The ONNX vs PyTorch sample check |
-| `outputs/` | Per-frame raw outputs, 86 clips, with `manifest_<model tag>.csv` |
-| `results/` | `tuning.csv`, `chosen_settings.json`, `*_scores.csv`, `negatives.csv`, `panning.csv`, `g5_summary.csv` |
-| `logs/` | Run logs |
-| `new_clips/`, `raw/`, `raw_yt/` | Downloads (about 870 MB); delete `raw*` if space is needed |
+| `code/verify_old_bugs.py`, `code/old/video_m4.py` | The M4 lock checks behind `bug_check_m4_lock.csv` |
+| `code/check_outputs.py` | The ONNX against PyTorch sample check |
+| `results/` | `tuning.csv`, `chosen_settings.json`, the per-clip `*_scores.csv`, `negatives.csv`, `panning.csv`, `g5_summary.csv`, the bilinear check, and the first tuning pass (`superseded/`) |
+| `outputs_linear/manifest_*.csv` | Which per-frame output file of the bilinear check belongs to which clip. The per-frame outputs themselves (`outputs/`, `outputs_linear/`) are outside git |
+| `new_clips.csv`, `new_negatives.csv`, `search/candidates.csv` | The new clips, their credits, and every candidate considered |
 
-**Rerunning with another model.** Pass its models folder to `clip_outputs.py`, then `lock_eval.py`
-with its `pipeline.json` and `tables.json`. Outputs are keyed on the model files' hashes.
+To rerun with another model, pass its models folder to `clip_outputs.py`, then run `lock_eval.py` with its
+`pipeline.json` and `tables.json`. The outputs are keyed on the hash of the model files. The order is:
 
-Rerun order:
-1. `clip_outputs.py --models DIR --reference reference_pipeline.py --out DIR` (shards: `--shard i --shards n`), then `--manifest`.
-2. `lock_eval.py tune`, then copy `results/tuning_chosen.json` to `results/chosen_settings.json`.
+1. `clip_outputs.py --models DIR --reference reference_pipeline.py --out DIR` (in shards with `--shard i --shards
+   n`), then `--manifest`;
+2. `lock_eval.py tune`, then copy `results/tuning_chosen.json` to `results/chosen_settings.json`;
 3. `lock_eval.py score --sets ...` and `lock_eval.py pan`.

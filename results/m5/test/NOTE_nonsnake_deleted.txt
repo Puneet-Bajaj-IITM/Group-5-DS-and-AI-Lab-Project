@@ -1,0 +1,1 @@
+2026-11-24 20:45 The stand-in code check (40 relabelled validation photos) also passed the 600 non-snake test photos through the snake check on the laptop CPU, because the kernel script scores that set unconditionally. out/snake_check_scores.csv was deleted unread; no number from it was printed or looked at (the log prints only photo counts).

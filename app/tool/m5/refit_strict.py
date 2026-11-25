@@ -4,7 +4,7 @@ The same refit as results/m5/g3/refit_new.py ("KD flip + prior", the app's gate,
 CALIBRATION photos only), with the target raised in steps of 0.0025 until the WHO recall lower bound behind the gate
 reaches 0.97 instead of 0.95. Scored on VALIDATION only, next to the frozen refit. The test split is never read.
 
-Usage: m3-final/.venv/bin/python m5-app/app/tool/m5/refit_strict.py   (writes refit_strict.json beside it)
+Usage, from the repo root: python app/tool/m5/refit_strict.py   (writes refit_strict.json beside it)
 """
 import json
 import sys
@@ -14,11 +14,11 @@ from pathlib import Path
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
-WORK = HERE.parents[3]
-sys.path.insert(0, str(WORK / "results/m5/g3"))
+REPO = HERE.parents[2]
+sys.path.insert(0, str(REPO / "results/m5/g3"))
 import refit_new as rn  # noqa: E402
 
-RUN = WORK / "results/m5/g3/out_kd/M5_KD"
+RUN = REPO / "results/m5/g3/out_kd/M5_KD"
 VARIANT = "flip + prior"
 STRICT_MARK = 0.97
 TARGETS = np.round(np.arange(0.955, 0.9951, 0.0025), 4)
@@ -39,7 +39,7 @@ def main():
     prototypes = np.load(RUN / "prototypes.npz")["plain"]
     saved, tau = rn.variant_outputs(RUN, VARIANT)
     calib, val, unknown = (rn.with_gate(saved[n], rn.APP / f"{n}_outputs.npz") for n in ("calib", "val", "unknown"))
-    frozen = rn.decide.Thresholds(**json.loads((WORK / "results/m5/g3/refit_new.json").read_text())
+    frozen = rn.decide.Thresholds(**json.loads((REPO / "results/m5/g3/refit_new.json").read_text())
                                   ["KD flip + prior"]["chosen"]["thresholds"])
     rows, chosen = [], None
     for target in TARGETS:
