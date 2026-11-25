@@ -1,0 +1,8 @@
+# SHA-256 of the scoring scripts at kernel push, 2026-11-24 20:46 IST, before any test output was read
+34616df20eeb181b1cd7299216a50e0d751c244ce7e5e9410a76014944c94b7b  kernel/test_kernel.py
+d3f549a4c5ef1a9ad843282235ca64ab81779601a35ee178bf5385a218d70c79  kernel/gate_worker.py
+88b5b730d3e0179d6ce5b99c6eb420fcc3a1e449e3d428c82ef363f2b2820e00  kernel/build_kernel.py
+0883ae2dab48dbc3391258ce5c5fa4f88f03a3f517dbd53875924da62f14dc1f  kernel/stage_inputs.py
+339cb48daa365478c9d23b148e05dd17660aaca64ffbf9357ccda497cdf28afd  kernel/push/runner.py
+31de19f428e4ef791aa5c5deb18be556bec61ee11421f0dd557aac2ad5a94530  kernel/inputs/snake_check/train_g4.py
+a5c513afd8d1d1c912e278210bc759aff7a09dd30c8b471bc79cc86398bc7cba  kernel/inputs/manifest.json

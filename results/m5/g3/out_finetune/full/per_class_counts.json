@@ -1,0 +1,16 @@
+{
+  "levels": [
+    0.3,
+    0.5,
+    0.7
+  ],
+  "min_val_photos": 5,
+  "M5_FT": {
+    "measurable": 158,
+    "f1_at_least_0.3": 116,
+    "f1_at_least_0.5": 85,
+    "f1_at_least_0.7": 40,
+    "median_f1": 0.5169140736511562,
+    "f1_zero": 19
+  }
+}

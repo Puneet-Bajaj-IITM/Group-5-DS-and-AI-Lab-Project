@@ -1,0 +1,102 @@
+{
+ "machine": {
+  "cpu": "arm64",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "onnxruntime": "1.31.1",
+  "threads": 1,
+  "warmup": 20,
+  "runs": 200
+ },
+ "latency": {
+  "classifier fp32": {
+   "median_ms": 47.91516647674143,
+   "p90_ms": 48.29976736800745,
+   "mb": 20.826597,
+   "input_size": 320
+  },
+  "snake_check fp32": {
+   "median_ms": 23.01031252136454,
+   "p90_ms": 23.261979524977505,
+   "mb": 16.024818,
+   "input_size": 256
+  },
+  "classifier fp16": {
+   "median_ms": 73.41958355391398,
+   "p90_ms": 74.0706791752018,
+   "mb": 10.553548,
+   "input_size": 320
+  },
+  "snake_check fp16": {
+   "median_ms": 23.262895992957056,
+   "p90_ms": 23.948654253035784,
+   "mb": 8.064356,
+   "input_size": 256
+  },
+  "classifier int8_dynamic": {
+   "median_ms": 71.7430415097624,
+   "p90_ms": 74.05827471520752,
+   "mb": 5.751579,
+   "input_size": 320
+  },
+  "snake_check int8_dynamic": {
+   "median_ms": 35.83864599931985,
+   "p90_ms": 38.63446661271155,
+   "mb": 4.32271,
+   "input_size": 256
+  },
+  "classifier int8_static_minmax": {
+   "median_ms": 66.67999998899177,
+   "p90_ms": 68.1385753210634,
+   "mb": 6.168789,
+   "input_size": 320
+  },
+  "snake_check int8_static_minmax": {
+   "median_ms": 13.449354562908411,
+   "p90_ms": 13.931007997598499,
+   "mb": 4.833844,
+   "input_size": 256
+  }
+ },
+ "parity_laptop_vs_kernel": {
+  "classifier fp32": {
+   "photos": 64,
+   "max_abs_diff": 4.863739013671875e-05,
+   "same_top_class": 1.0
+  },
+  "snake_check fp32": {
+   "photos": 64,
+   "max_abs_diff": 7.152557373046875e-07,
+   "same_top_class": 1.0
+  },
+  "classifier fp16": {
+   "photos": 64,
+   "max_abs_diff": 0.017963409423828125,
+   "same_top_class": 1.0
+  },
+  "snake_check fp16": {
+   "photos": 64,
+   "max_abs_diff": 0.00024247169494628906,
+   "same_top_class": 1.0
+  },
+  "classifier int8_dynamic": {
+   "photos": 64,
+   "max_abs_diff": 1.6630518436431885,
+   "same_top_class": 0.953125
+  },
+  "snake_check int8_dynamic": {
+   "photos": 64,
+   "max_abs_diff": 0.008082792162895203,
+   "same_top_class": 1.0
+  },
+  "classifier int8_static_minmax": {
+   "photos": 64,
+   "max_abs_diff": 6.67781925201416,
+   "same_top_class": 0.59375
+  },
+  "snake_check int8_static_minmax": {
+   "photos": 64,
+   "max_abs_diff": 0.29019612073898315,
+   "same_top_class": 1.0
+  }
+ }
+}

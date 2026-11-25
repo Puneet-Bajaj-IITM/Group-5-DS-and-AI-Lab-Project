@@ -1,0 +1,76 @@
+{
+ "job": {
+  "conditions": [
+   "dark_x0.6",
+   "dark_x0.3",
+   "bright_x1.5",
+   "bright_x2.0",
+   "occlude_10pct",
+   "occlude_25pct",
+   "lowres_x0.5",
+   "lowres_x0.25"
+  ],
+  "gradcam": false,
+  "compression": true,
+  "inputs_dataset": "vikas25s/serpentguard-m5-extra-inputs",
+  "account": "vikas25s"
+ },
+ "passed": [
+  "inputs",
+  "gate provider",
+  "condition clean",
+  "condition dark_x0.6",
+  "condition dark_x0.3",
+  "condition bright_x1.5",
+  "condition bright_x2.0",
+  "condition occlude_10pct",
+  "condition occlude_25pct",
+  "condition lowres_x0.5",
+  "condition lowres_x0.25"
+ ],
+ "failed": {
+  "compression": "FileNotFoundError: [Errno 2] No such file or directory: '/kaggle/input/datasets/vikas25s/serpentguard-m5-extra-inputs/onnx/classifier-inferred.onnx'"
+ },
+ "checks": {
+  "inputs": {
+   "manifest_files": 634
+  },
+  "gate_provider": {
+   "gpu": true,
+   "val_photos": 300,
+   "call_agreement": 1.0,
+   "max_abs_mask_area_diff": 0.0005770735524257414
+  },
+  "clean_vs_locked_test_run": {
+   "photos": 600,
+   "m5_top1_agreement": 1.0,
+   "m5_flip_top1_agreement": 1.0,
+   "m5_max_abs_logit_diff": 0.0,
+   "box_presence_agreement": 1.0,
+   "mask_presence_agreement": 1.0,
+   "gate_call_agreement": 1.0,
+   "snake_max_abs_p_diff": 0.0,
+   "snake_flips_at_cut": 0
+  },
+  "compression_frames": {
+   "calib": 500,
+   "parity": 64,
+   "g3_slice": 12203
+  }
+ },
+ "seconds": {
+  "inputs": 36,
+  "gate provider": 13,
+  "condition clean": 1188,
+  "compression": 5,
+  "condition dark_x0.6": 1025,
+  "condition dark_x0.3": 1082,
+  "condition bright_x1.5": 1030,
+  "condition bright_x2.0": 1004,
+  "condition occlude_10pct": 978,
+  "condition occlude_25pct": 927,
+  "condition lowres_x0.5": 999,
+  "condition lowres_x0.25": 988
+ },
+ "minutes": 155.5
+}

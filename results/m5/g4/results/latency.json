@@ -1,0 +1,78 @@
+{
+ "machine": "macOS-26.6.2-arm64-arm-64bit",
+ "processor": "arm",
+ "onnxruntime": "1.31.1",
+ "runs": 100,
+ "rows": [
+  {
+   "model": "snake_check.onnx",
+   "threads": 1,
+   "input_size": 256,
+   "median_ms": 27.98,
+   "p90_ms": 40.41
+  },
+  {
+   "model": "snake_check.onnx",
+   "threads": 2,
+   "input_size": 256,
+   "median_ms": 20.43,
+   "p90_ms": 24.81
+  },
+  {
+   "model": "snake_check_fp16.onnx",
+   "threads": 1,
+   "input_size": 256,
+   "median_ms": 23.14,
+   "p90_ms": 23.44
+  },
+  {
+   "model": "snake_check_fp16.onnx",
+   "threads": 2,
+   "input_size": 256,
+   "median_ms": 13.08,
+   "p90_ms": 13.3
+  },
+  {
+   "model": "classifier.onnx",
+   "threads": 1,
+   "input_size": 320,
+   "median_ms": 48.06,
+   "p90_ms": 48.78
+  },
+  {
+   "model": "classifier.onnx",
+   "threads": 2,
+   "input_size": 320,
+   "median_ms": 31.55,
+   "p90_ms": 31.89
+  },
+  {
+   "model": "segmenter.onnx",
+   "threads": 1,
+   "input_size": 320,
+   "median_ms": 34.05,
+   "p90_ms": 34.62
+  },
+  {
+   "model": "segmenter.onnx",
+   "threads": 2,
+   "input_size": 320,
+   "median_ms": 22.67,
+   "p90_ms": 24.8
+  },
+  {
+   "model": "detector.onnx",
+   "threads": 1,
+   "input_size": 320,
+   "median_ms": 6.72,
+   "p90_ms": 6.82
+  },
+  {
+   "model": "detector.onnx",
+   "threads": 2,
+   "input_size": 320,
+   "median_ms": 6.79,
+   "p90_ms": 7.35
+  }
+ ]
+}

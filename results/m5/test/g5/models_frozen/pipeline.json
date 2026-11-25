@@ -1,0 +1,96 @@
+{
+ "input_size": 320,
+ "exposure_fix": {
+  "when_mean_below": 60,
+  "when_mean_above": 200,
+  "clahe_clip_limit": 2.0,
+  "clahe_tile_grid": [
+   8,
+   8
+  ],
+  "colour_space": "LAB, lightness channel only"
+ },
+ "normalise": {
+  "mean": [
+   0.485,
+   0.456,
+   0.406
+  ],
+  "std": [
+   0.229,
+   0.224,
+   0.225
+  ],
+  "scale": 255.0,
+  "layout": "NCHW, RGB, float32"
+ },
+ "letterbox": {
+  "pad_rgb": [
+   124,
+   116,
+   104
+  ],
+  "downscale": "INTER_AREA",
+  "upscale": "INTER_LINEAR",
+  "placement": "centred, top = (size - h) // 2, left = (size - w) // 2"
+ },
+ "detector": {
+  "pad_value": 114,
+  "resize": "INTER_LINEAR",
+  "input": "RGB / 255, no mean or std",
+  "placement": "centred, top = round(dh / 2 - 0.1), left = round(dw / 2 - 0.1), where dh and dw are the padding in px",
+  "output_shape": [
+   1,
+   5,
+   2100
+  ],
+  "snake_class": 0,
+  "output": "rows cx, cy, w, h (letterboxed 320 px) and the snake score, one column per anchor; no NMS in the graph. box_conf is the highest score if it is above front_end_box_floor (strictly), else none; NMS always keeps the top box"
+ },
+ "segmenter": {
+  "threshold": 0.5,
+  "unletterbox": "crop the placed window, resize to photo size with INTER_LINEAR, then threshold"
+ },
+ "mask_cleanup": {
+  "close_kernel": "ellipse 5x5",
+  "connectivity": 8,
+  "min_largest_share": 0.015,
+  "keep_part_share_of_largest": 0.12,
+  "keep_part_share_of_photo": 0.008
+ },
+ "crop": {
+  "padding": 0.06,
+  "mode": "F1m"
+ },
+ "gate": {
+  "rule": "both",
+  "thresholds": {
+   "box_conf": 0.00499307457357645,
+   "mask_area": 4.8e-05
+  },
+  "source": "results/m4/gate/gate.json"
+ },
+ "decision": {
+  "scorer": "head",
+  "prototype_set": "plain",
+  "thresholds": {
+   "temperature": 1.8063878832523812,
+   "temperature_who": 0.900229169416258,
+   "theta_d": 0.08444897149976041,
+   "theta_who": 0.13886448924583186,
+   "tau_unknown": 0.6049401338910584,
+   "theta_conf": 0.2893185279317441,
+   "theta_v": 0.5,
+   "theta_genus": 0.5
+  },
+  "arcface_s": 30.0,
+  "source": "decision_metrics.json of the A3 run"
+ },
+ "front_end_box_floor": 0.001,
+ "source_weights_sha256": {
+  "best.pt": "b19f0a5ece4f98fc08911f8781048011e14aeb84b80fde9dc1f4b9263322a02b",
+  "detector.pt": "29a1ad1c1b9b561c35ef4ffa1916998837c3c78525c21b51668d9d0e95607b61",
+  "segmenter.pt": "b881c338356bdf44aa0b45e0306f59d7b38252d04316da2455c40055aef656ec",
+  "prototypes.npz": "14f7475c4dd1026d435d2b5f8b1c4ca51f569897c89b666163d9001dc1b53234"
+ }
+}

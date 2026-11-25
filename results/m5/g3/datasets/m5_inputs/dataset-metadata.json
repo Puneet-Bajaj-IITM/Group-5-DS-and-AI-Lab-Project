@@ -1,0 +1,1 @@
+{"title": "serpentguard-m5-inputs", "id": "jayeshbansal497/serpentguard-m5-inputs", "licenses": [{"name": "CC0-1.0"}], "isPrivate": true, "description": "Private inputs for the M5 fine-tune: the M4 front end (detector and U-Net segmenter, from puneetbajajiitm/sg-m4-gate) and A3's best.pt (from jayeshbansal497/sg-m4-full-a3). Weights only, no photos."}
