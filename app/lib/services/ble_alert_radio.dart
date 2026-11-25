@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_ble_peripheral/flutter_ble_peripheral.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -57,7 +58,17 @@ class BleAlertRadio {
         .where((e) => !(e.value.isGranted || e.value.isLimited))
         .map((e) => e.key)
         .toList();
-    // Android 12+ grants scan/advertise without location; ignore location there.
+    // Android 12+ scans without location (the manifest says the scan is
+    // never used for location). Android 11 and older only deliver scan
+    // results with location allowed and switched on.
+    if (Platform.isAndroid && await _sdkInt() <= 30) {
+      if (denied.contains(Permission.locationWhenInUse)) {
+        return 'On this Android version, nearby alerts need the location permission.';
+      }
+      if (!await Permission.locationWhenInUse.serviceStatus.isEnabled) {
+        return 'Turn on location (GPS) to receive nearby alerts on this phone.';
+      }
+    }
     if (denied.isEmpty ||
         (denied.length == 1 && denied.single == Permission.locationWhenInUse)) {
       if (await FlutterBluePlus.adapterState.first != BluetoothAdapterState.on) {
@@ -76,6 +87,15 @@ class BleAlertRadio {
     return 'Bluetooth permission was not given.';
   }
 
+  static int? _sdk;
+  static Future<int> _sdkInt() async {
+    try {
+      return _sdk ??= await const MethodChannel('serpentguard/video_frames').invokeMethod<int>('sdkInt') ?? 99;
+    } catch (_) {
+      return 99;
+    }
+  }
+
   /// Starts scanning; [onAlert] gets every well-formed alert with its signal strength.
   Future<void> startListening(void Function(SnakeAlert alert, int rssi) onAlert) async {
     await stopListening();
@@ -91,8 +111,13 @@ class BleAlertRadio {
     await _startScan();
     _rescanTimer = Timer.periodic(rescanEvery, (_) async {
       if (!_listening) return;
-      await FlutterBluePlus.stopScan();
-      await _startScan();
+      try {
+        await FlutterBluePlus.stopScan();
+        await _startScan();
+      } catch (e) {
+        // Bluetooth was switched off; the next tick tries again.
+        debugPrint('BLE rescan failed: $e');
+      }
     });
   }
 

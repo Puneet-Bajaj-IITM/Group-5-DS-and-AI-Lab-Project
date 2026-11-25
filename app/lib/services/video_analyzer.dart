@@ -67,9 +67,22 @@ class VideoAnalysis {
 }
 
 class VideoProgress {
-  const VideoProgress(this.done, this.total, [this.analysis]);
+  const VideoProgress(this.done, this.total, {this.analysis, this.latest, this.frame});
   final int done, total;
   final VideoAnalysis? analysis;
+
+  /// The step just checked, and the frame it was checked on, so the screen
+  /// can show the analysis as it happens.
+  final VideoStep? latest;
+
+  /// The frame as RGBA bytes (as decoded on Android), ready to show.
+  final VideoFrameImage? frame;
+}
+
+class VideoFrameImage {
+  const VideoFrameImage(this.width, this.height, this.rgba);
+  final int width, height;
+  final Uint8List rgba;
 }
 
 /// Runs a video file through the model at up to [targetFps] frames a
@@ -117,8 +130,9 @@ class VideoAnalyzer {
           });
           for (final f in frames!) {
             final t = (f['index'] as int) / fps;
-            steps.add(await process(_rgb(f), t));
-            yield VideoProgress(steps.length, total);
+            final rgb = _rgb(f);
+            steps.add(await process(rgb, t));
+            yield VideoProgress(steps.length, total, latest: steps.last, frame: _image(f));
           }
         }
       } else {
@@ -131,15 +145,19 @@ class VideoAnalyzer {
             'maxSide': OnnxSnakeClassifier.frameMaxSide,
           });
           if (f == null) continue;
-          steps.add(await process(_rgb(f), t));
-          yield VideoProgress(steps.length, total);
+          final rgb = _rgb(f);
+          steps.add(await process(rgb, t));
+          yield VideoProgress(steps.length, total, latest: steps.last, frame: _image(f));
         }
       }
-      yield VideoProgress(steps.length, steps.length, VideoAnalysis(steps, duration, seconds));
+      yield VideoProgress(steps.length, steps.length, analysis: VideoAnalysis(steps, duration, seconds));
     } finally {
       await _channel.invokeMethod('close', {'id': id});
     }
   }
+
+  static VideoFrameImage _image(Map<dynamic, dynamic> f) =>
+      VideoFrameImage(f['width'] as int, f['height'] as int, f['rgba'] as Uint8List);
 
   static RgbImage _rgb(Map<dynamic, dynamic> f) =>
       RgbImage.fromRgba(f['width'] as int, f['height'] as int, f['rgba'] as Uint8List);

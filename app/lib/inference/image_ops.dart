@@ -403,6 +403,44 @@ double? boxConf(List<double> output, int anchors, int snakeClass, double floor) 
   return best > floor ? best : null;
 }
 
+/// A box in image pixels.
+class PixelBox {
+  const PixelBox(this.left, this.top, this.right, this.bottom);
+  final double left, top, right, bottom;
+  double get width => right - left;
+  double get height => bottom - top;
+}
+
+/// The detector's most confident box, mapped from its letterboxed
+/// [size] x [size] input back to the [width] x [height] image. The output
+/// holds, per anchor, rows cx, cy, w and h (input pixels) and the score.
+PixelBox? bestBox(List<double> output, int anchors, int snakeClass, int width, int height, int size) {
+  final row = 4 + snakeClass;
+  var best = -1;
+  var bestScore = double.negativeInfinity;
+  for (var i = 0; i < anchors; i++) {
+    final v = output[row * anchors + i];
+    if (v > bestScore) {
+      bestScore = v;
+      best = i;
+    }
+  }
+  if (best < 0) return null;
+  final ratio = math.min(size / height, size / width);
+  final nw = math.max(pyRound(width * ratio), 1), nh = math.max(pyRound(height * ratio), 1);
+  final left = pyRound((size - nw) / 2 - 0.1), top = pyRound((size - nh) / 2 - 0.1);
+  final cx = output[best], cy = output[anchors + best];
+  final w = output[2 * anchors + best], h = output[3 * anchors + best];
+  double clampX(double v) => v.clamp(0, width.toDouble()).toDouble();
+  double clampY(double v) => v.clamp(0, height.toDouble()).toDouble();
+  return PixelBox(
+    clampX((cx - w / 2 - left) / ratio),
+    clampY((cy - h / 2 - top) / ratio),
+    clampX((cx + w / 2 - left) / ratio),
+    clampY((cy + h / 2 - top) / ratio),
+  );
+}
+
 /// The U-Net output for the placed window, resized to the photo and thresholded.
 Uint8List unletterboxMask(Float32List probability, int height, int width, int size, double threshold) {
   final (nw, nh) = placedSize(height, width, size);

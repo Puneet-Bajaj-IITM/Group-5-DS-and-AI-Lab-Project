@@ -557,9 +557,12 @@ class _CommunityScreenState extends State<CommunityScreen>
     body: ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const Text(
-          'Identification is currently a demo. Community sharing below uses '
-          'your confirmed snake evidence, without simulated model predictions.',
+        Text(
+          context.read<AppState>().classifier.isDemo
+              ? 'Identification is currently a demo. Community sharing below uses '
+                    'your confirmed snake evidence, without simulated model predictions.'
+              : 'Community sharing below uses your own photos of the snake. '
+                    'Reviewers decide the species themselves; the model\'s answer is not sent.',
         ),
         const SizedBox(height: 12),
         if (_api == null) ...[

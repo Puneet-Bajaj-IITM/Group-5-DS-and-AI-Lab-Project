@@ -31,6 +31,7 @@ class SosScreen extends StatelessWidget {
       bitten: bitten,
       location: s.position,
       accuracy: s.accuracy,
+      address: s.address,
       species: identification?.isDemo == true
           ? null
           : identification?.topSpecies,
@@ -132,13 +133,26 @@ class SosScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      s.position == null
-                          ? 'Location not found yet. The message will ask them to call you.'
-                          : 'Your location: ${s.position}'
-                                '${s.accuracy == null ? '' : ' (±${s.accuracy!.round()} m)'}',
-                      style: text.bodyMedium,
-                    ),
+                    if (s.position == null)
+                      Text('Location not found yet. The message will ask them to call you.',
+                          style: text.bodyMedium)
+                    else ...[
+                      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Icon(Icons.place_rounded, size: 20, color: scheme.primary),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(s.address ?? 'Finding your address…',
+                              style: text.bodyLarge?.copyWith(fontWeight: FontWeight.w600)),
+                        ),
+                      ]),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 26, top: 2),
+                        child: Text(
+                          '${s.position}${s.accuracy == null ? '' : ' · ±${s.accuracy!.round()} m'}',
+                          style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                        ),
+                      ),
+                    ],
                     const SizedBox(height: 4),
                     Text(
                       s.emergencyContacts.isEmpty
@@ -214,8 +228,10 @@ class SosScreen extends StatelessWidget {
               ),
             if (hospitals.isEmpty && !s.hospitalsLoading)
               Text(
-                'No hospitals saved yet. Connect to the internet once and tap refresh; '
-                'the list is then kept on the phone for offline use.',
+                s.position == null
+                    ? 'Finding your location. Nearby hospitals appear once the phone knows where you are.'
+                    : 'No hospitals saved for this area yet. Connect to the internet once and tap refresh; '
+                        'the list is then kept on the phone for offline use.',
                 style: text.bodyMedium?.copyWith(
                   color: scheme.onSurfaceVariant,
                 ),

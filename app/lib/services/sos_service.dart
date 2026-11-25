@@ -53,6 +53,7 @@ class SosService {
     required bool bitten,
     GeoPoint? location,
     double? accuracy,
+    String? address,
     Species? species,
     Verdict? verdict,
   }) {
@@ -66,7 +67,7 @@ class SosService {
       b.write('.');
     }
     if (location != null) {
-      b.write(' My location: ${location.mapsUrl}');
+      b.write(' I am at: ${address != null ? '$address, ' : ''}${location.mapsUrl}');
       if (accuracy != null) b.write(' (within ${accuracy.round()} m)');
       b.write('.');
     } else {
