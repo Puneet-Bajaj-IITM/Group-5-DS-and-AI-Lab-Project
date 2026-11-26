@@ -911,7 +911,8 @@ Most of those are still open and have an owner.
 
 | Member | Tool | Prompt (paraphrased) | Action taken | Verification |
 |---|---|---|---|---|
-| Jayesh Bansal | | | | |
+| Jayesh Bansal | Claude Code (Anthropic) | The release APK closes while it checks a photo; find why, then debug and audit the whole app | Found that release shrinking (R8) removed ONNX Runtime classes the native code calls, and added keep rules. Replaced the hospital index's SQLite R-tree, which Android's SQLite lacks, with an indexed table. Other audit fixes are in PR #32 | Release APK run on the Android emulator on photos, video and the live camera; `flutter test` passes; the 200 golden decisions and 5 golden photos still match the Python reference |
+| Jayesh Bansal | Claude Code (Anthropic) | Draw the snake's box on photos and video, show a street address instead of coordinates, show the video frames as they are checked instead of a progress bar, and give the app a less generic design | Box from the detector drawn on the result, live camera and video screens; address from the phone's geocoder, then Nominatim, cached per about 100 m and added to the SOS message; video screen shows each checked frame with its box, then plays the clip back with a timeline; new theme and home screen (PR #32) | Unit tests for the box mapping and address parsing; every screen checked on the emulator. The live camera box is not yet tested on a real snake |
 | Vikas | | | | |
 | Puneet Bajaj | | | | |
 | Manas Rastogi | | | | |
@@ -952,7 +953,7 @@ document, understand its contents and agree with the submission.
 
 | Team member name | Roll Number | Signature / acknowledgment | Date |
 |---|---|---|---|
-| Jayesh Bansal | 24f100185 | | |
+| Jayesh Bansal | 24f100185 | ![Jayesh Bansal](https://drive.google.com/uc?export=download&id=1imepTm_t9vgJVL367tWU-LPYcLq9Zet0) | 26/11/2026 |
 | Vikas | 23f3001800 | | |
 | Puneet Bajaj | 23f3002416 | | |
 | Manas Rastogi | 22f3001477 | | |
