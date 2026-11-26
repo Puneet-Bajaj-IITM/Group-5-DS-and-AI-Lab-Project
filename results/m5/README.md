@@ -24,7 +24,8 @@ Start with two files:
 | How was the video lock fixed and tuned (G5)? | `g5/README.md`, `g5/results/tuning.csv`, `g5/results/chosen_settings.json` |
 | What happens to blurred, dark or covered photos? | `robustness/README.md`, `robustness/results/robustness.json`, `robustness_table.csv` |
 | Where does the model look (Grad-CAM)? | `robustness/results/gradcam.json` |
-| Can the models be made smaller (fp16, int8)? | `robustness/results/compression.json`, `robustness/results/latency.json` |
+| Can the models be made smaller (fp16, int8)? | `robustness/results/compression.json`, `robustness/results/latency.json`, `robustness/fp16_front_end/fp16_front_end.json` (detector and U-Net) |
+| Are the *Ahaetulla* labels the model disagrees with right? | `ahaetulla_check/ahaetulla_check.json`, `ahaetulla_check/ahaetulla_check.csv` |
 | Leakage, naive baselines and the report's derived counts | `report/data/report_numbers.json`, `report/data/leakage_detail.json` |
 
 ## Folders

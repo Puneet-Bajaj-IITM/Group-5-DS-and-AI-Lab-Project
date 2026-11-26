@@ -545,13 +545,12 @@ High confidence does not protect against the worst error.
   India (`metadata.csv`, `in_india`).
 - **The front end.** When the U-Net finds no mask, top-1 drops by 25 points (section 4.5), and the M4 gate drops 61
   WHO-listed photos (section 5.1).
-- **Labels.** Some confusions among *Ahaetulla* species may be label problems on iNaturalist. We did not audit the
-  test labels.
+- **Labels: not the cause for *Ahaetulla*.** We checked 30 held-out photos the model calls *A. prasina* (15 labelled
+  *A. oxyrhynca*, 15 *A. borealis*, seed 42) against iNaturalist's current community ID. All 30 labels still stand,
+  all are research grade with at least 2 identifications, and none is now *A. prasina* (`ahaetulla_check/`). These
+  are model errors between close relatives, not stale labels. All 30 were taken in India.
 - **Lookalikes for G4.** Long, thin, legless animals (caecilians, eels, earthworms) score like snakes, and
   iNaturalist has no more research-grade CC caecilian photos to train on (`g4/README.md`).
-
-> **To do (owner to be agreed):** check 30 *A. oxyrhynca* and *A. borealis* photos called *A. prasina* against their
-> iNaturalist pages.
 
 ## 6. Robustness & Interpretability
 
@@ -713,7 +712,7 @@ files (M4 report, "Response to earlier feedback").
   used the app's ONNX path. On validation the two paths differed by less than 0.001 in G3.
 - G5 with the snake check as the video gate, and G5 on a phone.
 - G1 on `test` alone, and G1 with flip and prior.
-- The label quality of the test photos.
+- The label quality of the test photos beyond the 30 *Ahaetulla* photos in section 5.7.
 
 ### 7.7 Ethics of a safety app
 
@@ -729,7 +728,7 @@ harmless snake killed.
 | The safety bound misses by 2.4 points, and 61 of the 147 misses are gate drops | Put the snake check in front of the classifier (bound 0.946; the app on this branch does this), then refit the thresholds on calibration behind the snake check, aiming at 0.95 | sections 4.2, 5.1 |
 | "We don't know" hides 26 WHO-listed misses after the gate | In the app, show "we don't know" with the same caution as "dangerous": go to hospital if bitten | section 5.1 |
 | *Naja naja* and *Ptyas mucosa* swap often (63 and 75 photos) | When the top two are this pair and close, show "cobra or rat snake, treat as dangerous" | section 5.3 |
-| *Ahaetulla* and *Dendrelaphis* congeners collapse into one species | Audit the labels on 30 photos. If many are wrong, merge or relabel; otherwise show the genus when unsure | section 5.4 |
+| *Ahaetulla* and *Dendrelaphis* congeners collapse into one species | The 30 *Ahaetulla* labels we checked are all right (section 5.7), so relabelling will not help: show the genus when the species is unsure, and add more Indian photos of the rare congeners | section 5.4 |
 | The calibration rule leaves G4 no margin: the frozen cut sits at the edge of the band that meets both marks | Fit the cut with a small margin on calibration, and confirm it on non-snake photos the model has never seen, since these 600 are now used | Figure 1 |
 | Caecilians, eels and earthworms are what is left of G4 | Collect more of these photos, from sources other than iNaturalist research grade | section 4.5; `g4/README.md` |
 | Rare species lose under the prior | Try a smaller tau, or a per-species tau for species with few photos, fitted on calibration only | section 5.4 |
@@ -779,16 +778,32 @@ Source: `test/test_scores.json`; `g4/README.md`; M4 report.
 
 **The snake check in the app** (done, not yet run on a phone). The app on this branch runs the snake check first and
 skips the detector, U-Net and classifier when it says no snake. It runs M5_KD with the mirror pass and the prior. The
-Dart code matches the Python reference on 200 validation decision rows and 15 photo inputs, and `flutter test` gives
-81 passed and 3 skipped (`documentation/milestone 5/app-m5.md`).
+Dart code matches the Python reference on 200 validation decision rows and 15 photo inputs. After merging Jayesh
+Bansal's app work (PR #32: boxes, street addresses, live video, background image work), `flutter test` gives 89
+passed and 3 skipped, and the snake-check input still matches Python on all 15 golden photos
+(`documentation/milestone 5/app-m5.md`).
 
 **Still to do.**
 
-- **Size.** The app's model files are 65.1 MB: classifier 20.8, segmenter 26.5, detector 9.7 and snake check 8.1.
-  With the fp16 classifier and an fp16 segmenter they would be about 65.1 - 10.2 - 13.3 = 41.6 MB. That is still
-  above the 25 to 30 MB budget, and the fp16 segmenter has not been checked.
+- **fp16 detector and U-Net: checked.** We converted both (fp16 weights, fp32 inputs and outputs) and ran 1,000
+  validation snake photos (seed 42) through the app's front end twice, with the fp32 classifier both times, so any
+  change comes from the front end (`robustness/fp16_front_end/fp16_front_end.json`).
 
-> **To do (owner to be agreed):** export and check the fp16 segmenter and detector.
+  | Check | Result |
+  |---|---|
+  | Size: detector / U-Net | 9.7 → 4.9 MB / 26.5 → 13.3 MB |
+  | Box score: largest / mean difference | 0.0064 / 0.0005 |
+  | Mask: mean / lowest overlap (IoU) with fp32 | 0.998 / 0.85 |
+  | M4 gate calls that flip | 0 of 1,000 |
+  | Crop window moves | 54 of 1,000 (a few pixels at the mask edge) |
+  | Top species that changes / verdict that changes | 3 / 1 of 1,000 |
+  | Control: fp16 masks against another photo's fp32 mask | mean IoU 0.010, so the check can fail |
+  | Laptop CPU time, 1 thread: detector / U-Net | 6.6 → 7.5 ms / 33.6 → 34.6 ms |
+
+  fp16 does not speed these models up on the laptop CPU; it halves the files. Phones with fp16 hardware may differ.
+- **Size.** With all four models in fp16 the app's model files would be 10.6 + 13.3 + 4.9 + 8.1 = 36.9 MB, down
+  from 65.1 MB. That is still above the 25 to 30 MB budget. The app still ships the fp32 classifier, detector and
+  U-Net: switching needs the golden files rebuilt and the phone test below, so we left it for Milestone 6.
 
 > **To do (Manas Rastogi):** run `integration_test/golden_photos_test.dart` on a phone, and measure on-device latency
 > and RAM (section 7.3).
@@ -836,7 +851,7 @@ Most of those are still open and have an owner.
 | Rare-species overfitting | Not solved. Species with 5 to 19 test photos average F1 0.269 (A3 0.318), and 33 species have F1 0 | section 5.4 |
 | Log validation loss | `train.py` logs `val_loss_*` at every evaluation; per-epoch tables for M5_FT and M5_KD | `g3/README.md` |
 | Full checkpoint states | `last.pt` holds the model, optimizer, scheduler, scaler and RNG states; resume was tested in the laptop dry run; hashes in FREEZE | `g3/README.md`; FREEZE |
-| Compress the 53.0 MB bundle toward 25 to 30 MB | Not reached. Adding the snake check made the app's model files 65.1 MB (classifier 20.8, segmenter 26.5, detector 9.7, snake check 8.1). Distillation, the fp16 snake check and an fp16 classifier (10.6 MB, no change in accuracy) are done. int8 breaks both models, so it is not used | section 9 |
+| Compress the 53.0 MB bundle toward 25 to 30 MB | Not reached. Adding the snake check made the app's model files 65.1 MB (classifier 20.8, segmenter 26.5, detector 9.7, snake check 8.1). Distillation and fp16 for all four models are checked (36.9 MB in fp16, with 3 of 1,000 top species changed by the fp16 front end); the app still ships fp32 for three of them. int8 breaks both models, so it is not used | section 9 |
 | A locked test evaluation with error and limitation analysis | Frozen, scored once, with instrument checks and negative controls; errors in section 5, limitations in section 7 | FREEZE, RESULTS; sections 2, 5, 7 |
 | A 3.5 GB Gemma model on the phone | See the to-do below | section 7.3 |
 

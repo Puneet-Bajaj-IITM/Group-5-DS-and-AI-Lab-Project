@@ -72,6 +72,8 @@ differs from the validation scores (hand/arm 0.117 then, 0.456 now; legless liza
 ## Tests
 
 `flutter test --no-pub` in `app/`: **81 passed, 3 skipped** (82 passed, 2 skipped with `GOLDEN_PHOTO_DIR` set);
+after merging PR #32 (Jayesh Bansal's boxes, addresses, live video and background pixel worker): **89 passed, 3 skipped**,
+and the snake-check input test still passes on the 15 golden photos;
 before these changes 69 passed, 2 skipped. Python `tests/test_video_lock.py`: 10 passed. `flutter analyze`: no issues.
 `pubspec.yaml` and `pubspec.lock` are unchanged: a plain `flutter test` re-resolves the lock on this machine's
 Flutter SDK (it pins `test_api` 0.7.14 and adds `listen`), so the tests were run with `--no-pub` and the lock restored.
