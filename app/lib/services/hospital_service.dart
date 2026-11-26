@@ -26,10 +26,21 @@ class HospitalService {
   final Future<HospitalIndex> Function() _openIndex;
   Future<HospitalIndex>? _index;
 
+  /// Opens the saved-hospital database once. A failed open is not kept, so
+  /// the next call tries again instead of failing forever.
+  Future<HospitalIndex> _indexOnce() {
+    final pending = _index ??= _openIndex();
+    pending.catchError((Object _) {
+      if (identical(_index, pending)) _index = null;
+      return pending;
+    });
+    return pending;
+  }
+
   Future<({List<Hospital> hospitals, DateTime? oldest})> savedNear(
     GeoPoint centre,
   ) async {
-    final index = await (_index ??= _openIndex());
+    final index = await _indexOnce();
     final legacy = cached();
     if (legacy.hospitals.isNotEmpty && legacy.fetched != null) {
       await index.save(legacy.hospitals, legacy.fetched!);
@@ -92,7 +103,12 @@ class HospitalService {
       'centre': centre.toJson(),
       'fetched': fetched.toIso8601String(),
     });
-    await (await (_index ??= _openIndex())).save(hospitals, fetched);
+    try {
+      await (await _indexOnce()).save(hospitals, fetched);
+    } catch (_) {
+      // The download succeeded and is in the simple cache above; a database
+      // problem must not hide it from the SOS screen.
+    }
     return hospitals;
   }
 

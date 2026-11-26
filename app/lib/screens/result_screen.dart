@@ -9,6 +9,7 @@ import '../models/species.dart';
 import '../models/verdict.dart';
 import '../services/classifier.dart';
 import '../state/app_state.dart';
+import '../ui/brand.dart';
 import '../widgets/common.dart';
 import 'first_aid_screen.dart';
 
@@ -96,17 +97,7 @@ class _ResultScreenState extends State<ResultScreen> {
           children: [
             if (widget.photoPath != null &&
                 File(widget.photoPath!).existsSync())
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: AspectRatio(
-                  aspectRatio: 4 / 3,
-                  child: Image.file(
-                    File(widget.photoPath!),
-                    fit: BoxFit.cover,
-                    cacheWidth: 1200,
-                  ),
-                ),
-              ),
+              _PhotoWithBox(path: widget.photoPath!, id: _id),
             const SizedBox(height: 14),
             if (_id.isDemo) ...[const DemoBadge(), const SizedBox(height: 12)],
             VerdictBanner(verdict: _id.verdict, reason: _id.reason, snakeFound: _id.snakeFound),
@@ -387,6 +378,54 @@ class _SpeciesPickerState extends State<_SpeciesPicker> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+
+/// The photo with the detector's box and the top species drawn on it.
+class _PhotoWithBox extends StatelessWidget {
+  const _PhotoWithBox({required this.path, required this.id});
+  final String path;
+  final Identification id;
+
+  @override
+  Widget build(BuildContext context) {
+    final d = id.details;
+    final box = d?.gate.box;
+    final size = d == null ? null : Size(d.width.toDouble(), d.height.toDouble());
+    final aspect = size == null ? 4 / 3 : (size.width / size.height).clamp(0.6, 1.9);
+    final style = VerdictStyle.of(id.verdict);
+    final top = id.top.isEmpty ? null : id.top.first;
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(22),
+      child: ColoredBox(
+        color: Brand.forest950,
+        child: AspectRatio(
+          aspectRatio: aspect.toDouble(),
+          child: Stack(fit: StackFit.expand, children: [
+            Image.file(File(path), fit: BoxFit.contain, cacheWidth: 1400),
+            if (box != null && size != null && id.snakeFound)
+              SnakeBoxOverlay(
+                box: box,
+                imageSize: size,
+                color: style.background,
+                label: top == null ? 'Snake' : '${top.species.displayName} · ${(top.probability * 100).round()}%',
+              ),
+            if (!id.snakeFound)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(color: Colors.black54, borderRadius: BorderRadius.circular(10)),
+                  child: const Text('No snake found in this photo',
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                ),
+              ),
+          ]),
+        ),
       ),
     );
   }

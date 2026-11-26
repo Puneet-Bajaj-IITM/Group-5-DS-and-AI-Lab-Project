@@ -6,6 +6,7 @@ import '../models/records.dart';
 import '../models/snake_alert.dart';
 import '../models/species.dart';
 import '../models/verdict.dart';
+import '../services/address_service.dart';
 import '../services/alert_book.dart';
 import '../services/ble_alert_radio.dart';
 import '../services/classifier.dart';
@@ -25,7 +26,9 @@ class AppState extends ChangeNotifier {
     HospitalService? hospitals,
     BleAlertRadio? radio,
     SosService? sos,
+    AddressService? addresses,
   }) : _store = store,
+       _addresses = addresses ?? AddressService(store),
        _location = location ?? LocationService(),
        _hospitals = hospitals ?? HospitalService(store),
        radio = radio ?? BleAlertRadio(),
@@ -34,6 +37,7 @@ class AppState extends ChangeNotifier {
   final SpeciesCatalog catalog;
   final SnakeClassifier classifier;
   final Store _store;
+  final AddressService _addresses;
   final LocationService _location;
   final HospitalService _hospitals;
   final BleAlertRadio radio;
@@ -46,6 +50,14 @@ class AppState extends ChangeNotifier {
   LocationStatus locationStatus = LocationStatus.unknown;
   GeoPoint? position;
   double? accuracy;
+
+  /// A readable street address for [position], when one is known.
+  String? address;
+  GeoPoint? _addressFor;
+  bool _addressBusy = false;
+
+  /// What to show for "where am I": the address, or coordinates if none yet.
+  String? get placeLabel => address ?? position?.toString();
 
   // ---- saved data ----
   List<Contact> contacts = [];
@@ -117,9 +129,50 @@ class AppState extends ChangeNotifier {
   }
 
   void _setFix(GeoPoint p, double acc) {
+    final first = position == null;
     position = p;
     accuracy = acc;
+    // Never show an address for a place we have left: drop it after moving
+    // more than about 100 m, use a saved one for the new spot if there is
+    // one, and look it up (again) until a lookup succeeds.
+    if (_addressFor == null || distanceMeters(_addressFor!, p) > 100) {
+      address = _addresses.cached(p);
+      unawaited(_lookupAddress(p));
+    }
+    // A first fix that arrives late (after the app opened without one)
+    // still needs the hospitals saved for this area.
+    if (first) unawaited(_loadSavedHospitals(p));
     notifyListeners();
+  }
+
+  Future<void> _lookupAddress(GeoPoint p) async {
+    if (_addressBusy) return;
+    _addressBusy = true;
+    try {
+      final found = await _addresses.lookup(p);
+      // Only a successful lookup counts; otherwise the next fix tries again.
+      if (found != null && position != null && distanceMeters(position!, p) <= 100) {
+        _addressFor = p;
+        address = found;
+        notifyListeners();
+      }
+    } finally {
+      _addressBusy = false;
+    }
+  }
+
+  Future<void> _loadSavedHospitals(GeoPoint p) async {
+    try {
+      final saved = await _hospitals.savedNear(p);
+      if (saved.hospitals.isNotEmpty) {
+        hospitals = saved.hospitals;
+        hospitalsFetched = saved.oldest;
+        hospitalsError = null;
+        notifyListeners();
+      } else if (hospitals.isEmpty) {
+        unawaited(refreshHospitals());
+      }
+    } catch (_) {}
   }
 
   Future<void> openLocationSettings() =>
@@ -147,6 +200,9 @@ class AppState extends ChangeNotifier {
   // ---------------------------------------------------------------- sightings
 
   Future<void> saveSighting(Identification id, {String? photoPath}) async {
+    // A photo with no snake in it is not a sighting (and must not be pinned
+    // on the map as one).
+    if (!id.snakeFound) return;
     sightings = [
       Sighting(
         time: DateTime.now(),
@@ -169,8 +225,10 @@ class AppState extends ChangeNotifier {
 
   // ---------------------------------------------------------------- hospitals
 
+  /// Hospitals within 50 km, nearest first. Without a location we cannot say
+  /// which saved hospitals are near, so the list stays empty.
   List<Hospital> get hospitalsNearby => position == null
-      ? hospitals
+      ? const []
       : HospitalService.sortedByDistance(
           hospitals
               .where((h) => distanceMeters(position!, h.location) <= 50000)
@@ -236,10 +294,12 @@ class AppState extends ChangeNotifier {
   }
 
   void _onRadioAlert(SnakeAlert alert, int rssi) {
+    // Phones repeat each advertisement many times a second; redraw only
+    // when a new alert arrives.
     if (alertBook.accept(alert, rssi, DateTime.now(), me: position)) {
       incoming = alertBook.received[alert.id];
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   void clearIncoming() => incoming = null;

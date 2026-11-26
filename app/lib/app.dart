@@ -10,6 +10,7 @@ import 'screens/map_screen.dart';
 import 'screens/sos_screen.dart';
 import 'screens/splash_screen.dart';
 import 'state/app_state.dart';
+import 'ui/brand.dart';
 import 'util/geo.dart';
 
 class SerpentGuardApp extends StatelessWidget {
@@ -18,30 +19,9 @@ class SerpentGuardApp extends StatelessWidget {
   final Future<void>? initFuture;
   final bool showSplash;
 
-  static const seed = Color(0xFF2F5D45);
+  static const seed = Brand.forest600;
 
-  static ThemeData theme(Brightness b) {
-    final scheme = ColorScheme.fromSeed(seedColor: seed, brightness: b);
-    return ThemeData(
-      colorScheme: scheme,
-      useMaterial3: true,
-      cardTheme: CardThemeData(
-        elevation: 0,
-        color: scheme.surfaceContainerLow,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        margin: EdgeInsets.zero,
-      ),
-      appBarTheme: AppBarTheme(
-        backgroundColor: scheme.surface,
-        centerTitle: false,
-        titleTextStyle: TextStyle(
-          color: scheme.onSurface,
-          fontSize: 22,
-          fontWeight: FontWeight.w800,
-        ),
-      ),
-    );
-  }
+  static ThemeData theme(Brightness b) => Brand.theme(b);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +44,7 @@ class HomeShell extends StatefulWidget {
   State<HomeShell> createState() => _HomeShellState();
 }
 
-class _HomeShellState extends State<HomeShell> {
+class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
   int _tab = 0;
   final Set<int> _visitedTabs = {0};
   AppState? _state;
@@ -88,8 +68,21 @@ class _HomeShellState extends State<HomeShell> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _state?.removeListener(_onState);
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  /// Back from Settings (location or Bluetooth turned on), recheck.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) _state?.refreshLocation(request: false);
   }
 
   /// Pops a banner the moment a new nearby alert arrives.
@@ -211,6 +204,8 @@ void openSos(
   bool bitten = false,
   Identification? identification,
 }) {
+  // Get the freshest position for the SOS message and hospital list.
+  context.read<AppState>().refreshLocation(request: false);
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (_) => SosScreen(bitten: bitten, identification: identification),

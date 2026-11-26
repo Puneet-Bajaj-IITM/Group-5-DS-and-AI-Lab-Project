@@ -37,6 +37,29 @@ void main() {
     expect(cropWindow(m, h, w, 0.06), (10 - 1, 40 + 1 + 1, 20 - 3, 70 + 3 + 1));
   });
 
+  test('the detector box maps back from the letterbox to image pixels', () {
+    // A 640 x 480 photo letterboxed into 320: ratio 0.5, 40 px bars top and bottom.
+    const anchors = 3;
+    final out = List<double>.filled(5 * anchors, 0);
+    void put(int i, double cx, double cy, double w, double h, double score) {
+      out[i] = cx;
+      out[anchors + i] = cy;
+      out[2 * anchors + i] = w;
+      out[3 * anchors + i] = h;
+      out[4 * anchors + i] = score;
+    }
+
+    put(0, 10, 10, 4, 4, 0.1);
+    put(1, 160, 160, 100, 60, 0.9); // the best one: centre of the photo
+    put(2, 300, 300, 10, 10, 0.2);
+    final box = bestBox(out, anchors, 0, 640, 480, 320)!;
+    expect([box.left, box.top, box.right, box.bottom], [220, 180, 420, 300]);
+    // Boxes running past the edge are clipped to the photo.
+    put(1, 5, 45, 40, 20, 0.95);
+    final edge = bestBox(out, anchors, 0, 640, 480, 320)!;
+    expect([edge.left, edge.top], [0, 0]);
+  });
+
   test('placed size uses Python rounding', () {
     expect(placedSize(500, 490, 320), (314, 320));
     expect(pyRound(2.5), 2);

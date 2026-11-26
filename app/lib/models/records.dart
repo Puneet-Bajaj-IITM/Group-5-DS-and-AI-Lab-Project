@@ -85,9 +85,19 @@ class Hospital {
   /// stop for a snakebite, so it is listed after general ones.
   bool get isSpecialtyOnly {
     final s = speciality?.toLowerCase();
-    if (s == null || s.isEmpty) return false;
-    return !RegExp(r'general|emergency|internal|toxicolog|intensive|trauma').hasMatch(s);
+    if (s != null && s.isNotEmpty) {
+      return !RegExp(r'general|emergency|internal|toxicolog|intensive|trauma').hasMatch(s);
+    }
+    // OpenStreetMap often has no specialty tag, but the name says it:
+    // "Mahaveer Eye Hospital", "Smile Dental Care", "Supra Diagnostics".
+    return _specialtyName.hasMatch(name.toLowerCase());
   }
+
+  static final _specialtyName = RegExp(
+    r'\b(eye|eyes|netralaya|nethralaya|nethra|netra|optical|dental|dentist|dent|teeth|ent|skin|derma\w*|cosmetic|'
+    r'maternity|fertility|ivf|diagnostic\w*|scan|scans|imaging|lab|labs|physio\w*|ayurved\w*|homeopath\w*|'
+    r'veterinary|vet|pet|cancer|onco\w*|psychiatr\w*|rehab\w*|de-addiction)\b',
+  );
 
   Map<String, dynamic> toJson() => {
         'name': name,

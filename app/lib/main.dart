@@ -2,6 +2,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import 'app.dart';
+import 'inference/bundle.dart';
 import 'inference/decision.dart';
 import 'inference/pipeline.dart';
 import 'models/species.dart';
@@ -26,7 +27,7 @@ Future<void> main() async {
     // The real model when its files are in the build (assets/models/, see
     // README); otherwise a clearly marked demo.
     classifier: bundled
-        ? OnnxSnakeClassifier(catalog, rules, SnakePipeline.load(settings, tables))
+        ? OnnxSnakeClassifier(catalog, rules, _openModels(settings, tables))
         : DemoClassifier(catalog, rules),
     store: store,
   );
@@ -49,4 +50,12 @@ Future<void> main() async {
     // Foreground sync remains available in Community.
   }
   await initFuture;
+}
+
+/// Opens the models in the background. A failure is kept for the first
+/// identification to report, instead of surfacing as an uncaught error.
+Future<SnakePipeline> _openModels(PipelineSettings settings, ModelTables tables) {
+  final f = SnakePipeline.load(settings, tables);
+  f.ignore();
+  return f;
 }

@@ -6,36 +6,47 @@ import 'package:sqflite/sqflite.dart';
 import '../models/records.dart';
 import '../util/geo.dart';
 
-/// A persistent spatial index of downloaded hospitals. It cannot establish
+/// A persistent, location-indexed store of downloaded hospitals. It cannot establish
 /// current ASV stock, and it does not imply coverage outside saved regions.
 class HospitalIndex {
   HospitalIndex(this.db);
   final Database db;
 
+  /// Version 1 used an SQLite R-tree, but the system SQLite on many Android
+  /// phones is built without the R-tree module ("no such module: rtree"), so
+  /// the database never opened and saved hospitals were lost. Version 2 uses a
+  /// plain table with a (lat, lon) index, which every SQLite has; a few
+  /// thousand hospitals are still found in well under a millisecond.
+  static const _schemaVersion = 2;
+
+  static Future<void> _createV2(DatabaseExecutor db) async {
+    await db.execute(
+      'CREATE TABLE IF NOT EXISTS hospitals (id INTEGER PRIMARY KEY, cache_key TEXT UNIQUE NOT NULL, '
+      'payload TEXT NOT NULL, lat REAL NOT NULL, lon REAL NOT NULL, saved INTEGER NOT NULL)',
+    );
+    await db.execute('CREATE INDEX IF NOT EXISTS hospitals_lat_lon ON hospitals(lat, lon)');
+  }
+
   static Future<HospitalIndex> open({String? path}) async {
     final db = await openDatabase(
       path ?? '${await getDatabasesPath()}/hospitals-v1.sqlite3',
-      version: 1,
-      onCreate: (db, _) async {
-        await db.execute(
-          'CREATE TABLE hospitals (id INTEGER PRIMARY KEY, cache_key TEXT UNIQUE NOT NULL, '
-          'payload TEXT NOT NULL, lat REAL NOT NULL, lon REAL NOT NULL, saved INTEGER NOT NULL)',
-        );
-        await db.execute(
-          'CREATE VIRTUAL TABLE hospital_bounds USING rtree(id,min_lat,max_lat,min_lon,max_lon)',
-        );
-        await db.execute(
-          'CREATE TRIGGER hospital_insert AFTER INSERT ON hospitals BEGIN '
-          'INSERT INTO hospital_bounds VALUES(new.id,new.lat,new.lat,new.lon,new.lon); END',
-        );
-        await db.execute(
-          'CREATE TRIGGER hospital_update AFTER UPDATE ON hospitals BEGIN '
-          'UPDATE hospital_bounds SET min_lat=new.lat,max_lat=new.lat,min_lon=new.lon,max_lon=new.lon WHERE id=new.id; END',
-        );
-        await db.execute(
-          'CREATE TRIGGER hospital_delete AFTER DELETE ON hospitals BEGIN '
-          'DELETE FROM hospital_bounds WHERE id=old.id; END',
-        );
+      version: _schemaVersion,
+      onCreate: (db, _) => _createV2(db),
+      onUpgrade: (db, from, _) async {
+        if (from < 2) {
+          // Phones whose SQLite had the R-tree module: drop its table and
+          // triggers, keep the saved hospitals.
+          for (final t in ['hospital_insert', 'hospital_update', 'hospital_delete']) {
+            await db.execute('DROP TRIGGER IF EXISTS $t');
+          }
+          try {
+            await db.execute('DROP TABLE IF EXISTS hospital_bounds');
+          } on DatabaseException {
+            // Without the R-tree module the virtual table cannot even be
+            // dropped; it is unused from here on, so leave it.
+          }
+          await _createV2(db);
+        }
       },
     );
     return HospitalIndex(db);
@@ -107,8 +118,7 @@ class HospitalIndex {
     final matches = <int, Map<String, Object?>>{};
     for (final range in ranges) {
       final rows = await db.rawQuery(
-        'SELECT h.* FROM hospitals h JOIN hospital_bounds r ON h.id=r.id '
-        'WHERE r.max_lat>=? AND r.min_lat<=? AND r.max_lon>=? AND r.min_lon<=?',
+        'SELECT * FROM hospitals WHERE lat BETWEEN ? AND ? AND lon BETWEEN ? AND ?',
         [centre.lat - latDelta, centre.lat + latDelta, range.$1, range.$2],
       );
       for (final row in rows) {
