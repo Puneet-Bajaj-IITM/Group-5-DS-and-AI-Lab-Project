@@ -535,8 +535,20 @@ Most wrong answers in Table 5 name a close relative: another blind snake, anothe
 is more worrying. Each of those five is a venomous snake called a harmless one, with a confidence of 0.987 or more.
 High confidence does not protect against the worst error.
 
-> **To do (Jayesh Bansal):** look at the 15 photos in Tables 5 and 6 and note any with a wrong label, a hidden head
-> or a second animal.
+We looked at all 15 photos, then checked each label against the observation's current community ID on iNaturalist
+(`report/data/sample_errors_inat.json`, 26 November 2026). Rows are numbered by table: 5.1 is Table 5's first row.
+
+| Cause | Rows | What we see |
+|---|---|---|
+| The photo hides what tells the species apart | 5.6, 5.9, 5.10, 6.2, 6.5 | 5.6 tiny and coiled; 5.9 two pythons in one frame; 5.10 a shed skin with no head; 6.2 the head in a hole; 6.5 the head held in a hand |
+| Confusion between close relatives or lookalikes | 5.1, 5.2, 5.3, 5.4, 5.5, 5.7, 5.8, 6.1, 6.3, 6.4 | Blind snakes, pit vipers and *Melanophidium* called a congener; 6.1 *C. gramineus* called *Boiga cyanea*, another green snake; 6.4 a banded juvenile king cobra called a rat snake |
+| The label itself is disputed | 5.9 | iNaturalist now rates it "casual" at genus *Python*: three identifiers say *P. bivittatus* (the model's answer) and two say *P. molurus* |
+
+By eye, 5.2, 6.3 and 6.4 first looked mislabelled (5.2 like *Fowlea*, 6.4 like *Boiga dendrophila*). iNaturalist
+does not support that: all three are research grade, with 4, 4 and 10 identifiers agreeing on our label. So 14 of the
+15 labels stand, and 14 of the 15 errors are the model's. The app does not cause any of them: it runs the same
+model, and the golden tests check that its answers match the Python reference (section 9), so it would give these
+same answers.
 
 ### 5.6 Video errors
 
