@@ -149,7 +149,22 @@ species outside our 184. It is used only to test "we don't know", never to train
 no species label. An 8-bit pHash match between two different species is a chance collision of the hash. The 6
 same-species pairs are listed in `leakage_detail.json`.
 
-> **To do (Jayesh Bansal):** open the 6 same-species pairs and record whether any of them is the same snake.
+We opened all 6 same-species pairs. None is the same photo or the same snake: the hash matched because each pair
+shares a plain background (grey water, grass, concrete, foliage), not because the pictures are alike. The photographer,
+date and place come from `metadata.csv`.
+
+| # | Species | Held-out photo / other photo | What we see | Photographers, dates, distance |
+|---|---|---|---|---|
+| 1 | *Fowlea piscator* | test 738808134 / train 145357344 | Head-on against side-on, both swimming on flat grey water | Different, 2026 against 2021, about 280 km apart, so not the same snake in practice |
+| 2 | *Ptyas mucosa* | test_extra 754572607 / train 536702242 | A whole brown snake on grass against a close-up of a yellow-and-black head on gravel | Different, 2026 against 2025 |
+| 3 | *Indotyphlops braminus* | test_extra 46386301 / train 567797958 | A dark grey snake in a hand against a reddish-brown one on concrete | Different, 2019 against 2013 |
+| 4 | *Ahaetulla prasina* | test_extra 11305676 / train 731988145 | An adult in a shrub against a small yellow juvenile on palm leaves | Different, 2017 against 2026 |
+| 5 | *Ahaetulla prasina* | test_extra 627862017 / train 358762893 | The training snake has a damaged snout and two ticks; the test one has neither | Different, 2026 against 2024 |
+| 6 | *Xenopeltis unicolor* | test_extra 541110263 / val 399391961 | A knotted snake on wet rock against a night scene where the snake is barely visible | Different, 2022 against 2024 |
+
+So the near-duplicate check found no leak. One side note: training photo 358762893 is listed on iNaturalist as
+CC BY-NC (`metadata.csv`, `license`), but the image carries an "All Rights Reserved" watermark. We record the
+licence iNaturalist gives; the photo is in our private dataset only, not in this repo.
 
 The non-snake test set was not fresh (section 7.5).
 
