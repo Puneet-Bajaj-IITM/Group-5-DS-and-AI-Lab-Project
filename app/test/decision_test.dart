@@ -118,4 +118,17 @@ void main() {
     expect(parsed.first.phone, '+91 80 4288 8888');
     expect(parsed.first.emergency, isTrue);
   });
+
+  test('hospitals named for a specialty are listed after general ones', () {
+    const here = GeoPoint(12.9716, 77.5946);
+    final list = HospitalService.sortedByDistance(const [
+      Hospital(name: 'Mahaveer Eye Hospital Private Limited', location: GeoPoint(12.972, 77.595)),
+      Hospital(name: 'Smile Dental Care', location: GeoPoint(12.9717, 77.5947)),
+      Hospital(name: 'K.C. General Hospital', location: GeoPoint(13.00, 77.57)),
+      Hospital(name: 'Vignan Hospital', location: GeoPoint(12.99, 77.60)),
+    ], here);
+    expect(list.take(2).map((h) => h.name), ['Vignan Hospital', 'K.C. General Hospital']);
+    expect(const Hospital(name: 'Centre for Entomology', location: here).isSpecialtyOnly, isFalse,
+        reason: 'whole words only');
+  });
 }

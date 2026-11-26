@@ -7,13 +7,15 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.Voice
 
 class MainActivity : FlutterActivity() {
+    private var videoFrames: VideoFrames? = null
+
     private var speech: TextToSpeech? = null
     private var speechStatus: Int? = null
     private val pending = mutableListOf<() -> Unit>()
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        VideoFrames(flutterEngine.dartExecutor.binaryMessenger)
+        videoFrames = VideoFrames(flutterEngine.dartExecutor.binaryMessenger)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "serpentguard/offline_speech")
             .setMethodCallHandler { call, result ->
                 when (call.method) {
@@ -62,6 +64,12 @@ class MainActivity : FlutterActivity() {
                 ready.forEach { it() }
             } }
         }
+    }
+
+    override fun cleanUpFlutterEngine(flutterEngine: FlutterEngine) {
+        videoFrames?.dispose()
+        videoFrames = null
+        super.cleanUpFlutterEngine(flutterEngine)
     }
 
     override fun onDestroy() {

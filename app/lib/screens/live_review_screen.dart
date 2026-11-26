@@ -7,6 +7,9 @@ import 'package:provider/provider.dart';
 
 import '../services/voting_queue.dart';
 import '../services/classifier.dart';
+import '../widgets/common.dart';
+import '../ui/brand.dart';
+import '../inference/pipeline.dart';
 import '../models/verdict.dart';
 import '../state/app_state.dart';
 
@@ -17,8 +20,9 @@ class LiveEvidence {
   final DateTime started;
 }
 
-/// Live preview with explicit still capture. Automated model inference and
-/// temporal model voting remain unavailable until trained artifacts are added.
+/// Live preview with the model checking frames continuously (box drawn over
+/// the preview, answer steadied by the video lock) and explicit still capture
+/// for community review.
 class LiveReviewScreen extends StatefulWidget {
   const LiveReviewScreen({super.key});
   @override
@@ -37,6 +41,7 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
   int _generation = 0;
   String? _error;
   Identification? _identification;
+  PipelineResult? _lastFrame;
   bool _analyzing = false;
   LiveSnakeClassifier? _classifier;
 
@@ -139,6 +144,8 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
       if (mounted && generation == _generation) {
         setState(() {
           _identification = result;
+          final c = _classifier;
+          _lastFrame = c is OnnxSnakeClassifier ? c.lastFrame : null;
           _error = null;
         });
       }
@@ -217,22 +224,39 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Text(
-              _classifier == null
+            child: _LiveStatus(
+              text: _classifier == null
                   ? 'Live model not connected in this build. Preview and evidence capture are available.'
                   : _identification == null
-                  ? 'Analyzing live frames…'
+                  ? (_lastFrame?.gate.snake == true ? 'Snake in view · checking…' : 'Looking for a snake…')
                   : !_identification!.snakeFound
                   ? 'No snake detected. This does not mean the area is safe.'
-                  : '${_identification!.verdict.title} · ${_identification!.reason}',
+                  : '${_identification!.verdict.title} · ${_identification!.topSpecies?.displayName ?? _identification!.reason}',
+              verdict: _identification?.snakeFound == true ? _identification!.verdict : null,
             ),
           ),
+          const SizedBox(height: 8),
           Expanded(
             child: _camera?.value.isInitialized == true
                 ? Center(
                     child: AspectRatio(
                       aspectRatio: _camera!.value.aspectRatio,
-                      child: CameraPreview(_camera!),
+                      child: CameraPreview(
+                        _camera!,
+                        child: _lastFrame?.gate.snake == true && _lastFrame!.gate.box != null
+                            ? SnakeBoxOverlay(
+                                box: _lastFrame!.gate.box!,
+                                imageSize: Size(_lastFrame!.width.toDouble(), _lastFrame!.height.toDouble()),
+                                fit: BoxFit.fill,
+                                color: _identification?.snakeFound == true
+                                    ? VerdictStyle.of(_identification!.verdict).background
+                                    : Brand.venom,
+                                label: _identification?.snakeFound == true
+                                    ? _identification!.topSpecies?.displayName
+                                    : 'Checking…',
+                              )
+                            : null,
+                      ),
                     ),
                   )
                 : Center(child: Text(_error ?? 'Opening camera…')),
@@ -312,5 +336,33 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
     _clock.stop();
     unawaited(_camera?.dispose());
     super.dispose();
+  }
+}
+
+
+class _LiveStatus extends StatelessWidget {
+  const _LiveStatus({required this.text, this.verdict});
+  final String text;
+  final Verdict? verdict;
+
+  @override
+  Widget build(BuildContext context) {
+    final style = verdict == null ? null : VerdictStyle.of(verdict!);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        color: style?.background ?? Brand.forest800,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(children: [
+        Icon(style?.icon ?? Icons.radar_rounded, color: style?.foreground ?? Colors.white),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Text(text,
+              style: TextStyle(color: style?.foreground ?? Colors.white, fontWeight: FontWeight.w700, fontSize: 15)),
+        ),
+      ]),
+    );
   }
 }
