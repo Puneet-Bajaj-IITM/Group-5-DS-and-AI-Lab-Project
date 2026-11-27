@@ -91,8 +91,11 @@ void main() {
     }
     final afterKb = peakKb();
     report.writeln('peak memory (VmHWM): before models ${beforeKb ?? '?'} kB, after both runs ${afterKb ?? '?'} kB');
-    // ignore: avoid_print
-    print(report);
+    // One line per print: Android's log cuts long messages.
+    for (final line in report.toString().trimRight().split(String.fromCharCode(10))) {
+      // ignore: avoid_print
+      print(line);
+    }
     expect(afterKb == null || afterKb > 0, isTrue);
   });
 }
