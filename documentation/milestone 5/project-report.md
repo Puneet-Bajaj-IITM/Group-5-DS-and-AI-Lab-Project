@@ -880,10 +880,7 @@ Most of those are still open and have an owner.
 | Full checkpoint states | `last.pt` holds the model, optimizer, scheduler, scaler and RNG states; resume was tested in the laptop dry run; hashes in FREEZE | `g3/README.md`; FREEZE |
 | Compress the 53.0 MB bundle toward 25 to 30 MB | Not reached. Adding the snake check made the app's model files 65.1 MB (classifier 20.8, segmenter 26.5, detector 9.7, snake check 8.1). Distillation and fp16 for all four models are checked (36.9 MB in fp16, with 3 of 1,000 top species changed by the fp16 front end); the app still ships fp32 for three of them. int8 breaks both models, so it is not used | section 9 |
 | A locked test evaluation with error and limitation analysis | Frozen, scored once, with instrument checks and negative controls; errors in section 5, limitations in section 7 | FREEZE, RESULTS; sections 2, 5, 7 |
-| A 3.5 GB Gemma model on the phone | See the to-do below | section 7.3 |
-
-> **To do (Manas Rastogi):** state what replaced the Gemma model (for example retrieval only, or a server call) and
-> its size on the phone.
+| A 3.5 GB Gemma model on the phone | The separate chat implementation uses a server API. The Flutter client bundles 0 MB of language-model weights. The default server model is Gemma 4 E2B; its deployed size remains to be confirmed. Chat integration with the M5 app is pending. | section 7.3; chat commit `fd60e37` |
 
 **App and team**
 

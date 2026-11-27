@@ -26,8 +26,10 @@ The course asks for this log to be updated every week with each member's contrib
 | App design | A field-guide look across the app: theme, bundled Barlow fonts, home screen, verdict cards, result photo, video and live-camera status ([`brand.dart`](app/lib/ui/brand.dart)). [PR #32](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/32) | Jayesh Bansal | 25 Nov 2026 | Jayesh Bansal |
 | App audit and fixes | Audited the app and fixed 13 of 14 findings, including a stale address in the SOS text, location not rechecked after Settings, Bluetooth alerts silently receiving nothing, out-of-memory on 4K video, lost camera photos, no-snake photos saved as sightings, the hospital list without a location, and image work freezing the screen; specialty hospitals listed after general ones. 52 tests pass; 5/5 golden photos still match on Android. [PR #32](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/32) | Jayesh Bansal | 25 Nov 2026 | Jayesh Bansal |
 | AniDex and saved sighting history | Added an animal guide with BioCLIP 2 species and breed matching, a local collection, and saved result details that can be reopened from sighting history and the map ([AniDex](app/lib/anidex/), [assets](app/assets/anidex/), history and result screens in `app/lib/screens/`). | Jayesh Bansal | 27 Nov 2026 | Jayesh Bansal |
+| Source-based chat | Built the Flutter chat client and server API with source retrieval, cited answers, first-aid routing for recognized bite emergencies, and retrieval, routing and end-to-end evaluations. The implementation is on `feature/chat` (`fd60e37`), pending M5 integration. | Manas Rastogi | Week 6 | Pending confirmation |
+| Live camera | Developed separate detection and verdict lanes for the M4/A3 app. The lane outputs matched the original path for all three models on the emulator, and five golden photos passed. The A3 backup (6421ca3) and M5 port (b80c8e6) are on separate branches. The M5 model files have arrived; device validation of the M5 port is in progress. | Manas Rastogi | Week 6 | Pending confirmation |
 
-Vikas and Manas Rastogi add their own Week 6 rows.
+Vikas adds his Week 6 row.
 
 ### Member contribution summary
 
@@ -36,7 +38,7 @@ Vikas and Manas Rastogi add their own Week 6 rows.
 | Jayesh Bansal | | | |
 | Vikas | | | |
 | Puneet Bajaj | G3, G4 and G5 work on validation; the freeze, the locked test and its error analysis; robustness, Grad-CAM and compression; the M5 pipeline in the app; the Milestone 5 report | [M5 report](documentation/milestone%205/project-report.md), [results](results/m5/README.md) | |
-| Manas Rastogi | | | |
+| Manas Rastogi | Built the source-based chat client and server API. Developed the two-lane live camera and verified M4/A3 model output parity on the emulator. | Chat `fd60e37`; live camera 6421ca3 and b80c8e6 | |
 
 ## Week 5: 15 to 21 November 2026 (Milestone 4, community voting and app integration)
 
