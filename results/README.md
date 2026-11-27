@@ -1,5 +1,8 @@
 # Results
 
+**Milestone 5** (the locked test, error analysis, robustness): start at [`m5/README.md`](m5/README.md). The rest of
+this page covers Milestone 4.
+
 Start with [`m4/summary/goals.csv`](m4/summary/goals.csv). It lists the Milestone 4 goals for the model we ship (A3): each goal's number, its mark, pass or fail, and the file the number comes from. [Notebook 25](../notebooks/25_m4_summary.ipynb) writes every table in `m4/summary/` from the files below and checks each number against its source, so it can be rerun on a laptop without a GPU.
 
 ## Where each headline number lives

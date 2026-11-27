@@ -1,0 +1,16 @@
+{
+  "levels": [
+    0.3,
+    0.5,
+    0.7
+  ],
+  "min_val_photos": 5,
+  "M5_KD": {
+    "measurable": 158,
+    "f1_at_least_0.3": 115,
+    "f1_at_least_0.5": 88,
+    "f1_at_least_0.7": 42,
+    "median_f1": 0.5520252694165737,
+    "f1_zero": 23
+  }
+}

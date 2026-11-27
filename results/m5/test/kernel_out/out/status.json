@@ -1,0 +1,80 @@
+{
+ "passed": [
+  "inputs",
+  "front end",
+  "classifiers",
+  "scenery test",
+  "snake check",
+  "app gate",
+  "B1"
+ ],
+ "failed": {},
+ "checks": {
+  "inputs": {
+   "manifest_files": 622,
+   "frozen_models": [
+    "a3",
+    "detector",
+    "m5_kd",
+    "segmenter",
+    "snake_check"
+   ]
+  },
+  "front_end_vs_saved_val": {
+   "photos": 600,
+   "box_presence_agreement": 1.0,
+   "mask_presence_agreement": 1.0,
+   "box_conf_max_abs_diff": 0.0
+  },
+  "front_end_held_out": {
+   "photos": 18533,
+   "box": 0.99584524901527,
+   "mask": 0.903091782226299
+  },
+  "m5_kd_vs_saved_val": {
+   "photos": 600,
+   "top1_agreement": 1.0,
+   "max_abs_logit_diff": 0.03515625,
+   "median_abs_logit_diff": 0.001953125
+  },
+  "m5_kd_flip_vs_saved_val": {
+   "photos": 600,
+   "top1_agreement": 1.0,
+   "max_abs_logit_diff": 0.03125,
+   "median_abs_logit_diff": 0.002197265625
+  },
+  "a3_m4crops_vs_saved_val": {
+   "photos": 600,
+   "top1_agreement": 0.9983333333333333,
+   "max_abs_logit_diff": 0.03125,
+   "median_abs_logit_diff": 0.0029296875
+  },
+  "snake_check_vs_saved_val": {
+   "photos": 500,
+   "max_abs_logit_diff": 3.25897054672189e-06,
+   "max_abs_p_snake_diff": 9.540895492543555e-07,
+   "decisions_flipped_at_cut": 0
+  },
+  "gate_vs_saved_val": {
+   "photos": 300,
+   "gate_call_agreement": 1.0,
+   "max_abs_mask_area_diff": 0.0005770735524257414
+  },
+  "b1_own_check": {
+   "photos": 64,
+   "max_abs_diff": 0.0,
+   "top1_agreement": 1.0,
+   "swapped_channels_max_abs_diff": 0.9627665877342224
+  }
+ },
+ "seconds": {
+  "inputs": 38,
+  "front end": 396,
+  "classifiers": 389,
+  "scenery test": 541,
+  "snake check": 96,
+  "app gate": 1389,
+  "B1": 0
+ },
+ "minutes": 48.5
+}

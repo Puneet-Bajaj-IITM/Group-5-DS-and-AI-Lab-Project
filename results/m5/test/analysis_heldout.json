@@ -1,0 +1,191 @@
+{
+ "front_end": {
+  "with_mask": {
+   "photos": 16737,
+   "frozen_top1": 0.7388420863954114,
+   "a3_top1": 0.6926569875126964
+  },
+  "without_mask_whole_or_box": {
+   "photos": 1796,
+   "frozen_top1": 0.4838530066815145,
+   "a3_top1": 0.4209354120267261
+  },
+  "gate_drops": 351,
+  "gate_calls": 18533,
+  "snake_check_drops": 128,
+  "both_drop": 16
+ },
+ "by_split": {
+  "test": {
+   "photos": 5144,
+   "frozen_top1": 0.5863141524105754,
+   "a3_top1": 0.588452566096423
+  },
+  "test_extra": {
+   "photos": 13389,
+   "frozen_top1": 0.7632384793487191,
+   "a3_top1": 0.6962431847038614
+  }
+ },
+ "water_snakes": {
+  "sea snakes and sea kraits": {
+   "photos": 768,
+   "frozen_top1": 0.8203125,
+   "a3_top1": 0.8151041666666666,
+   "snake_check_kept": 0.9817708333333334
+  },
+  "other water snakes (Homalopsidae, Acrochordidae)": {
+   "photos": 342,
+   "frozen_top1": 0.52046783625731,
+   "a3_top1": 0.564327485380117,
+   "snake_check_kept": 0.9853801169590644
+  }
+ },
+ "who_listed_missed_behind_gate": {
+  "listed": 2633,
+  "missed": 147,
+  "by_species": {
+   "Naja naja": 44,
+   "Craspedocephalus gramineus": 39,
+   "Daboia russelii": 15,
+   "Naja kaouthia": 10,
+   "Echis carinatus": 9,
+   "Craspedocephalus malabaricus": 8,
+   "Bungarus caeruleus": 6,
+   "Trimeresurus erythrurus": 6,
+   "Ophiophagus hannah": 5,
+   "Bungarus fasciatus": 2,
+   "Ophiophagus kaalinga": 1,
+   "Bungarus niger": 1,
+   "Naja oxiana": 1
+  },
+  "verdicts_given": {
+   "unknown": 87,
+   "not_listed": 60
+  }
+ },
+ "worst_species_measurable": [
+  {
+   "species": "Boiga andamanensis",
+   "photos": 5,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.0,
+   "most_common_wrong": "Python molurus",
+   "most_common_wrong_n": 1
+  },
+  {
+   "species": "Fowlea tytleri",
+   "photos": 12,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.0,
+   "most_common_wrong": "Protobothrops mucrosquamatus",
+   "most_common_wrong_n": 3
+  },
+  {
+   "species": "Dendrelaphis bifrenalis",
+   "photos": 13,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.0,
+   "most_common_wrong": "Chrysopelea ornata",
+   "most_common_wrong_n": 7
+  },
+  {
+   "species": "Sahyadriophis uttaraghati",
+   "photos": 13,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.0,
+   "most_common_wrong": "Sahyadriophis beddomei",
+   "most_common_wrong_n": 9
+  },
+  {
+   "species": "Rhabdophis leonardi",
+   "photos": 14,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.125,
+   "most_common_wrong": "Fowlea piscator",
+   "most_common_wrong_n": 4
+  },
+  {
+   "species": "Herpetoreas platyceps",
+   "photos": 14,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.11764705882352941,
+   "most_common_wrong": "Fowlea piscator",
+   "most_common_wrong_n": 7
+  },
+  {
+   "species": "Hydrophis lapemoides",
+   "photos": 15,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.0,
+   "most_common_wrong": "Laticauda colubrina",
+   "most_common_wrong_n": 10
+  },
+  {
+   "species": "Ahaetulla farnsworthi",
+   "photos": 62,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.02564102564102564,
+   "most_common_wrong": "Ahaetulla prasina",
+   "most_common_wrong_n": 54
+  },
+  {
+   "species": "Trimeresurus septentrionalis",
+   "photos": 17,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.10526315789473684,
+   "most_common_wrong": "Gonyosoma oxycephalum",
+   "most_common_wrong_n": 9
+  },
+  {
+   "species": "Ophiophagus kaalinga",
+   "photos": 20,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.0,
+   "most_common_wrong": "Ophiophagus hannah",
+   "most_common_wrong_n": 11
+  },
+  {
+   "species": "Ahaetulla isabellina",
+   "photos": 30,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.0,
+   "most_common_wrong": "Ahaetulla prasina",
+   "most_common_wrong_n": 23
+  },
+  {
+   "species": "Ahaetulla oxyrhynca",
+   "photos": 149,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.23214285714285715,
+   "most_common_wrong": "Ahaetulla prasina",
+   "most_common_wrong_n": 123
+  },
+  {
+   "species": "Craspedocephalus anamallensis",
+   "photos": 31,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.06060606060606061,
+   "most_common_wrong": "Craspedocephalus malabaricus",
+   "most_common_wrong_n": 22
+  },
+  {
+   "species": "Ahaetulla malabarica",
+   "photos": 40,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.0,
+   "most_common_wrong": "Ahaetulla prasina",
+   "most_common_wrong_n": 35
+  },
+  {
+   "species": "Dendrelaphis chairecacos",
+   "photos": 61,
+   "frozen_f1": 0.0,
+   "a3_f1": 0.0,
+   "most_common_wrong": "Dendrelaphis tristis",
+   "most_common_wrong_n": 46
+  }
+ ],
+ "species_f1_zero_measurable": 33,
+ "species_measurable": 165
+}

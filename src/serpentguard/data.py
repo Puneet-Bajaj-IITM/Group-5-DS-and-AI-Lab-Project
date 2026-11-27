@@ -6,6 +6,7 @@ import os
 
 os.environ.setdefault("NO_ALBUMENTATIONS_UPDATE", "1")  # else albumentations calls PyPI on import
 
+import functools
 import json
 import math
 import random
@@ -29,6 +30,7 @@ IMG_SIZE, SEED = 320, 42
 NO_ID = -1                    # class, genus or family id of a species outside classes.csv
 ID_TYPES = {"obs_id": str, "photo_id": str, "observer_id": str}
 TARGETS = ("class_id", "genus_id", "family_id", "who_risk_id")
+TEACHER_KEYS = ("teacher", "teacher_valid")  # the kd loss's per-photo targets
 WHO_BOOST = {0: 1.0, 1: 1.35, 2: 1.6}  # sampling weight by WHO code
 GREY_RGB = (124, 116, 104)    # padding, and the background in the masked modes
 CROP_PADDING = 0.06           # margin around the mask or box
@@ -52,7 +54,8 @@ DEFAULTS = dict(run_id=None, encoder=None, head=None, losses=None, front_end=Non
                 mask_head=False, mask_keep=0.2, pooling="gap", danger_weight=5.0, aug_strength=1.0,
                 mask_source="sam", box_source="none", eval_every=2, warmup_epochs=1,
                 exclude_species=[], train_list=None, scenery_swap=0.0, scenery_bank=None,
-                views="body", detail_crop=False, detail_threshold=0.5, detail_train_p=0.5)
+                views="body", detail_crop=False, detail_threshold=0.5, detail_train_p=0.5,
+                init_from=None, teacher_probs=None, kd_weight=1.0, kd_temperature=2.0)
 
 
 def run_config(cfg):
@@ -67,6 +70,18 @@ def run_config(cfg):
 
 def input_mode(cfg):
     return FRONT_END_MODES[cfg["front_end"]]
+
+
+@functools.lru_cache(maxsize=2)
+def read_teacher(path):
+    """A teacher's class probabilities per photo, {path: row}, from an npz of paths and probs."""
+    saved = np.load(path)
+    return dict(zip(saved["paths"].astype(str), saved["probs"].astype(np.float32)))
+
+
+def run_teacher(cfg):
+    """The run's teacher, when its losses distil one; else None."""
+    return read_teacher(str(cfg["teacher_probs"])) if "kd" in cfg["losses"] else None
 
 
 def uses_masks(cfg):
@@ -359,7 +374,7 @@ class SnakeDataset(Dataset):
     """Each frame row as its image, mask, whether the mask is real, and the four targets."""
 
     def __init__(self, frame, train=False, mode="full", size=IMG_SIZE, aug_strength=1.0,
-                 swap_p=0.0, bank=None):
+                 swap_p=0.0, bank=None, teacher=None):
         self.frame, self.train, self.mode, self.size = (frame.reset_index(drop=True), train,
                                                         mode, size)
         if swap_p > 0 and (bank is None or bank["class_id"].nunique() < 2):
@@ -368,6 +383,8 @@ class SnakeDataset(Dataset):
         self.bank_files = None if bank is None else bank["file"].to_numpy()
         self.bank_classes = None if bank is None else bank["class_id"].to_numpy()
         self.augment = AUGMENT if aug_strength == 1.0 else build_augment(aug_strength)
+        self.teacher = teacher  # {path: class probabilities}; photos it lacks get no kd target
+        self.teacher_width = None if teacher is None else len(next(iter(teacher.values())))
 
     def __len__(self):
         return len(self.frame)
@@ -391,8 +408,14 @@ class SnakeDataset(Dataset):
         target = sample["mask"].unsqueeze(0).float()
         image = (torch.cat([sample["image"], target]) if self.mode == "rgbm_4ch"
                  else sample["image"])
-        return {"image": image, "mask": target, "mask_valid": mask is not None,
-                **{name: int(row[name]) for name in TARGETS}}
+        sample = {"image": image, "mask": target, "mask_valid": mask is not None,
+                  **{name: int(row[name]) for name in TARGETS}}
+        if self.teacher is not None:
+            probs = self.teacher.get(row["path"])
+            sample["teacher_valid"] = probs is not None
+            sample["teacher"] = torch.from_numpy(
+                probs if probs is not None else np.zeros(self.teacher_width, np.float32))
+        return sample
 
 
 def cap_train(train):
@@ -601,7 +624,8 @@ def train_loader(cfg, frame, num_workers=4):
         raise ValueError("scenery_swap is above 0, but scenery_bank names no bank folder")
     bank = read_bank(cfg["scenery_bank"]) if swap_p > 0 else None
     dataset = SnakeDataset(frame, train=True, mode=input_mode(cfg), size=cfg["input_size"],
-                           aug_strength=cfg["aug_strength"], swap_p=swap_p, bank=bank)
+                           aug_strength=cfg["aug_strength"], swap_p=swap_p, bank=bank,
+                           teacher=run_teacher(cfg))
     seed_augmentation(dataset, cfg["seed"])
     common = {"num_workers": num_workers, "pin_memory": torch.cuda.is_available(),
               "worker_init_fn": init_worker,
@@ -621,11 +645,15 @@ def scored_frame(frame, mode):
     return frame if mode in MASK_INPUT_MODES else frame.assign(mask_file="")
 
 
-def eval_loader(cfg, frame, num_workers=4):
-    """In order, no augmentation, twice the training batch (no gradients are kept)."""
+def eval_loader(cfg, frame, num_workers=4, with_teacher=False):
+    """In order, no augmentation, twice the training batch (no gradients are kept).
+
+    with_teacher: also each photo's kd target, for the validation loss of a run that distils.
+    """
     mode = input_mode(cfg)
     dataset = SnakeDataset(scored_frame(frame, mode), train=False, mode=mode,
-                           size=cfg["input_size"])
+                           size=cfg["input_size"],
+                           teacher=run_teacher(cfg) if with_teacher else None)
     return DataLoader(dataset, batch_size=cfg["batch_size"] * 2, shuffle=False,
                       num_workers=num_workers, pin_memory=torch.cuda.is_available())
 
@@ -636,7 +664,7 @@ def make_loaders(cfg, data_root, masks_root, subset_csv, preds_root=None, num_wo
     cfg = run_config(cfg)
     frames = make_frames(cfg, data_root, masks_root, subset_csv, preds_root, limit)
     return (frames, train_loader(cfg, frames["train"], num_workers),
-            eval_loader(cfg, frames["val"], num_workers))
+            eval_loader(cfg, frames["val"], num_workers, with_teacher=True))
 
 
 def frame_files(frames, mode):

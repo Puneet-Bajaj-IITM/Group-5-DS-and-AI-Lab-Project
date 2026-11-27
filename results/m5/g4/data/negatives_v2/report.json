@@ -1,0 +1,33 @@
+{
+ "candidates": 4803,
+ "download_failed": 0,
+ "near_copies_of_old": 6,
+ "near_copies_within_new": 6,
+ "kept": 4791,
+ "by_category": {
+  "eel": 1995,
+  "legless_lizard": 1799,
+  "worm_lizard": 597,
+  "pipefish_seahorse": 400
+ },
+ "by_taxon": {
+  "Muraenidae": 800,
+  "Synbranchiformes": 600,
+  "Amphisbaenia": 597,
+  "Anguilliformes": 595,
+  "Pygopodidae": 500,
+  "Anguis": 499,
+  "Ophisaurus": 400,
+  "Pseudopus": 400,
+  "Syngnathoidei": 400
+ },
+ "owners": 3419,
+ "owners_in_nb19_val_or_test": 0,
+ "licences": {
+  "cc-by-nc": 3310,
+  "cc-by": 1009,
+  "cc0": 274,
+  "cc-by-sa": 126,
+  "cc-by-nc-sa": 72
+ }
+}

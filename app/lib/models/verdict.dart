@@ -5,10 +5,12 @@ import 'species.dart';
 export '../inference/decision.dart' show GenusFallback;
 
 /// The three things the screen can say, as in the Milestone 3 decision layer.
+/// "Unknown" is shown as a warning with the same urgency as "Dangerous"
+/// (post-M5-test change): the model could not rule a dangerous snake out.
 enum Verdict {
   dangerous('Dangerous', 'Keep away. If anyone is bitten, go to hospital now.'),
   notListed('Not on the WHO list', 'Still keep away. Do not try to handle it.'),
-  unknown("We don't know", 'Treat it as dangerous and keep away.');
+  unknown('Could be dangerous', 'Keep away and treat it as venomous. If anyone is bitten, go to hospital now.');
 
   const Verdict(this.title, this.advice);
   final String title;
@@ -16,6 +18,9 @@ enum Verdict {
 
   /// Dangerous and unknown both take the full emergency path.
   bool get escalate => this != Verdict.notListed;
+
+  /// Dangerous and unknown both get the urgent warning style.
+  bool get warns => escalate;
 
   /// Stable wire code for Bluetooth alerts. Never reorder.
   int get code => index;

@@ -1,6 +1,7 @@
 """Trains one run and writes its run folder (the file names below), which every later step reads."""
 import hashlib
 import json
+import random
 import math
 import platform
 import time
@@ -15,7 +16,7 @@ import timm
 import torch
 import yaml
 
-from serpentguard.data import (MASK_INPUT_MODES, PREDICTED_INPUT_MODES, TARGETS,
+from serpentguard.data import (MASK_INPUT_MODES, PREDICTED_INPUT_MODES, TARGETS, TEACHER_KEYS,
                                class_sampling_probs, eval_loader, frame_files, has_input,
                                input_mode, make_loaders, run_config, seed_everything, warm_cache)
 from serpentguard.metrics import (calibration, class_tables, photographer_groups, safety_report,
@@ -29,6 +30,7 @@ CLASS_MIX_FILE = "class_mix.json"
 METRICS_FILE = "metrics.jsonl"
 FINAL_FILE = "final_metrics.json"
 CHECKPOINT_FILE = "best.pt"
+LAST_FILE = "last.pt"  # the full training state after the latest evaluation, to resume from
 VAL_OUTPUTS = "val_outputs.npz"
 CALIBRATION_OUTPUTS = "calib_outputs.npz"
 UNKNOWN_OUTPUTS = "unknown_outputs.npz"
@@ -43,8 +45,11 @@ def check_config(cfg):
     for name in ("run_id", "encoder", "head", "losses", "front_end", "sampler"):
         if cfg[name] is None:
             raise ValueError(f"every run must set {name}")
-    if "kd" in cfg["losses"]:
-        raise ValueError("the kd loss needs a teacher model, which is not built")
+    if "kd" in cfg["losses"] and not (cfg["teacher_probs"] and Path(cfg["teacher_probs"]).exists()):
+        raise ValueError("the kd loss needs teacher_probs, an npz of the teacher's per-photo "
+                         f"probabilities; got {cfg['teacher_probs']!r}")
+    if "kd" in cfg["losses"] and not (cfg["kd_temperature"] > 0 and cfg["kd_weight"] > 0):
+        raise ValueError("kd_temperature and kd_weight must be above 0")
     if "triplet" in cfg["losses"] and cfg["sampler"] != "pk":
         raise ValueError("a triplet loss needs sampler 'pk', so every batch holds k photos of each "
                          "class")
@@ -69,9 +74,11 @@ def check_config(cfg):
 
 
 def train(cfg, out_dir, data_root, masks_root, subset_csv, preds_root=None, device="cuda",
-          num_workers=4, limit=None, pretrained=True, on_eval=None):
+          num_workers=4, limit=None, pretrained=True, on_eval=None, resume=False):
     """Trains cfg, keeps the best epoch by val macro-F1, writes the run folder, returns metrics."""
-    # on_eval(epoch, line) runs after each evaluation is saved; raising in it ends the run early
+    # on_eval(epoch, line) runs after each evaluation is saved; raising in it ends the run early.
+    # resume: carry on from out_dir/last.pt (model, optimizer, scheduler, loss scaler, RNG states).
+    # cfg["init_from"]: a best.pt whose weights start this run (fine-tuning) instead of ImageNet.
     started = time.perf_counter()
     cfg = run_config({**cfg, "subset_path": str(subset_csv)})  # records the subset actually read
     check_config(cfg)
@@ -96,7 +103,10 @@ def train(cfg, out_dir, data_root, masks_root, subset_csv, preds_root=None, devi
     write_json(out_dir / VERSIONS_FILE, library_versions(device))
     digest = subset_hash(pd.read_csv(subset_csv)["path"])
     (out_dir / HASH_FILE).write_text(digest)
-    (out_dir / METRICS_FILE).write_text("")
+    last_file = out_dir / LAST_FILE
+    resuming = resume and last_file.exists()
+    if not resuming:
+        (out_dir / METRICS_FILE).write_text("")
     coverage = prediction_coverage(frames, mode)
     print(f"{cfg['run_id']} on {device_name(device)}: {len(frames['train'])} training photos "
           f"after caps, {len(frames['val'])} val, {len(frames['calibration'])} calibration, "
@@ -104,7 +114,11 @@ def train(cfg, out_dir, data_root, masks_root, subset_csv, preds_root=None, devi
           + (f"; front-end predictions cover {coverage}" if coverage else ""), flush=True)
 
     model = SnakeID(cfg, taxa.n_classes, taxa.n_genus, taxa.n_family,
-                    pretrained=pretrained).to(device)
+                    pretrained=pretrained and not cfg["init_from"]).to(device)
+    if cfg["init_from"] and not resuming:
+        start = torch.load(cfg["init_from"], map_location="cpu", weights_only=True)
+        model.load_state_dict(start["state_dict"])
+        print(f"{cfg['run_id']}: starts from {cfg['init_from']} (epoch {start['epoch']})", flush=True)
     optimizer = make_optimizer(model, cfg)
     scheduler = torch.optim.lr_scheduler.LambdaLR(
         optimizer, warmup_cosine(cfg["warmup_epochs"] * len(loader), cfg["epochs"] * len(loader)))
@@ -114,9 +128,23 @@ def train(cfg, out_dir, data_root, masks_root, subset_csv, preds_root=None, devi
     log_prior = torch.log(torch.as_tensor(frequencies, dtype=torch.float32)).to(device)
     detail_rng = np.random.default_rng(cfg["seed"]) if cfg["detail_crop"] else None
 
-    best_epoch, best_score, best_state, best_outputs, epochs, eval_seconds = (None, -math.inf, None,
-                                                                              None, [], 0.0)
-    for epoch in range(1, cfg["epochs"] + 1):
+    best_epoch, best_score, best_state, epochs, eval_seconds = None, -math.inf, None, [], 0.0
+    first_epoch = 1
+    if resuming:
+        saved = torch.load(last_file, map_location="cpu", weights_only=False)
+        model.load_state_dict(saved["state_dict"])
+        optimizer.load_state_dict(saved["optimizer"])
+        scheduler.load_state_dict(saved["scheduler"])
+        scaler.load_state_dict(saved["scaler"])
+        restore_rng(saved["rng"])
+        best_epoch, best_score, epochs, eval_seconds = (saved["best_epoch"], saved["best_score"],
+                                                        saved["epochs"], saved["eval_seconds"])
+        best_state = torch.load(out_dir / CHECKPOINT_FILE, map_location="cpu",
+                                weights_only=True)["state_dict"]
+        first_epoch = saved["epoch"] + 1
+        print(f"{cfg['run_id']}: resumes after epoch {saved['epoch']} (best so far {best_epoch})",
+              flush=True)
+    for epoch in range(first_epoch, cfg["epochs"] + 1):
         drawn = np.zeros(taxa.n_classes, dtype=np.int64) if epoch == 1 else None
         stats = run_epoch(model, loader, optimizer, scheduler, scaler, cfg, device, log_prior,
                           drawn, detail_rng)
@@ -127,12 +155,13 @@ def train(cfg, out_dir, data_root, masks_root, subset_csv, preds_root=None, devi
         if epoch % cfg["eval_every"] and epoch != cfg["epochs"]:
             continue
         eval_started = time.perf_counter()
-        outputs = predict(model, val_loader, device, amp)
+        outputs, val_losses = predict(model, val_loader, device, amp, cfg=cfg, log_prior=log_prior)
         report = species_scores(frames["val"], softmax(outputs["species_logits"]), train_counts,
                                 taxa)
         line = {"epoch": epoch, "macro_f1": report["macro_f1"], "top1": report["top1"],
                 "top3": report["top3"],
                 **{f"loss_{name}": value for name, value in stats["losses"].items()},
+                **{f"val_loss_{name}": value for name, value in val_losses.items()},
                 "lr": stats["lr"], "seconds": stats["seconds"],
                 "photos_per_second": stats["photos"] / stats["seconds"],
                 "data_wait_share": stats["wait"] / stats["seconds"],
@@ -144,22 +173,29 @@ def train(cfg, out_dir, data_root, masks_root, subset_csv, preds_root=None, devi
             log.write(f"{json.dumps(line)}\n")
         print(f"{cfg['run_id']} epoch {epoch}/{cfg['epochs']}: macro-F1 {line['macro_f1']:.3f}, "
               f"top-1 {line['top1']:.3f}, top-3 {line['top3']:.3f}, "
-              f"loss {line['loss_total']:.3f}, lr {line['lr']:.2e}, "
+              f"loss {line['loss_total']:.3f}, val loss {line['val_loss_total']:.3f}, "
+              f"lr {line['lr']:.2e}, "
               f"{line['photos_per_second']:.0f} photos/s, "
               f"data wait {line['data_wait_share']:.0%}, epoch {line['seconds']:.0f} s + eval "
               f"{line['eval_seconds']:.0f} s", flush=True)
         score = -math.inf if math.isnan(line["macro_f1"]) else line["macro_f1"]  # nan never wins
         if best_epoch is None or score > best_score:
-            best_epoch, best_score, best_outputs = epoch, score, outputs
+            best_epoch, best_score = epoch, score
             best_state = {name: value.detach().to("cpu", copy=True)
                           for name, value in model.state_dict().items()}
             torch.save({"state_dict": best_state, "config": cfg, "epoch": epoch,
                         "n_classes": taxa.n_classes, "n_genus": taxa.n_genus,
                         "n_family": taxa.n_family}, out_dir / CHECKPOINT_FILE)
+        torch.save({"state_dict": model.state_dict(), "optimizer": optimizer.state_dict(),
+                    "scheduler": scheduler.state_dict(), "scaler": scaler.state_dict(),
+                    "rng": rng_state(), "epoch": epoch, "best_epoch": best_epoch,
+                    "best_score": best_score, "epochs": epochs, "eval_seconds": eval_seconds,
+                    "config": cfg}, last_file)
         if on_eval is not None:
             on_eval(epoch, line)
 
     model.load_state_dict(best_state)
+    best_outputs = predict(model, val_loader, device, amp)
 
     def outputs_on(frame):
         return predict(model, eval_loader(cfg, frame, num_workers), device, amp)
@@ -213,7 +249,7 @@ def run_epoch(model, loader, optimizer, scheduler, scaler, cfg, device, log_prio
     # rng draws which batches become detail crops; it is only read when detail_crop is on
     model.train()
     amp = scaler.is_enabled()
-    targets = TARGETS + (("mask", "mask_valid") if model.mask_head is not None else ())
+    targets = target_names(cfg, model.mask_head is not None)
     sums, steps, photos, wait, detail_batches = defaultdict(float), 0, 0, 0.0, 0
     started = ready = time.perf_counter()
     for batch in loader:
@@ -249,6 +285,12 @@ def run_epoch(model, loader, optimizer, scheduler, scaler, cfg, device, log_prio
             "detail_batches": detail_batches}
 
 
+def target_names(cfg, mask_head):
+    """The batch entries the run's losses read."""
+    return (TARGETS + (("mask", "mask_valid") if mask_head else ())
+            + (TEACHER_KEYS if "kd" in cfg["losses"] else ()))
+
+
 def training_images(model, images, class_ids, cfg, rng):
     """The batch, or with probability detail_train_p its detail crops from the true class's map."""
     if not cfg["detail_crop"] or rng.random() >= cfg["detail_train_p"]:
@@ -278,17 +320,47 @@ def warmup_cosine(warmup_steps, total_steps):
 
 
 @torch.inference_mode()
-def predict(model, loader, device, amp):
-    """The model's outputs on every photo of the loader, in order, as float32 arrays."""
+def predict(model, loader, device, amp, cfg=None, log_prior=None):
+    """The model's outputs on every photo of the loader, in order, as float32 arrays.
+
+    With cfg, also the training loss on these photos, each term averaged over photos, as
+    (outputs, losses): the validation loss the training loss is compared with.
+    """
     model.eval()
-    collected = defaultdict(list)
+    collected, sums, photos = defaultdict(list), defaultdict(float), 0
     for batch in loader:
         with torch.autocast(device.type, dtype=torch.float16, enabled=amp):
             out = model(batch["image"].to(device, non_blocking=True))
         for name in ("embedding", "species_logits", "who_logits", "genus_logits", "family_logits"):
             if out[name] is not None:
                 collected[name].append(out[name].float())  # kept on the device until the end
-    return {name: torch.cat(parts).cpu().numpy() for name, parts in collected.items()}
+        if cfg is not None:
+            targets = {name: batch[name].to(device, non_blocking=True)
+                       for name in target_names(cfg, out.get("mask_logits") is not None)}
+            _, parts = total_loss({k: None if v is None else v.float() for k, v in out.items()},
+                                  targets, cfg, log_prior=log_prior)
+            for name, value in parts.items():
+                sums[name] += value * len(batch["image"])
+            photos += len(batch["image"])
+    outputs = {name: torch.cat(parts).cpu().numpy() for name, parts in collected.items()}
+    if cfg is None:
+        return outputs
+    return outputs, {name: total / photos for name, total in sums.items()}
+
+
+def rng_state():
+    """Every random-number state a resumed run needs to carry on as if never stopped."""
+    return {"python": random.getstate(), "numpy": np.random.get_state(),
+            "torch": torch.get_rng_state(),
+            "cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None}
+
+
+def restore_rng(state):
+    random.setstate(state["python"])
+    np.random.set_state(state["numpy"])
+    torch.set_rng_state(state["torch"])
+    if state["cuda"] is not None and torch.cuda.is_available():
+        torch.cuda.set_rng_state_all(state["cuda"])
 
 
 def load_checkpoint(run_dir, device="cpu"):

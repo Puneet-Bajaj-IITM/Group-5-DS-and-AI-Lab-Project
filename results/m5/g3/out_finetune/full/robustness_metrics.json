@@ -1,0 +1,424 @@
+{
+  "run": "M5_FT",
+  "front_end": "F1m",
+  "input_mode": "mask_box_crop",
+  "checkpoint_epoch": 4,
+  "provenance": {
+    "run_id": "M5_FT",
+    "run_dir": "/kaggle/working/M5_FT",
+    "checkpoint_epoch": 4,
+    "checkpoint_sha256": "996fffd3def60596286f80e4ede7d896f275139d27e7a0638aa4d25b45f4f8f6",
+    "preds_root": "/kaggle/tmp/m5_finetune/m4_preds_all",
+    "frontend_preds_sha256": "318a8f4ee4eb3be3bed724ac177e9e758f3f957dae073226e228c5dee00e5fe7",
+    "segmenter": "not available"
+  },
+  "photos": {
+    "val": 17151,
+    "scored": 17151,
+    "with_mask": 15575,
+    "without_mask": 1576,
+    "mask_dropped_by_cleaning": 0,
+    "mask_size_mismatch": 0,
+    "mask_size_mismatch_examples": [],
+    "mask_unreadable": 0,
+    "blanked": 15575,
+    "swapped": 15575,
+    "without_donor": 0
+  },
+  "instrument_check": {
+    "photos": 17151,
+    "top1_agreement": 1.0,
+    "max_abs_logit_diff": 0.0
+  },
+  "conditions": {
+    "as_is": {
+      "photos": 17151,
+      "photographers": 2249,
+      "top1": 0.6648591918838551,
+      "top3": 0.821701358521369,
+      "macro_f1": 0.47697159960473684,
+      "balanced_acc": 0.4428420085689498,
+      "top1_ci": [
+        0.6446230667911365,
+        0.6843036652829576
+      ]
+    },
+    "as_is_masked": {
+      "photos": 15575,
+      "photographers": 2105,
+      "top1": 0.6923274478330658,
+      "top3": 0.8459711075441413,
+      "macro_f1": 0.49715393693968757,
+      "balanced_acc": 0.461858308530253,
+      "top1_ci": [
+        0.6721718116112599,
+        0.710464945970462
+      ]
+    },
+    "blanked": {
+      "photos": 15575,
+      "photographers": 2105,
+      "top1": 0.12077046548956662,
+      "top3": 0.24436597110754413,
+      "macro_f1": 0.04442211978408165,
+      "balanced_acc": 0.041581528223199445,
+      "top1_ci": [
+        0.11218785773264948,
+        0.13026854047516753
+      ],
+      "shortcut": {
+        "right_as_is": 10783,
+        "shortcut_rate": 0.14355930631549663,
+        "shortcut_rate_ci": [
+          0.13424536202945406,
+          0.1545966989691676
+        ],
+        "blanked_top1": 0.12077046548956662,
+        "changed_prediction": 0.8678009630818619
+      },
+      "by_india": {
+        "india": {
+          "right_as_is": 3825,
+          "shortcut_rate": 0.11816993464052288,
+          "shortcut_rate_ci": [
+            0.10493158873000752,
+            0.13463412706464117
+          ],
+          "blanked_top1": 0.09771380186282812,
+          "changed_prediction": 0.8887383573243014
+        },
+        "not_india": {
+          "right_as_is": 6958,
+          "shortcut_rate": 0.1575165277378557,
+          "shortcut_rate_ci": [
+            0.14518312245563017,
+            0.1711633335091096
+          ],
+          "blanked_top1": 0.13485005170630818,
+          "changed_prediction": 0.8550155118924508
+        }
+      }
+    },
+    "swapped": {
+      "photos": 15575,
+      "photographers": 2105,
+      "top1": 0.6396789727126806,
+      "top3": 0.7980738362760834,
+      "macro_f1": 0.44965893995310785,
+      "balanced_acc": 0.43386280634877605,
+      "top1_ci": [
+        0.6200596450467422,
+        0.6596531451666496
+      ],
+      "as_is_same_photos": {
+        "photos": 15575,
+        "photographers": 2105,
+        "top1": 0.6923274478330658,
+        "top3": 0.8459711075441413,
+        "macro_f1": 0.49715393693968757,
+        "balanced_acc": 0.461858308530253,
+        "top1_ci": [
+          0.6721718116112599,
+          0.710464945970462
+        ]
+      },
+      "donor": {
+        "keeps_own_class": 0.6396789727126806,
+        "keeps_own_class_ci": [
+          0.6200596450467422,
+          0.6596531451666496
+        ],
+        "follows_donor": 0.008218298555377207,
+        "follows_donor_ci": [
+          0.006782131357892226,
+          0.00959672396361515
+        ],
+        "follows_donor_as_is": 0.005008025682182986,
+        "keeps_own_among_right": 0.870722433460076,
+        "changed_prediction": 0.25303370786516854,
+        "donor_silhouette_rate": 0.11987158908507223,
+        "swaps_without_silhouette": 13708,
+        "follows_donor_without_silhouette": 0.0071491100087540125
+      },
+      "by_india": {
+        "india": {
+          "keeps_own_class": 0.5967823878069433,
+          "keeps_own_class_ci": [
+            0.5556155678234598,
+            0.6320882111925145
+          ],
+          "follows_donor": 0.00846740050804403,
+          "follows_donor_ci": [
+            0.0060795626878429425,
+            0.011240435186889183
+          ],
+          "follows_donor_as_is": 0.006096528365791702,
+          "keeps_own_among_right": 0.8635294117647059,
+          "changed_prediction": 0.2689246401354784,
+          "donor_silhouette_rate": 0.12209991532599491,
+          "swaps_without_silhouette": 5184,
+          "follows_donor_without_silhouette": 0.008101851851851851
+        },
+        "not_india": {
+          "keeps_own_class": 0.6658738366080662,
+          "keeps_own_class_ci": [
+            0.6440469689922337,
+            0.6890298662908483
+          ],
+          "follows_donor": 0.008066184074457083,
+          "follows_donor_ci": [
+            0.006401027088776225,
+            0.009854559752115591
+          ],
+          "follows_donor_as_is": 0.0043433298862461224,
+          "keeps_own_among_right": 0.8746766312158666,
+          "changed_prediction": 0.24332988624612203,
+          "donor_silhouette_rate": 0.11851085832471561,
+          "swaps_without_silhouette": 8524,
+          "follows_donor_without_silhouette": 0.00656968559361802
+        }
+      }
+    }
+  },
+  "verdicts": {
+    "recall_bound": "lower",
+    "thresholds": {
+      "temperature": 1.8175076701667936,
+      "temperature_who": 0.8765496864682779,
+      "theta_d": 0.09373944104712587,
+      "theta_who": Infinity,
+      "tau_unknown": 0.6085678623398628,
+      "theta_conf": 0.28588360272651225,
+      "theta_v": 0.5,
+      "theta_genus": 0.5
+    },
+    "as_is": {
+      "dangerous": 6706,
+      "not_listed": 8130,
+      "unknown": 2315
+    },
+    "blanked": {
+      "photos": 15575,
+      "changed": 0.576115569823435,
+      "transitions": {
+        "dangerous->not_listed": 257,
+        "dangerous->unknown": 662,
+        "not_listed->dangerous": 5150,
+        "not_listed->unknown": 1719,
+        "unknown->dangerous": 1088,
+        "unknown->not_listed": 97
+      },
+      "before": {
+        "dangerous": 5801,
+        "not_listed": 7723,
+        "unknown": 2051
+      },
+      "after": {
+        "dangerous": 11120,
+        "not_listed": 1208,
+        "unknown": 3247
+      }
+    },
+    "swapped": {
+      "photos": 15575,
+      "changed": 0.13900481540930978,
+      "transitions": {
+        "dangerous->not_listed": 260,
+        "dangerous->unknown": 184,
+        "not_listed->dangerous": 681,
+        "not_listed->unknown": 445,
+        "unknown->dangerous": 357,
+        "unknown->not_listed": 238
+      },
+      "before": {
+        "dangerous": 5801,
+        "not_listed": 7723,
+        "unknown": 2051
+      },
+      "after": {
+        "dangerous": 6395,
+        "not_listed": 7095,
+        "unknown": 2085
+      }
+    }
+  },
+  "slices": {
+    "india": {
+      "in": {
+        "photos": 6367,
+        "photographers": 574,
+        "top1": 0.6211716664049003,
+        "top3": 0.789696874509188,
+        "macro_f1": 0.424382530122308,
+        "balanced_acc": 0.4247087783506236,
+        "top1_ci": [
+          0.5816153627518477,
+          0.6572745392276754
+        ]
+      },
+      "out": {
+        "photos": 10784,
+        "photographers": 1717,
+        "top1": 0.6906528189910979,
+        "top3": 0.8405971810089021,
+        "macro_f1": 0.49039027645526917,
+        "balanced_acc": 0.5531201519116802,
+        "top1_ci": [
+          0.6642475007980891,
+          0.7186241208254376
+        ]
+      },
+      "top1_gap": -0.06948115258619758,
+      "top1_gap_ci": [
+        -0.11412614119216784,
+        -0.025945142340588197
+      ]
+    },
+    "dark": {
+      "in": {
+        "photos": 2292,
+        "photographers": 402,
+        "top1": 0.6404886561954625,
+        "top3": 0.8512216404886562,
+        "macro_f1": 0.4995606822274417,
+        "balanced_acc": 0.5329393382406858,
+        "top1_ci": [
+          0.5937013258825924,
+          0.6834606536812419
+        ]
+      },
+      "out": {
+        "photos": 14859,
+        "photographers": 2179,
+        "top1": 0.6686183457837002,
+        "top3": 0.8171478565179353,
+        "macro_f1": 0.46685238153812175,
+        "balanced_acc": 0.4382839380451854,
+        "top1_ci": [
+          0.6485804234745003,
+          0.6870530572678016
+        ]
+      },
+      "top1_gap": -0.028129689588237694,
+      "top1_gap_ci": [
+        -0.07228749565322999,
+        0.012630115483387286
+      ]
+    },
+    "blurry": {
+      "in": {
+        "photos": 701,
+        "photographers": 279,
+        "top1": 0.6034236804564908,
+        "top3": 0.8402282453637661,
+        "macro_f1": 0.4479999135835589,
+        "balanced_acc": 0.48494868551817816,
+        "top1_ci": [
+          0.5447908843508713,
+          0.6571019052800886
+        ]
+      },
+      "out": {
+        "photos": 16450,
+        "photographers": 2206,
+        "top1": 0.6674772036474164,
+        "top3": 0.8209118541033434,
+        "macro_f1": 0.47888081124724946,
+        "balanced_acc": 0.44651548011505926,
+        "top1_ci": [
+          0.6476558658755996,
+          0.6878506710412176
+        ]
+      },
+      "top1_gap": -0.06405352319092561,
+      "top1_gap_ci": [
+        -0.11865458279476292,
+        -0.011485421355644766
+      ]
+    },
+    "few_photographers": {
+      "in": {
+        "photos": 119,
+        "photographers": 44,
+        "top1": 0.25210084033613445,
+        "top3": 0.4369747899159664,
+        "macro_f1": 0.31362724577010287,
+        "balanced_acc": 0.2610720298220298,
+        "top1_ci": [
+          0.13413913961974266,
+          0.36612103174603167
+        ]
+      },
+      "out": {
+        "photos": 17032,
+        "photographers": 2242,
+        "top1": 0.6677430718647253,
+        "top3": 0.8243893846876468,
+        "macro_f1": 0.49814845148148457,
+        "balanced_acc": 0.47154253152898973,
+        "top1_ci": [
+          0.647691078086246,
+          0.6882837284878824
+        ]
+      },
+      "top1_gap": -0.4156422315285908,
+      "top1_gap_ci": [
+        -0.5442529904891193,
+        -0.30370890732462247
+      ]
+    }
+  },
+  "quality": {
+    "val": {
+      "photos": 17151,
+      "dark": 0.13363652265174042,
+      "blurry": 0.04087225234680194
+    },
+    "calibration": {
+      "photos": 7999,
+      "dark": 0.06350793849231154,
+      "blurry": 0.04963120390048756
+    },
+    "unknown": {
+      "photos": 451,
+      "dark": 0.11529933481152993,
+      "blurry": 0.015521064301552107
+    }
+  },
+  "settings": {
+    "fill_rgb": [
+      124,
+      116,
+      104
+    ],
+    "dark_below": 60,
+    "blur_below": 100.0,
+    "swap_seed": 42,
+    "few_photographers_at_most": 10,
+    "few_photographer_classes": 29,
+    "prototype_set": "plain",
+    "instrument_floor": 0.99,
+    "limit": null
+  },
+  "warm_cache": {
+    "files": 15575,
+    "missing": 0,
+    "seconds": 2.553282422999473,
+    "mb": 31.309916
+  },
+  "subset_hash": "40196d19a68eb4917bef72f22e2f5fc9aea70bcdd19346c6044e754fbf38e188",
+  "versions": {
+    "python": "3.13.16",
+    "torch": "2.11.0+cu130",
+    "timm": "1.0.31",
+    "albumentations": "2.0.8",
+    "numpy": "2.1.3",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.9.1",
+    "opencv": "4.14.0",
+    "cuda": "13.0",
+    "cudnn": 92700,
+    "gpu": "Tesla T4"
+  },
+  "seconds": 389.5103565170002
+}

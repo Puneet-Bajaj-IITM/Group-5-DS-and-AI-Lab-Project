@@ -1,0 +1,25 @@
+path,kind,species,frozen_pred,target_class,frozen_p
+test_extra/gonyosoma_oxycephalum/inaturalist_332844654.jpg,correct,Gonyosoma oxycephalum,Gonyosoma oxycephalum,21,0.986317459308455
+test/uropeltis_macrolepis/inaturalist_745240521.jpg,correct,Uropeltis macrolepis,Uropeltis macrolepis,98,0.9999868679335426
+test_extra/pareas_monticola/inaturalist_695756035.jpg,correct,Pareas monticola,Pareas monticola,126,0.9999382567841322
+test_extra/lycodon_bicolor/inaturalist_142456295.jpg,correct,Lycodon bicolor,Lycodon bicolor,151,0.9998750971049652
+test_extra/malayopython_reticulatus/inaturalist_28245835.jpg,correct,Malayopython reticulatus,Malayopython reticulatus,7,0.9999954698898694
+test_extra/ptyas_nigromarginata/inaturalist_328487190.jpg,correct,Ptyas nigromarginata,Ptyas nigromarginata,103,0.9999908864081372
+test/boiga_flaviviridis/inaturalist_295261596.jpg,correct,Boiga flaviviridis,Boiga flaviviridis,89,0.9612539667798515
+test_extra/trimeresurus_popeiorum/inaturalist_94583192.jpg,correct,Trimeresurus popeiorum,Trimeresurus popeiorum,100,0.9270661583462403
+test/boiga_forsteni/inaturalist_391691929.jpg,correct,Boiga forsteni,Boiga forsteni,66,0.37439572265676757
+test/oligodon_taeniolatus/inaturalist_600508703.jpg,correct,Oligodon taeniolatus,Oligodon taeniolatus,32,0.9997464146069795
+test/uropeltis_phipsonii/inaturalist_410572578.jpg,correct,Uropeltis phipsonii,Uropeltis phipsonii,125,0.7981753466151421
+test_extra/chrysopelea_ornata/inaturalist_205699386.jpg,correct,Chrysopelea ornata,Chrysopelea ornata,6,0.9999990982316215
+test/ahaetulla_oxyrhynca/inaturalist_608644739.jpg,misclassified,Ahaetulla oxyrhynca,Ahaetulla prasina,1,0.43228048470739033
+test/ahaetulla_oxyrhynca/inaturalist_444986564.jpg,misclassified,Ahaetulla oxyrhynca,Ahaetulla prasina,1,0.4988229572422871
+test/ahaetulla_borealis/inaturalist_700672222.jpg,misclassified,Ahaetulla borealis,Ahaetulla prasina,1,0.4607660085930358
+test/ahaetulla_borealis/inaturalist_725923944.jpg,misclassified,Ahaetulla borealis,Ahaetulla prasina,1,0.5100284687872179
+test/ptyas_mucosa/inaturalist_577253626.jpg,misclassified,Ptyas mucosa,Naja naja,8,0.5895267596897306
+test/ptyas_mucosa/inaturalist_230330953.jpg,misclassified,Ptyas mucosa,Naja naja,8,0.4297896358953345
+test/naja_naja/inaturalist_576948257.jpg,misclassified,Naja naja,Ptyas mucosa,2,0.8854672297535249
+test_extra/naja_naja/inaturalist_562734477.jpg,misclassified,Naja naja,Ptyas mucosa,2,0.6953147154334888
+test_extra/ptyas_mucosa/inaturalist_54946.jpg,misclassified,Ptyas mucosa,Ptyas korros,9,0.5926570629363775
+test/craspedocephalus_gramineus/inaturalist_321925615.jpg,misclassified,Craspedocephalus gramineus,Ahaetulla prasina,1,0.32222578427507187
+test/dendrelaphis_chairecacos/inaturalist_385051788.jpg,misclassified,Dendrelaphis chairecacos,Dendrelaphis tristis,20,0.9990703258926922
+test/lycodon_fasciolatus/inaturalist_512252686.jpg,misclassified,Lycodon fasciolatus,Lycodon aulicus,18,0.9245385763989935

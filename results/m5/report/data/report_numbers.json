@@ -1,0 +1,293 @@
+{
+ "instrument_check_g3_slice": {
+  "photos": 12203,
+  "frozen_top1": 0.7739900024584119,
+  "frozen_macro": 0.7185399349281757,
+  "b1_top1": 0.7800540850610506,
+  "b1_macro": 0.7125378620517416,
+  "matches_test_scores": true
+ },
+ "most_common_training_species": "Indotyphlops braminus",
+ "naive_baselines_g3_slice": {
+  "always the most common training species": {
+   "top1": 0.10407276899123166,
+   "macro_f1_62": 0.003090577025331781,
+   "vs_b1_top1": {
+    "diff": -0.6759813160698189,
+    "low": -0.7039123664919205,
+    "high": -0.6492915476409524
+   },
+   "vs_b1_macro_f1": {
+    "diff": -0.7094472850264099,
+    "low": -0.7325417420847707,
+    "high": -0.673325820204719
+   }
+  },
+  "random draw from training frequencies (prior only, seed 42)": {
+   "top1": 0.03458166024748013,
+   "macro_f1_62": 0.01582007837862692,
+   "vs_b1_top1": {
+    "diff": -0.7454724248135705,
+    "low": -0.7783207535622259,
+    "high": -0.7080693372532086
+   },
+   "vs_b1_macro_f1": {
+    "diff": -0.6967177836731148,
+    "low": -0.7200136071236708,
+    "high": -0.661239261303648
+   }
+  },
+  "control: frozen predictions shuffled": {
+   "top1": 0.03531918380726051,
+   "macro_f1_62": 0.014054245332374182,
+   "vs_b1_top1": {
+    "diff": -0.74473490125379,
+    "low": -0.7781593040456265,
+    "high": -0.706188204747158
+   },
+   "vs_b1_macro_f1": {
+    "diff": -0.6984836167193674,
+    "low": -0.7215468957251286,
+    "high": -0.6624038437509393
+   }
+  }
+ },
+ "naive_baselines_all_heldout": {
+  "always the most common training species": {
+   "top1": 0.08940808287918847,
+   "macro_f1_measurable": 0.0009947919011812029
+  },
+  "random draw from training frequencies (prior only, seed 42)": {
+   "top1": 0.02956887713807802,
+   "macro_f1_measurable": 0.006215909258584724
+  },
+  "frozen": {
+   "top1": 0.7141315491285815,
+   "macro_f1_measurable": 0.46078331124417793
+  },
+  "A3": {
+   "top1": 0.6663249339016889,
+   "macro_f1_measurable": 0.4796150809251098
+  }
+ },
+ "india_vs_outside": {
+  "in India": {
+   "photos": 7109,
+   "frozen_top1": 0.604304402869602,
+   "a3_top1": 0.6081024054016037
+  },
+  "outside India": {
+   "photos": 11424,
+   "frozen_top1": 0.7824754901960784,
+   "a3_top1": 0.7025560224089635
+  }
+ },
+ "india_by_split": {
+  "False": {
+   "test": 0,
+   "test_extra": 11424
+  },
+  "True": {
+   "test": 5144,
+   "test_extra": 1965
+  }
+ },
+ "leakage": {
+  "heldout_rows_in_metadata": 18533,
+  "other_rows": 103033,
+  "other_splits_present": [
+   "test",
+   "test_extra",
+   "train",
+   "unknown_pool",
+   "val"
+  ],
+  "observers_heldout_and_other": 36,
+  "observers_heldout_and_train": 0,
+  "obs_id_heldout_and_other": 0,
+  "sha1_heldout_and_other": 0,
+  "phash_exact_heldout_and_other": 0
+ },
+ "composition": {
+  "photos": 18533,
+  "species": 181,
+  "species_with_5_or_more": 165,
+  "photos_per_species_median": 28.0,
+  "max": 1657,
+  "min": 1,
+  "top5": {
+   "Indotyphlops braminus": 1657,
+   "Ahaetulla prasina": 1206,
+   "Ptyas mucosa": 1098,
+   "Protobothrops mucrosquamatus": 799,
+   "Fowlea piscator": 793
+  },
+  "share_top10_species": 0.4431014946311984,
+  "who_category": {
+   "not_listed": 15900,
+   "1": 1502,
+   "2": 1131
+  },
+  "families_top5": {
+   "Colubridae": 9535,
+   "Viperidae": 2535,
+   "Elapidae": 1977,
+   "Typhlopidae": 1715,
+   "Pythonidae": 926
+  },
+  "photographers": 2281,
+  "split": {
+   "test_extra": 13389,
+   "test": 5144
+  }
+ },
+ "errors": {
+  "species_wrong": 5298,
+  "who_listed": 2633,
+  "who_listed_not_dangerous": 147,
+  "who_listed_gate_dropped": 61,
+  "harmless_outside_venomous_families": 14021,
+  "harmless_called_dangerous": 3022,
+  "false_alarm_share": 0.21553384209400187,
+  "snake_check_dropped": 128
+ },
+ "misclassified_examples": [
+  {
+   "path": "test_extra/melanophidium_wynaudense/inaturalist_127981303.jpg",
+   "split": "test_extra",
+   "species": "Melanophidium wynaudense",
+   "who_category": "not_listed",
+   "frozen_pred": "Melanophidium khairei",
+   "frozen_p": 0.9999997731860822,
+   "frozen_top3": "Melanophidium khairei|Melanophidium wynaudense|Wallaceophis gujaratensis",
+   "verdict_frozen_behind_gate": "not_listed"
+  },
+  {
+   "path": "test_extra/herpetoreas_platyceps/inaturalist_675319185.jpg",
+   "split": "test_extra",
+   "species": "Herpetoreas platyceps",
+   "who_category": "not_listed",
+   "frozen_pred": "Fowlea piscator",
+   "frozen_p": 0.9999956974217363,
+   "frozen_top3": "Fowlea piscator|Hypsiscopus plumbeus|Rhabdophis leonardi",
+   "verdict_frozen_behind_gate": "not_listed"
+  },
+  {
+   "path": "test/pseudoindotyphlops_porrectus/inaturalist_444478575.jpg",
+   "split": "test",
+   "species": "Pseudoindotyphlops porrectus",
+   "who_category": "not_listed",
+   "frozen_pred": "Indotyphlops braminus",
+   "frozen_p": 0.9999940873975538,
+   "frozen_top3": "Indotyphlops braminus|Grypotyphlops acutus|Pseudoindotyphlops porrectus",
+   "verdict_frozen_behind_gate": "not_listed"
+  },
+  {
+   "path": "test_extra/ovophis_monticola/inaturalist_543308183.jpg",
+   "split": "test_extra",
+   "species": "Ovophis monticola",
+   "who_category": "not_listed",
+   "frozen_pred": "Protobothrops mucrosquamatus",
+   "frozen_p": 0.9999933567397926,
+   "frozen_top3": "Protobothrops mucrosquamatus|Ovophis monticola|Boiga multomaculata",
+   "verdict_frozen_behind_gate": "dangerous"
+  },
+  {
+   "path": "test/grypotyphlops_acutus/inaturalist_511981253.jpg",
+   "split": "test",
+   "species": "Grypotyphlops acutus",
+   "who_category": "not_listed",
+   "frozen_pred": "Indotyphlops braminus",
+   "frozen_p": 0.9999931506395592,
+   "frozen_top3": "Indotyphlops braminus|Argyrophis diardii|Dendrelaphis tristis",
+   "verdict_frozen_behind_gate": "not_listed"
+  },
+  {
+   "path": "test_extra/argyrophis_diardii/inaturalist_567938786.jpg",
+   "split": "test_extra",
+   "species": "Argyrophis diardii",
+   "who_category": "not_listed",
+   "frozen_pred": "Indotyphlops braminus",
+   "frozen_p": 0.9999929717610319,
+   "frozen_top3": "Indotyphlops braminus|Enhydris enhydris|Echis carinatus",
+   "verdict_frozen_behind_gate": "not_listed"
+  },
+  {
+   "path": "test/craspedocephalus_anamallensis/inaturalist_389831604.jpg",
+   "split": "test",
+   "species": "Craspedocephalus anamallensis",
+   "who_category": "not_listed",
+   "frozen_pred": "Craspedocephalus malabaricus",
+   "frozen_p": 0.9999915258237925,
+   "frozen_top3": "Craspedocephalus malabaricus|Psammodynastes pulverulentus|Craspedocephalus anamallensis",
+   "verdict_frozen_behind_gate": "dangerous"
+  },
+  {
+   "path": "test/boiga_beddomei/inaturalist_725924808.jpg",
+   "split": "test",
+   "species": "Boiga beddomei",
+   "who_category": "not_listed",
+   "frozen_pred": "Pareas carinatus",
+   "frozen_p": 0.9999878332727486,
+   "frozen_top3": "Pareas carinatus|Boiga beddomei|Boiga trigonata",
+   "verdict_frozen_behind_gate": "not_listed"
+  },
+  {
+   "path": "test/python_molurus/inaturalist_408125173.jpg",
+   "split": "test",
+   "species": "Python molurus",
+   "who_category": "not_listed",
+   "frozen_pred": "Python bivittatus",
+   "frozen_p": 0.9999831259529026,
+   "frozen_top3": "Python bivittatus|Python molurus|Daboia russelii",
+   "verdict_frozen_behind_gate": "not_listed"
+  },
+  {
+   "path": "test_extra/malayopython_reticulatus/inaturalist_316274856.jpg",
+   "split": "test_extra",
+   "species": "Malayopython reticulatus",
+   "who_category": "not_listed",
+   "frozen_pred": "Macrovipera lebetinus",
+   "frozen_p": 0.9999795158627262,
+   "frozen_top3": "Macrovipera lebetinus|Xenopeltis unicolor|Fowlea piscator",
+   "verdict_frozen_behind_gate": "dangerous"
+  }
+ ],
+ "who_listed_missed_examples": [
+  {
+   "path": "test/craspedocephalus_gramineus/inaturalist_356023090.jpg",
+   "species": "Craspedocephalus gramineus",
+   "frozen_pred": "Boiga cyanea",
+   "frozen_p": 0.9974757643630624,
+   "verdict_frozen_behind_gate": "not_listed"
+  },
+  {
+   "path": "test/naja_naja/inaturalist_575788873.jpg",
+   "species": "Naja naja",
+   "frozen_pred": "Ptyas mucosa",
+   "frozen_p": 0.9963329138191694,
+   "verdict_frozen_behind_gate": "not_listed"
+  },
+  {
+   "path": "test_extra/trimeresurus_erythrurus/inaturalist_456301930.jpg",
+   "species": "Trimeresurus erythrurus",
+   "frozen_pred": "Gonyosoma oxycephalum",
+   "frozen_p": 0.9955866881211328,
+   "verdict_frozen_behind_gate": "not_listed"
+  },
+  {
+   "path": "test_extra/ophiophagus_hannah/inaturalist_165505048.jpg",
+   "species": "Ophiophagus hannah",
+   "frozen_pred": "Euprepiophis mandarinus",
+   "frozen_p": 0.9928630320497737,
+   "verdict_frozen_behind_gate": "not_listed"
+  },
+  {
+   "path": "test/bungarus_niger/inaturalist_744859007.jpg",
+   "species": "Bungarus niger",
+   "frozen_pred": "Xenopeltis unicolor",
+   "frozen_p": 0.9865505781106828,
+   "verdict_frozen_behind_gate": "unknown"
+  }
+ ]
+}

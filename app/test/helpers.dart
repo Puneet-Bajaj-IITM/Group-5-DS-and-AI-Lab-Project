@@ -15,7 +15,7 @@ SpeciesCatalog loadCatalog() {
 
 Species byName(SpeciesCatalog c, String name) => c.all.firstWhere((s) => s.name == name);
 
-/// A3's decision rules, from the committed settings and tables.
+/// The app's decision rules, from the committed settings and tables.
 DecisionRules loadRules() {
   final settings = PipelineSettings.parse(File('assets/model/pipeline.json').readAsStringSync());
   final tables = ModelTables.parse(File('assets/model/tables.json').readAsStringSync());

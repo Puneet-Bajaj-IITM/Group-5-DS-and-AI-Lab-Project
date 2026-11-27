@@ -365,6 +365,20 @@ def dice_bce(mask_logits, masks, valid):
     return (bce + dice).mean()
 
 
+def distillation_loss(logits, teacher, valid, temperature):
+    """KL(teacher || student) at the temperature, times its square, over the photos with a teacher.
+
+    The teacher's probabilities are 0 on the classes it does not know, so the student is also
+    pushed off those classes on these photos. A batch with no teacher photo gives 0.
+    """
+    if not valid.any():
+        return logits.sum() * 0.0
+    student = F.log_softmax(logits[valid] / temperature, dim=1)
+    target = teacher[valid].clamp_min(0) ** (1 / temperature)  # the teacher's logits / temperature
+    target = target / target.sum(dim=1, keepdim=True)
+    return F.kl_div(student, target, reduction="batchmean") * temperature ** 2
+
+
 def total_loss(out, batch, cfg, log_prior=None):
     """(loss, parts): the run's weighted sum, and each unweighted term as a float for logging."""
     species, = [name for name in cfg["losses"] if name in ("ce", "la_ce", "arcface")]  # exactly one
@@ -390,4 +404,8 @@ def total_loss(out, batch, cfg, log_prior=None):
     if out["mask_logits"] is not None:
         terms["mask"] = dice_bce(out["mask_logits"], batch["mask"], batch["mask_valid"])
         total = total + cfg["mask_weight"] * terms["mask"]
+    if "kd" in cfg["losses"]:
+        terms["kd"] = distillation_loss(logits, batch["teacher"], batch["teacher_valid"],
+                                        cfg["kd_temperature"])
+        total = total + cfg["kd_weight"] * terms["kd"]
     return total, {**{name: value.item() for name, value in terms.items()}, "total": total.item()}

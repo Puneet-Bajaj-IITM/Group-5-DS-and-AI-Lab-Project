@@ -4,10 +4,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../models/verdict.dart';
 import '../state/app_state.dart';
 import '../util/geo.dart';
 import '../widgets/common.dart';
+import 'result_screen.dart';
 
 /// Map tiles are cached as you browse: areas you have looked at stay
 /// available offline for 30 days (up to 300 MB). OpenStreetMap's tile policy
@@ -64,7 +64,12 @@ class _MapScreenState extends State<MapScreen> {
             point: _ll(x.location!),
             width: 32,
             height: 32,
-            child: _Pin(icon: Icons.pest_control_rodent_outlined, color: st.background),
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => ResultScreen.saved(x, s.catalog),
+              )),
+              child: _Pin(icon: Icons.pest_control_rodent_outlined, color: st.background),
+            ),
           );
         }),
       if (_showAlerts)
@@ -74,7 +79,7 @@ class _MapScreenState extends State<MapScreen> {
               height: 40,
               child: _Pin(
                 icon: Icons.campaign_rounded,
-                color: r.alert.verdict == Verdict.dangerous
+                color: r.alert.verdict.warns
                     ? const Color(0xFFB3261E)
                     : const Color(0xFFE8A317),
               ),

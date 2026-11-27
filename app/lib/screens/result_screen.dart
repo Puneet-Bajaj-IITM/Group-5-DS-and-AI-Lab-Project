@@ -10,13 +10,23 @@ import '../models/verdict.dart';
 import '../services/classifier.dart';
 import '../state/app_state.dart';
 import '../ui/brand.dart';
+import '../util/geo.dart';
 import '../widgets/common.dart';
 import 'first_aid_screen.dart';
 
 class ResultScreen extends StatefulWidget {
-  const ResultScreen({super.key, required this.identification, this.photoPath});
+  const ResultScreen({super.key, required this.identification, this.photoPath, this.sighting});
+
+  /// A saved sighting reopened from the history list or the map.
+  ResultScreen.saved(Sighting s, SpeciesCatalog catalog, {Key? key})
+      : this(key: key, identification: s.toIdentification(catalog), photoPath: s.photoPath, sighting: s);
+
   final Identification identification;
   final String? photoPath;
+
+  /// Set when this is a saved sighting, not a fresh result: it is not saved
+  /// again and cannot be broadcast as a live alert.
+  final Sighting? sighting;
 
   @override
   State<ResultScreen> createState() => _ResultScreenState();
@@ -25,9 +35,12 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
   late Identification _id = widget.identification;
 
+  bool get _saved => widget.sighting != null;
+
   @override
   void initState() {
     super.initState();
+    if (_saved) return;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AppState>().saveSighting(_id, photoPath: widget.photoPath);
     });
@@ -89,18 +102,42 @@ class _ResultScreenState extends State<ResultScreen> {
         )
         .toList();
 
+    final sighting = widget.sighting;
     return Scaffold(
-      appBar: AppBar(title: const Text('Result')),
+      appBar: AppBar(title: Text(_saved ? 'Saved result' : 'Result')),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
           children: [
             if (widget.photoPath != null &&
                 File(widget.photoPath!).existsSync())
-              _PhotoWithBox(path: widget.photoPath!, id: _id),
+              _PhotoWithBox(path: widget.photoPath!, id: _id, saved: sighting?.result),
+            if (sighting != null) ...[
+              const SizedBox(height: 10),
+              Row(children: [
+                Icon(Icons.history_rounded, size: 18, color: scheme.onSurfaceVariant),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    'Identified ${formatAge(DateTime.now().difference(sighting.time))} · '
+                    '${_dateTime(sighting.time)}'
+                    '${sighting.location == null ? '' : ' · ${sighting.location}'}',
+                    style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                  ),
+                ),
+              ]),
+              if (sighting.result == null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    'Saved before the app kept full results: the percentages are not available.',
+                    style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                  ),
+                ),
+            ],
             const SizedBox(height: 14),
             if (_id.isDemo) ...[const DemoBadge(), const SizedBox(height: 12)],
-            VerdictBanner(verdict: _id.verdict, reason: _id.reason),
+            VerdictBanner(verdict: _id.verdict, reason: _id.reason, snakeFound: _id.snakeFound),
             const SizedBox(height: 16),
             if (_id.verdict.escalate) ...[
               EmergencyButton(
@@ -142,18 +179,20 @@ class _ResultScreenState extends State<ResultScreen> {
               width: double.infinity,
               height: 52,
               child: OutlinedButton.icon(
-                onPressed: _id.isDemo || !_id.snakeFound ? null : _sendAlert,
+                onPressed: _id.isDemo || !_id.snakeFound || _saved ? null : _sendAlert,
                 icon: const Icon(Icons.campaign_outlined),
                 label: Text(
-                  _id.isDemo
-                      ? 'Broadcast unavailable for demo results'
-                      : 'Warn people nearby',
+                  _saved
+                      ? 'Alerts are only for snakes seen now'
+                      : _id.isDemo
+                          ? 'Broadcast unavailable for demo results'
+                          : 'Warn people nearby',
                 ),
               ),
             ),
             SectionTitle(
               'Most likely species',
-              trailing: _id.isDemo
+              trailing: _id.isDemo && !_saved
                   ? TextButton.icon(
                       onPressed: _pickDemoSpecies,
                       icon: const Icon(Icons.swap_horiz_rounded, size: 18),
@@ -225,7 +264,9 @@ class _SpeciesRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final sp = score.species;
     final scheme = Theme.of(context).colorScheme;
-    final pct = (score.probability * 100).round();
+    // NaN: an old saved sighting that only kept the species.
+    final known = !score.probability.isNaN;
+    final pct = known ? (score.probability * 100).round() : 0;
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       child: Padding(
@@ -244,10 +285,11 @@ class _SpeciesRow extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(
-                  '$pct%',
-                  style: const TextStyle(fontWeight: FontWeight.w700),
-                ),
+                if (known)
+                  Text(
+                    '$pct%',
+                    style: const TextStyle(fontWeight: FontWeight.w700),
+                  ),
               ],
             ),
             if (sp.commonName != null)
@@ -266,16 +308,18 @@ class _SpeciesRow extends StatelessWidget {
                   style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 13),
                 ),
               ),
-            const SizedBox(height: 8),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: LinearProgressIndicator(
-                value: score.probability.clamp(0, 1),
-                minHeight: 6,
-                color: sp.dangerous ? const Color(0xFFB3261E) : scheme.primary,
-                backgroundColor: scheme.surfaceContainerHighest,
+            if (known) ...[
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: LinearProgressIndicator(
+                  value: score.probability.clamp(0, 1),
+                  minHeight: 6,
+                  color: sp.dangerous ? const Color(0xFFB3261E) : scheme.primary,
+                  backgroundColor: scheme.surfaceContainerHighest,
+                ),
               ),
-            ),
+            ],
             const SizedBox(height: 8),
             Wrap(
               spacing: 6,
@@ -386,15 +430,19 @@ class _SpeciesPickerState extends State<_SpeciesPicker> {
 
 /// The photo with the detector's box and the top species drawn on it.
 class _PhotoWithBox extends StatelessWidget {
-  const _PhotoWithBox({required this.path, required this.id});
+  const _PhotoWithBox({required this.path, required this.id, this.saved});
   final String path;
   final Identification id;
+
+  /// A saved sighting's box and photo size (a fresh result has [id.details]).
+  final SavedResult? saved;
 
   @override
   Widget build(BuildContext context) {
     final d = id.details;
-    final box = d?.gate.box;
-    final size = d == null ? null : Size(d.width.toDouble(), d.height.toDouble());
+    final box = d?.gate.box ?? saved?.box;
+    final w = d?.width ?? saved?.imageWidth, h = d?.height ?? saved?.imageHeight;
+    final size = w == null || h == null ? null : Size(w.toDouble(), h.toDouble());
     final aspect = size == null ? 4 / 3 : (size.width / size.height).clamp(0.6, 1.9);
     final style = VerdictStyle.of(id.verdict);
     final top = id.top.isEmpty ? null : id.top.first;
@@ -411,7 +459,11 @@ class _PhotoWithBox extends StatelessWidget {
                 box: box,
                 imageSize: size,
                 color: style.background,
-                label: top == null ? 'Snake' : '${top.species.displayName} · ${(top.probability * 100).round()}%',
+                label: top == null
+                    ? 'Snake'
+                    : top.probability.isNaN
+                        ? top.species.displayName
+                        : '${top.species.displayName} · ${(top.probability * 100).round()}%',
               ),
             if (!id.snakeFound)
               Align(
@@ -429,4 +481,12 @@ class _PhotoWithBox extends StatelessWidget {
       ),
     );
   }
+}
+
+/// "27 Nov 2026, 18:05" in the phone's local time.
+String _dateTime(DateTime t) {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  final l = t.toLocal();
+  String two(int v) => v.toString().padLeft(2, '0');
+  return '${l.day} ${months[l.month - 1]} ${l.year}, ${two(l.hour)}:${two(l.minute)}';
 }

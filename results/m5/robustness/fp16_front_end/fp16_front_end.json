@@ -1,0 +1,36 @@
+{
+ "photos": 1000,
+ "seed": 42,
+ "split": "validation snakes",
+ "sizes": {
+  "detector": {
+   "fp32_mb": 9.7,
+   "fp16_mb": 4.9
+  },
+  "segmenter": {
+   "fp32_mb": 26.5,
+   "fp16_mb": 13.3
+  }
+ },
+ "box_conf_none_mismatch": 0,
+ "box_conf_max_abs_diff": 0.006391406059265137,
+ "box_conf_mean_abs_diff": 0.0004775877892971039,
+ "mask_area_max_abs_diff": 0.004640000000000033,
+ "mask_iou_mean": 0.9984751221066254,
+ "mask_iou_min": 0.8455008488964346,
+ "m4_gate_flips": 0,
+ "crop_window_changed": 54,
+ "verdict_changed": 1,
+ "top1_changed": 3,
+ "control_shuffled_mask_iou_mean": 0.010221485845604287,
+ "latency_ms_laptop_1_thread": {
+  "detector": {
+   "fp32": 6.6,
+   "fp16": 7.5
+  },
+  "segmenter": {
+   "fp32": 33.6,
+   "fp16": 34.6
+  }
+ }
+}

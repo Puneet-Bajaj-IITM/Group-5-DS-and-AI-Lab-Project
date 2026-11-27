@@ -1,0 +1,9 @@
+{
+ "photos": 1000,
+ "median_abs_diff": 8.323774121099525e-05,
+ "p99_abs_diff": 0.005817445152757231,
+ "max_abs_diff": 0.016905966797250316,
+ "decision_flips_at_cutoff": 0,
+ "cutoff": 0.10738503023409966,
+ "note": "differences include the decoder (cv2 vs PIL), the exposure fix (app path only) and fp16"
+}

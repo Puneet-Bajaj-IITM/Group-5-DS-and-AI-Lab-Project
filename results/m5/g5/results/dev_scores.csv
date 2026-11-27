@@ -1,0 +1,201 @@
+clip,set,species,species_source,latency_s,frames,snake_frames,changes_after_first_answer,answered,first_answer_s,first_anything_s,final_shown,final_right,final_verdict,verdict_changes,final_pooled_verdict_no_latch,ever_dangerous,species_shown,locked_frames,expected_verdict
+synthetic_489138162,dev_synthetic,Ophiophagus kaalinga,stated,0.1,101,101,0,True,0.6,0.1,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],96,dangerous
+synthetic_489138162,dev_synthetic,Ophiophagus kaalinga,stated,0.25,41,41,0,True,0.75,0.25,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],39,dangerous
+synthetic_489138162,dev_synthetic,Ophiophagus kaalinga,stated,0.4,26,26,0,True,1.2,0.4,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],24,dangerous
+synthetic_489138162,dev_synthetic,Ophiophagus kaalinga,stated,0.8,14,14,0,True,1.6,0.8,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],13,dangerous
+synthetic_22679235,dev_synthetic,Ahaetulla malabarica,stated,0.1,101,94,0,True,9.5,0.2,Rhabdophis helleri,False,dangerous,0,dangerous,True,['Rhabdophis helleri'],7,not_listed
+synthetic_22679235,dev_synthetic,Ahaetulla malabarica,stated,0.25,41,38,0,True,9.5,0.5,Rhabdophis helleri,False,dangerous,0,dangerous,True,['Rhabdophis helleri'],4,not_listed
+synthetic_22679235,dev_synthetic,Ahaetulla malabarica,stated,0.4,26,25,0,True,9.6,0.8,Rhabdophis helleri,False,dangerous,0,dangerous,True,['Rhabdophis helleri'],3,not_listed
+synthetic_22679235,dev_synthetic,Ahaetulla malabarica,stated,0.8,14,13,0,False,,1.6,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_462345804,dev_synthetic,Echis carinatus,stated,0.1,101,101,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_462345804,dev_synthetic,Echis carinatus,stated,0.25,41,41,0,True,9.25,0.25,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],5,dangerous
+synthetic_462345804,dev_synthetic,Echis carinatus,stated,0.4,26,26,0,False,,0.4,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_462345804,dev_synthetic,Echis carinatus,stated,0.8,14,14,0,False,,0.8,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_104230244,dev_synthetic,Macrovipera lebetinus,stated,0.1,101,101,0,True,7.4,0.1,Macrovipera lebetinus,True,dangerous,0,dangerous,True,['Macrovipera lebetinus'],28,dangerous
+synthetic_104230244,dev_synthetic,Macrovipera lebetinus,stated,0.25,41,41,0,True,1.75,0.25,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],35,dangerous
+synthetic_104230244,dev_synthetic,Macrovipera lebetinus,stated,0.4,26,26,0,True,6.4,0.4,Macrovipera lebetinus,True,dangerous,0,dangerous,True,['Macrovipera lebetinus'],11,dangerous
+synthetic_104230244,dev_synthetic,Macrovipera lebetinus,stated,0.8,14,14,0,True,1.6,0.8,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],13,dangerous
+synthetic_270423658,dev_synthetic,Atretium schistosum,stated,0.1,101,101,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_270423658,dev_synthetic,Atretium schistosum,stated,0.25,41,41,0,False,,0.25,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_270423658,dev_synthetic,Atretium schistosum,stated,0.4,26,26,0,False,,0.4,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_270423658,dev_synthetic,Atretium schistosum,stated,0.8,14,14,0,False,,0.8,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_523987697,dev_synthetic,Eryx johnii,stated,0.1,101,101,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_523987697,dev_synthetic,Eryx johnii,stated,0.25,41,41,0,False,,0.25,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_523987697,dev_synthetic,Eryx johnii,stated,0.4,26,26,0,False,,0.4,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_523987697,dev_synthetic,Eryx johnii,stated,0.8,14,14,0,False,,0.8,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_700792998,dev_synthetic,Malayopython reticulatus,stated,0.1,101,101,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_700792998,dev_synthetic,Malayopython reticulatus,stated,0.25,41,41,0,False,,0.25,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_700792998,dev_synthetic,Malayopython reticulatus,stated,0.4,26,26,0,False,,0.4,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_700792998,dev_synthetic,Malayopython reticulatus,stated,0.8,14,14,0,True,10.4,0.8,Malayopython reticulatus,True,dangerous,2,dangerous,True,['Malayopython reticulatus'],2,not_listed
+synthetic_397634905,dev_synthetic,Lycodon septentrionalis,stated,0.1,101,98,0,True,0.6,0.1,Bungarus caeruleus,False,dangerous,0,dangerous,True,['Bungarus caeruleus'],96,not_listed
+synthetic_397634905,dev_synthetic,Lycodon septentrionalis,stated,0.25,41,39,0,True,0.75,0.25,Bungarus caeruleus,False,dangerous,0,dangerous,True,['Bungarus caeruleus'],39,not_listed
+synthetic_397634905,dev_synthetic,Lycodon septentrionalis,stated,0.4,26,24,0,True,1.6,0.4,Oligodon arnensis,False,dangerous,0,dangerous,True,['Oligodon arnensis'],23,not_listed
+synthetic_397634905,dev_synthetic,Lycodon septentrionalis,stated,0.8,14,14,0,True,4.0,0.8,Bungarus caeruleus,False,dangerous,0,dangerous,True,['Bungarus caeruleus'],10,not_listed
+synthetic_669522177,dev_synthetic,Euprepiophis mandarinus,stated,0.1,101,101,0,True,0.6,0.1,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],96,not_listed
+synthetic_669522177,dev_synthetic,Euprepiophis mandarinus,stated,0.25,41,41,0,True,0.75,0.25,Bungarus fasciatus,False,dangerous,0,dangerous,True,['Bungarus fasciatus'],39,not_listed
+synthetic_669522177,dev_synthetic,Euprepiophis mandarinus,stated,0.4,26,26,0,True,1.2,0.4,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],24,not_listed
+synthetic_669522177,dev_synthetic,Euprepiophis mandarinus,stated,0.8,14,14,0,True,1.6,0.8,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],13,not_listed
+synthetic_515579723,dev_synthetic,Boiga beddomei,stated,0.1,101,101,0,True,3.3,0.1,Psammodynastes pulverulentus,False,dangerous,0,dangerous,True,['Psammodynastes pulverulentus'],69,not_listed
+synthetic_515579723,dev_synthetic,Boiga beddomei,stated,0.25,41,41,0,True,4.75,0.25,Pareas carinatus,False,dangerous,0,not_listed,True,['Pareas carinatus'],23,not_listed
+synthetic_515579723,dev_synthetic,Boiga beddomei,stated,0.4,26,26,0,True,6.0,0.4,Pareas carinatus,False,dangerous,0,not_listed,True,['Pareas carinatus'],12,not_listed
+synthetic_515579723,dev_synthetic,Boiga beddomei,stated,0.8,14,14,0,True,6.4,0.8,Pareas carinatus,False,dangerous,2,not_listed,True,['Pareas carinatus'],7,not_listed
+synthetic_566733705,dev_synthetic,Rhabdophis helleri,stated,0.1,101,93,0,True,0.6,0.1,Rhabdophis helleri,True,dangerous,0,dangerous,True,['Rhabdophis helleri'],96,dangerous
+synthetic_566733705,dev_synthetic,Rhabdophis helleri,stated,0.25,41,37,0,True,0.75,0.25,Rhabdophis helleri,True,dangerous,0,dangerous,True,['Rhabdophis helleri'],39,dangerous
+synthetic_566733705,dev_synthetic,Rhabdophis helleri,stated,0.4,26,25,0,True,2.0,0.4,Rhabdophis helleri,True,dangerous,0,dangerous,True,['Rhabdophis helleri'],22,dangerous
+synthetic_566733705,dev_synthetic,Rhabdophis helleri,stated,0.8,14,14,0,True,2.4,0.8,Rhabdophis helleri,True,dangerous,0,dangerous,True,['Rhabdophis helleri'],12,dangerous
+synthetic_81497741,dev_synthetic,Dendrelaphis cyanochloris,stated,0.1,101,101,0,True,0.6,0.6,Dendrelaphis cyanochloris,True,not_listed,0,not_listed,False,['Dendrelaphis cyanochloris'],96,not_listed
+synthetic_81497741,dev_synthetic,Dendrelaphis cyanochloris,stated,0.25,41,41,0,True,0.75,0.75,Dendrelaphis cyanochloris,True,not_listed,0,not_listed,False,['Dendrelaphis cyanochloris'],39,not_listed
+synthetic_81497741,dev_synthetic,Dendrelaphis cyanochloris,stated,0.4,26,26,0,True,1.2,1.2,Dendrelaphis cyanochloris,True,not_listed,0,not_listed,False,['Dendrelaphis cyanochloris'],24,not_listed
+synthetic_81497741,dev_synthetic,Dendrelaphis cyanochloris,stated,0.8,14,14,0,True,1.6,1.6,Dendrelaphis cyanochloris,True,not_listed,0,not_listed,False,['Dendrelaphis cyanochloris'],13,not_listed
+synthetic_397634947,dev_synthetic,Ovophis zayuensis,stated,0.1,101,73,0,True,0.6,0.1,Protobothrops mucrosquamatus,False,dangerous,0,dangerous,True,['Protobothrops mucrosquamatus'],96,dangerous
+synthetic_397634947,dev_synthetic,Ovophis zayuensis,stated,0.25,41,27,0,True,0.75,0.25,Protobothrops mucrosquamatus,False,dangerous,0,dangerous,True,['Protobothrops mucrosquamatus'],39,dangerous
+synthetic_397634947,dev_synthetic,Ovophis zayuensis,stated,0.4,26,18,1,True,1.2,0.4,Protobothrops mucrosquamatus,False,dangerous,0,dangerous,True,"['Gloydius himalayanus', 'Protobothrops mucrosquamatus']",24,dangerous
+synthetic_397634947,dev_synthetic,Ovophis zayuensis,stated,0.8,14,12,1,True,1.6,0.8,Protobothrops mucrosquamatus,False,dangerous,0,dangerous,True,"['Gloydius himalayanus', 'Protobothrops mucrosquamatus']",13,dangerous
+synthetic_244187392,dev_synthetic,Xenopeltis unicolor,stated,0.1,101,100,0,True,0.6,0.1,Daboia russelii,False,dangerous,0,dangerous,True,['Daboia russelii'],96,not_listed
+synthetic_244187392,dev_synthetic,Xenopeltis unicolor,stated,0.25,41,40,0,True,1.0,0.25,Xenopeltis unicolor,True,dangerous,0,dangerous,True,['Xenopeltis unicolor'],38,not_listed
+synthetic_244187392,dev_synthetic,Xenopeltis unicolor,stated,0.4,26,25,0,True,1.2,0.4,Daboia russelii,False,dangerous,0,dangerous,True,['Daboia russelii'],24,not_listed
+synthetic_244187392,dev_synthetic,Xenopeltis unicolor,stated,0.8,14,14,0,True,1.6,0.8,Xenopeltis unicolor,True,dangerous,0,dangerous,True,['Xenopeltis unicolor'],13,not_listed
+synthetic_640148271,dev_synthetic,Boiga trigonata,stated,0.1,101,40,0,False,,0.3,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_640148271,dev_synthetic,Boiga trigonata,stated,0.25,41,16,0,False,,0.5,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_640148271,dev_synthetic,Boiga trigonata,stated,0.4,26,11,0,False,,2.4,,False,,0,,True,[],0,not_listed
+synthetic_640148271,dev_synthetic,Boiga trigonata,stated,0.8,14,4,0,False,,4.8,,False,,0,,True,[],0,not_listed
+synthetic_68070242,dev_synthetic,Acrochordus granulatus,stated,0.1,101,101,0,True,0.6,0.1,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],96,not_listed
+synthetic_68070242,dev_synthetic,Acrochordus granulatus,stated,0.25,41,41,0,True,0.75,0.25,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],39,not_listed
+synthetic_68070242,dev_synthetic,Acrochordus granulatus,stated,0.4,26,26,0,True,1.2,0.4,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],24,not_listed
+synthetic_68070242,dev_synthetic,Acrochordus granulatus,stated,0.8,14,14,0,True,1.6,0.8,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],13,not_listed
+synthetic_109077170,dev_synthetic,Melanophidium wynaudense,stated,0.1,101,101,0,True,0.6,0.2,Melanophidium wynaudense,True,dangerous,2,dangerous,True,['Melanophidium wynaudense'],96,not_listed
+synthetic_109077170,dev_synthetic,Melanophidium wynaudense,stated,0.25,41,41,0,True,0.75,0.75,Melanophidium wynaudense,True,dangerous,1,dangerous,True,['Melanophidium wynaudense'],39,not_listed
+synthetic_109077170,dev_synthetic,Melanophidium wynaudense,stated,0.4,26,26,0,True,1.2,1.2,Melanophidium wynaudense,True,dangerous,1,dangerous,True,['Melanophidium wynaudense'],24,not_listed
+synthetic_109077170,dev_synthetic,Melanophidium wynaudense,stated,0.8,14,14,0,True,1.6,1.6,Melanophidium wynaudense,True,dangerous,1,dangerous,True,['Melanophidium wynaudense'],13,not_listed
+synthetic_440495704,dev_synthetic,Coelognathus flavolineatus,stated,0.1,101,74,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_440495704,dev_synthetic,Coelognathus flavolineatus,stated,0.25,41,33,0,False,,0.25,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_440495704,dev_synthetic,Coelognathus flavolineatus,stated,0.4,26,19,0,False,,0.4,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_440495704,dev_synthetic,Coelognathus flavolineatus,stated,0.8,14,11,0,False,,0.8,,False,dangerous,0,dangerous,True,[],0,not_listed
+synthetic_658554014,dev_synthetic,Oreocryptophis porphyraceus,stated,0.1,101,101,1,True,0.6,0.1,Oreocryptophis porphyraceus,True,dangerous,0,not_listed,True,"['Hypnale hypnale', 'Oreocryptophis porphyraceus']",96,not_listed
+synthetic_658554014,dev_synthetic,Oreocryptophis porphyraceus,stated,0.25,41,41,1,True,0.75,0.25,Oreocryptophis porphyraceus,True,not_listed,1,not_listed,True,"['Hypnale hypnale', 'Oreocryptophis porphyraceus']",39,not_listed
+synthetic_658554014,dev_synthetic,Oreocryptophis porphyraceus,stated,0.4,26,26,1,True,2.0,0.4,Oreocryptophis porphyraceus,True,not_listed,1,not_listed,True,"['Hypnale hypnale', 'Oreocryptophis porphyraceus']",22,not_listed
+synthetic_658554014,dev_synthetic,Oreocryptophis porphyraceus,stated,0.8,14,14,1,True,2.4,0.8,Oreocryptophis porphyraceus,True,dangerous,2,dangerous,True,"['Hypnale hypnale', 'Oreocryptophis porphyraceus']",12,not_listed
+synthetic_689076589,dev_synthetic,Grypotyphlops acutus,stated,0.1,101,101,0,True,0.7,0.1,Indotyphlops braminus,False,dangerous,0,dangerous,True,['Indotyphlops braminus'],95,not_listed
+synthetic_689076589,dev_synthetic,Grypotyphlops acutus,stated,0.25,41,41,0,True,0.75,0.25,Indotyphlops braminus,False,dangerous,0,dangerous,True,['Indotyphlops braminus'],39,not_listed
+synthetic_689076589,dev_synthetic,Grypotyphlops acutus,stated,0.4,26,26,0,True,3.2,0.4,Indotyphlops braminus,False,dangerous,2,dangerous,True,['Indotyphlops braminus'],19,not_listed
+synthetic_689076589,dev_synthetic,Grypotyphlops acutus,stated,0.8,14,14,0,True,1.6,0.8,Dieurostus dussumieri,False,dangerous,2,dangerous,True,['Dieurostus dussumieri'],13,not_listed
+synthetic_450152288,dev_synthetic,Bungarus caeruleus,stated,0.1,101,100,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_450152288,dev_synthetic,Bungarus caeruleus,stated,0.25,41,41,0,True,2.75,0.25,Bungarus fasciatus,False,dangerous,0,dangerous,True,['Bungarus fasciatus'],31,dangerous
+synthetic_450152288,dev_synthetic,Bungarus caeruleus,stated,0.4,26,26,0,False,,0.4,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_450152288,dev_synthetic,Bungarus caeruleus,stated,0.8,14,14,0,True,4.0,0.8,Bungarus fasciatus,False,dangerous,0,dangerous,True,['Bungarus fasciatus'],10,dangerous
+synthetic_347758473,dev_synthetic,Naja naja,stated,0.1,101,101,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_347758473,dev_synthetic,Naja naja,stated,0.25,41,41,0,False,,0.25,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_347758473,dev_synthetic,Naja naja,stated,0.4,26,26,0,False,,0.4,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_347758473,dev_synthetic,Naja naja,stated,0.8,14,14,0,False,,0.8,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_228115560,dev_synthetic,Naja naja,stated,0.1,101,11,0,True,3.5,2.6,,False,dangerous,0,dangerous,True,['Naja naja'],24,dangerous
+synthetic_228115560,dev_synthetic,Naja naja,stated,0.25,41,4,0,False,,2.75,,False,,0,,True,[],0,dangerous
+synthetic_228115560,dev_synthetic,Naja naja,stated,0.4,26,1,0,False,,3.6,,False,,0,,True,[],0,dangerous
+synthetic_228115560,dev_synthetic,Naja naja,stated,0.8,14,1,0,False,,4.0,,False,,0,,True,[],0,dangerous
+synthetic_549336672,dev_synthetic,Trimeresurus erythrurus,stated,0.1,101,101,0,True,0.6,0.1,Gonyosoma oxycephalum,False,dangerous,0,dangerous,True,['Gonyosoma oxycephalum'],96,dangerous
+synthetic_549336672,dev_synthetic,Trimeresurus erythrurus,stated,0.25,41,41,0,True,1.0,0.25,Gonyosoma oxycephalum,False,dangerous,0,dangerous,True,['Gonyosoma oxycephalum'],38,dangerous
+synthetic_549336672,dev_synthetic,Trimeresurus erythrurus,stated,0.4,26,26,0,True,1.6,0.4,Gonyosoma oxycephalum,False,dangerous,0,dangerous,True,['Gonyosoma oxycephalum'],23,dangerous
+synthetic_549336672,dev_synthetic,Trimeresurus erythrurus,stated,0.8,14,14,0,True,1.6,0.8,Gonyosoma oxycephalum,False,dangerous,0,dangerous,True,['Gonyosoma oxycephalum'],13,dangerous
+synthetic_515161617,dev_synthetic,Craspedocephalus malabaricus,stated,0.1,101,101,0,True,0.6,0.1,Craspedocephalus malabaricus,True,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],96,dangerous
+synthetic_515161617,dev_synthetic,Craspedocephalus malabaricus,stated,0.25,41,41,0,True,0.75,0.25,Craspedocephalus malabaricus,True,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],39,dangerous
+synthetic_515161617,dev_synthetic,Craspedocephalus malabaricus,stated,0.4,26,26,0,True,1.2,0.4,Craspedocephalus malabaricus,True,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],24,dangerous
+synthetic_515161617,dev_synthetic,Craspedocephalus malabaricus,stated,0.8,14,14,0,True,1.6,0.8,Craspedocephalus malabaricus,True,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],13,dangerous
+synthetic_695038231,dev_synthetic,Hypnale hypnale,stated,0.1,101,96,0,True,0.6,0.1,Craspedocephalus malabaricus,False,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],96,dangerous
+synthetic_695038231,dev_synthetic,Hypnale hypnale,stated,0.25,41,38,0,True,0.75,0.25,Craspedocephalus malabaricus,False,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],39,dangerous
+synthetic_695038231,dev_synthetic,Hypnale hypnale,stated,0.4,26,24,0,True,1.2,0.4,Craspedocephalus malabaricus,False,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],24,dangerous
+synthetic_695038231,dev_synthetic,Hypnale hypnale,stated,0.8,14,13,0,False,,0.8,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_53050309,dev_synthetic,Daboia russelii,stated,0.1,101,101,0,True,0.6,0.1,Fowlea piscator,False,dangerous,0,dangerous,True,['Fowlea piscator'],96,dangerous
+synthetic_53050309,dev_synthetic,Daboia russelii,stated,0.25,41,41,0,True,1.75,0.25,Fowlea piscator,False,dangerous,0,dangerous,True,['Fowlea piscator'],35,dangerous
+synthetic_53050309,dev_synthetic,Daboia russelii,stated,0.4,26,26,0,True,2.4,0.4,Fowlea piscator,False,dangerous,0,dangerous,True,['Fowlea piscator'],21,dangerous
+synthetic_53050309,dev_synthetic,Daboia russelii,stated,0.8,14,14,0,True,5.6,0.8,Fowlea piscator,False,dangerous,0,not_listed,True,['Fowlea piscator'],8,dangerous
+synthetic_527874978,dev_synthetic,Daboia russelii,stated,0.1,101,101,0,True,0.6,0.1,Boiga multomaculata,False,dangerous,0,dangerous,True,['Boiga multomaculata'],96,dangerous
+synthetic_527874978,dev_synthetic,Daboia russelii,stated,0.25,41,41,0,True,1.0,0.25,Daboia russelii,True,dangerous,0,dangerous,True,['Daboia russelii'],38,dangerous
+synthetic_527874978,dev_synthetic,Daboia russelii,stated,0.4,26,26,0,True,1.2,0.4,Daboia russelii,True,dangerous,0,dangerous,True,['Daboia russelii'],24,dangerous
+synthetic_527874978,dev_synthetic,Daboia russelii,stated,0.8,14,14,0,True,1.6,0.8,Daboia russelii,True,dangerous,0,dangerous,True,['Daboia russelii'],13,dangerous
+synthetic_458169455,dev_synthetic,Hypnale hypnale,stated,0.1,101,84,0,True,2.5,0.1,Psammodynastes pulverulentus,False,dangerous,2,dangerous,True,['Psammodynastes pulverulentus'],77,dangerous
+synthetic_458169455,dev_synthetic,Hypnale hypnale,stated,0.25,41,37,0,True,2.5,0.25,Psammodynastes pulverulentus,False,dangerous,2,dangerous,True,['Psammodynastes pulverulentus'],32,dangerous
+synthetic_458169455,dev_synthetic,Hypnale hypnale,stated,0.4,26,20,0,True,1.2,0.4,Psammodynastes pulverulentus,False,dangerous,2,dangerous,True,['Psammodynastes pulverulentus'],24,dangerous
+synthetic_458169455,dev_synthetic,Hypnale hypnale,stated,0.8,14,12,0,True,1.6,0.8,Psammodynastes pulverulentus,False,dangerous,2,dangerous,True,['Psammodynastes pulverulentus'],13,dangerous
+synthetic_463384993,dev_synthetic,Echis carinatus,stated,0.1,101,98,0,True,1.7,0.1,Macrovipera lebetinus,False,dangerous,0,dangerous,True,['Macrovipera lebetinus'],85,dangerous
+synthetic_463384993,dev_synthetic,Echis carinatus,stated,0.25,41,37,0,True,0.75,0.25,Daboia russelii,False,dangerous,0,dangerous,True,['Daboia russelii'],39,dangerous
+synthetic_463384993,dev_synthetic,Echis carinatus,stated,0.4,26,25,0,True,2.0,0.4,Macrovipera lebetinus,False,dangerous,0,dangerous,True,['Macrovipera lebetinus'],22,dangerous
+synthetic_463384993,dev_synthetic,Echis carinatus,stated,0.8,14,13,0,True,1.6,0.8,Macrovipera lebetinus,False,dangerous,0,dangerous,True,['Macrovipera lebetinus'],13,dangerous
+synthetic_309053703,dev_synthetic,Craspedocephalus malabaricus,stated,0.1,101,98,0,True,1.2,0.2,Craspedocephalus malabaricus,True,dangerous,0,unknown,True,['Craspedocephalus malabaricus'],90,dangerous
+synthetic_309053703,dev_synthetic,Craspedocephalus malabaricus,stated,0.25,41,41,0,True,6.75,0.75,Craspedocephalus malabaricus,True,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],15,dangerous
+synthetic_309053703,dev_synthetic,Craspedocephalus malabaricus,stated,0.4,26,24,0,False,,0.8,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_309053703,dev_synthetic,Craspedocephalus malabaricus,stated,0.8,14,13,0,True,11.2,1.6,Craspedocephalus travancoricus,False,dangerous,0,dangerous,True,['Craspedocephalus travancoricus'],1,dangerous
+synthetic_462345883,dev_synthetic,Echis carinatus,stated,0.1,101,101,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_462345883,dev_synthetic,Echis carinatus,stated,0.25,41,41,0,False,,0.25,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_462345883,dev_synthetic,Echis carinatus,stated,0.4,26,26,0,False,,0.4,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_462345883,dev_synthetic,Echis carinatus,stated,0.8,14,14,0,False,,0.8,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_718925856,dev_synthetic,Naja kaouthia,stated,0.1,101,91,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_718925856,dev_synthetic,Naja kaouthia,stated,0.25,41,38,0,False,,0.25,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_718925856,dev_synthetic,Naja kaouthia,stated,0.4,26,24,0,False,,0.4,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_718925856,dev_synthetic,Naja kaouthia,stated,0.8,14,13,0,False,,0.8,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_570997008,dev_synthetic,Bungarus caeruleus,stated,0.1,101,100,0,True,4.3,0.1,Bungarus caeruleus,True,dangerous,0,dangerous,True,['Bungarus caeruleus'],59,dangerous
+synthetic_570997008,dev_synthetic,Bungarus caeruleus,stated,0.25,41,40,0,True,3.5,0.25,Bungarus caeruleus,True,dangerous,0,not_listed,True,['Bungarus caeruleus'],28,dangerous
+synthetic_570997008,dev_synthetic,Bungarus caeruleus,stated,0.4,26,26,0,True,2.8,0.4,Bungarus caeruleus,True,dangerous,0,dangerous,True,['Bungarus caeruleus'],20,dangerous
+synthetic_570997008,dev_synthetic,Bungarus caeruleus,stated,0.8,14,14,0,True,3.2,0.8,Bungarus caeruleus,True,dangerous,0,not_listed,True,['Bungarus caeruleus'],11,dangerous
+synthetic_46690465,dev_synthetic,Naja kaouthia,stated,0.1,101,101,0,True,0.6,0.1,Naja kaouthia,True,dangerous,0,dangerous,True,['Naja kaouthia'],96,dangerous
+synthetic_46690465,dev_synthetic,Naja kaouthia,stated,0.25,41,41,0,True,0.75,0.25,Naja kaouthia,True,dangerous,0,dangerous,True,['Naja kaouthia'],39,dangerous
+synthetic_46690465,dev_synthetic,Naja kaouthia,stated,0.4,26,26,0,True,1.2,0.4,Naja kaouthia,True,dangerous,0,dangerous,True,['Naja kaouthia'],24,dangerous
+synthetic_46690465,dev_synthetic,Naja kaouthia,stated,0.8,14,14,0,True,1.6,0.8,Naja kaouthia,True,dangerous,0,dangerous,True,['Naja kaouthia'],13,dangerous
+synthetic_645070031,dev_synthetic,Macrovipera lebetinus,stated,0.1,101,100,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_645070031,dev_synthetic,Macrovipera lebetinus,stated,0.25,41,40,0,True,5.0,0.25,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],22,dangerous
+synthetic_645070031,dev_synthetic,Macrovipera lebetinus,stated,0.4,26,26,0,True,5.6,0.4,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],13,dangerous
+synthetic_645070031,dev_synthetic,Macrovipera lebetinus,stated,0.8,14,14,0,False,,0.8,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_100100085,dev_synthetic,Macrovipera lebetinus,stated,0.1,101,100,0,True,0.6,0.1,Macrovipera lebetinus,True,dangerous,0,dangerous,True,['Macrovipera lebetinus'],96,dangerous
+synthetic_100100085,dev_synthetic,Macrovipera lebetinus,stated,0.25,41,39,0,True,0.75,0.25,Macrovipera lebetinus,True,dangerous,0,dangerous,True,['Macrovipera lebetinus'],39,dangerous
+synthetic_100100085,dev_synthetic,Macrovipera lebetinus,stated,0.4,26,26,0,True,1.2,0.4,Macrovipera lebetinus,True,dangerous,0,dangerous,True,['Macrovipera lebetinus'],24,dangerous
+synthetic_100100085,dev_synthetic,Macrovipera lebetinus,stated,0.8,14,14,0,True,1.6,0.8,Macrovipera lebetinus,True,dangerous,0,dangerous,True,['Macrovipera lebetinus'],13,dangerous
+synthetic_548519131,dev_synthetic,Ophiophagus hannah,stated,0.1,101,10,0,False,,2.9,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_548519131,dev_synthetic,Ophiophagus hannah,stated,0.25,41,2,0,False,,3.5,,False,,0,,True,[],0,dangerous
+synthetic_548519131,dev_synthetic,Ophiophagus hannah,stated,0.4,26,5,0,False,,3.2,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_548519131,dev_synthetic,Ophiophagus hannah,stated,0.8,14,3,0,False,,4.0,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_635504723,dev_synthetic,Ophiophagus hannah,stated,0.1,101,101,0,True,0.7,0.1,Naja kaouthia,False,dangerous,0,dangerous,True,['Naja kaouthia'],95,dangerous
+synthetic_635504723,dev_synthetic,Ophiophagus hannah,stated,0.25,41,41,1,True,0.75,0.25,Naja kaouthia,False,dangerous,0,dangerous,True,"['Bungarus caeruleus', 'Naja kaouthia']",39,dangerous
+synthetic_635504723,dev_synthetic,Ophiophagus hannah,stated,0.4,26,26,0,True,1.2,0.4,Naja kaouthia,False,dangerous,0,dangerous,True,['Naja kaouthia'],24,dangerous
+synthetic_635504723,dev_synthetic,Ophiophagus hannah,stated,0.8,14,14,0,True,1.6,0.8,Naja kaouthia,False,dangerous,0,dangerous,True,['Naja kaouthia'],13,dangerous
+synthetic_537918341,dev_synthetic,Trimeresurus erythrurus,stated,0.1,101,91,0,True,0.6,0.6,Gonyosoma oxycephalum,False,dangerous,1,not_listed,True,['Gonyosoma oxycephalum'],96,dangerous
+synthetic_537918341,dev_synthetic,Trimeresurus erythrurus,stated,0.25,41,39,0,True,0.75,0.75,Gonyosoma oxycephalum,False,dangerous,1,not_listed,True,['Gonyosoma oxycephalum'],39,dangerous
+synthetic_537918341,dev_synthetic,Trimeresurus erythrurus,stated,0.4,26,24,0,True,1.2,1.2,Gonyosoma oxycephalum,False,dangerous,1,not_listed,True,['Gonyosoma oxycephalum'],24,dangerous
+synthetic_537918341,dev_synthetic,Trimeresurus erythrurus,stated,0.8,14,12,0,True,1.6,1.6,Gonyosoma oxycephalum,False,dangerous,1,not_listed,True,['Gonyosoma oxycephalum'],13,dangerous
+synthetic_223029311,dev_synthetic,Craspedocephalus gramineus,stated,0.1,101,101,0,True,0.6,0.1,Craspedocephalus gramineus,True,dangerous,0,dangerous,True,['Craspedocephalus gramineus'],96,dangerous
+synthetic_223029311,dev_synthetic,Craspedocephalus gramineus,stated,0.25,41,41,0,True,0.75,0.25,Craspedocephalus gramineus,True,dangerous,0,dangerous,True,['Craspedocephalus gramineus'],39,dangerous
+synthetic_223029311,dev_synthetic,Craspedocephalus gramineus,stated,0.4,26,26,0,True,1.2,0.4,Craspedocephalus gramineus,True,dangerous,0,dangerous,True,['Craspedocephalus gramineus'],24,dangerous
+synthetic_223029311,dev_synthetic,Craspedocephalus gramineus,stated,0.8,14,14,0,True,1.6,0.8,Craspedocephalus gramineus,True,dangerous,0,dangerous,True,['Craspedocephalus gramineus'],13,dangerous
+synthetic_567656035,dev_synthetic,Bungarus fasciatus,stated,0.1,101,98,0,True,0.7,0.1,Bungarus fasciatus,True,dangerous,0,dangerous,True,['Bungarus fasciatus'],95,dangerous
+synthetic_567656035,dev_synthetic,Bungarus fasciatus,stated,0.25,41,39,0,True,1.0,0.25,Bungarus fasciatus,True,dangerous,0,dangerous,True,['Bungarus fasciatus'],38,dangerous
+synthetic_567656035,dev_synthetic,Bungarus fasciatus,stated,0.4,26,26,0,True,1.2,0.4,Bungarus fasciatus,True,dangerous,0,dangerous,True,['Bungarus fasciatus'],24,dangerous
+synthetic_567656035,dev_synthetic,Bungarus fasciatus,stated,0.8,14,14,0,True,2.4,0.8,Bungarus fasciatus,True,dangerous,0,dangerous,True,['Bungarus fasciatus'],12,dangerous
+synthetic_445919824,dev_synthetic,Bungarus niger,stated,0.1,101,101,0,True,3.2,0.1,Dendrelaphis tristis,False,dangerous,0,dangerous,True,['Dendrelaphis tristis'],70,dangerous
+synthetic_445919824,dev_synthetic,Bungarus niger,stated,0.25,41,41,0,True,3.75,0.25,Dendrelaphis tristis,False,dangerous,0,dangerous,True,['Dendrelaphis tristis'],27,dangerous
+synthetic_445919824,dev_synthetic,Bungarus niger,stated,0.4,26,26,0,True,3.2,0.4,Dendrelaphis tristis,False,dangerous,0,dangerous,True,['Dendrelaphis tristis'],19,dangerous
+synthetic_445919824,dev_synthetic,Bungarus niger,stated,0.8,14,14,0,True,1.6,0.8,Enhydris enhydris,False,dangerous,0,dangerous,True,['Enhydris enhydris'],13,dangerous
+synthetic_332646756,dev_synthetic,Bungarus fasciatus,stated,0.1,101,101,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_332646756,dev_synthetic,Bungarus fasciatus,stated,0.25,41,41,0,True,10.25,0.25,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],1,dangerous
+synthetic_332646756,dev_synthetic,Bungarus fasciatus,stated,0.4,26,26,0,False,,0.4,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_332646756,dev_synthetic,Bungarus fasciatus,stated,0.8,14,14,0,True,11.2,0.8,Ophiophagus hannah,False,dangerous,0,dangerous,True,['Ophiophagus hannah'],1,dangerous
+synthetic_445919804,dev_synthetic,Bungarus niger,stated,0.1,101,96,0,True,1.5,0.1,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],87,dangerous
+synthetic_445919804,dev_synthetic,Bungarus niger,stated,0.25,41,38,0,True,2.75,0.25,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],31,dangerous
+synthetic_445919804,dev_synthetic,Bungarus niger,stated,0.4,26,23,0,True,4.4,0.4,Dendrelaphis tristis,False,dangerous,0,dangerous,True,['Dendrelaphis tristis'],16,dangerous
+synthetic_445919804,dev_synthetic,Bungarus niger,stated,0.8,14,12,0,True,3.2,0.8,Dendrelaphis tristis,False,dangerous,0,dangerous,True,['Dendrelaphis tristis'],11,dangerous
+synthetic_247871264,dev_synthetic,Ophiophagus kaalinga,stated,0.1,101,101,0,False,,0.1,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_247871264,dev_synthetic,Ophiophagus kaalinga,stated,0.25,41,41,0,False,,0.25,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_247871264,dev_synthetic,Ophiophagus kaalinga,stated,0.4,26,26,0,False,,0.4,,False,dangerous,0,dangerous,True,[],0,dangerous
+synthetic_247871264,dev_synthetic,Ophiophagus kaalinga,stated,0.8,14,14,0,False,,0.8,,False,dangerous,0,dangerous,True,[],0,dangerous
+laticauda_colubrina_philippines.webm,dev_real,Laticauda colubrina,stated,0.1,301,296,0,True,1.4,0.2,Laticauda colubrina,True,dangerous,0,dangerous,True,['Laticauda colubrina'],288,dangerous
+laticauda_colubrina_philippines.webm,dev_real,Laticauda colubrina,stated,0.25,121,118,0,True,1.75,0.5,Laticauda colubrina,True,dangerous,0,dangerous,True,['Laticauda colubrina'],115,dangerous
+laticauda_colubrina_philippines.webm,dev_real,Laticauda colubrina,stated,0.4,76,73,0,True,2.0,2.0,Laticauda colubrina,True,dangerous,0,dangerous,True,['Laticauda colubrina'],72,dangerous
+laticauda_colubrina_philippines.webm,dev_real,Laticauda colubrina,stated,0.8,39,37,0,True,3.2,2.4,Laticauda colubrina,True,dangerous,0,dangerous,True,['Laticauda colubrina'],36,dangerous
+laticauda_colubrina_fiji.webm,dev_real,Laticauda colubrina,stated,0.1,301,290,0,True,1.0,0.3,Laticauda colubrina,True,dangerous,0,dangerous,True,['Laticauda colubrina'],292,dangerous
+laticauda_colubrina_fiji.webm,dev_real,Laticauda colubrina,stated,0.25,121,116,0,True,1.5,1.0,Laticauda colubrina,True,dangerous,0,dangerous,True,['Laticauda colubrina'],116,dangerous
+laticauda_colubrina_fiji.webm,dev_real,Laticauda colubrina,stated,0.4,76,74,0,True,1.6,0.8,Laticauda colubrina,True,dangerous,0,dangerous,True,['Laticauda colubrina'],73,dangerous
+laticauda_colubrina_fiji.webm,dev_real,Laticauda colubrina,stated,0.8,39,37,0,True,2.4,1.6,Laticauda colubrina,True,dangerous,0,dangerous,True,['Laticauda colubrina'],37,dangerous
+bungarus_fasciatus_milking.webm,dev_real,Bungarus fasciatus,stated,0.1,301,17,0,True,0.6,0.1,,False,,0,,True,['Bungarus fasciatus'],31,dangerous
+bungarus_fasciatus_milking.webm,dev_real,Bungarus fasciatus,stated,0.25,121,7,0,True,0.75,0.25,,False,,0,,True,['Bungarus fasciatus'],12,dangerous
+bungarus_fasciatus_milking.webm,dev_real,Bungarus fasciatus,stated,0.4,76,5,0,True,1.2,0.4,,False,,0,,True,['Bungarus fasciatus'],7,dangerous
+bungarus_fasciatus_milking.webm,dev_real,Bungarus fasciatus,stated,0.8,39,3,0,True,1.6,0.8,,False,,0,,True,['Bungarus fasciatus'],4,dangerous
+python_bivittatus_zoo.ogv,dev_real,Python bivittatus,stated,0.1,146,142,0,True,2.1,0.1,Gonyosoma oxycephalum,False,dangerous,0,dangerous,True,['Gonyosoma oxycephalum'],126,not_listed
+python_bivittatus_zoo.ogv,dev_real,Python bivittatus,stated,0.25,59,58,1,True,0.75,0.25,Rhabdophis plumbicolor,False,dangerous,0,dangerous,True,"['Fowlea piscator', 'Rhabdophis plumbicolor']",57,not_listed
+python_bivittatus_zoo.ogv,dev_real,Python bivittatus,stated,0.4,38,37,0,True,6.4,0.4,Rhabdophis plumbicolor,False,dangerous,0,dangerous,True,['Rhabdophis plumbicolor'],23,not_listed
+python_bivittatus_zoo.ogv,dev_real,Python bivittatus,stated,0.8,20,19,1,True,5.6,0.8,Rhabdophis plumbicolor,False,dangerous,0,dangerous,True,"['Fowlea piscator', 'Rhabdophis plumbicolor']",14,not_listed

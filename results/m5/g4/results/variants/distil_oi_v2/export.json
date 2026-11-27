@@ -1,0 +1,24 @@
+{
+ "input_size": 256,
+ "classes": [
+  "snake",
+  "lookalike",
+  "other"
+ ],
+ "bytes": {
+  "snake_check.onnx": 16024818,
+  "snake_check_fp16.onnx": 8064356
+ },
+ "parity": {
+  "snake_check.onnx": {
+   "photos": 40,
+   "max_abs_prob_diff": 5.245208740234375e-06,
+   "same_top_class": 1.0
+  },
+  "snake_check_fp16.onnx": {
+   "photos": 40,
+   "max_abs_prob_diff": 0.00624924898147583,
+   "same_top_class": 1.0
+  }
+ }
+}

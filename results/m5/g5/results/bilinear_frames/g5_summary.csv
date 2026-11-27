@@ -1,0 +1,9 @@
+set,latency_s,clips,max_changes,clips_over_1_change,G5_met,median_first_answer_s,median_first_answer_answered_s,never_answered,final_right,max_verdict_changes,final_verdict_as_expected,safe_species_ending_dangerous,same_without_latch,dangerous_species_shown_dangerous
+new_test_scores,0.1,22,1,0,True,0.6,0.6,1,12/19,2,10/22,12/13,6/13,9/9
+new_test_scores,0.25,22,1,0,True,0.75,0.75,0,12/19,2,10/22,12/13,5/13,9/9
+new_test_scores,0.4,22,1,0,True,1.2,1.2,0,12/19,2,10/22,12/13,5/13,9/9
+new_test_scores,0.8,22,2,1,False,1.6,1.6,0,11/19,4,10/22,11/13,5/13,9/9
+old_test_second_look,0.1,6,0,0,True,0.6,0.6,0,1/4,1,5/6,1/3,1/3,3/3
+old_test_second_look,0.25,6,0,0,True,0.75,0.75,0,1/4,1,5/6,1/3,1/3,3/3
+old_test_second_look,0.4,6,0,0,True,1.2,1.2,0,1/4,0,4/6,2/3,1/3,3/3
+old_test_second_look,0.8,6,0,0,True,2.0,2.0,0,1/4,0,4/6,2/3,1/3,3/3

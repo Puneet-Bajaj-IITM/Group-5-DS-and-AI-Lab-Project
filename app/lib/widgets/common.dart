@@ -21,25 +21,34 @@ class VerdictStyle {
         Verdict.dangerous =>
           const VerdictStyle(Brand.danger, Colors.white, Icons.warning_amber_rounded, Brand.dangerSoft, 'DANGER'),
         Verdict.unknown =>
-          const VerdictStyle(Brand.caution, Brand.forest950, Icons.help_outline_rounded, Brand.cautionSoft, 'UNSURE'),
+          const VerdictStyle(Brand.danger, Colors.white, Icons.warning_rounded, Brand.dangerSoft, 'WARNING'),
         Verdict.notListed =>
           const VerdictStyle(Brand.calm, Colors.white, Icons.visibility_rounded, Brand.calmSoft, 'CAUTION'),
       };
+
+  /// No snake in the photo: neutral, not a warning and not an all-clear.
+  static const noSnake = VerdictStyle(Brand.inkSoft, Colors.white, Icons.search_off_rounded, Brand.paperDeep, 'NO SNAKE');
 }
+
+const noSnakeTitle = 'No snake found';
+const noSnakeAdvice = 'This does not mean the area is safe. If you can see a snake, keep away and try another photo.';
 
 /// The verdict card: a coloured sign with the answer, its reason and what to do.
 class VerdictBanner extends StatelessWidget {
-  const VerdictBanner({super.key, required this.verdict, required this.reason});
+  const VerdictBanner({super.key, required this.verdict, required this.reason, this.snakeFound = true});
   final Verdict verdict;
   final String reason;
+  final bool snakeFound;
 
   @override
   Widget build(BuildContext context) {
-    final s = VerdictStyle.of(verdict);
+    final s = snakeFound ? VerdictStyle.of(verdict) : VerdictStyle.noSnake;
+    final title = snakeFound ? verdict.title : noSnakeTitle;
+    final advice = snakeFound ? verdict.advice : noSnakeAdvice;
     final text = Theme.of(context).textTheme;
     return Semantics(
       liveRegion: true,
-      label: '${verdict.title}. $reason. ${verdict.advice}',
+      label: snakeFound ? '$title. $reason. $advice' : '$title. $advice',
       child: ExcludeSemantics(
         child: Container(
           width: double.infinity,
@@ -72,15 +81,17 @@ class VerdictBanner extends StatelessWidget {
                   Icon(s.icon, color: s.foreground, size: 34),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(verdict.title, style: text.headlineMedium?.copyWith(color: s.foreground)),
+                    child: Text(title, style: text.headlineMedium?.copyWith(color: s.foreground)),
                   ),
                 ]),
-                const SizedBox(height: 8),
-                Text(reason, style: text.titleMedium?.copyWith(color: s.foreground)),
+                if (snakeFound) ...[
+                  const SizedBox(height: 8),
+                  Text(reason, style: text.titleMedium?.copyWith(color: s.foreground)),
+                ],
                 const SizedBox(height: 10),
                 Container(height: 1, color: s.foreground.withValues(alpha: 0.22)),
                 const SizedBox(height: 10),
-                Text(verdict.advice,
+                Text(advice,
                     style: text.bodyLarge?.copyWith(color: s.foreground, fontWeight: FontWeight.w600)),
               ]),
             ),

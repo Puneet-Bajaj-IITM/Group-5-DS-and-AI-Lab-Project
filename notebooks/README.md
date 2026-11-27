@@ -74,3 +74,12 @@ Where each run is saved with its outputs:
 - Notebook 24 is saved here with its run on the shipped model, A3; its earlier run on the Milestone 3 model is `results/m4/video/executed/24_video_lock_M3.ipynb`.
 - Notebook 17 was not run on its own, so it has no outputs; its step ran inside each run of notebook 21.
 - Three numbers were measured by scripts on the laptop's CPU rather than by a notebook: the non-snake test split (goal G4), the app's front-end cost and the detail crop's laptop timing. The scripts are in [`../scripts/`](../scripts/README.md).
+
+## Milestone 5
+
+| # | Notebook | Answers | Runs on |
+|---|---|---|---|
+| 28 | [`28_m5_finetune`](28_m5_finetune.ipynb) | A3 fine-tuned on the M4 front end's crops (`VARIANT = "finetune"`), or the same run with distillation from B1 (`VARIANT = "kd"`), scored against the goals and B1, with mirrored outputs and validation loss | GPU T4 x2, internet on |
+| 29 | [`29_m5_kd_pilot`](29_m5_kd_pilot.ipynb) | Which distillation setting to use: three settings on the 16% subset, scored on G3 and validation macro-F1 | GPU T4 x2, internet on |
+
+The copies here hold no outputs. Each run is saved with its outputs in `results/m5/g3/`: `out_finetune/executed/28_m5_finetune_ft.ipynb`, `out_kd/executed/28_m5_finetune_kd.ipynb` (the frozen classifier) and `out_pilot/executed/29_m5_kd_pilot.ipynb`. The snake check, the video lock, the locked test and the robustness runs were scripts, not notebooks; they are in `results/m5/` (see [`../results/m5/README.md`](../results/m5/README.md)).

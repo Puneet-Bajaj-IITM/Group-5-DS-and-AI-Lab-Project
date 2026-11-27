@@ -1,0 +1,214 @@
+{
+ "g3": {
+  "PyTorch (locked test run)": {
+   "top1": {
+    "diff": -0.006064082602638687,
+    "low": -0.0203493441554582,
+    "high": 0.007613281923896381
+   },
+   "macro_f1": {
+    "diff": 0.006002072876434061,
+    "low": -0.017312724505880058,
+    "high": 0.02847664375968942
+   },
+   "absolute": {
+    "top1": 0.7739900024584119,
+    "macro_f1": 0.7185399349281757
+   },
+   "g3": {
+    "top1": "tied",
+    "macro_f1": "higher",
+    "passed": true
+   }
+  },
+  "ONNX fp32": {
+   "top1": {
+    "diff": -0.006064082602638687,
+    "low": -0.02011904014619234,
+    "high": 0.007455044450524233
+   },
+   "macro_f1": {
+    "diff": 0.006328549041843434,
+    "low": -0.01684047344567361,
+    "high": 0.029110700461475507
+   },
+   "absolute": {
+    "top1": 0.7739900024584119,
+    "macro_f1": 0.7188664110935851
+   },
+   "g3": {
+    "top1": "tied",
+    "macro_f1": "higher",
+    "passed": true
+   }
+  },
+  "ONNX fp16": {
+   "top1": {
+    "diff": -0.006227976727034346,
+    "low": -0.020424588219474314,
+    "high": 0.007245206444460779
+   },
+   "macro_f1": {
+    "diff": 0.00604510299781269,
+    "low": -0.01702589368556198,
+    "high": 0.028750130823685285
+   },
+   "absolute": {
+    "top1": 0.7738261083340162,
+    "macro_f1": 0.7185829650495543
+   },
+   "g3": {
+    "top1": "tied",
+    "macro_f1": "higher",
+    "passed": true
+   }
+  },
+  "ONNX int8_dynamic": {
+   "top1": {
+    "diff": -0.5660083586003442,
+    "low": -0.5869546987898768,
+    "high": -0.5440208311424736
+   },
+   "macro_f1": {
+    "diff": -0.5774259205440313,
+    "low": -0.5978315814402769,
+    "high": -0.5463908208434163
+   },
+   "absolute": {
+    "top1": 0.21404572646070638,
+    "macro_f1": 0.1351119415077104
+   },
+   "g3": {
+    "top1": "lower",
+    "macro_f1": "lower",
+    "passed": false
+   }
+  },
+  "ONNX int8_static_minmax": {
+   "top1": {
+    "diff": -0.6824551339834467,
+    "low": -0.7165615588535105,
+    "high": -0.6428490284329423
+   },
+   "macro_f1": {
+    "diff": -0.6669714673881231,
+    "low": -0.6922052117824109,
+    "high": -0.6296072267409556
+   },
+   "absolute": {
+    "top1": 0.09759895107760387,
+    "macro_f1": 0.045566394663618615
+   },
+   "g3": {
+    "top1": "lower",
+    "macro_f1": "lower",
+    "passed": false
+   }
+  }
+ },
+ "g3_photos": 12203,
+ "b1": {
+  "top1": 0.7800540850610506,
+  "macro_f1": 0.7125378620517416
+ },
+ "top1_agreement_with_pytorch_on_slice": {
+  "fp32": 0.9983610587560436,
+  "fp16": 0.9978693763828567,
+  "int8_dynamic": 0.2197820208145538,
+  "int8_static_minmax": 0.09948373350815373
+ },
+ "g4": {
+  "PyTorch (locked test run)": {
+   "cutoff": 0.20484977503483762,
+   "snakes_kept_val": 0.993093400960449,
+   "snakes_kept_val_ci": [
+    0.9914681179555608,
+    0.9947022988252564
+   ],
+   "snake_photos": 18533,
+   "false_snake_val": 0.05,
+   "false_snake_val_ci": [
+    0.03333333333333333,
+    0.06666666666666667
+   ],
+   "false_snake_count": 30,
+   "nonsnake_photos": 600
+  },
+  "ONNX fp32": {
+   "cutoff": 0.20484977503483762,
+   "snakes_kept_val": 0.993093400960449,
+   "snakes_kept_val_ci": [
+    0.9914681179555608,
+    0.9947022988252564
+   ],
+   "snake_photos": 18533,
+   "false_snake_val": 0.05,
+   "false_snake_val_ci": [
+    0.03333333333333333,
+    0.06666666666666667
+   ],
+   "false_snake_count": 30,
+   "nonsnake_photos": 600
+  },
+  "ONNX fp16": {
+   "cutoff": 0.20484977503483762,
+   "snakes_kept_val": 0.993093400960449,
+   "snakes_kept_val_ci": [
+    0.9915364657653002,
+    0.9946961612380966
+   ],
+   "snake_photos": 18533,
+   "false_snake_val": 0.05,
+   "false_snake_val_ci": [
+    0.03333333333333333,
+    0.06666666666666667
+   ],
+   "false_snake_count": 30,
+   "nonsnake_photos": 600
+  },
+  "ONNX int8_dynamic": {
+   "cutoff": 0.20484977503483762,
+   "snakes_kept_val": 0.16764690012410294,
+   "snakes_kept_val_ci": [
+    0.15641101106663396,
+    0.17818824603507796
+   ],
+   "snake_photos": 18533,
+   "false_snake_val": 0.09833333333333333,
+   "false_snake_val_ci": [
+    0.075,
+    0.12004166666666663
+   ],
+   "false_snake_count": 59,
+   "nonsnake_photos": 600
+  },
+  "ONNX int8_static_minmax": {
+   "cutoff": 0.20484977503483762,
+   "snakes_kept_val": 0.9826795445961258,
+   "snakes_kept_val_ci": [
+    0.9769390231648255,
+    0.987933858467001
+   ],
+   "snake_photos": 18533,
+   "false_snake_val": 0.37666666666666665,
+   "false_snake_val_ci": [
+    0.336625,
+    0.41837499999999994
+   ],
+   "false_snake_count": 226,
+   "nonsnake_photos": 600
+  }
+ },
+ "bytes": {
+  "classifier fp32": 20826597,
+  "classifier fp16": 10553548,
+  "classifier int8_dynamic": 5751579,
+  "classifier int8_static_minmax": 6168789,
+  "snake_check fp32": 16024818,
+  "snake_check fp16": 8064356,
+  "snake_check int8_dynamic": 4322710,
+  "snake_check int8_static_minmax": 4833844
+ },
+ "not_produced": {},
+ "kernel_cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz"
+}

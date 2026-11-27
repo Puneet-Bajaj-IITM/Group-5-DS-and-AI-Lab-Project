@@ -1,0 +1,25 @@
+clip,set,species,species_source,latency_s,frames,snake_frames,changes_after_first_answer,answered,first_answer_s,first_anything_s,final_shown,final_right,final_verdict,verdict_changes,final_pooled_verdict_no_latch,ever_dangerous,species_shown,locked_frames,expected_verdict
+naja_naja_ditmars_1915.mp4,old_test,Naja naja,stated,0.1,301,301,0,True,0.6,0.1,Fowlea piscator,False,dangerous,0,dangerous,True,['Fowlea piscator'],296,dangerous
+naja_naja_ditmars_1915.mp4,old_test,Naja naja,stated,0.25,121,121,0,True,0.75,0.25,Fowlea piscator,False,dangerous,0,dangerous,True,['Fowlea piscator'],119,dangerous
+naja_naja_ditmars_1915.mp4,old_test,Naja naja,stated,0.4,76,76,0,True,1.2,0.4,Fowlea piscator,False,dangerous,0,dangerous,True,['Fowlea piscator'],74,dangerous
+naja_naja_ditmars_1915.mp4,old_test,Naja naja,stated,0.8,39,39,0,True,1.6,0.8,Fowlea piscator,False,dangerous,0,dangerous,True,['Fowlea piscator'],38,dangerous
+gonyosoma_oxycephalum_mulu.webm,old_test,Gonyosoma oxycephalum,stated,0.1,68,68,0,True,0.6,0.6,Gonyosoma oxycephalum,True,not_listed,0,not_listed,False,['Gonyosoma oxycephalum'],63,not_listed
+gonyosoma_oxycephalum_mulu.webm,old_test,Gonyosoma oxycephalum,stated,0.25,28,28,0,True,0.75,0.75,Gonyosoma oxycephalum,True,not_listed,0,not_listed,False,['Gonyosoma oxycephalum'],26,not_listed
+gonyosoma_oxycephalum_mulu.webm,old_test,Gonyosoma oxycephalum,stated,0.4,18,18,0,True,1.2,1.2,Gonyosoma oxycephalum,True,not_listed,0,not_listed,False,['Gonyosoma oxycephalum'],16,not_listed
+gonyosoma_oxycephalum_mulu.webm,old_test,Gonyosoma oxycephalum,stated,0.8,10,10,0,True,1.6,1.6,Gonyosoma oxycephalum,True,not_listed,0,not_listed,False,['Gonyosoma oxycephalum'],9,not_listed
+ahaetulla_borealis_kerala.webm,old_test,Ahaetulla borealis,category,0.1,301,301,0,True,29.6,0.1,Gonyosoma oxycephalum,False,not_listed,1,not_listed,True,['Gonyosoma oxycephalum'],6,not_listed
+ahaetulla_borealis_kerala.webm,old_test,Ahaetulla borealis,category,0.25,121,121,0,True,29.5,0.25,Gonyosoma oxycephalum,False,not_listed,1,not_listed,True,['Gonyosoma oxycephalum'],4,not_listed
+ahaetulla_borealis_kerala.webm,old_test,Ahaetulla borealis,category,0.4,76,76,0,True,15.6,0.4,Macrovipera lebetinus,False,dangerous,0,not_listed,True,['Macrovipera lebetinus'],38,not_listed
+ahaetulla_borealis_kerala.webm,old_test,Ahaetulla borealis,category,0.8,39,39,0,True,16.0,0.8,Macrovipera lebetinus,False,dangerous,0,not_listed,True,['Macrovipera lebetinus'],20,not_listed
+ptyas_mucosa_swimming.webm,old_test,Ptyas mucosa,category,0.1,301,145,0,True,5.9,0.6,Daboia russelii,False,dangerous,0,dangerous,True,['Daboia russelii'],243,not_listed
+ptyas_mucosa_swimming.webm,old_test,Ptyas mucosa,category,0.25,121,61,0,True,9.75,0.75,Daboia russelii,False,dangerous,0,dangerous,True,['Daboia russelii'],83,not_listed
+ptyas_mucosa_swimming.webm,old_test,Ptyas mucosa,category,0.4,76,34,0,True,17.6,1.6,,False,dangerous,0,dangerous,True,['Daboia russelii'],29,not_listed
+ptyas_mucosa_swimming.webm,old_test,Ptyas mucosa,category,0.8,39,16,0,True,18.4,2.4,,False,dangerous,0,dangerous,True,['Daboia russelii'],14,not_listed
+naja_cobra_2017.webm,old_test,Naja naja,inferred,0.1,301,291,0,True,0.6,0.1,Naja naja,True,dangerous,0,dangerous,True,['Naja naja'],296,dangerous
+naja_cobra_2017.webm,old_test,Naja naja,inferred,0.25,121,117,0,True,0.75,0.25,Naja naja,True,dangerous,0,dangerous,True,['Naja naja'],119,dangerous
+naja_cobra_2017.webm,old_test,Naja naja,inferred,0.4,76,72,0,True,1.2,0.4,Naja naja,True,dangerous,0,dangerous,True,['Naja naja'],74,dangerous
+naja_cobra_2017.webm,old_test,Naja naja,inferred,0.8,39,37,0,True,1.6,0.8,Naja naja,True,dangerous,0,dangerous,True,['Naja naja'],38,dangerous
+naja_jaipur_charmer.webm,old_test,Naja naja,inferred,0.1,158,151,0,True,0.6,0.1,Naja naja,True,dangerous,0,dangerous,True,['Naja naja'],153,dangerous
+naja_jaipur_charmer.webm,old_test,Naja naja,inferred,0.25,64,63,0,True,0.75,0.25,Naja naja,True,dangerous,0,dangerous,True,['Naja naja'],62,dangerous
+naja_jaipur_charmer.webm,old_test,Naja naja,inferred,0.4,41,38,0,True,1.2,0.4,Naja naja,True,dangerous,0,dangerous,True,['Naja naja'],39,dangerous
+naja_jaipur_charmer.webm,old_test,Naja naja,inferred,0.8,21,19,0,True,2.4,0.8,Naja naja,True,dangerous,0,dangerous,True,['Naja naja'],19,dangerous

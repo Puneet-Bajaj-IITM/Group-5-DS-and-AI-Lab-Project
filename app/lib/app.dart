@@ -2,6 +2,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import 'models/verdict.dart';
+import 'anidex/anidex_screen.dart';
 import 'screens/alerts_screen.dart';
 import 'screens/contacts_screen.dart';
 import 'screens/community_screen.dart';
@@ -100,7 +101,7 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
     messenger.hideCurrentMaterialBanner();
     messenger.showMaterialBanner(
       MaterialBanner(
-        backgroundColor: r.alert.verdict == Verdict.dangerous
+        backgroundColor: r.alert.verdict.warns
             ? const Color(0xFFFFDAD6)
             : Theme.of(context).colorScheme.tertiaryContainer,
         leading: const Icon(Icons.campaign_rounded, color: Color(0xFF8C1D18)),
@@ -144,6 +145,7 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
       _visitedTabs.contains(4)
           ? const CommunityScreen()
           : const SizedBox.shrink(),
+      _visitedTabs.contains(5) ? const AniDexScreen() : const SizedBox.shrink(),
     ];
     return Scaffold(
       body: IndexedStack(index: _tab, children: pages),
@@ -192,6 +194,11 @@ class _HomeShellState extends State<HomeShell> with WidgetsBindingObserver {
             icon: Icon(Icons.groups_outlined),
             selectedIcon: Icon(Icons.groups),
             label: 'Community',
+          ),
+          const NavigationDestination(
+            icon: Icon(Icons.pets_outlined),
+            selectedIcon: Icon(Icons.pets),
+            label: 'AniDex',
           ),
         ],
       ),

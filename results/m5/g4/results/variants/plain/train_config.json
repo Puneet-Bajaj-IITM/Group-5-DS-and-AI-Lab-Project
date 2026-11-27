@@ -1,0 +1,114 @@
+{
+ "variant": "plain",
+ "backbone": "efficientnet_b0.ra_in1k",
+ "distil_weight": 0.0,
+ "epochs": 12,
+ "samples_per_epoch": 48000,
+ "class_share": {
+  "snake": 0.5,
+  "lookalike": 0.3,
+  "other": 0.2
+ },
+ "batch": 96,
+ "lr": 0.0006,
+ "weight_decay": 0.02,
+ "label_smoothing": 0.05,
+ "input_size": 256,
+ "pad_rgb": [
+  124,
+  116,
+  104
+ ],
+ "training_photos": {
+  "snake": 77068,
+  "lookalike": 5759,
+  "other": 3279
+ },
+ "history": [
+  {
+   "epoch": 1,
+   "ce": 0.5396120973825455,
+   "distil": 0.0,
+   "accuracy": 0.8133125200867652,
+   "seconds": 702
+  },
+  {
+   "epoch": 2,
+   "ce": 0.37042685616016385,
+   "distil": 0.0,
+   "accuracy": 0.90537502014637,
+   "seconds": 476
+  },
+  {
+   "epoch": 3,
+   "ce": 0.32461226218938827,
+   "distil": 0.0,
+   "accuracy": 0.9283958541154862,
+   "seconds": 407
+  },
+  {
+   "epoch": 4,
+   "ce": 0.2968886627852917,
+   "distil": 0.0,
+   "accuracy": 0.9414791849851608,
+   "seconds": 364
+  },
+  {
+   "epoch": 5,
+   "ce": 0.2734960733652115,
+   "distil": 0.0,
+   "accuracy": 0.9529791839122772,
+   "seconds": 340
+  },
+  {
+   "epoch": 6,
+   "ce": 0.2552233861088753,
+   "distil": 0.0,
+   "accuracy": 0.960666686296463,
+   "seconds": 320
+  },
+  {
+   "epoch": 7,
+   "ce": 0.23780470365285875,
+   "distil": 0.0,
+   "accuracy": 0.9696875194311142,
+   "seconds": 311
+  },
+  {
+   "epoch": 8,
+   "ce": 0.22604773047566415,
+   "distil": 0.0,
+   "accuracy": 0.9751250197887421,
+   "seconds": 300
+  },
+  {
+   "epoch": 9,
+   "ce": 0.21587734884023665,
+   "distil": 0.0,
+   "accuracy": 0.9801041885614395,
+   "seconds": 294
+  },
+  {
+   "epoch": 10,
+   "ce": 0.20715720346570016,
+   "distil": 0.0,
+   "accuracy": 0.9838125197887421,
+   "seconds": 287
+  },
+  {
+   "epoch": 11,
+   "ce": 0.2042043482363224,
+   "distil": 0.0,
+   "accuracy": 0.9851875214576721,
+   "seconds": 284
+  },
+  {
+   "epoch": 12,
+   "ce": 0.2026612291932106,
+   "distil": 0.0,
+   "accuracy": 0.9856875216960908,
+   "seconds": 282
+  }
+ ],
+ "torch": "2.11.0+cu130"
+}

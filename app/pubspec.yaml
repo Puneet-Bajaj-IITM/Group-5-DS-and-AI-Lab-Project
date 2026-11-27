@@ -111,6 +111,9 @@ flutter:
     # (not committed: copy them in, see assets/models/README.md)
     - assets/model/
     - assets/models/
+    # AniDex: card data and label vectors (committed) and the BioCLIP 2
+    # image encoder (not committed, see assets/anidex/README.md)
+    - assets/anidex/
     - assets/videos/serpent_intro.mp4
     - assets/images/splash_poster.jpg
     - assets/images/app_logo.png
