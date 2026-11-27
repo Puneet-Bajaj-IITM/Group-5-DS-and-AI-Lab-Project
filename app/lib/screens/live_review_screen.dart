@@ -103,11 +103,11 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
           _live = opened;
           _liveViews = opened?.views.listen(
             (v) {
-              // A view means the lanes work again: drop an earlier error.
+              // The view says whether a lane is failing; a good view clears it.
               if (mounted) {
                 setState(() {
                   _view = v;
-                  _error = null;
+                  _error = v.error == null ? null : 'Live analysis unavailable. Keep away and use community review.';
                 });
               }
             },

@@ -37,6 +37,11 @@ class LiveModels(messenger: BinaryMessenger) {
     // the calls on the lanes' background queues).
     private val detectorLock = Any()
     private val verdictLock = Any()
+
+    // The Dart session that opened each lane. A close from another (older)
+    // session is ignored, so it cannot close a newer screen's models.
+    private var detectorOwner: Int? = null
+    private var verdictOwner: Int? = null
     private val detectorChannel = MethodChannel(
         messenger, "serpentguard/live_detector", StandardMethodCodec.INSTANCE, messenger.makeBackgroundTaskQueue()
     )
@@ -61,10 +66,19 @@ class LiveModels(messenger: BinaryMessenger) {
         }
     }
 
-    private fun options(threads: Int) = OrtSession.SessionOptions().apply {
-        setIntraOpNumThreads(threads)
-        setInterOpNumThreads(1)
-        setCPUArenaAllocator(true)
+    /** A session with the plugin's options; the options object is released after use. */
+    private fun session(path: String, threads: Int): OrtSession =
+        OrtSession.SessionOptions().use { options ->
+            options.setIntraOpNumThreads(threads)
+            options.setInterOpNumThreads(1)
+            options.setCPUArenaAllocator(true)
+            env.createSession(path, options)
+        }
+
+    /** True when [call] may close a lane opened by [owner] (no owner given: always). */
+    private fun mayClose(call: MethodCall, owner: Int?): Boolean {
+        val from = call.argument<Int>("owner") ?: return true
+        return owner == null || from == owner
     }
 
     private fun onDetector(call: MethodCall, result: MethodChannel.Result) {
@@ -74,7 +88,8 @@ class LiveModels(messenger: BinaryMessenger) {
                 // Cleared first, so a failed open never leaves a closed session reachable.
                 detector?.close()
                 detector = null
-                detector = env.createSession(call.argument<String>("path")!!, options(call.argument<Int>("threads")!!))
+                detector = session(call.argument<String>("path")!!, call.argument<Int>("threads")!!)
+                detectorOwner = call.argument<Int>("owner")
                 result.success(null)
             }
             "run" -> {
@@ -82,8 +97,11 @@ class LiveModels(messenger: BinaryMessenger) {
                 result.success(run(session, call)["output0"])
             }
             "close" -> {
-                detector?.close()
-                detector = null
+                if (mayClose(call, detectorOwner)) {
+                    detector?.close()
+                    detector = null
+                    detectorOwner = null
+                }
                 result.success(null)
             }
             else -> result.notImplemented()
@@ -95,9 +113,10 @@ class LiveModels(messenger: BinaryMessenger) {
             "open" -> {
                 val threads = call.argument<Int>("threads")!!
                 closeVerdict()
-                segmenter = env.createSession(call.argument<String>("segmenter")!!, options(threads))
-                classifier = env.createSession(call.argument<String>("classifier")!!, options(threads))
-                snakeCheck = call.argument<String>("snakeCheck")?.let { env.createSession(it, options(threads)) }
+                segmenter = session(call.argument<String>("segmenter")!!, threads)
+                classifier = session(call.argument<String>("classifier")!!, threads)
+                snakeCheck = call.argument<String>("snakeCheck")?.let { session(it, threads) }
+                verdictOwner = call.argument<Int>("owner")
                 result.success(null)
             }
             "check" -> {
@@ -113,7 +132,10 @@ class LiveModels(messenger: BinaryMessenger) {
                 result.success(run(session, call))
             }
             "close" -> {
-                closeVerdict()
+                if (mayClose(call, verdictOwner)) {
+                    closeVerdict()
+                    verdictOwner = null
+                }
                 result.success(null)
             }
             else -> result.notImplemented()

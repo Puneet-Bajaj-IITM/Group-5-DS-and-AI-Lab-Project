@@ -49,6 +49,7 @@ class LiveSession {
     this._detector = _detectorChannel,
     this._verdict = _verdictChannel,
     this.laneThreads = (1, 2),
+    this.owner = 0,
   }) : _lock = VideoLock(rules: _rules);
 
   final PipelineSettings _settings;
@@ -60,6 +61,12 @@ class LiveSession {
 
   /// Intra-op threads of the box lane and the verdict lane.
   final (int, int) laneThreads;
+
+  /// Which open of the app-wide native lanes this session owns. A close from
+  /// an older session (a screen that closed while a newer one opened) is
+  /// ignored on the native side, so it cannot close the newer session's models.
+  final int owner;
+  static int _lastOwner = 0;
 
   /// Extra boxes (not the one the verdict is about) are drawn from this
   /// detector score, Ultralytics' default confidence.
@@ -73,6 +80,7 @@ class LiveSession {
   /// [OnnxSnakeClassifier.identifyFrame].
   static Future<LiveSession?> open(OnnxSnakeClassifier classifier) async {
     if (!Platform.isAndroid) return null;
+    final owner = ++_lastOwner;
     try {
       final pipeline = await classifier.pipeline;
       // The same files, checked the same way, as the photo path.
@@ -83,10 +91,12 @@ class LiveSession {
       final boxThreads = cores >= 8 ? 2 : 1;
       final verdictThreads = (cores - boxThreads - 1).clamp(2, 4);
       await _detectorChannel.invokeMethod('open', {
+        'owner': owner,
         'path': await model(detectorFile),
         'threads': boxThreads,
       });
       await _verdictChannel.invokeMethod('open', {
+        'owner': owner,
         'segmenter': await model(segmenterFile),
         'classifier': await model(classifierFile),
         if (pipeline.settings.usesSnakeCheck) 'snakeCheck': await model(snakeCheckFile),
@@ -97,13 +107,14 @@ class LiveSession {
         rules: pipeline.rules,
         present: (a, details) => classifier.fromAnswer(a, details: details),
         laneThreads: (boxThreads, verdictThreads),
+        owner: owner,
       );
     } catch (_) {
       // A lane that opened stays loaded otherwise; the screen falls back to
       // the photo path's models.
       for (final channel in [_detectorChannel, _verdictChannel]) {
         try {
-          await channel.invokeMethod('close');
+          await channel.invokeMethod('close', {'owner': owner});
         } catch (_) {}
       }
       return null;
@@ -123,7 +134,10 @@ class LiveSession {
   bool _boxBusy = false, _verdictBusy = false, _closed = false;
   int _session = 0;
   double? _verdictFrameSeconds;
-  final List<double> _heldNoSnake = [];
+  final List<(double, PipelineResult)> _heldNoSnake = [];
+
+  // The last failure of each lane, cleared by its next good frame.
+  Object? _boxError, _verdictError;
 
   // What the screen shows.
   Identification? _shown;
@@ -224,36 +238,42 @@ class LiveSession {
       } else if (!_verdictBusy) {
         unawaited(_verdictLane(fixed, !identical(fixed, rgb), conf, best, seconds, session));
       }
+      _boxError = null;
       _publish();
     } catch (e) {
-      if (session == _session && !_closed) _failed(e);
+      if (session == _session && !_closed) {
+        _boxError = e;
+        _failed();
+      }
     }
   }
 
   /// A lane failed: report it and stop showing the last verdict, which may no
   /// longer be about what the camera sees.
-  void _failed(Object error) {
+  /// The view carries the error ([LiveView.error]) until that lane works
+  /// again, so a view published right after cannot hide it.
+  void _failed() {
     _shown = null;
     _hasShown = false;
     _lastVerdictFrame = null;
-    _views.addError(error);
     _publish();
   }
 
   /// A frame the gate turns down on the detector score alone.
   void _noSnake(double seconds, RgbImage fixed, double? conf, RgbImage raw) {
     final verdictAt = _verdictFrameSeconds;
-    if (verdictAt != null && seconds > verdictAt) {
-      _heldNoSnake.add(seconds); // applied after the verdict lane's frame
-      return;
-    }
-    _applyNoSnake(PipelineResult(
+    final details = PipelineResult(
       width: fixed.width,
       height: fixed.height,
       exposureFixed: !identical(fixed, raw),
       gate: GateResult(snake: false, boxConf: conf, maskArea: 0),
       answer: ModelAnswer.noSnake,
-    ), seconds);
+    );
+    if (verdictAt != null && seconds > verdictAt) {
+      _heldNoSnake.add((seconds, details)); // applied after the verdict lane's frame
+      return;
+    }
+    _applyNoSnake(details, seconds);
   }
 
   void _applyNoSnake(PipelineResult details, double seconds) {
@@ -281,8 +301,12 @@ class LiveSession {
       final step = _lock.add(result.parts, seconds);
       _show(step, result, snake: result.gate.snake);
       verdictTimer.add(times.values.fold(0, (a, b) => a + b), seconds);
+      _verdictError = null;
     } catch (e) {
-      if (session == _session && !_closed) _failed(e);
+      if (session == _session && !_closed) {
+        _verdictError = e;
+        _failed();
+      }
     } finally {
       // Always free the lane, also when a reset ended this frame's session
       // (the new session cannot have started a verdict meanwhile).
@@ -291,12 +315,8 @@ class LiveSession {
         _verdictFrameSeconds = null;
         final held = List.of(_heldNoSnake);
         _heldNoSnake.clear();
-        for (final t in held) {
-          _applyNoSnake(
-              PipelineResult(
-                  width: _width, height: _height, exposureFixed: false,
-                  gate: const GateResult(snake: false, boxConf: null, maskArea: 0), answer: ModelAnswer.noSnake),
-              t);
+        for (final (t, details) in held) {
+          _applyNoSnake(details, t);
         }
         _publish();
       }
@@ -415,6 +435,7 @@ class LiveSession {
       verdictMs: verdictTimer.meanMs,
       skippedByGate: _skippedByGate,
       threads: laneThreads,
+      error: _boxError ?? _verdictError,
     );
     _view = view;
     if (!_views.isClosed) _views.add(view);
@@ -424,10 +445,11 @@ class LiveSession {
     _closed = true;
     _session++;
     await _views.close();
-    try {
-      await _detector.invokeMethod('close');
-      await _verdict.invokeMethod('close');
-    } catch (_) {}
+    for (final channel in [_detector, _verdict]) {
+      try {
+        await channel.invokeMethod('close', {'owner': owner}); // each lane on its own
+      } catch (_) {}
+    }
   }
 }
 
@@ -447,6 +469,7 @@ class LiveView {
     required this.verdictMs,
     required this.skippedByGate,
     required this.threads,
+    this.error,
   });
 
   /// The size of the frames the boxes are in (upright, long side <= 640).
@@ -469,6 +492,9 @@ class LiveView {
   final double boxFps, verdictFps, boxMs, verdictMs;
   final int skippedByGate;
   final (int, int) threads;
+
+  /// A lane's last failure while it keeps failing; null once both lanes work.
+  final Object? error;
 }
 
 /// Rate and mean time of one lane over its last few seconds.

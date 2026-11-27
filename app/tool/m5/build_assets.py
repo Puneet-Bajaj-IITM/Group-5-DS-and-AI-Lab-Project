@@ -117,6 +117,7 @@ def main():
     assert settings["model_sha256"]["classifier.onnx"] != A3_CLASSIFIER_SHA, "classifier.onnx is A3, not M5_KD"
     settings["model_sha256_refused"] = {"classifier.onnx": {
         A3_CLASSIFIER_SHA: "A3, the M4 classifier: same size as M5_KD, wrong for these settings"}}
+    settings.pop("model_sha256_missing", None)  # every file is pinned now
     (APP / "assets/model/pipeline.json").write_text(json.dumps(settings, indent=1) + "\n")
 
     tables = committed("assets/model/tables.json")

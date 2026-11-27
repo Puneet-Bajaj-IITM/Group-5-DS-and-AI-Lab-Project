@@ -220,19 +220,57 @@ void main() {
     expect(classifyCalls, classifyPerFrame);
   });
 
-  test('a failing lane stops showing the last verdict and reports the error', () async {
+  test('a failing lane keeps its error on every view and shows no stale verdict, until it works again', () async {
     final live = session();
-    final errors = <Object>[];
-    live.views.listen((_) {}, onError: errors.add);
     live.offer(frame(0));
     await pumpEventQueue();
     expect(live.view!.identification, isNotNull);
-    messenger.setMockMethodCallHandler(verdict, (call) async => throw PlatformException(code: 'live_models'));
+    expect(live.view!.error, isNull);
+    final working = messenger;
+    working.setMockMethodCallHandler(verdict, (call) async => throw PlatformException(code: 'live_models'));
     live.offer(frame(100));
     await pumpEventQueue();
-    expect(errors, isNotEmpty);
+    expect(live.view!.error, isNotNull, reason: 'the box lane publishes after the failure; the error stays');
     expect(live.view!.identification, isNull, reason: 'no stale verdict while analysis fails');
     expect(live.view!.answered, isFalse);
+    live.offer(frame(200)); // the box lane works, the verdict lane still fails
+    await pumpEventQueue();
+    expect(live.view!.error, isNotNull);
+    working.setMockMethodCallHandler(verdict, (call) async {
+      switch (call.method) {
+        case 'check':
+          final probs = Float32List(2)..[check.snakeIndex] = 0.9;
+          return {check.output: probs};
+        case 'segment':
+          return Float32List(320 * 320)..fillRange(0, 320 * 320, 1.0);
+        default:
+          return classifierOutputs(dangerousRow);
+      }
+    });
+    live.offer(frame(300));
+    await pumpEventQueue();
+    expect(live.view!.error, isNull, reason: 'a good verdict clears it');
+    expect(live.view!.identification, isNotNull);
+  });
+
+  test('close names its owner, so the native lanes ignore a close from an older session', () async {
+    final closes = <Object?>[];
+    messenger.setMockMethodCallHandler(detector, (call) async {
+      if (call.method == 'close') closes.add(call.arguments);
+      return null;
+    });
+    final live = LiveSession.withParts(
+      settings: settings,
+      rules: rules,
+      present: (a, details) => rule.fromAnswer(a, details: details),
+      detector: detector,
+      verdict: verdict,
+      owner: 7,
+    );
+    await live.close();
+    expect(closes, [
+      {'owner': 7}
+    ]);
   });
 
   test('with the M4 gate, a frame turned down on the box score clears the main box', () async {
