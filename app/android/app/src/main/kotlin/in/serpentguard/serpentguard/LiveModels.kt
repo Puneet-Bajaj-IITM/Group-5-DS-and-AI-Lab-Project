@@ -20,8 +20,9 @@ import java.nio.FloatBuffer
  * the plugin (CPU, memory arena on, inter-op 1); only the thread counts differ.
  *
  * Lane "detector": open(path, threads), run(input) -> output0.
- * Lane "verdict": open(segmenter, classifier, threads), segment(input) ->
- * probability, classify(input) -> {name: values}.
+ * Lane "verdict": open(segmenter, classifier, snakeCheck?, threads),
+ * check(input) -> {name: values} (the M5 snake check, when opened),
+ * segment(input) -> probability, classify(input) -> {name: values}.
  * Inputs are (1, 3, size, size) float32; outputs are float32 arrays.
  */
 class LiveModels(messenger: BinaryMessenger) {
@@ -29,6 +30,7 @@ class LiveModels(messenger: BinaryMessenger) {
     @Volatile private var detector: OrtSession? = null
     @Volatile private var segmenter: OrtSession? = null
     @Volatile private var classifier: OrtSession? = null
+    @Volatile private var snakeCheck: OrtSession? = null
     private val detectorChannel = MethodChannel(
         messenger, "serpentguard/live_detector", StandardMethodCodec.INSTANCE, messenger.makeBackgroundTaskQueue()
     )
@@ -80,11 +82,15 @@ class LiveModels(messenger: BinaryMessenger) {
         when (call.method) {
             "open" -> {
                 val threads = call.argument<Int>("threads")!!
-                segmenter?.close()
-                classifier?.close()
+                closeVerdict()
                 segmenter = env.createSession(call.argument<String>("segmenter")!!, options(threads))
                 classifier = env.createSession(call.argument<String>("classifier")!!, options(threads))
+                snakeCheck = call.argument<String>("snakeCheck")?.let { env.createSession(it, options(threads)) }
                 result.success(null)
+            }
+            "check" -> {
+                val session = snakeCheck ?: throw IllegalStateException("snake check not open")
+                result.success(run(session, call))
             }
             "segment" -> {
                 val session = segmenter ?: throw IllegalStateException("segmenter not open")
@@ -95,14 +101,20 @@ class LiveModels(messenger: BinaryMessenger) {
                 result.success(run(session, call))
             }
             "close" -> {
-                segmenter?.close()
-                classifier?.close()
-                segmenter = null
-                classifier = null
+                closeVerdict()
                 result.success(null)
             }
             else -> result.notImplemented()
         }
+    }
+
+    private fun closeVerdict() {
+        segmenter?.close()
+        classifier?.close()
+        snakeCheck?.close()
+        segmenter = null
+        classifier = null
+        snakeCheck = null
     }
 
     /** One (1, 3, size, size) float32 input named "images"; every output as a float array. */
@@ -125,10 +137,7 @@ class LiveModels(messenger: BinaryMessenger) {
         detectorChannel.setMethodCallHandler(null)
         verdictChannel.setMethodCallHandler(null)
         detector?.close()
-        segmenter?.close()
-        classifier?.close()
         detector = null
-        segmenter = null
-        classifier = null
+        closeVerdict()
     }
 }

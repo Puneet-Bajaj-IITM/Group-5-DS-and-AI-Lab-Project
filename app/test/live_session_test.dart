@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:serpentguard/inference/bundle.dart';
 import 'package:serpentguard/inference/decision.dart';
+import 'package:serpentguard/inference/flip_prior.dart';
 import 'package:serpentguard/inference/live_session.dart';
 import 'package:serpentguard/models/verdict.dart';
 import 'package:serpentguard/services/classifier.dart';
@@ -16,24 +17,34 @@ import 'helpers.dart';
 const anchors = 2100;
 const outputKeys = ['embedding', 'species_logits', 'who_logits', 'genus_logits', 'family_logits'];
 
-/// The live session's two lanes against mocked native models: the box lane's
-/// gate shortcut, the verdict matching the direct path, frame dropping and
+/// The live session's two lanes against mocked native models: the M5 snake
+/// check deciding in the verdict lane, the mirror pass and prior, the verdict
+/// matching the direct path, the M4 gate's box shortcut, frame dropping and
 /// stale results after a reset.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final messenger = TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
-  final settings = PipelineSettings.parse(File('assets/model/pipeline.json').readAsStringSync());
+  final json = File('assets/model/pipeline.json').readAsStringSync();
+  final settings = PipelineSettings.parse(json);
+  // The same bundle with the M4 gate (detector box and U-Net mask) instead of
+  // the snake check, for the box-cutoff shortcut.
+  final m4Json = jsonDecode(json) as Map<String, dynamic>;
+  (m4Json['gate'] as Map<String, dynamic>)['rule'] = 'both';
+  final m4Settings = PipelineSettings.parse(jsonEncode(m4Json));
   final rules = loadRules();
   final rule = DecisionRule(catalog: loadCatalog(), rules: rules);
   final golden = jsonDecode(File('test/golden/golden_decisions.json').readAsStringSync()) as Map<String, dynamic>;
   final rows = (golden['rows'] as List).cast<Map<String, dynamic>>();
   final dangerousRow = rows.firstWhere((r) => (r['expected'] as Map)['verdict'] == 'dangerous');
+  final check = settings.snakeCheck!;
+  final classifyPerFrame = settings.classifier.flipTta ? 2 : 1;
 
   const detector = MethodChannel('test/live_detector');
   const verdict = MethodChannel('test/live_verdict');
 
   late double score; // the detector's snake score for the next frames
-  late int detectorCalls, segmentCalls, classifyCalls;
+  late double snakeProbability; // the snake check's answer for the next frames
+  late int detectorCalls, checkCalls, segmentCalls, classifyCalls;
   Completer<void>? holdSegment;
 
   /// The golden row's outputs as the native lane returns them (float32).
@@ -42,9 +53,18 @@ void main() {
           k: Float32List.fromList(((row['outputs'] as Map)[k] as List).map((v) => (v as num).toDouble()).toList()),
       };
 
+  ModelOutputs asOutputs(Map<String, Float32List> o) => ModelOutputs(
+        embedding: o['embedding']!,
+        speciesLogits: o['species_logits']!,
+        whoLogits: o['who_logits']!,
+        genusLogits: o['genus_logits']!,
+        familyLogits: o['family_logits']!,
+      );
+
   setUp(() {
     score = 0.9;
-    detectorCalls = segmentCalls = classifyCalls = 0;
+    snakeProbability = 0.9;
+    detectorCalls = checkCalls = segmentCalls = classifyCalls = 0;
     holdSegment = null;
     messenger.setMockMethodCallHandler(detector, (call) async {
       detectorCalls++;
@@ -57,18 +77,27 @@ void main() {
       return out;
     });
     messenger.setMockMethodCallHandler(verdict, (call) async {
-      if (call.method == 'segment') {
-        segmentCalls++;
-        await holdSegment?.future;
-        return Float32List(320 * 320)..fillRange(0, 320 * 320, 1.0); // the whole frame is snake
+      switch (call.method) {
+        case 'check':
+          checkCalls++;
+          expect((call.arguments as Map)['size'], check.inputSize);
+          final probs = Float32List(2);
+          probs[check.snakeIndex] = snakeProbability;
+          probs[1 - check.snakeIndex] = 1 - snakeProbability;
+          return {check.output: probs};
+        case 'segment':
+          segmentCalls++;
+          await holdSegment?.future;
+          return Float32List(320 * 320)..fillRange(0, 320 * 320, 1.0); // the whole frame is snake
+        default:
+          classifyCalls++;
+          return classifierOutputs(dangerousRow);
       }
-      classifyCalls++;
-      return classifierOutputs(dangerousRow);
     });
   });
 
-  LiveSession session() => LiveSession.withParts(
-        settings: settings,
+  LiveSession session([PipelineSettings? s]) => LiveSession.withParts(
+        settings: s ?? settings,
         rules: rules,
         present: (a, details) => rule.fromAnswer(a, details: details),
         detector: detector,
@@ -86,32 +115,46 @@ void main() {
         frontFacing: false,
       );
 
-  test('a frame under the gate box cutoff never reaches the verdict lane, and shows no snake', () async {
+  test('the shipped bundle uses the snake check and the mirror pass', () {
+    expect(settings.usesSnakeCheck, isTrue);
+    expect(settings.classifier.flipTta, isTrue);
+    expect(m4Settings.usesSnakeCheck, isFalse);
+  });
+
+  test('with the snake check, a low detector score still reaches the verdict lane', () async {
     score = settings.gateBoxConf / 2;
     final live = session();
     live.offer(frame(0));
     await pumpEventQueue();
-    expect(detectorCalls, 1);
+    expect(checkCalls, 1, reason: 'the snake check decides, not the detector');
+    expect(segmentCalls, 1);
+    expect(classifyCalls, classifyPerFrame);
+    expect(live.view!.skippedByGate, 0);
+    expect(live.view!.identification!.verdict, Verdict.dangerous);
+  });
+
+  test('a frame the snake check turns down shows no snake and skips the crop and classifier', () async {
+    snakeProbability = check.cutoff / 2;
+    final live = session();
+    live.offer(frame(0));
+    await pumpEventQueue();
+    expect(checkCalls, 1);
     expect(segmentCalls, 0);
     expect(classifyCalls, 0);
     expect(live.view!.answered, isTrue);
     expect(live.view!.identification!.snakeFound, isFalse);
-    expect(live.view!.skippedByGate, 1);
+    expect(live.view!.snakeInView, isFalse);
   });
 
-  test('the verdict lane gives the direct path\'s answer for the same outputs', () async {
+  test('the verdict lane gives the direct path\'s answer: mirror pass and prior included', () async {
     final live = session();
     live.offer(frame(0));
     await pumpEventQueue();
     expect(segmentCalls, 1);
-    expect(classifyCalls, 1);
-    final direct = rules.verdictFromOutputs(ModelOutputs(
-      embedding: classifierOutputs(dangerousRow)['embedding']!,
-      speciesLogits: classifierOutputs(dangerousRow)['species_logits']!,
-      whoLogits: classifierOutputs(dangerousRow)['who_logits']!,
-      genusLogits: classifierOutputs(dangerousRow)['genus_logits']!,
-      familyLogits: classifierOutputs(dangerousRow)['family_logits']!,
-    ));
+    expect(classifyCalls, classifyPerFrame, reason: 'the crop and its mirror image');
+    final out = asOutputs(classifierOutputs(dangerousRow));
+    final direct = rules.verdictFromOutputs(
+        classifierAnswer(out, settings.classifier.flipTta ? out : null, settings.classifier));
     expect(direct.label, dangerousLabel);
     // "Dangerous" shows while the lock is still checking, as in identifyFrame.
     final shown = live.view!.identification!;
@@ -119,6 +162,29 @@ void main() {
     expect(shown.reason, rule.fromAnswer(direct).reason);
     expect(live.view!.snakeInView, isTrue);
     expect(live.view!.mainTrack, isNotNull);
+  });
+
+  test('with the M4 gate, a frame under the box cutoff never reaches the verdict lane', () async {
+    score = m4Settings.gateBoxConf / 2;
+    final live = session(m4Settings);
+    live.offer(frame(0));
+    await pumpEventQueue();
+    expect(detectorCalls, 1);
+    expect(checkCalls, 0);
+    expect(segmentCalls, 0);
+    expect(classifyCalls, 0);
+    expect(live.view!.answered, isTrue);
+    expect(live.view!.identification!.snakeFound, isFalse);
+    expect(live.view!.skippedByGate, 1);
+  });
+
+  test('with the M4 gate there is no snake check call', () async {
+    final live = session(m4Settings);
+    live.offer(frame(0));
+    await pumpEventQueue();
+    expect(checkCalls, 0);
+    expect(segmentCalls, 1);
+    expect(classifyCalls, classifyPerFrame);
   });
 
   test('while the verdict lane works, newer frames feed only the boxes', () async {
@@ -132,7 +198,7 @@ void main() {
     expect(detectorCalls, 6, reason: 'the box lane kept up');
     holdSegment!.complete();
     await pumpEventQueue();
-    expect(classifyCalls, 1);
+    expect(classifyCalls, classifyPerFrame);
     live.offer(frame(300));
     await pumpEventQueue();
     expect(segmentCalls, 2, reason: 'the lane is free again');
@@ -151,7 +217,7 @@ void main() {
     live.offer(frame(100));
     await pumpEventQueue();
     expect(segmentCalls, 2);
-    expect(classifyCalls, 1);
+    expect(classifyCalls, classifyPerFrame);
   });
 
   test('boxes are tracked across frames', () async {

@@ -28,8 +28,12 @@ void main() {
     final size = settings.inputSize;
     final paths = {for (final f in modelFiles) f: await SnakePipeline.extractModel(f)};
 
+    final check = settings.usesSnakeCheck ? settings.snakeCheck! : null;
+    final checkSize = check?.inputSize ?? size;
+
     // Inputs: the two bundled images through the real preprocessing, and noise.
     final inputs = <String, (Float32List, Float32List)>{};
+    final checkInputs = <String, Float32List>{};
     for (final asset in ['assets/images/splash_poster.jpg', 'assets/images/app_logo.png']) {
       final rgb = await SnakePipeline.decode((await rootBundle.load(asset)).buffer.asUint8List());
       final fixed = fixExposure(rgb, settings.exposureBelow, settings.exposureAbove, settings.claheClip, settings.claheTiles);
@@ -37,18 +41,23 @@ void main() {
         detectorInput(fixed, size, settings.detectorPad),
         normalise(letterbox(fixed, size, settings.padRgb), settings.mean, settings.std, settings.scale),
       );
+      checkInputs[asset] =
+          normalise(letterbox(fixed, checkSize, settings.padRgb), settings.mean, settings.std, settings.scale);
     }
     final rnd = math.Random(1);
     final noise = Float32List.fromList(List.generate(3 * size * size, (_) => rnd.nextDouble() * 2 - 1));
     inputs['noise'] = (noise, noise);
+    checkInputs['noise'] =
+        Float32List.fromList(List.generate(3 * checkSize * checkSize, (_) => rnd.nextDouble() * 2 - 1));
 
     final cores = (await detector.invokeMethod<int>('cores'))!;
     final boxThreads = cores >= 8 ? 2 : 1;
     final verdictThreads = (cores - boxThreads - 1).clamp(2, 4);
-    await detector.invokeMethod('open', {'path': paths['detector.onnx'], 'threads': boxThreads});
+    await detector.invokeMethod('open', {'path': paths[detectorFile], 'threads': boxThreads});
     await verdict.invokeMethod('open', {
-      'segmenter': paths['segmenter.onnx'],
-      'classifier': paths['classifier.onnx'],
+      'segmenter': paths[segmenterFile],
+      'classifier': paths[classifierFile],
+      if (check != null) 'snakeCheck': paths[snakeCheckFile],
       'threads': verdictThreads,
     });
 
@@ -57,8 +66,8 @@ void main() {
     final options = OrtSessionOptions(intraOpNumThreads: 2, interOpNumThreads: 1);
     final plugin = {for (final f in modelFiles) f: await ort.createSession(paths[f]!, options: options)};
 
-    Future<Map<String, List<double>>> viaPlugin(String model, Float32List input) async {
-      final value = await OrtValue.fromList(input, [1, 3, size, size]);
+    Future<Map<String, List<double>>> viaPlugin(String model, Float32List input, {int? side}) async {
+      final value = await OrtValue.fromList(input, [1, 3, side ?? size, side ?? size]);
       final out = await plugin[model]!.run({'images': value});
       final result = {
         for (final e in out.entries) e.key: [for (final v in await e.value.asFlattenedList()) (v as num).toDouble()]
@@ -92,8 +101,15 @@ void main() {
       for (final k in viaP.keys) {
         c = math.max(c, gap(native[k]!, viaP[k]!));
       }
-      report.writeln('parity $name: detector $d, segmenter $s, classifier $c (max abs difference)');
-      worstGap = math.max(worstGap, math.max(d, math.max(s, c)));
+      var k = 0.0;
+      if (check != null) {
+        final input = checkInputs[name]!;
+        final nativeCheck =
+            (await verdict.invokeMapMethod<String, Float32List>('check', {'input': input, 'size': checkSize}))!;
+        k = gap(nativeCheck[check.output]!, (await viaPlugin(snakeCheckFile, input, side: checkSize))[check.output]!);
+      }
+      report.writeln('parity $name: detector $d, segmenter $s, classifier $c, snake check $k (max abs difference)');
+      worstGap = [worstGap, d, s, c, k].reduce(math.max);
     }
 
     Future<double> time(Future<void> Function() run, {int n = 10}) async {
@@ -107,17 +123,25 @@ void main() {
 
     final (det, img) = inputs['assets/images/splash_poster.jpg']!;
     Future<void> box() => detector.invokeMethod('run', {'input': det, 'size': size});
+    final checkIn = checkInputs['assets/images/splash_poster.jpg']!;
+    // One M5 verdict: the snake check, the U-Net, and the classifier on the
+    // crop and (with the mirror pass) its mirror image.
     Future<void> verdictStep() async {
+      if (check != null) await verdict.invokeMethod('check', {'input': checkIn, 'size': checkSize});
       await verdict.invokeMethod('segment', {'input': img, 'size': size});
       await verdict.invokeMethod('classify', {'input': img, 'size': size});
+      if (settings.classifier.flipTta) await verdict.invokeMethod('classify', {'input': img, 'size': size});
     }
 
     final boxAlone = await time(box);
     final verdictAlone = await time(verdictStep);
+    // Photo mode's path on one queue (the old live camera).
     final pluginSerial = await time(() async {
-      await viaPlugin('detector.onnx', det);
-      await viaPlugin('segmenter.onnx', img);
-      await viaPlugin('classifier.onnx', img);
+      if (check != null) await viaPlugin(snakeCheckFile, checkIn, side: checkSize);
+      await viaPlugin(detectorFile, det);
+      await viaPlugin(segmenterFile, img);
+      await viaPlugin(classifierFile, img);
+      if (settings.classifier.flipTta) await viaPlugin(classifierFile, img);
     });
     // Both lanes at once: the verdict lane runs continuously while we time the box lane.
     var running = true, verdicts = 0;
@@ -135,7 +159,7 @@ void main() {
     report
       ..writeln('box lane alone ${boxAlone.toStringAsFixed(1)} ms; verdict lane alone ${verdictAlone.toStringAsFixed(1)} ms')
       ..writeln('both at once: box ${boxBusy.toStringAsFixed(1)} ms, verdict ${verdictBusy.toStringAsFixed(1)} ms')
-      ..writeln('old serial path (plugin, 3 models) ${pluginSerial.toStringAsFixed(1)} ms');
+      ..writeln('old serial path (plugin, ${modelFiles.length} models) ${pluginSerial.toStringAsFixed(1)} ms');
     // ignore: avoid_print
     print(report);
 

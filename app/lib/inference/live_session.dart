@@ -11,6 +11,7 @@ import '../services/classifier.dart';
 import 'bundle.dart';
 import 'decision.dart';
 import 'detections.dart';
+import 'flip_prior.dart';
 import 'image_ops.dart';
 import 'pipeline.dart';
 import 'video_lock.dart';
@@ -22,13 +23,17 @@ import 'video_lock.dart';
 ///   dropped): camera frame -> RGB -> exposure fix -> detector. Every snake
 ///   box is tracked and drawn.
 /// * **Verdict lane**, whenever it is free, on the newest frame the box lane
-///   finished: segmenter -> gate -> mask crop -> classifier -> DR0 -> the
-///   video lock. The same steps and settings as a photo ([SnakePipeline.run]),
-///   on the same pixels, with the box lane's detector output reused.
+///   finished: the M5 snake check (when `pipeline.json` uses it) ->
+///   segmenter -> mask crop -> classifier (with the mirror pass and the prior
+///   when the settings ask) -> DR0 -> the video lock. The same steps and
+///   settings as a photo ([SnakePipeline.run]), on the same pixels, with the
+///   box lane's detector output reused.
 ///
-/// A frame whose detector score is under the gate's box cutoff is "no snake"
-/// whatever the mask says (the gate needs both), so the verdict lane skips it:
-/// the answer is the same, only sooner.
+/// With the M4 gate (detector box and U-Net mask, no snake check), a frame
+/// whose detector score is under the gate's box cutoff is "no snake" whatever
+/// the mask says (the gate needs both), so the verdict lane skips it: the
+/// answer is the same, only sooner. With the snake check the detector does not
+/// decide, so every frame the verdict lane takes goes through the check.
 ///
 /// Lock steps are applied in frame order. A "no snake" frame from the box lane
 /// that is newer than the frame in the verdict lane waits for it, so the lock
@@ -74,12 +79,13 @@ class LiveSession {
       final boxThreads = cores >= 8 ? 2 : 1;
       final verdictThreads = (cores - boxThreads - 1).clamp(2, 4);
       await _detectorChannel.invokeMethod('open', {
-        'path': await SnakePipeline.extractModel('detector.onnx'),
+        'path': await SnakePipeline.extractModel(detectorFile),
         'threads': boxThreads,
       });
       await _verdictChannel.invokeMethod('open', {
-        'segmenter': await SnakePipeline.extractModel('segmenter.onnx'),
-        'classifier': await SnakePipeline.extractModel('classifier.onnx'),
+        'segmenter': await SnakePipeline.extractModel(segmenterFile),
+        'classifier': await SnakePipeline.extractModel(classifierFile),
+        if (pipeline.settings.usesSnakeCheck) 'snakeCheck': await SnakePipeline.extractModel(snakeCheckFile),
         'threads': verdictThreads,
       });
       return LiveSession.withParts(
@@ -185,15 +191,22 @@ class LiveSession {
       final best = conf == null ? null : bestBox(output, anchors, s.snakeClass, fixed.width, fixed.height, s.inputSize);
       final found = detectAll(output, anchors, s.snakeClass, fixed.width, fixed.height, s.inputSize,
           minScore: displayScore);
-      if (best != null && conf! >= s.gateBoxConf && (found.isEmpty || iou(found.first.box, best) < 0.5)) {
-        found.insert(0, Detection(best, conf));
+      // The box the verdict is about is the most confident one, as on a
+      // photo, so it is tracked even under the display score (it is drawn
+      // only when the verdict lane names it). With the M4 gate only boxes
+      // that can pass the gate qualify.
+      final boxDecides = !s.usesSnakeCheck;
+      if (best != null &&
+          (!boxDecides || conf! >= s.gateBoxConf) &&
+          (found.isEmpty || iou(found.first.box, best) < 0.5)) {
+        found.insert(0, Detection(best, conf!));
       }
       _tracker.update(found, seconds);
       _width = fixed.width;
       _height = fixed.height;
       boxTimer.add(clock.elapsedMilliseconds, seconds);
 
-      final gateCanPass = conf != null && conf >= s.gateBoxConf;
+      final gateCanPass = !boxDecides || (conf != null && conf >= s.gateBoxConf);
       if (!gateCanPass) {
         _skippedByGate++;
         _noSnake(seconds, fixed, conf, rgb);
@@ -240,47 +253,8 @@ class LiveSession {
     }
 
     try {
-      final s = _s;
-      final size = s.inputSize;
-      final segIn = normalise(letterbox(rgb, size, s.padRgb), s.mean, s.std, s.scale);
-      final probability =
-          (await _verdict.invokeMethod<Float32List>('segment', {'input': segIn, 'size': size}))!;
-      times['segmenter'] = lap();
-      if (session != _session || _closed) return;
-      final post = afterGate(rgb, probability, conf, s);
-      times['crop'] = lap();
-      final gate = GateResult(snake: post.snake, boxConf: conf, maskArea: post.area, box: box);
-      PipelineResult result;
-      if (!post.snake) {
-        result = PipelineResult(
-            width: rgb.width, height: rgb.height, exposureFixed: exposureFixed, gate: gate,
-            answer: ModelAnswer.noSnake, timingsMs: times);
-      } else {
-        final out = (await _verdict.invokeMapMethod<String, Float32List>(
-            'classify', {'input': post.classifierInput!, 'size': size}))!;
-        times['classifier'] = lap();
-        if (session != _session || _closed) return;
-        final outputs = ModelOutputs(
-          embedding: out['embedding']!,
-          speciesLogits: out['species_logits']!,
-          whoLogits: out['who_logits']!,
-          genusLogits: out['genus_logits']!,
-          familyLogits: out['family_logits']!,
-        );
-        final parts = DecisionParts.fromOutputs(outputs, s.thresholds);
-        result = PipelineResult(
-          width: rgb.width,
-          height: rgb.height,
-          exposureFixed: exposureFixed,
-          gate: gate,
-          cropWindow: post.window,
-          answer: _rules.verdict(parts),
-          parts: parts,
-          classifierInputMean: post.mean,
-          classifierInputStd: post.std,
-          timingsMs: times,
-        );
-      }
+      final result = await _verdictFrame(rgb, exposureFixed, conf, box, session, times, lap);
+      if (result == null) return; // a reset or close ended this frame
       _lastVerdictFrame = result;
       final step = _lock.add(result.parts, seconds);
       _show(step, result, snake: result.gate.snake);
@@ -305,6 +279,75 @@ class LiveSession {
         _publish();
       }
     }
+  }
+
+  /// One frame through [SnakePipeline.run]'s steps after the detector, on the
+  /// native verdict lane; null when a reset or close ended it.
+  Future<PipelineResult?> _verdictFrame(RgbImage rgb, bool exposureFixed, double? conf, PixelBox? box, int session,
+      Map<String, int> times, int Function() lap) async {
+    final s = _s;
+    final size = s.inputSize;
+    bool stale() => session != _session || _closed;
+    PipelineResult noSnake(GateResult gate) => PipelineResult(
+        width: rgb.width, height: rgb.height, exposureFixed: exposureFixed, gate: gate,
+        answer: ModelAnswer.noSnake, timingsMs: times);
+
+    double? snakeProbability;
+    if (s.usesSnakeCheck) {
+      final check = s.snakeCheck!;
+      final checkIn = normalise(letterbox(rgb, check.inputSize, s.padRgb), s.mean, s.std, s.scale);
+      final out = (await _verdict.invokeMapMethod<String, Float32List>(
+          'check', {'input': checkIn, 'size': check.inputSize}))!;
+      times['snake_check'] = lap();
+      if (stale()) return null;
+      final probs = out[check.output]!;
+      snakeProbability = probs[check.snakeIndex];
+      if (!check.isSnake(probs)) {
+        return noSnake(GateResult(snake: false, boxConf: null, maskArea: 0, snakeProbability: snakeProbability));
+      }
+    }
+
+    final segIn = normalise(letterbox(rgb, size, s.padRgb), s.mean, s.std, s.scale);
+    final probability = (await _verdict.invokeMethod<Float32List>('segment', {'input': segIn, 'size': size}))!;
+    times['segmenter'] = lap();
+    if (stale()) return null;
+    final post = afterGate(rgb, probability, conf, s);
+    times['crop'] = lap();
+    final gate = GateResult(
+        snake: post.snake, boxConf: conf, maskArea: post.area, snakeProbability: snakeProbability, box: box);
+    if (!post.snake) return noSnake(gate);
+
+    Future<ModelOutputs> classify(Float32List input) async {
+      final out = (await _verdict.invokeMapMethod<String, Float32List>('classify', {'input': input, 'size': size}))!;
+      return ModelOutputs(
+        embedding: out['embedding']!,
+        speciesLogits: out['species_logits']!,
+        whoLogits: out['who_logits']!,
+        genusLogits: out['genus_logits']!,
+        familyLogits: out['family_logits']!,
+      );
+    }
+
+    final plain = await classify(post.classifierInput!);
+    if (stale()) return null;
+    final mirrored = post.mirroredInput == null ? null : await classify(post.mirroredInput!);
+    if (stale()) return null;
+    final outputs = classifierAnswer(plain, mirrored, s.classifier);
+    times['classifier'] = lap();
+    final parts = DecisionParts.fromOutputs(outputs, s.thresholds);
+    return PipelineResult(
+      width: rgb.width,
+      height: rgb.height,
+      exposureFixed: exposureFixed,
+      gate: gate,
+      cropWindow: post.window,
+      answer: _rules.verdict(parts),
+      parts: parts,
+      classifierOutputs: outputs,
+      classifierInputMean: post.mean,
+      classifierInputStd: post.std,
+      timingsMs: times,
+    );
   }
 
   /// What [OnnxSnakeClassifier.identifyFrame] returns for this lock step.
