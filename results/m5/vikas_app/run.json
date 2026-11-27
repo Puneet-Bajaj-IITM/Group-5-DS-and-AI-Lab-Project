@@ -1,0 +1,11 @@
+{
+  "notebook": "https://www.kaggle.com/code/vikas25s/sg-m5-vikas-assigned-checks",
+  "version": 1,
+  "date": "2026-11-27",
+  "source_files_verified": 56,
+  "targeted_tests_passed": 6,
+  "analysis": "No issues found",
+  "scope": "Targeted contact/SOS tests and static analysis including BLE probe; artwork/video fixtures and fonts omitted in cloud harness; no release build",
+  "physical_ble": "NOT RUN: one phone available, none connected by ADB; no RF result claimed",
+  "log_format": "Analysis log has trailing whitespace removed; original remains in Kaggle output"
+}

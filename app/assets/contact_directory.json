@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "revision": 20261125,
+  "coverage": "Pilot directory; not nationwide coverage",
+  "contacts": [
+    {
+      "id": "ws-delhi",
+      "name": "Wildlife SOS Delhi helpline",
+      "phone": "+919871963535",
+      "kind": "rescuer",
+      "locality": "Delhi NCT",
+      "state": "Delhi",
+      "source_url": "https://wildlifesos.org/contact-us/",
+      "source_checked_at": "2026-11-25",
+      "verification_method": "official_website_not_called",
+      "notes": "Regional wildlife rescue helpline; call to confirm coverage.",
+      "location": null
+    },
+    {
+      "id": "ws-agra",
+      "name": "Wildlife SOS Agra helpline",
+      "phone": "+919917109666",
+      "kind": "rescuer",
+      "locality": "Agra",
+      "state": "Uttar Pradesh",
+      "source_url": "https://wildlifesos.org/contact-us/",
+      "source_checked_at": "2026-11-25",
+      "verification_method": "official_website_not_called",
+      "notes": "Regional wildlife rescue helpline; call to confirm coverage.",
+      "location": null
+    },
+    {
+      "id": "ws-vadodara",
+      "name": "Wildlife SOS Vadodara helpline",
+      "phone": "+919825011117",
+      "kind": "rescuer",
+      "locality": "Vadodara",
+      "state": "Gujarat",
+      "source_url": "https://wildlifesos.org/contact-us/",
+      "source_checked_at": "2026-11-25",
+      "verification_method": "official_website_not_called",
+      "notes": "Regional wildlife rescue helpline; call to confirm coverage.",
+      "location": null
+    },
+    {
+      "id": "ws-srinagar",
+      "name": "Wildlife SOS Srinagar helpline",
+      "phone": "+917006692300",
+      "kind": "rescuer",
+      "locality": "Srinagar",
+      "state": "Jammu and Kashmir",
+      "source_url": "https://wildlifesos.org/contact-us/",
+      "source_checked_at": "2026-11-25",
+      "verification_method": "official_website_not_called",
+      "notes": "Regional wildlife rescue helpline; call to confirm coverage.",
+      "location": null
+    },
+    {
+      "id": "resq-pune",
+      "name": "RESQ wildlife helpline Pune",
+      "phone": "+919172511100",
+      "kind": "rescuer",
+      "locality": "Bavdhan Pune",
+      "state": "Maharashtra",
+      "source_url": "https://www.resqct.org/contact",
+      "source_checked_at": "2026-11-25",
+      "verification_method": "official_website_not_called",
+      "notes": "Wildlife emergencies and technical animal rescue. Distance is to the RESQ centre, not a rescuer's live position.",
+      "location": {
+        "lat": 18.4949046,
+        "lon": 73.7652262
+      },
+      "coordinate_source_url": "https://www.resqct.org/contact",
+      "coordinate_method": "official_contact_page_google_maps_embed"
+    },
+    {
+      "id": "resq-baramati",
+      "name": "RESQ wildlife helpline Baramati",
+      "phone": "+917387771050",
+      "kind": "rescuer",
+      "locality": "Baramati",
+      "state": "Maharashtra",
+      "source_url": "https://www.resqct.org/contact",
+      "source_checked_at": "2026-11-25",
+      "verification_method": "official_website_not_called",
+      "notes": "Wildlife emergencies; call to confirm response area.",
+      "location": null
+    },
+    {
+      "id": "resq-roha",
+      "name": "RESQ wildlife helpline Roha",
+      "phone": "+919922330286",
+      "kind": "rescuer",
+      "locality": "Roha",
+      "state": "Maharashtra",
+      "source_url": "https://www.resqct.org/contact",
+      "source_checked_at": "2026-11-25",
+      "verification_method": "official_website_not_called",
+      "notes": "Wildlife emergencies; call to confirm response area.",
+      "location": null
+    },
+    {
+      "id": "resq-nashik",
+      "name": "RESQ wildlife helpline Nashik",
+      "phone": "+918698112211",
+      "kind": "rescuer",
+      "locality": "Nashik",
+      "state": "Maharashtra",
+      "source_url": "https://www.resqct.org/contact",
+      "source_checked_at": "2026-11-25",
+      "verification_method": "official_website_not_called",
+      "notes": "Wildlife emergencies; call to confirm response area.",
+      "location": null
+    },
+    {
+      "id": "mvc-chennai",
+      "name": "Madras Veterinary College Teaching Hospital",
+      "phone": "+914425381366",
+      "kind": "veterinarian",
+      "locality": "Vepery Chennai",
+      "state": "Tamil Nadu",
+      "source_url": "https://www.tanuvas.ac.in/contacts.php",
+      "source_checked_at": "2026-11-25",
+      "verification_method": "official_website_not_called",
+      "notes": "Animal treatment contact, not a human snakebite hospital. Call for opening hours and species capability.",
+      "location": null
+    },
+    {
+      "id": "vuph-chennai",
+      "name": "Veterinary University Peripheral Hospital",
+      "phone": "+914425559046",
+      "kind": "veterinarian",
+      "locality": "Madhavaram Milk Colony Chennai",
+      "state": "Tamil Nadu",
+      "source_url": "https://www.tanuvas.ac.in/contacts.php",
+      "source_checked_at": "2026-11-25",
+      "verification_method": "official_website_not_called",
+      "notes": "Animal treatment contact, not a human snakebite hospital. Call for opening hours and species capability.",
+      "location": null
+    }
+  ]
+}

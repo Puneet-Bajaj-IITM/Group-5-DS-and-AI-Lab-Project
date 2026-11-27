@@ -897,8 +897,8 @@ Most of those are still open and have an owner.
 | Readable location names instead of coordinates | Open | Jayesh Bansal |
 | Replace the green startup video | Open | Manas Rastogi |
 | Live camera demo video | Open | Manas Rastogi, Jayesh Bansal |
-| Rescuer and vet contact search and routing | Open | to be assigned |
-| Two-phone Bluetooth alert test | Open | to be assigned |
+| Rescuer and vet contact search and routing | Offline pilot search/cache implemented; ten official-source-checked contacts, one mapped centre; straight-line distance only, no road routing or telephone confirmation. [Evidence and limits](vikas-contact-ble.md) | Vikas |
+| Two-phone Bluetooth alert test | Hardware probe and procedure prepared; not run. Owner has one phone and no device was connected by ADB on 27 Nov. One-phone startup cannot establish delivery. [Procedure](vikas-contact-ble.md) | Vikas |
 | Regional names for 9 of 16 WHO-listed species | Open | to be assigned |
 | Manas's unpushed code | Open: push it and give the commit | Manas Rastogi |
 | Report sign-offs (M4 and M5) and Appendix entries | Open; see Appendix A and the sign-off table | every member |
@@ -913,7 +913,7 @@ Most of those are still open and have an owner.
 |---|---|---|---|---|
 | Jayesh Bansal | Claude Code (Anthropic) | The release APK closes while it checks a photo; find why, then debug and audit the whole app | Found that release shrinking (R8) removed ONNX Runtime classes the native code calls, and added keep rules. Replaced the hospital index's SQLite R-tree, which Android's SQLite lacks, with an indexed table. Other audit fixes are in PR #32 | Release APK run on the Android emulator on photos, video and the live camera; `flutter test` passes; the 200 golden decisions and 5 golden photos still match the Python reference |
 | Jayesh Bansal | Claude Code (Anthropic) | Draw the snake's box on photos and video, show a street address instead of coordinates, show the video frames as they are checked instead of a progress bar, and give the app a less generic design | Box from the detector drawn on the result, live camera and video screens; address from the phone's geocoder, then Nominatim, cached per about 100 m and added to the SOS message; video screen shows each checked frame with its box, then plays the clip back with a timeline; new theme and home screen (PR #32) | Unit tests for the box mapping and address parsing; every screen checked on the emulator. The live camera box is not yet tested on a real snake |
-| Vikas | | | | |
+| Vikas | Codex (OpenAI) | Fetch current team changes; work only on my rescuer/vet search, Bluetooth test preparation, AI entry and acknowledgment; preserve other members' work | Integrated the sourced offline contact directory with locality/type/distance search and cache; separated animal hospitals from human snakebite help; added an isolated BLE hardware probe using ST test packets rejected by production receivers and documented one-phone versus two-phone evidence | Inspected merged PR #32 and the current M5 branch; checked public contact pages and metadata, added search/cache/SOS tests and queried ADB (no devices attached). Current-branch Kaggle check: six targeted tests passed and static analysis was clean, including the BLE probe; [receipt](../../results/m5/vikas_app/run.json). No RF delivery, phone latency/RAM or model evaluation result is claimed by this work |
 | Puneet Bajaj | | | | |
 | Manas Rastogi | | | | |
 
@@ -954,6 +954,6 @@ document, understand its contents and agree with the submission.
 | Team member name | Roll Number | Signature / acknowledgment | Date |
 |---|---|---|---|
 | Jayesh Bansal | 24f100185 | ![Jayesh Bansal](https://drive.google.com/uc?export=download&id=1imepTm_t9vgJVL367tWU-LPYcLq9Zet0) | 26/11/2026 |
-| Vikas | 23f3001800 | | |
+| Vikas | 23f3001800 | Vikas | 27/11/2026 |
 | Puneet Bajaj | 23f3002416 | | |
 | Manas Rastogi | 22f3001477 | | |
