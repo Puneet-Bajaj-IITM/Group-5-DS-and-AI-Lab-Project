@@ -210,6 +210,7 @@ class AppState extends ChangeNotifier {
         speciesId: id.topSpecies?.id,
         location: position,
         photoPath: photoPath,
+        result: SavedResult.of(id),
       ),
       ...sightings,
     ].take(200).toList();
