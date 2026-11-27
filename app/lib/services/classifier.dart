@@ -177,12 +177,12 @@ class OnnxSnakeClassifier implements LiveSnakeClassifier {
   Future<PipelineResult> runFrame(RgbImage frame) async {
     final model = await _ready;
     final sized = math.max(frame.width, frame.height) > frameMaxSide
-        ? await Isolate.run(() => _phoneSize(frame))
+        ? await Isolate.run(() => phoneSize(frame))
         : frame;
     return model.run(sized);
   }
 
-  static RgbImage _phoneSize(RgbImage img) {
+  static RgbImage phoneSize(RgbImage img) {
     final long = math.max(img.width, img.height);
     if (long <= frameMaxSide) return img;
     final scale = frameMaxSide / long;

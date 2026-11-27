@@ -112,7 +112,7 @@ class SnakePipeline {
     final ort = OnnxRuntime();
     final options = OrtSessionOptions(intraOpNumThreads: 2, interOpNumThreads: 1);
     Future<OrtSession> open(String name) async =>
-        ort.createSession(await _extract(name), options: options);
+        ort.createSession(await extractModel(name), options: options);
     final opened = <OrtSession>[];
     try {
       for (final f in modelFiles) {
@@ -130,7 +130,7 @@ class SnakePipeline {
 
   /// ONNX Runtime needs a file path. Copies the asset out once, and again
   /// only when its size changes (a new model build).
-  static Future<String> _extract(String name) async {
+  static Future<String> extractModel(String name) async {
     final data = await rootBundle.load('$modelAssetDir/$name');
     final dir = Directory('${(await getApplicationSupportDirectory()).path}/models');
     await dir.create(recursive: true);
@@ -233,7 +233,7 @@ class SnakePipeline {
 
     final probability = Float32List.fromList(await _run(_segmenter, pre.segmenterInput, 'probability'));
     times['segmenter'] = lap();
-    final post = inline ? _afterGate(_inlineRgb!, probability, conf, s) : await _worker.afterGate(pre.job, probability, conf);
+    final post = inline ? afterGate(_inlineRgb!, probability, conf, s) : await _worker.afterGate(pre.job, probability, conf);
     times['crop'] = lap();
 
     final gate = GateResult(snake: post.snake, boxConf: conf, maskArea: post.area, box: box);
@@ -294,8 +294,8 @@ class _Prepared {
   final Float32List detectorInput, segmenterInput;
 }
 
-class _AfterGate {
-  const _AfterGate({required this.snake, required this.area, this.window, this.classifierInput, this.mean, this.std});
+class AfterGate {
+  const AfterGate({required this.snake, required this.area, this.window, this.classifierInput, this.mean, this.std});
   final bool snake;
   final double area;
   final (int, int, int, int)? window;
@@ -347,7 +347,7 @@ class _PixelWorker {
 
   Future<_Prepared> prepare(RgbImage photo) => _ask('prepare', [photo]);
 
-  Future<_AfterGate> afterGate(int job, Float32List probability, double? conf) =>
+  Future<AfterGate> afterGate(int job, Float32List probability, double? conf) =>
       _ask('after', [job, probability, conf]);
 
   void close() {
@@ -395,7 +395,7 @@ Future<void> _workerMain((SendPort, Map<String, dynamic>) init) async {
       } else {
         final rgb = photos.remove(args[0] as int);
         if (rgb == null) throw StateError('photo for job ${args[0]} is gone');
-        out.send((id, _afterGate(rgb, args[1] as Float32List, args[2] as double?, s), null));
+        out.send((id, afterGate(rgb, args[1] as Float32List, args[2] as double?, s), null));
       }
     } catch (e) {
       out.send((id, null, '$e'));
@@ -404,7 +404,7 @@ Future<void> _workerMain((SendPort, Map<String, dynamic>) init) async {
 }
 
 /// Mask and gate; for a snake, the mask cleanup, the crop and the classifier input.
-_AfterGate _afterGate(RgbImage rgb, Float32List probability, double? conf, PipelineSettings s) {
+AfterGate afterGate(RgbImage rgb, Float32List probability, double? conf, PipelineSettings s) {
   final size = s.inputSize;
   final mask = unletterboxMask(probability, rgb.height, rgb.width, size, s.segmenterThreshold);
   var maskPixels = 0;
@@ -413,7 +413,7 @@ _AfterGate _afterGate(RgbImage rgb, Float32List probability, double? conf, Pipel
   }
   final area = maskPixels / mask.length;
   final snake = conf != null && conf >= s.gateBoxConf && area > 0 && area >= s.gateMaskArea;
-  if (!snake) return _AfterGate(snake: false, area: area);
+  if (!snake) return AfterGate(snake: false, area: area);
   final cleaned = cleanMask(mask, rgb.width, rgb.height,
       connectivity: s.connectivity,
       minLargestShare: s.minLargestShare,
@@ -429,7 +429,7 @@ _AfterGate _afterGate(RgbImage rgb, Float32List probability, double? conf, Pipel
   }
   final mean = sum / clsIn.length;
   final variance = (sq / clsIn.length - mean * mean).clamp(0, double.infinity).toDouble();
-  return _AfterGate(
+  return AfterGate(
     snake: true,
     area: area,
     window: window,
