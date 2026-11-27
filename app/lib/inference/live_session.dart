@@ -75,17 +75,19 @@ class LiveSession {
     if (!Platform.isAndroid) return null;
     try {
       final pipeline = await classifier.pipeline;
+      // The same files, checked the same way, as the photo path.
+      Future<String> model(String f) => SnakePipeline.extractModel(f, sha256: pipeline.settings.modelSha256[f]);
       final cores = (await _detectorChannel.invokeMethod<int>('cores')) ?? 4;
       final boxThreads = cores >= 8 ? 2 : 1;
       final verdictThreads = (cores - boxThreads - 1).clamp(2, 4);
       await _detectorChannel.invokeMethod('open', {
-        'path': await SnakePipeline.extractModel(detectorFile),
+        'path': await model(detectorFile),
         'threads': boxThreads,
       });
       await _verdictChannel.invokeMethod('open', {
-        'segmenter': await SnakePipeline.extractModel(segmenterFile),
-        'classifier': await SnakePipeline.extractModel(classifierFile),
-        if (pipeline.settings.usesSnakeCheck) 'snakeCheck': await SnakePipeline.extractModel(snakeCheckFile),
+        'segmenter': await model(segmenterFile),
+        'classifier': await model(classifierFile),
+        if (pipeline.settings.usesSnakeCheck) 'snakeCheck': await model(snakeCheckFile),
         'threads': verdictThreads,
       });
       return LiveSession.withParts(

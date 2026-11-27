@@ -46,7 +46,8 @@ FROZEN = {
     SNAKE_RUN / "model.pt": "88fd518c550a4f1502c86e7da1d8a3a8bd9c332b5377a8cc5d7f65f8144b7cfd",
     SNAKE_RUN / SNAKE_FILE: "fb5b5bda5e0dbdb1895448ae1c70e56e93042ef322f9e5595cfcd6e0b8ec9fc3",
 }
-LOG_COUNTS_SHA = "d6cb68339c75b59af12f18a6a3a1601c18cfd42bb2a1f12a3459a32a286f4425"
+A3_CLASSIFIER_SHA = "355a975449e48b0b2dd7d633641132cf90c68d5d79a8974849b01b6c4651252e"  # the M4 bundle's SHA256SUMS
+LOG_COUNTS_SHA ="d6cb68339c75b59af12f18a6a3a1601c18cfd42bb2a1f12a3459a32a286f4425"
 MODEL_SOURCES = {
     "classifier.onnx": G3 / "app_models_KD/classifier.onnx",
     "detector.onnx": M4_MODELS / "detector.onnx",
@@ -110,6 +111,10 @@ def main():
         "detector.pt": settings["source_weights_sha256"]["detector.pt"],
         "segmenter.pt": settings["source_weights_sha256"]["segmenter.pt"],
         "distil_oi model.pt": FROZEN[SNAKE_RUN / "model.pt"]}
+    # The app refuses an ONNX file whose SHA-256 differs from this (pipeline.dart extractModel). The classifier is
+    # checked against A3's file here: both are MobileViT-S exports of the same byte size.
+    settings["model_sha256"] = {name: sha256(source) for name, source in MODEL_SOURCES.items()}
+    assert settings["model_sha256"]["classifier.onnx"] != A3_CLASSIFIER_SHA, "classifier.onnx is A3, not M5_KD"
     (APP / "assets/model/pipeline.json").write_text(json.dumps(settings, indent=1) + "\n")
 
     tables = committed("assets/model/tables.json")

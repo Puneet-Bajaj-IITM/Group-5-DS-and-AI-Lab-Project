@@ -51,6 +51,12 @@ class PipelineSettings {
 
   bool get usesSnakeCheck => gateRule == snakeCheckRule;
 
+  /// SHA-256 of each ONNX file these settings were made for, by file name.
+  /// A listed file with other contents is refused ([SnakePipeline.extractModel]);
+  /// an unlisted one is not checked.
+  Map<String, String> get modelSha256 =>
+      (raw['model_sha256'] as Map?)?.cast<String, String>() ?? const <String, String>{};
+
   /// The M5 snake check that replaces the gate's decision (absent for A3).
   SnakeCheckSettings? get snakeCheck =>
       raw['snake_check'] == null ? null : SnakeCheckSettings.fromJson(_m('snake_check'));
