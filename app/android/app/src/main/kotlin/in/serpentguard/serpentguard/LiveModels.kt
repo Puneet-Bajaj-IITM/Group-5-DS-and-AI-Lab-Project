@@ -31,6 +31,12 @@ class LiveModels(messenger: BinaryMessenger) {
     @Volatile private var segmenter: OrtSession? = null
     @Volatile private var classifier: OrtSession? = null
     @Volatile private var snakeCheck: OrtSession? = null
+
+    // A session is closed only while no call is running it: each lane's calls
+    // and its close hold that lane's lock (dispose runs on the main thread,
+    // the calls on the lanes' background queues).
+    private val detectorLock = Any()
+    private val verdictLock = Any()
     private val detectorChannel = MethodChannel(
         messenger, "serpentguard/live_detector", StandardMethodCodec.INSTANCE, messenger.makeBackgroundTaskQueue()
     )
@@ -39,8 +45,12 @@ class LiveModels(messenger: BinaryMessenger) {
     )
 
     init {
-        detectorChannel.setMethodCallHandler { call, result -> guard(result) { onDetector(call, result) } }
-        verdictChannel.setMethodCallHandler { call, result -> guard(result) { onVerdict(call, result) } }
+        detectorChannel.setMethodCallHandler { call, result ->
+            guard(result) { synchronized(detectorLock) { onDetector(call, result) } }
+        }
+        verdictChannel.setMethodCallHandler { call, result ->
+            guard(result) { synchronized(verdictLock) { onVerdict(call, result) } }
+        }
     }
 
     private fun guard(result: MethodChannel.Result, body: () -> Unit) {
@@ -61,7 +71,9 @@ class LiveModels(messenger: BinaryMessenger) {
         when (call.method) {
             "cores" -> result.success(Runtime.getRuntime().availableProcessors())
             "open" -> {
+                // Cleared first, so a failed open never leaves a closed session reachable.
                 detector?.close()
+                detector = null
                 detector = env.createSession(call.argument<String>("path")!!, options(call.argument<Int>("threads")!!))
                 result.success(null)
             }
@@ -136,8 +148,11 @@ class LiveModels(messenger: BinaryMessenger) {
     fun dispose() {
         detectorChannel.setMethodCallHandler(null)
         verdictChannel.setMethodCallHandler(null)
-        detector?.close()
-        detector = null
-        closeVerdict()
+        // Waits for a call still running on a lane (at most one model run).
+        synchronized(detectorLock) {
+            detector?.close()
+            detector = null
+        }
+        synchronized(verdictLock) { closeVerdict() }
     }
 }

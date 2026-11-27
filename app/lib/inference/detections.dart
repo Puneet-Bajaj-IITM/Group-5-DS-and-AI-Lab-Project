@@ -47,7 +47,10 @@ List<Detection> detectAll(List<double> output, int anchors, int snakeClass, int 
       clampX((cx + w / 2 - left) / ratio),
       clampY((cy + h / 2 - top) / ratio),
     );
-    // Kept even when clamped to nothing, as bestBox does; the painter skips it.
+    // A box clamped to nothing (an anchor in the letterbox padding) has no
+    // overlap with anything, so NMS would never drop it: skip it here. Only
+    // the display uses these boxes; the verdict's box is bestBox's.
+    if (box.width <= 0 || box.height <= 0) continue;
     candidates.add(Detection(box, score));
   }
   candidates.sort((a, b) => b.score.compareTo(a.score));

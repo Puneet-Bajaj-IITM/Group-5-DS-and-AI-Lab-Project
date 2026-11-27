@@ -93,10 +93,23 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
         await _classifier!.resetLiveSession();
         final c = _classifier;
         if (_live == null && c is OnnxSnakeClassifier) {
-          _live = await LiveSession.open(c);
-          _liveViews = _live?.views.listen(
+          // Opening copies and checks four models, which can take seconds; if
+          // the screen closed meanwhile, close the session it no longer owns.
+          final opened = await LiveSession.open(c);
+          if (!mounted) {
+            await opened?.close();
+            return;
+          }
+          _live = opened;
+          _liveViews = opened?.views.listen(
             (v) {
-              if (mounted) setState(() => _view = v);
+              // A view means the lanes work again: drop an earlier error.
+              if (mounted) {
+                setState(() {
+                  _view = v;
+                  _error = null;
+                });
+              }
             },
             onError: (Object _) {
               if (mounted) {

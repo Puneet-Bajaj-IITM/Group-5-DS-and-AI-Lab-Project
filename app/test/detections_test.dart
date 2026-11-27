@@ -24,8 +24,9 @@ Float32List output(List<(double cx, double cy, double w, double h, double score)
 
 void main() {
   group('detectAll', () {
-    test('its top box is bestBox exactly, on random outputs and frame shapes', () {
+    test('its top box is bestBox exactly (unless bestBox is empty), on random outputs and frame shapes', () {
       final rnd = math.Random(7);
+      var compared = 0;
       for (final (w, h) in [(640, 360), (360, 640), (640, 480), (500, 500), (333, 640)]) {
         for (var trial = 0; trial < 20; trial++) {
           final out = Float32List(5 * anchors);
@@ -37,10 +38,17 @@ void main() {
             out[4 * anchors + i] = rnd.nextDouble();
           }
           final best = bestBox(out, anchors, 0, w, h, size)!;
-          final top = detectAll(out, anchors, 0, w, h, size, minScore: 0).first.box;
+          final found = detectAll(out, anchors, 0, w, h, size, minScore: 0);
+          expect(found.every((d) => d.box.width > 0 && d.box.height > 0), isTrue, reason: 'no empty boxes');
+          // An anchor in the letterbox padding clamps to nothing: bestBox keeps
+          // it (the gate's box), detectAll (display only) skips it.
+          if (best.width <= 0 || best.height <= 0) continue;
+          final top = found.first.box;
           expect([top.left, top.top, top.right, top.bottom], [best.left, best.top, best.right, best.bottom]);
+          compared++;
         }
       }
+      expect(compared, greaterThan(50), reason: 'most random tops are real boxes');
     });
 
     test('keeps separate snakes, drops overlapping duplicates and low scores', () {

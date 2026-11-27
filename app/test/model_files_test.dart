@@ -57,6 +57,21 @@ void main() {
     expect(await SnakePipeline.copyModel(bytes(5), file, sha256: hash(bytes(5))), file.path);
   });
 
+  test('a refused file (A3 under the M5 settings) is never copied or run', () async {
+    final file = File('${dir.path}/classifier.onnx');
+    final a3 = bytes(6);
+    expect(
+      () => SnakePipeline.copyModel(a3, file, refused: {hash(a3): 'A3'}),
+      throwsA(isA<ModelMismatch>()),
+    );
+    await pumpEventQueue();
+    expect(file.existsSync(), isFalse);
+  });
+
+  test("the M5 settings refuse A3's classifier", () {
+    expect(settings.refusedModelSha256[classifierFile]?.keys, contains(a3Classifier));
+  });
+
   test('pipeline.json pins the frozen M4 front end and the M5 snake check (FREEZE.md)', () {
     expect(settings.modelSha256, {
       'detector.onnx': '1d2da244575a39c23ebab6ee2f4f04b1c672794031a56fab9d49dc5176f4f9ba',

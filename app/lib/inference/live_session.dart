@@ -76,7 +76,9 @@ class LiveSession {
     try {
       final pipeline = await classifier.pipeline;
       // The same files, checked the same way, as the photo path.
-      Future<String> model(String f) => SnakePipeline.extractModel(f, sha256: pipeline.settings.modelSha256[f]);
+      final s = pipeline.settings;
+      Future<String> model(String f) =>
+          SnakePipeline.extractModel(f, sha256: s.modelSha256[f], refused: s.refusedModelSha256[f] ?? const {});
       final cores = (await _detectorChannel.invokeMethod<int>('cores')) ?? 4;
       final boxThreads = cores >= 8 ? 2 : 1;
       final verdictThreads = (cores - boxThreads - 1).clamp(2, 4);
@@ -97,6 +99,13 @@ class LiveSession {
         laneThreads: (boxThreads, verdictThreads),
       );
     } catch (_) {
+      // A lane that opened stays loaded otherwise; the screen falls back to
+      // the photo path's models.
+      for (final channel in [_detectorChannel, _verdictChannel]) {
+        try {
+          await channel.invokeMethod('close');
+        } catch (_) {}
+      }
       return null;
     }
   }
@@ -217,8 +226,18 @@ class LiveSession {
       }
       _publish();
     } catch (e) {
-      if (session == _session && !_closed) _views.addError(e);
+      if (session == _session && !_closed) _failed(e);
     }
+  }
+
+  /// A lane failed: report it and stop showing the last verdict, which may no
+  /// longer be about what the camera sees.
+  void _failed(Object error) {
+    _shown = null;
+    _hasShown = false;
+    _lastVerdictFrame = null;
+    _views.addError(error);
+    _publish();
   }
 
   /// A frame the gate turns down on the detector score alone.
@@ -238,6 +257,7 @@ class LiveSession {
   }
 
   void _applyNoSnake(PipelineResult details, double seconds) {
+    _lastVerdictFrame = details; // no snake now: no main box, snakeInView false
     final step = _lock.add(null, seconds);
     _show(step, details, snake: false);
   }
@@ -262,7 +282,7 @@ class LiveSession {
       _show(step, result, snake: result.gate.snake);
       verdictTimer.add(times.values.fold(0, (a, b) => a + b), seconds);
     } catch (e) {
-      if (session == _session && !_closed) _views.addError(e);
+      if (session == _session && !_closed) _failed(e);
     } finally {
       // Always free the lane, also when a reset ended this frame's session
       // (the new session cannot have started a verdict meanwhile).

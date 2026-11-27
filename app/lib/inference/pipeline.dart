@@ -150,7 +150,10 @@ class SnakePipeline {
     final ort = OnnxRuntime();
     final options = OrtSessionOptions(intraOpNumThreads: 2, interOpNumThreads: 1);
     Future<OrtSession> open(String name) async =>
-        ort.createSession(await extractModel(name, sha256: settings.modelSha256[name]), options: options);
+        ort.createSession(
+            await extractModel(name,
+                sha256: settings.modelSha256[name], refused: settings.refusedModelSha256[name] ?? const {}),
+            options: options);
     final opened = <OrtSession>[];
     try {
       for (final f in modelFiles) {
@@ -175,21 +178,24 @@ class SnakePipeline {
   /// With [sha256] (from `pipeline.json` `model_sha256`), a bundled file with
   /// other contents is refused, so the wrong model never runs with these
   /// settings. The hash runs off the UI isolate.
-  static Future<String> extractModel(String name, {String? sha256}) async {
+  static Future<String> extractModel(String name, {String? sha256, Map<String, String> refused = const {}}) async {
     final data = await rootBundle.load('$modelAssetDir/$name');
     final dir = Directory('${(await getApplicationSupportDirectory()).path}/models');
     await dir.create(recursive: true);
     return copyModel(data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes), File('${dir.path}/$name'),
-        sha256: sha256);
+        sha256: sha256, refused: refused);
   }
 
   /// [extractModel]'s check and copy, for a model's [bytes] and its place on
   /// disk. Returns the file's path.
   @visibleForTesting
-  static Future<String> copyModel(Uint8List bytes, File file, {String? sha256}) async {
+  static Future<String> copyModel(Uint8List bytes, File file,
+      {String? sha256, Map<String, String> refused = const {}}) async {
     final name = file.uri.pathSegments.last;
     final digest = await Isolate.run(() => crypto.sha256.convert(bytes).toString());
     if (sha256 != null && digest != sha256) throw ModelMismatch(name, expected: sha256, actual: digest);
+    final why = refused[digest];
+    if (why != null) throw ModelMismatch(name, expected: 'not $digest ($why)', actual: digest);
     final stamp = File('${file.path}.sha256');
     final copied = await file.exists() && await stamp.exists() ? (await stamp.readAsString()).trim() : null;
     if (copied != digest) {

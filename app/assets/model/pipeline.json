@@ -111,6 +111,11 @@
   "segmenter.onnx": "da5d59baca34eda5993d837673449b99ccd178c98bbd6755a6b20bbea6f99269",
   "snake_check_fp16.onnx": "fb5b5bda5e0dbdb1895448ae1c70e56e93042ef322f9e5595cfcd6e0b8ec9fc3"
  },
+ "model_sha256_refused": {
+  "classifier.onnx": {
+   "355a975449e48b0b2dd7d633641132cf90c68d5d79a8974849b01b6c4651252e": "A3, the M4 classifier: same size as M5_KD, wrong for these settings"
+  }
+ },
  "snake_check": {
   "file": "snake_check_fp16.onnx",
   "input_size": 256,

@@ -115,6 +115,8 @@ def main():
     # checked against A3's file here: both are MobileViT-S exports of the same byte size.
     settings["model_sha256"] = {name: sha256(source) for name, source in MODEL_SOURCES.items()}
     assert settings["model_sha256"]["classifier.onnx"] != A3_CLASSIFIER_SHA, "classifier.onnx is A3, not M5_KD"
+    settings["model_sha256_refused"] = {"classifier.onnx": {
+        A3_CLASSIFIER_SHA: "A3, the M4 classifier: same size as M5_KD, wrong for these settings"}}
     (APP / "assets/model/pipeline.json").write_text(json.dumps(settings, indent=1) + "\n")
 
     tables = committed("assets/model/tables.json")

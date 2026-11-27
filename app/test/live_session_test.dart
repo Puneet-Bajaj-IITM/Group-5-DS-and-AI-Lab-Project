@@ -220,6 +220,36 @@ void main() {
     expect(classifyCalls, classifyPerFrame);
   });
 
+  test('a failing lane stops showing the last verdict and reports the error', () async {
+    final live = session();
+    final errors = <Object>[];
+    live.views.listen((_) {}, onError: errors.add);
+    live.offer(frame(0));
+    await pumpEventQueue();
+    expect(live.view!.identification, isNotNull);
+    messenger.setMockMethodCallHandler(verdict, (call) async => throw PlatformException(code: 'live_models'));
+    live.offer(frame(100));
+    await pumpEventQueue();
+    expect(errors, isNotEmpty);
+    expect(live.view!.identification, isNull, reason: 'no stale verdict while analysis fails');
+    expect(live.view!.answered, isFalse);
+  });
+
+  test('with the M4 gate, a frame turned down on the box score clears the main box', () async {
+    final live = session(m4Settings);
+    live.offer(frame(0));
+    await pumpEventQueue();
+    expect(live.view!.snakeInView, isTrue);
+    score = m4Settings.gateBoxConf / 2; // the earlier track is still held, but no longer the snake
+    live.offer(frame(100));
+    await pumpEventQueue();
+    // The box is no longer called the snake...
+    expect(live.view!.snakeInView, isFalse);
+    expect(live.view!.mainTrack, isNull);
+    // ...while the lock still holds its answer for holdSeconds, as on a clip.
+    expect(live.view!.identification!.verdict, Verdict.dangerous);
+  });
+
   test('boxes are tracked across frames', () async {
     final live = session();
     live.offer(frame(0));

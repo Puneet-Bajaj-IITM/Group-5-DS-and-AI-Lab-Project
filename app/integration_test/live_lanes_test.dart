@@ -27,7 +27,9 @@ void main() {
     final (settings, _) = await SnakePipeline.loadConfig();
     final size = settings.inputSize;
     final paths = {
-      for (final f in modelFiles) f: await SnakePipeline.extractModel(f, sha256: settings.modelSha256[f]),
+      for (final f in modelFiles)
+        f: await SnakePipeline.extractModel(f,
+            sha256: settings.modelSha256[f], refused: settings.refusedModelSha256[f] ?? const {}),
     };
 
     final check = settings.usesSnakeCheck ? settings.snakeCheck! : null;
