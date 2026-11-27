@@ -96,7 +96,9 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
           // Opening copies and checks four models, which can take seconds; if
           // the screen closed meanwhile, close the session it no longer owns.
           final opened = await LiveSession.open(c);
-          if (!mounted) {
+          // Closed or sent to the background meanwhile: let go of the models
+          // (a resume opens them again, quickly: the files are checked once).
+          if (!mounted || generation != _generation) {
             await opened?.close();
             return;
           }
@@ -129,6 +131,8 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
       }
     } catch (_) {
       await camera?.dispose();
+      // Never leave the disposed controller on screen or behind Capture.
+      if (mounted && identical(_camera, camera)) setState(() => _camera = null);
       if (mounted && generation == _generation) {
         setState(
           () => _error = 'Camera unavailable. Check permission or use a photo.',

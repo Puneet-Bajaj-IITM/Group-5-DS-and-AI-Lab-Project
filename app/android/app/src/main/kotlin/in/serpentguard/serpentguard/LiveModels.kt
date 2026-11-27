@@ -88,8 +88,9 @@ class LiveModels(messenger: BinaryMessenger) {
                 // Cleared first, so a failed open never leaves a closed session reachable.
                 detector?.close()
                 detector = null
-                detector = session(call.argument<String>("path")!!, call.argument<Int>("threads")!!)
+                // The new owner first, so its cleanup close works even if this open fails.
                 detectorOwner = call.argument<Int>("owner")
+                detector = session(call.argument<String>("path")!!, call.argument<Int>("threads")!!)
                 result.success(null)
             }
             "run" -> {
@@ -113,10 +114,15 @@ class LiveModels(messenger: BinaryMessenger) {
             "open" -> {
                 val threads = call.argument<Int>("threads")!!
                 closeVerdict()
-                segmenter = session(call.argument<String>("segmenter")!!, threads)
-                classifier = session(call.argument<String>("classifier")!!, threads)
-                snakeCheck = call.argument<String>("snakeCheck")?.let { session(it, threads) }
-                verdictOwner = call.argument<Int>("owner")
+                verdictOwner = call.argument<Int>("owner") // first, as for the detector
+                try {
+                    segmenter = session(call.argument<String>("segmenter")!!, threads)
+                    classifier = session(call.argument<String>("classifier")!!, threads)
+                    snakeCheck = call.argument<String>("snakeCheck")?.let { session(it, threads) }
+                } catch (e: Throwable) {
+                    closeVerdict() // the ones that did open
+                    throw e
+                }
                 result.success(null)
             }
             "check" -> {
@@ -142,13 +148,18 @@ class LiveModels(messenger: BinaryMessenger) {
         }
     }
 
+    /** Closes each verdict session on its own, so one failing close leaves none open. */
     private fun closeVerdict() {
-        segmenter?.close()
-        classifier?.close()
-        snakeCheck?.close()
+        val open = listOfNotNull(segmenter, classifier, snakeCheck)
         segmenter = null
         classifier = null
         snakeCheck = null
+        for (s in open) {
+            try {
+                s.close()
+            } catch (_: Throwable) {
+            }
+        }
     }
 
     /** One (1, 3, size, size) float32 input named "images"; every output as a float array. */

@@ -26,10 +26,6 @@ const _inputName = 'images';
 const _detectorOutput = 'output0', _segmenterOutput = 'probability';
 const _detectorRows = 5; // cx, cy, w, h and the snake score
 
-/// What the no-snake decision saw on one image. With the M5 snake check,
-/// [snake] is the check's call and [snakeProbability] its P(snake); the
-/// detector and U-Net then only find the crop and the box, and are not run
-/// at all when the check says no snake ([boxConf] null, [maskArea] 0).
 /// A bundled model file whose contents are not the ones `pipeline.json`
 /// names: an old or wrong model, which must not run with these settings.
 class ModelMismatch implements Exception {
@@ -41,6 +37,10 @@ class ModelMismatch implements Exception {
       'Copy the right files into assets/models (see its README).';
 }
 
+/// What the no-snake decision saw on one image. With the M5 snake check,
+/// [snake] is the check's call and [snakeProbability] its P(snake); the
+/// detector and U-Net then only find the crop and the box, and are not run
+/// at all when the check says no snake ([boxConf] null, [maskArea] 0).
 class GateResult {
   const GateResult(
       {required this.snake, required this.boxConf, required this.maskArea, this.snakeProbability, this.box});
@@ -178,7 +178,16 @@ class SnakePipeline {
   /// With [sha256] (from `pipeline.json` `model_sha256`), a bundled file with
   /// other contents is refused, so the wrong model never runs with these
   /// settings. The hash runs off the UI isolate.
-  static Future<String> extractModel(String name, {String? sha256, Map<String, String> refused = const {}}) async {
+  static Future<String> extractModel(String name, {String? sha256, Map<String, String> refused = const {}}) =>
+      // The bundled assets cannot change while the app runs: check each
+      // (file, expectation) once per process, so opening the live camera
+      // again does not re-read and re-hash 65 MB.
+      _extracted['$name|$sha256|${(refused.keys.toList()..sort()).join(',')}'] ??=
+          _extract(name, sha256: sha256, refused: refused)..ignore();
+
+  static final _extracted = <String, Future<String>>{};
+
+  static Future<String> _extract(String name, {String? sha256, Map<String, String> refused = const {}}) async {
     final data = await rootBundle.load('$modelAssetDir/$name');
     final dir = Directory('${(await getApplicationSupportDirectory()).path}/models');
     await dir.create(recursive: true);
@@ -197,7 +206,11 @@ class SnakePipeline {
     final why = refused[digest];
     if (why != null) throw ModelMismatch(name, expected: 'not $digest ($why)', actual: digest);
     final stamp = File('${file.path}.sha256');
-    final copied = await file.exists() && await stamp.exists() ? (await stamp.readAsString()).trim() : null;
+    // The stamp is trusted only with a copy of the right length (a copy cut
+    // short by a full disk or a crash is copied again).
+    final copied = await file.exists() && await stamp.exists() && await file.length() == bytes.length
+        ? (await stamp.readAsString()).trim()
+        : null;
     if (copied != digest) {
       if (await stamp.exists()) await stamp.delete();
       final tmp = File('${file.path}.part');

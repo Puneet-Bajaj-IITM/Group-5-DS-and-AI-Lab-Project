@@ -69,6 +69,19 @@ void main() {
     final ort = OnnxRuntime();
     final options = OrtSessionOptions(intraOpNumThreads: 2, interOpNumThreads: 1);
     final plugin = {for (final f in modelFiles) f: await ort.createSession(paths[f]!, options: options)};
+    // Free every session also when a check below fails.
+    addTearDown(() async {
+      for (final s in plugin.values) {
+        try {
+          await s.close();
+        } catch (_) {}
+      }
+      for (final channel in [detector, verdict]) {
+        try {
+          await channel.invokeMethod('close');
+        } catch (_) {}
+      }
+    });
 
     Future<Map<String, List<double>>> viaPlugin(String model, Float32List input, {int? side}) async {
       final value = await OrtValue.fromList(input, [1, 3, side ?? size, side ?? size]);
@@ -167,11 +180,6 @@ void main() {
     // ignore: avoid_print
     print(report);
 
-    for (final s in plugin.values) {
-      await s.close();
-    }
-    await detector.invokeMethod('close');
-    await verdict.invokeMethod('close');
     // ONNX Runtime's CPU kernels may split work differently with other thread
     // counts; anything beyond float rounding would show up here.
     expect(worstGap, lessThan(1e-4));

@@ -35,9 +35,9 @@ import 'video_lock.dart';
 /// answer is the same, only sooner. With the snake check the detector does not
 /// decide, so every frame the verdict lane takes goes through the check.
 ///
-/// Lock steps are applied in frame order. A "no snake" frame from the box lane
-/// that is newer than the frame in the verdict lane waits for it, so the lock
-/// sees frames in the order the camera took them, as before.
+/// The lock sees frames in camera order, at the rate the verdict lane can
+/// take them: a frame the M4 gate turns down on its box score reaches the lock
+/// only while the verdict lane is free, as a frame for the lane would.
 class LiveSession {
   /// [present] turns an answer into what the screen shows
   /// ([OnnxSnakeClassifier.fromAnswer]).
@@ -133,8 +133,6 @@ class LiveSession {
   LiveCameraFrame? _waiting;
   bool _boxBusy = false, _verdictBusy = false, _closed = false;
   int _session = 0;
-  double? _verdictFrameSeconds;
-  final List<(double, PipelineResult)> _heldNoSnake = [];
 
   // The last failure of each lane, cleared by its next good frame.
   Object? _boxError, _verdictError;
@@ -155,8 +153,7 @@ class LiveSession {
   void reset() {
     _session++;
     _waiting = null;
-    _heldNoSnake.clear();
-    _verdictFrameSeconds = null;
+    _boxError = _verdictError = null;
     _lock.reset();
     _tracker.reset();
     _shown = null;
@@ -173,7 +170,9 @@ class LiveSession {
   void offer(LiveCameraFrame frame) {
     if (_closed) return;
     if (_boxBusy) {
-      _waiting = frame;
+      // Parked until the box lane is free: keep its own copy of the pixels,
+      // in case the camera reuses the buffers meanwhile.
+      _waiting = _copied(frame);
       return;
     }
     unawaited(_boxLane(frame));
@@ -222,6 +221,8 @@ class LiveSession {
       // that can pass the gate qualify.
       final boxDecides = !s.usesSnakeCheck;
       if (best != null &&
+          best.width > 0 &&
+          best.height > 0 &&
           (!boxDecides || conf! >= s.gateBoxConf) &&
           (found.isEmpty || iou(found.first.box, best) < 0.5)) {
         found.insert(0, Detection(best, conf!));
@@ -233,8 +234,14 @@ class LiveSession {
 
       final gateCanPass = !boxDecides || (conf != null && conf >= s.gateBoxConf);
       if (!gateCanPass) {
-        _skippedByGate++;
-        _noSnake(seconds, fixed, conf, rgb);
+        // The M4 gate answers on the box score alone. Only frames that come
+        // while the verdict lane is free reach the lock, as with the frames
+        // the lane takes, so snake and no-snake frames are sampled at the same
+        // rate and arrive in camera order.
+        if (!_verdictBusy) {
+          _skippedByGate++;
+          _noSnake(seconds, fixed, conf, rgb);
+        }
       } else if (!_verdictBusy) {
         unawaited(_verdictLane(fixed, !identical(fixed, rgb), conf, best, seconds, session));
       }
@@ -253,6 +260,7 @@ class LiveSession {
   /// The view carries the error ([LiveView.error]) until that lane works
   /// again, so a view published right after cannot hide it.
   void _failed() {
+    _tracker.reset(); // no frozen boxes while a lane fails
     _shown = null;
     _hasShown = false;
     _lastVerdictFrame = null;
@@ -261,7 +269,7 @@ class LiveSession {
 
   /// A frame the gate turns down on the detector score alone.
   void _noSnake(double seconds, RgbImage fixed, double? conf, RgbImage raw) {
-    final verdictAt = _verdictFrameSeconds;
+    _verdictError = null; // answered without the verdict lane
     final details = PipelineResult(
       width: fixed.width,
       height: fixed.height,
@@ -269,14 +277,6 @@ class LiveSession {
       gate: GateResult(snake: false, boxConf: conf, maskArea: 0),
       answer: ModelAnswer.noSnake,
     );
-    if (verdictAt != null && seconds > verdictAt) {
-      _heldNoSnake.add((seconds, details)); // applied after the verdict lane's frame
-      return;
-    }
-    _applyNoSnake(details, seconds);
-  }
-
-  void _applyNoSnake(PipelineResult details, double seconds) {
     _lastVerdictFrame = details; // no snake now: no main box, snakeInView false
     final step = _lock.add(null, seconds);
     _show(step, details, snake: false);
@@ -285,7 +285,6 @@ class LiveSession {
   Future<void> _verdictLane(
       RgbImage rgb, bool exposureFixed, double? conf, PixelBox? box, double seconds, int session) async {
     _verdictBusy = true;
-    _verdictFrameSeconds = seconds;
     final clock = Stopwatch()..start();
     final times = <String, int>{};
     int lap() {
@@ -311,15 +310,7 @@ class LiveSession {
       // Always free the lane, also when a reset ended this frame's session
       // (the new session cannot have started a verdict meanwhile).
       _verdictBusy = false;
-      if (session == _session) {
-        _verdictFrameSeconds = null;
-        final held = List.of(_heldNoSnake);
-        _heldNoSnake.clear();
-        for (final (t, details) in held) {
-          _applyNoSnake(details, t);
-        }
-        _publish();
-      }
+      if (session == _session) _publish();
     }
   }
 
@@ -428,7 +419,9 @@ class LiveSession {
       mainTrack: main?.id,
       identification: _shown,
       answered: _hasShown,
-      snakeInView: _lastVerdictFrame?.gate.snake == true && main != null,
+      // The snake check (or the M4 gate) said snake on the last verdict
+      // frame, whether or not its box is still tracked.
+      snakeInView: _lastVerdictFrame?.gate.snake == true,
       boxFps: boxTimer.fps,
       verdictFps: verdictTimer.fps,
       boxMs: boxTimer.meanMs,
@@ -452,6 +445,20 @@ class LiveSession {
     }
   }
 }
+
+/// [frame] with its own copy of every plane's bytes.
+LiveCameraFrame _copied(LiveCameraFrame frame) => LiveCameraFrame(
+      width: frame.width,
+      height: frame.height,
+      format: frame.format,
+      planes: [
+        for (final p in frame.planes) LiveCameraPlane(Uint8List.fromList(p.bytes), p.bytesPerRow, p.bytesPerPixel)
+      ],
+      offsetMs: frame.offsetMs,
+      sensorOrientation: frame.sensorOrientation,
+      deviceOrientation: frame.deviceOrientation,
+      frontFacing: frame.frontFacing,
+    );
 
 /// What the live screen draws after one lane step.
 class LiveView {

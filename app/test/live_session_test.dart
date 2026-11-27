@@ -43,6 +43,7 @@ void main() {
   const verdict = MethodChannel('test/live_verdict');
 
   late double score; // the detector's snake score for the next frames
+  late double boxCy, boxH; // the box's centre y and height (letterboxed 320 px)
   late double snakeProbability; // the snake check's answer for the next frames
   late int detectorCalls, checkCalls, segmentCalls, classifyCalls;
   Completer<void>? holdSegment;
@@ -63,6 +64,8 @@ void main() {
 
   setUp(() {
     score = 0.9;
+    boxCy = 160;
+    boxH = 80;
     snakeProbability = 0.9;
     detectorCalls = checkCalls = segmentCalls = classifyCalls = 0;
     holdSegment = null;
@@ -70,9 +73,9 @@ void main() {
       detectorCalls++;
       final out = Float32List(5 * anchors);
       out[0] = 160;
-      out[anchors] = 160;
+      out[anchors] = boxCy;
       out[2 * anchors] = 120;
-      out[3 * anchors] = 80;
+      out[3 * anchors] = boxH;
       out[4 * anchors] = score;
       return out;
     });
@@ -286,6 +289,93 @@ void main() {
     expect(live.view!.mainTrack, isNull);
     // ...while the lock still holds its answer for holdSeconds, as on a clip.
     expect(live.view!.identification!.verdict, Verdict.dangerous);
+  });
+
+  test('a best box clamped to nothing (in the letterbox padding) makes no track', () async {
+    // A 64x48 frame sits between y 40 and 280 of the 320 px letterbox.
+    boxCy = 10;
+    boxH = 8;
+    final live = session();
+    live.offer(frame(0));
+    await pumpEventQueue();
+    live.offer(frame(33));
+    await pumpEventQueue();
+    expect(live.view!.tracks, isEmpty);
+  });
+
+  test('with the snake check, a confirmed snake with no detector box still reads "snake in view"', () async {
+    score = settings.boxFloor / 2; // no box at all
+    final live = session();
+    live.offer(frame(0));
+    await pumpEventQueue();
+    expect(live.view!.mainTrack, isNull);
+    expect(live.view!.snakeInView, isTrue);
+  });
+
+  test('after a failure, every view carries the error until the lane works', () async {
+    final live = session();
+    final views = <LiveView>[];
+    live.views.listen(views.add);
+    live.offer(frame(0));
+    await pumpEventQueue();
+    messenger.setMockMethodCallHandler(verdict, (call) async => throw PlatformException(code: 'live_models'));
+    final failedFrom = views.length;
+    for (var i = 1; i <= 3; i++) {
+      live.offer(frame(i * 100));
+      await pumpEventQueue();
+    }
+    final after = views.sublist(failedFrom);
+    // The first view of the failing frame comes from the box lane, before the
+    // verdict lane fails; every view after the failure carries it.
+    final firstError = after.indexWhere((v) => v.error != null);
+    expect(firstError, isNonNegative);
+    expect(after.skip(firstError).every((v) => v.error != null), isTrue);
+  });
+
+  test('with the M4 gate, turned-down frames reach the lock only while the verdict lane is free', () async {
+    holdSegment = Completer<void>();
+    final live = session(m4Settings);
+    live.offer(frame(0)); // a snake frame: the verdict lane starts and waits
+    await pumpEventQueue();
+    score = m4Settings.gateBoxConf / 2;
+    for (var i = 1; i <= 5; i++) {
+      live.offer(frame(i * 33)); // turned down while the lane is busy: not counted
+      await pumpEventQueue();
+    }
+    expect(live.view!.skippedByGate, 0);
+    holdSegment!.complete();
+    await pumpEventQueue();
+    live.offer(frame(300)); // the lane is free again: this one is counted
+    await pumpEventQueue();
+    expect(live.view!.skippedByGate, 1);
+  });
+
+  test('a reset clears a lane error', () async {
+    final live = session();
+    messenger.setMockMethodCallHandler(verdict, (call) async => throw PlatformException(code: 'live_models'));
+    live.offer(frame(0));
+    await pumpEventQueue();
+    expect(live.view!.error, isNotNull);
+    live.reset();
+    final views = <LiveView>[];
+    live.views.listen(views.add);
+    live.offer(frame(100));
+    await pumpEventQueue();
+    // The box lane's view comes before the verdict lane fails again: no error
+    // from before the reset is carried into it.
+    expect(views.first.error, isNull);
+  });
+
+  test('with the M4 gate, a frame the gate answers alone clears a verdict-lane error', () async {
+    final live = session(m4Settings);
+    messenger.setMockMethodCallHandler(verdict, (call) async => throw PlatformException(code: 'live_models'));
+    live.offer(frame(0));
+    await pumpEventQueue();
+    expect(live.view!.error, isNotNull);
+    score = m4Settings.gateBoxConf / 2; // the snake is gone: the gate answers
+    live.offer(frame(100));
+    await pumpEventQueue();
+    expect(live.view!.error, isNull);
   });
 
   test('boxes are tracked across frames', () async {

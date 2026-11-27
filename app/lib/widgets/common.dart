@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:material_ui/material_ui.dart';
 
 import '../inference/image_ops.dart' show PixelBox;
@@ -386,11 +388,16 @@ class _BoxPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
       maxLines: 1,
       ellipsis: '…',
-    )..layout(maxWidth: size.width - 16);
-    final pad = const EdgeInsets.symmetric(horizontal: 8, vertical: 4);
+    );
+    const pad = EdgeInsets.symmetric(horizontal: 8, vertical: 4);
+    // Room for the label inside the view, margins included; nothing to draw
+    // in a view narrower than the padding.
+    final room = size.width - pad.horizontal - 8;
+    if (room <= 0) return;
+    tp.layout(maxWidth: room);
     var top = r.top - tp.height - pad.vertical - 4;
     if (top < 4) top = r.top + 6;
-    final left = r.left.clamp(4.0, size.width - tp.width - pad.horizontal - 4);
+    final left = r.left.clamp(4.0, math.max(4.0, size.width - tp.width - pad.horizontal - 4)).toDouble();
     final bg = RRect.fromRectAndRadius(
       Rect.fromLTWH(left, top, tp.width + pad.horizontal, tp.height + pad.vertical),
       const Radius.circular(8),
