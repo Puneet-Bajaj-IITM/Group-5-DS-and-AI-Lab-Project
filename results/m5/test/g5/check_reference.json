@@ -1,0 +1,6 @@
+{
+ "photos": 40,
+ "top1_agreement": 1.0,
+ "control_without_prior_agreement": 0.875,
+ "median_max_abs_logit_diff": 0.06112337112426758
+}

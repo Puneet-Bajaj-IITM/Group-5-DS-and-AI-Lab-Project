@@ -1,0 +1,24 @@
+{
+  "id": "jayeshbansal497/sg-m5-finetune",
+  "title": "sg-m5-finetune",
+  "code_file": "runner.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [
+    "puneetbajajiitm/serpentguard-indian-snakes-clean",
+    "puneetbajajiitm/serpentguard-m3-subset",
+    "puneetbajajiitm/serpentguard-sam-masks",
+    "jayeshbansal497/serpentguard-m5-inputs",
+    "jayeshbansal497/serpentguard-m3-b1-predictions",
+    "jayeshbansal497/serpentguard-m3-run-final",
+    "jayeshbansal497/serpentguard-m4-frontend-masks"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

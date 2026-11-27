@@ -1,0 +1,1114 @@
+{
+ "instrument_check": {
+  "top1": {
+   "here": 0.7141315491285815,
+   "test_scores.json": 0.7141315491285815
+  },
+  "macro_f1": {
+   "here": 0.4614863939862788,
+   "test_scores.json": 0.4614863939862788
+  },
+  "who_recall": {
+   "here": 0.9441701481200152,
+   "test_scores.json": 0.9441701481200152
+  },
+  "who_lower_bound": {
+   "here": 0.9260815160038343,
+   "test_scores.json": 0.9260815160038343
+  },
+  "snakes_kept": {
+   "here": 0.993093400960449,
+   "test_scores.json": 0.993093400960449
+  },
+  "nonsnakes_called_snake": {
+   "here": 0.05,
+   "test_scores.json": 0.05
+  }
+ },
+ "clean_locked_run": {
+  "photos": 18533,
+  "top1": 0.7141315491285815,
+  "macro_f1": 0.4614863939862788,
+  "who_recall": 0.9441701481200152,
+  "who_recall_ci": [
+   0.9233713022946735,
+   0.9730914476950223
+  ],
+  "who_lower_bound": 0.9260815160038343,
+  "who_listed": 2633,
+  "false_alarm": 0.21553384209400187,
+  "verdicts": {
+   "total": 18533,
+   "dangerous": 7281,
+   "not_listed": 9214,
+   "unknown": 2038,
+   "reasons": {
+    "who_listed_mass": 5380,
+    "who_head": 0,
+    "top_species_dangerous": 4907,
+    "venomous_family_mass": 4330,
+    "dangerous_genus": 19,
+    "no_snake": 351,
+    "unclear_between_species": 1206,
+    "unfamiliar": 641,
+    "poor_image": 0
+   }
+  },
+  "gate_passed": 18182,
+  "snakes_kept": 0.993093400960449,
+  "snakes_kept_ci": [
+   0.9914681179555608,
+   0.9947022988252564
+  ],
+  "snake_photos": 18533,
+  "nonsnakes_called_snake": 0.05,
+  "nonsnakes_called_snake_ci": [
+   0.03333333333333333,
+   0.06666666666666667
+  ],
+  "nonsnake_count": 30,
+  "cutoff": 0.20484977503483762
+ },
+ "conditions": {
+  "blur_s1": {
+   "photos": 18533,
+   "top1": 0.6055144876706415,
+   "macro_f1": 0.36803021990871093,
+   "who_recall": 0.9054310672236991,
+   "who_recall_ci": [
+    0.8778959191019826,
+    0.9470967785589872
+   ],
+   "who_lower_bound": 0.8813434351323909,
+   "who_listed": 2633,
+   "false_alarm": 0.31417159974324227,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 8513,
+    "not_listed": 7581,
+    "unknown": 2439,
+    "reasons": {
+     "who_listed_mass": 6819,
+     "who_head": 0,
+     "top_species_dangerous": 4921,
+     "venomous_family_mass": 4106,
+     "dangerous_genus": 19,
+     "no_snake": 482,
+     "unclear_between_species": 1469,
+     "unfamiliar": 695,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18051,
+   "snakes_kept": 0.9918523714455296,
+   "snakes_kept_ci": [
+    0.9900884902171205,
+    0.994048409283142
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.06833333333333333,
+   "nonsnakes_called_snake_ci": [
+    0.04833333333333333,
+    0.08833333333333333
+   ],
+   "nonsnake_count": 41,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.10861706145793992,
+    "low": -0.11782930936437373,
+    "high": -0.09813901828404527
+   },
+   "prediction_agreement_with_clean": 0.6985377434845951,
+   "gate_call_agreement_with_clean": 0.9850536880159715,
+   "account": "jayeshbansal497"
+  },
+  "blur_s2": {
+   "photos": 18533,
+   "top1": 0.3919494954945233,
+   "macro_f1": 0.20234508421699476,
+   "who_recall": 0.8423851120394986,
+   "who_recall_ci": [
+    0.8066001010616861,
+    0.8956529054597772
+   ],
+   "who_lower_bound": 0.8131075396225815,
+   "who_listed": 2633,
+   "false_alarm": 0.48427358961557665,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 10613,
+    "not_listed": 4930,
+    "unknown": 2990,
+    "reasons": {
+     "who_listed_mass": 9507,
+     "who_head": 0,
+     "top_species_dangerous": 5022,
+     "venomous_family_mass": 3611,
+     "dangerous_genus": 10,
+     "no_snake": 621,
+     "unclear_between_species": 1728,
+     "unfamiliar": 1039,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 17912,
+   "snakes_kept": 0.9704850806669185,
+   "snakes_kept_ci": [
+    0.9651905064033788,
+    0.9760679202931054
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.11166666666666666,
+   "nonsnakes_called_snake_ci": [
+    0.08666666666666667,
+    0.13833333333333334
+   ],
+   "nonsnake_count": 67,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.32218205363405816,
+    "low": -0.3387879010912338,
+    "high": -0.3046085639407799
+   },
+   "prediction_agreement_with_clean": 0.4384611234015,
+   "gate_call_agreement_with_clean": 0.9694598823719851,
+   "account": "jayeshbansal497"
+  },
+  "blur_s3": {
+   "photos": 18533,
+   "top1": 0.17946365941833486,
+   "macro_f1": 0.04615375569027272,
+   "who_recall": 0.730725408279529,
+   "who_recall_ci": [
+    0.7006247858799405,
+    0.7494228970051101
+   ],
+   "who_lower_bound": 0.705122963096094,
+   "who_listed": 2633,
+   "false_alarm": 0.63825690036374,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 12226,
+    "not_listed": 1952,
+    "unknown": 4355,
+    "reasons": {
+     "who_listed_mass": 11902,
+     "who_head": 0,
+     "top_species_dangerous": 5199,
+     "venomous_family_mass": 2361,
+     "dangerous_genus": 4,
+     "no_snake": 3038,
+     "unclear_between_species": 945,
+     "unfamiliar": 708,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 15495,
+   "snakes_kept": 0.9391895537689526,
+   "snakes_kept_ci": [
+    0.933594864876845,
+    0.9449026769421924
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.365,
+   "nonsnakes_called_snake_ci": [
+    0.325,
+    0.40166666666666667
+   ],
+   "nonsnake_count": 219,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.5346678897102466,
+    "low": -0.5506773397891819,
+    "high": -0.5202678196589627
+   },
+   "prediction_agreement_with_clean": 0.20552527923164085,
+   "gate_call_agreement_with_clean": 0.8382884584255113,
+   "account": "jayeshbansal497"
+  },
+  "clean (harness rerun, jayeshbansal497)": {
+   "photos": 18533,
+   "top1": 0.7141315491285815,
+   "macro_f1": 0.4614863939862788,
+   "who_recall": 0.9441701481200152,
+   "who_recall_ci": [
+    0.9233713022946735,
+    0.9730914476950223
+   ],
+   "who_lower_bound": 0.9260815160038343,
+   "who_listed": 2633,
+   "false_alarm": 0.21553384209400187,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 7281,
+    "not_listed": 9214,
+    "unknown": 2038,
+    "reasons": {
+     "who_listed_mass": 5380,
+     "who_head": 0,
+     "top_species_dangerous": 4907,
+     "venomous_family_mass": 4330,
+     "dangerous_genus": 19,
+     "no_snake": 351,
+     "unclear_between_species": 1206,
+     "unfamiliar": 641,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18182,
+   "snakes_kept": 0.993093400960449,
+   "snakes_kept_ci": [
+    0.9914681179555608,
+    0.9947022988252564
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.05,
+   "nonsnakes_called_snake_ci": [
+    0.03333333333333333,
+    0.06666666666666667
+   ],
+   "nonsnake_count": 30,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": 0.0,
+    "low": 0.0,
+    "high": 0.0
+   },
+   "prediction_agreement_with_clean": 1.0,
+   "gate_call_agreement_with_clean": 1.0,
+   "account": "jayeshbansal497"
+  },
+  "jpeg_q10": {
+   "photos": 18533,
+   "top1": 0.476123671289052,
+   "macro_f1": 0.24297004673244765,
+   "who_recall": 0.9084694265096848,
+   "who_recall_ci": [
+    0.8823079478324201,
+    0.9460742902578112
+   ],
+   "who_lower_bound": 0.886252994586609,
+   "who_listed": 2633,
+   "false_alarm": 0.43919834533913416,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 10215,
+    "not_listed": 6082,
+    "unknown": 2236,
+    "reasons": {
+     "who_listed_mass": 9001,
+     "who_head": 0,
+     "top_species_dangerous": 4730,
+     "venomous_family_mass": 3511,
+     "dangerous_genus": 11,
+     "no_snake": 436,
+     "unclear_between_species": 1449,
+     "unfamiliar": 565,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18097,
+   "snakes_kept": 0.9907192575406032,
+   "snakes_kept_ci": [
+    0.9876693074389312,
+    0.9937002909857123
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.2733333333333333,
+   "nonsnakes_called_snake_ci": [
+    0.23495833333333332,
+    0.30833333333333335
+   ],
+   "nonsnake_count": 164,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.23800787783952948,
+    "low": -0.2493979917285785,
+    "high": -0.22888923857509424
+   },
+   "prediction_agreement_with_clean": 0.5356391302001835,
+   "gate_call_agreement_with_clean": 0.9860249285059084,
+   "account": "jayeshbansal497"
+  },
+  "jpeg_q30": {
+   "photos": 18533,
+   "top1": 0.6531592294825447,
+   "macro_f1": 0.3892861073771297,
+   "who_recall": 0.9392328142802886,
+   "who_recall_ci": [
+    0.9196741803151874,
+    0.9689622410367091
+   ],
+   "who_lower_bound": 0.9217127065324889,
+   "who_listed": 2633,
+   "false_alarm": 0.28856714927608584,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 8275,
+    "not_listed": 8331,
+    "unknown": 1927,
+    "reasons": {
+     "who_listed_mass": 6567,
+     "who_head": 0,
+     "top_species_dangerous": 4942,
+     "venomous_family_mass": 4422,
+     "dangerous_genus": 16,
+     "no_snake": 352,
+     "unclear_between_species": 1191,
+     "unfamiliar": 534,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18181,
+   "snakes_kept": 0.9723736038417957,
+   "snakes_kept_ci": [
+    0.9666734636533981,
+    0.9778694825309308
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.065,
+   "nonsnakes_called_snake_ci": [
+    0.04666666666666667,
+    0.085
+   ],
+   "nonsnake_count": 39,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.06097231964603678,
+    "low": -0.06660050166211436,
+    "high": -0.05451935097303648
+   },
+   "prediction_agreement_with_clean": 0.7792046619543517,
+   "gate_call_agreement_with_clean": 0.9940106836453894,
+   "account": "jayeshbansal497"
+  },
+  "noise_s1": {
+   "photos": 18533,
+   "top1": 0.6571521070522851,
+   "macro_f1": 0.42016039274894773,
+   "who_recall": 0.9464489175845043,
+   "who_recall_ci": [
+    0.9276234945963565,
+    0.9729872352756073
+   ],
+   "who_lower_bound": 0.9298427336902159,
+   "who_listed": 2633,
+   "false_alarm": 0.28963697311176095,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 8319,
+    "not_listed": 8165,
+    "unknown": 2049,
+    "reasons": {
+     "who_listed_mass": 6494,
+     "who_head": 0,
+     "top_species_dangerous": 5414,
+     "venomous_family_mass": 4786,
+     "dangerous_genus": 17,
+     "no_snake": 435,
+     "unclear_between_species": 1044,
+     "unfamiliar": 778,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18098,
+   "snakes_kept": 0.9832730804510873,
+   "snakes_kept_ci": [
+    0.9777860701767119,
+    0.9883842939706342
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.08166666666666667,
+   "nonsnakes_called_snake_ci": [
+    0.06,
+    0.10333333333333333
+   ],
+   "nonsnake_count": 49,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.05697944207629635,
+    "low": -0.0641173989151089,
+    "high": -0.05147482306137638
+   },
+   "prediction_agreement_with_clean": 0.7903199697836292,
+   "gate_call_agreement_with_clean": 0.9900717638806453,
+   "account": "jayeshbansal497"
+  },
+  "noise_s2": {
+   "photos": 18533,
+   "top1": 0.46597960394971133,
+   "macro_f1": 0.2794382822830237,
+   "who_recall": 0.9487276870489936,
+   "who_recall_ci": [
+    0.9387333207653461,
+    0.9640617278128831
+   ],
+   "who_lower_bound": 0.9402324062932776,
+   "who_listed": 2633,
+   "false_alarm": 0.5128022252335782,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 11438,
+    "not_listed": 4671,
+    "unknown": 2424,
+    "reasons": {
+     "who_listed_mass": 9793,
+     "who_head": 0,
+     "top_species_dangerous": 7062,
+     "venomous_family_mass": 6494,
+     "dangerous_genus": 15,
+     "no_snake": 363,
+     "unclear_between_species": 1204,
+     "unfamiliar": 1258,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18170,
+   "snakes_kept": 0.9770139750714941,
+   "snakes_kept_ci": [
+    0.9682876241892958,
+    0.984380442997099
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.17833333333333334,
+   "nonsnakes_called_snake_ci": [
+    0.14666666666666667,
+    0.20833333333333334
+   ],
+   "nonsnake_count": 107,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.24815194517887013,
+    "low": -0.2647552683966899,
+    "high": -0.23396375325141058
+   },
+   "prediction_agreement_with_clean": 0.5226352991960287,
+   "gate_call_agreement_with_clean": 0.9805751902012626,
+   "account": "jayeshbansal497"
+  },
+  "noise_s3": {
+   "photos": 18533,
+   "top1": 0.19235957481249663,
+   "macro_f1": 0.08518404422471612,
+   "who_recall": 0.9270793771363464,
+   "who_recall_ci": [
+    0.9001464788166521,
+    0.941038966892533
+   ],
+   "who_lower_bound": 0.9052658791151311,
+   "who_listed": 2633,
+   "false_alarm": 0.7866771271663933,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 15163,
+    "not_listed": 1336,
+    "unknown": 2034,
+    "reasons": {
+     "who_listed_mass": 14082,
+     "who_head": 0,
+     "top_species_dangerous": 9923,
+     "venomous_family_mass": 8014,
+     "dangerous_genus": 4,
+     "no_snake": 677,
+     "unclear_between_species": 798,
+     "unfamiliar": 929,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 17856,
+   "snakes_kept": 0.955970431122862,
+   "snakes_kept_ci": [
+    0.9488699448889459,
+    0.9633874457104523
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.42333333333333334,
+   "nonsnakes_called_snake_ci": [
+    0.3883333333333333,
+    0.4617083333333333
+   ],
+   "nonsnake_count": 254,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.5217719743160848,
+    "low": -0.5464347455660511,
+    "high": -0.49995227830608424
+   },
+   "prediction_agreement_with_clean": 0.21221604705120595,
+   "gate_call_agreement_with_clean": 0.9576970808827497,
+   "account": "jayeshbansal497"
+  },
+  "rotate_15": {
+   "photos": 18533,
+   "top1": 0.7091674310689041,
+   "macro_f1": 0.4570546307871323,
+   "who_recall": 0.9464489175845043,
+   "who_recall_ci": [
+    0.9289360530138683,
+    0.9711033292240664
+   ],
+   "who_lower_bound": 0.9313841323113399,
+   "who_listed": 2633,
+   "false_alarm": 0.21831538406675702,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 7323,
+    "not_listed": 9191,
+    "unknown": 2019,
+    "reasons": {
+     "who_listed_mass": 5475,
+     "who_head": 0,
+     "top_species_dangerous": 4880,
+     "venomous_family_mass": 4312,
+     "dangerous_genus": 16,
+     "no_snake": 346,
+     "unclear_between_species": 1157,
+     "unfamiliar": 669,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18187,
+   "snakes_kept": 0.9938488102303998,
+   "snakes_kept_ci": [
+    0.9921528355144225,
+    0.9952833717844265
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.06333333333333334,
+   "nonsnakes_called_snake_ci": [
+    0.045,
+    0.08333333333333333
+   ],
+   "nonsnake_count": 38,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.004964118059677336,
+    "low": -0.009023124313242505,
+    "high": -0.0009899283150643897
+   },
+   "prediction_agreement_with_clean": 0.836292019640641,
+   "gate_call_agreement_with_clean": 0.9895861436356769,
+   "account": "jayeshbansal497"
+  },
+  "rotate_30": {
+   "photos": 18533,
+   "top1": 0.7060378783791076,
+   "macro_f1": 0.4592481731724611,
+   "who_recall": 0.9449297379415116,
+   "who_recall_ci": [
+    0.9305492456960593,
+    0.9676078782527167
+   ],
+   "who_lower_bound": 0.9326800015989232,
+   "who_listed": 2633,
+   "false_alarm": 0.22066899650524213,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 7332,
+    "not_listed": 9090,
+    "unknown": 2111,
+    "reasons": {
+     "who_listed_mass": 5456,
+     "who_head": 0,
+     "top_species_dangerous": 4902,
+     "venomous_family_mass": 4293,
+     "dangerous_genus": 12,
+     "no_snake": 313,
+     "unclear_between_species": 1215,
+     "unfamiliar": 762,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18220,
+   "snakes_kept": 0.9939027680353963,
+   "snakes_kept_ci": [
+    0.99248438532942,
+    0.995357427714773
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.07833333333333334,
+   "nonsnakes_called_snake_ci": [
+    0.056666666666666664,
+    0.1
+   ],
+   "nonsnake_count": 47,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.008093670749473869,
+    "low": -0.012548287304174264,
+    "high": -0.0024215953130253738
+   },
+   "prediction_agreement_with_clean": 0.8000323746829979,
+   "gate_call_agreement_with_clean": 0.9858630550909189,
+   "account": "jayeshbansal497"
+  },
+  "bright_x1.5": {
+   "photos": 18533,
+   "top1": 0.6836993471105596,
+   "macro_f1": 0.43534372183893527,
+   "who_recall": 0.9168249145461451,
+   "who_recall_ci": [
+    0.8941991940383156,
+    0.9488290239931493
+   ],
+   "who_lower_bound": 0.8976342987117806,
+   "who_listed": 2633,
+   "false_alarm": 0.23001212467013765,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 7357,
+    "not_listed": 8528,
+    "unknown": 2648,
+    "reasons": {
+     "who_listed_mass": 5551,
+     "who_head": 0,
+     "top_species_dangerous": 4834,
+     "venomous_family_mass": 4182,
+     "dangerous_genus": 11,
+     "no_snake": 744,
+     "unclear_between_species": 1306,
+     "unfamiliar": 808,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 17789,
+   "snakes_kept": 0.988399071925754,
+   "snakes_kept_ci": [
+    0.9862053718767575,
+    0.9908174133392589
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.045,
+   "nonsnakes_called_snake_ci": [
+    0.03,
+    0.06166666666666667
+   ],
+   "nonsnake_count": 27,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.03043220201802188,
+    "low": -0.03702509793982989,
+    "high": -0.02352287700036961
+   },
+   "prediction_agreement_with_clean": 0.8128203744671667,
+   "gate_call_agreement_with_clean": 0.9763125236065396,
+   "account": "vikas25s"
+  },
+  "bright_x2.0": {
+   "photos": 18533,
+   "top1": 0.6098850698753575,
+   "macro_f1": 0.37530040065030584,
+   "who_recall": 0.8609950626661603,
+   "who_recall_ci": [
+    0.8402719239731621,
+    0.8946810042309274
+   ],
+   "who_lower_bound": 0.8434470888137071,
+   "who_listed": 2633,
+   "false_alarm": 0.272733756508095,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 7720,
+    "not_listed": 7379,
+    "unknown": 3434,
+    "reasons": {
+     "who_listed_mass": 6166,
+     "who_head": 0,
+     "top_species_dangerous": 4743,
+     "venomous_family_mass": 3853,
+     "dangerous_genus": 11,
+     "no_snake": 1552,
+     "unclear_between_species": 1206,
+     "unfamiliar": 918,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 16981,
+   "snakes_kept": 0.9804133167862731,
+   "snakes_kept_ci": [
+    0.9752661532844142,
+    0.9852548738311806
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.07,
+   "nonsnakes_called_snake_ci": [
+    0.05,
+    0.09166666666666666
+   ],
+   "nonsnake_count": 42,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.10424647925322394,
+    "low": -0.11291318987456073,
+    "high": -0.0944404068724416
+   },
+   "prediction_agreement_with_clean": 0.691523228835051,
+   "gate_call_agreement_with_clean": 0.9319592078994227,
+   "account": "vikas25s"
+  },
+  "clean (harness rerun, vikas25s)": {
+   "photos": 18533,
+   "top1": 0.7141315491285815,
+   "macro_f1": 0.4614863939862788,
+   "who_recall": 0.9441701481200152,
+   "who_recall_ci": [
+    0.9233713022946735,
+    0.9730914476950223
+   ],
+   "who_lower_bound": 0.9260815160038343,
+   "who_listed": 2633,
+   "false_alarm": 0.21553384209400187,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 7281,
+    "not_listed": 9214,
+    "unknown": 2038,
+    "reasons": {
+     "who_listed_mass": 5380,
+     "who_head": 0,
+     "top_species_dangerous": 4907,
+     "venomous_family_mass": 4330,
+     "dangerous_genus": 19,
+     "no_snake": 351,
+     "unclear_between_species": 1206,
+     "unfamiliar": 641,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18182,
+   "snakes_kept": 0.993093400960449,
+   "snakes_kept_ci": [
+    0.9914681179555608,
+    0.9947022988252564
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.05,
+   "nonsnakes_called_snake_ci": [
+    0.03333333333333333,
+    0.06666666666666667
+   ],
+   "nonsnake_count": 30,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": 0.0,
+    "low": 0.0,
+    "high": 0.0
+   },
+   "prediction_agreement_with_clean": 1.0,
+   "gate_call_agreement_with_clean": 1.0,
+   "account": "vikas25s"
+  },
+  "dark_x0.3": {
+   "photos": 18533,
+   "top1": 0.6603895753520747,
+   "macro_f1": 0.3844301873008995,
+   "who_recall": 0.9586023547284467,
+   "who_recall_ci": [
+    0.9465250763538978,
+    0.9779368016900468
+   ],
+   "who_lower_bound": 0.948062271938386,
+   "who_listed": 2633,
+   "false_alarm": 0.2982668853862064,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 8470,
+    "not_listed": 8518,
+    "unknown": 1545,
+    "reasons": {
+     "who_listed_mass": 6759,
+     "who_head": 0,
+     "top_species_dangerous": 5246,
+     "venomous_family_mass": 4697,
+     "dangerous_genus": 15,
+     "no_snake": 265,
+     "unclear_between_species": 898,
+     "unfamiliar": 497,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18268,
+   "snakes_kept": 0.9986510548750877,
+   "snakes_kept_ci": [
+    0.9980754697782733,
+    0.999223396850725
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.195,
+   "nonsnakes_called_snake_ci": [
+    0.16,
+    0.22666666666666666
+   ],
+   "nonsnake_count": 117,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.0537419737765068,
+    "low": -0.06215065913397569,
+    "high": -0.04585753555790935
+   },
+   "prediction_agreement_with_clean": 0.7744024173096639,
+   "gate_call_agreement_with_clean": 0.9881292829007716,
+   "account": "vikas25s"
+  },
+  "dark_x0.6": {
+   "photos": 18533,
+   "top1": 0.6978362920196406,
+   "macro_f1": 0.4396687857701452,
+   "who_recall": 0.9567033801747057,
+   "who_recall_ci": [
+    0.9429328946404153,
+    0.9770810443407889
+   ],
+   "who_lower_bound": 0.9450008414774415,
+   "who_listed": 2633,
+   "false_alarm": 0.2505527423150988,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 7811,
+    "not_listed": 8974,
+    "unknown": 1748,
+    "reasons": {
+     "who_listed_mass": 5972,
+     "who_head": 0,
+     "top_species_dangerous": 5097,
+     "venomous_family_mass": 4505,
+     "dangerous_genus": 19,
+     "no_snake": 263,
+     "unclear_between_species": 1052,
+     "unfamiliar": 574,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18270,
+   "snakes_kept": 0.9966006582852209,
+   "snakes_kept_ci": [
+    0.9956123648246094,
+    0.9975267660739586
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.095,
+   "nonsnakes_called_snake_ci": [
+    0.07,
+    0.11666666666666667
+   ],
+   "nonsnake_count": 57,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.016295257108940864,
+    "low": -0.02098045270580671,
+    "high": -0.012278734283564949
+   },
+   "prediction_agreement_with_clean": 0.8594938757891329,
+   "gate_call_agreement_with_clean": 0.9917984136405331,
+   "account": "vikas25s"
+  },
+  "lowres_x0.25": {
+   "photos": 18533,
+   "top1": 0.5436248853396644,
+   "macro_f1": 0.3081767322057712,
+   "who_recall": 0.9004937333839726,
+   "who_recall_ci": [
+    0.8737278840599304,
+    0.9409391952226575
+   ],
+   "who_lower_bound": 0.877010449745895,
+   "who_listed": 2633,
+   "false_alarm": 0.381998430925041,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 9441,
+    "not_listed": 6783,
+    "unknown": 2309,
+    "reasons": {
+     "who_listed_mass": 7902,
+     "who_head": 0,
+     "top_species_dangerous": 4890,
+     "venomous_family_mass": 3982,
+     "dangerous_genus": 14,
+     "no_snake": 471,
+     "unclear_between_species": 1464,
+     "unfamiliar": 529,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18062,
+   "snakes_kept": 0.9895861436356769,
+   "snakes_kept_ci": [
+    0.9873632113662848,
+    0.9921870581720338
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.075,
+   "nonsnakes_called_snake_ci": [
+    0.055,
+    0.09666666666666666
+   ],
+   "nonsnake_count": 45,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.1705066637889171,
+    "low": -0.18037887281224813,
+    "high": -0.15965467889456808
+   },
+   "prediction_agreement_with_clean": 0.6219716181945718,
+   "gate_call_agreement_with_clean": 0.9833809960610802,
+   "account": "vikas25s"
+  },
+  "lowres_x0.5": {
+   "photos": 18533,
+   "top1": 0.6772244105109804,
+   "macro_f1": 0.42895364945995984,
+   "who_recall": 0.9270793771363464,
+   "who_recall_ci": [
+    0.9030468676995961,
+    0.9608574103225306
+   ],
+   "who_lower_bound": 0.9067746762475233,
+   "who_listed": 2633,
+   "false_alarm": 0.2556165751372941,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 7776,
+    "not_listed": 8583,
+    "unknown": 2174,
+    "reasons": {
+     "who_listed_mass": 5966,
+     "who_head": 0,
+     "top_species_dangerous": 4911,
+     "venomous_family_mass": 4310,
+     "dangerous_genus": 16,
+     "no_snake": 439,
+     "unclear_between_species": 1306,
+     "unfamiliar": 591,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 18094,
+   "snakes_kept": 0.9935790212054174,
+   "snakes_kept_ci": [
+    0.9921673815276211,
+    0.9950510556363598
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.056666666666666664,
+   "nonsnakes_called_snake_ci": [
+    0.03833333333333333,
+    0.075
+   ],
+   "nonsnake_count": 34,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.03690713861760109,
+    "low": -0.04204016096379463,
+    "high": -0.03152425405547488
+   },
+   "prediction_agreement_with_clean": 0.8146549398370474,
+   "gate_call_agreement_with_clean": 0.9913667512005612,
+   "account": "vikas25s"
+  },
+  "occlude_10pct": {
+   "photos": 18533,
+   "top1": 0.5783737117574057,
+   "macro_f1": 0.3514045865958274,
+   "who_recall": 0.8260539308773263,
+   "who_recall_ci": [
+    0.7921258362962641,
+    0.8752791323743107
+   ],
+   "who_lower_bound": 0.7966810018575027,
+   "who_listed": 2633,
+   "false_alarm": 0.28671278796091576,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 7708,
+    "not_listed": 6812,
+    "unknown": 4013,
+    "reasons": {
+     "who_listed_mass": 6313,
+     "who_head": 0,
+     "top_species_dangerous": 4410,
+     "venomous_family_mass": 3540,
+     "dangerous_genus": 23,
+     "no_snake": 2295,
+     "unclear_between_species": 1220,
+     "unfamiliar": 716,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 16238,
+   "snakes_kept": 0.9810608104462311,
+   "snakes_kept_ci": [
+    0.9778961191850013,
+    0.9836742022951807
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.075,
+   "nonsnakes_called_snake_ci": [
+    0.05333333333333334,
+    0.09666666666666666
+   ],
+   "nonsnake_count": 45,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.13575783737117575,
+    "low": -0.14504868583479627,
+    "high": -0.12580727151387658
+   },
+   "prediction_agreement_with_clean": 0.6711271785463767,
+   "gate_call_agreement_with_clean": 0.8943506178168672,
+   "account": "vikas25s"
+  },
+  "occlude_25pct": {
+   "photos": 18533,
+   "top1": 0.4510332919656828,
+   "macro_f1": 0.23986963114141466,
+   "who_recall": 0.5985567793391569,
+   "who_recall_ci": [
+    0.5582834030880302,
+    0.6581729517894114
+   ],
+   "who_lower_bound": 0.5636680241290956,
+   "who_listed": 2633,
+   "false_alarm": 0.2718778974395549,
+   "verdicts": {
+    "total": 18533,
+    "dangerous": 6484,
+    "not_listed": 4550,
+    "unknown": 7499,
+    "reasons": {
+     "who_listed_mass": 5613,
+     "who_head": 0,
+     "top_species_dangerous": 3307,
+     "venomous_family_mass": 2509,
+     "dangerous_genus": 18,
+     "no_snake": 6134,
+     "unclear_between_species": 963,
+     "unfamiliar": 547,
+     "poor_image": 0
+    }
+   },
+   "gate_passed": 12399,
+   "snakes_kept": 0.9623914099174445,
+   "snakes_kept_ci": [
+    0.9569597450678888,
+    0.9668994428479815
+   ],
+   "snake_photos": 18533,
+   "nonsnakes_called_snake": 0.095,
+   "nonsnakes_called_snake_ci": [
+    0.07166666666666667,
+    0.11833333333333333
+   ],
+   "nonsnake_count": 57,
+   "cutoff": 0.20484977503483762,
+   "top1_change": {
+    "diff": -0.26309825716289864,
+    "low": -0.27494833466648616,
+    "high": -0.25039542661119696
+   },
+   "prediction_agreement_with_clean": 0.5129768521016566,
+   "gate_call_agreement_with_clean": 0.6863432795553877,
+   "account": "vikas25s"
+  }
+ }
+}

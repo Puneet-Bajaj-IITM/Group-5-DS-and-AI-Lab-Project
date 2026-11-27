@@ -1,0 +1,24 @@
+{
+ "candidates": 5934,
+ "download_failed": 0,
+ "near_copies_of_old": 3,
+ "near_copies_within_new": 9,
+ "kept": 5922,
+ "by_category": {
+  "eel": 1398,
+  "caecilian": 946,
+  "legless_lizard": 900,
+  "earthworm": 899,
+  "other_reptile_india": 898,
+  "other_animal_india": 881
+ },
+ "owners": 4487,
+ "owners_in_nb19_val_or_test": 0,
+ "licences": {
+  "cc-by-nc": 5297,
+  "cc-by": 388,
+  "cc-by-nc-sa": 98,
+  "cc-by-sa": 76,
+  "cc0": 63
+ }
+}

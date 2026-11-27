@@ -13,7 +13,7 @@ class PipelineSettings {
   final Map<String, dynamic> raw;
 
   Map<String, dynamic> _m(String key) => raw[key] as Map<String, dynamic>;
-  static double _d(Object? v) => (v as num).toDouble();
+  static double _d(Object? v) => jsonDouble(v);
   static List<double> _ds(Object? v) => (v as List).map(_d).toList(growable: false);
 
   int get inputSize => raw['input_size'] as int;
@@ -49,8 +49,71 @@ class PipelineSettings {
   double get keepShareOfPhoto => _d(_m('mask_cleanup')['keep_part_share_of_photo']);
   double get cropPadding => _d(_m('crop')['padding']);
 
+  bool get usesSnakeCheck => gateRule == snakeCheckRule;
+
+  /// The M5 snake check that replaces the gate's decision (absent for A3).
+  SnakeCheckSettings? get snakeCheck =>
+      raw['snake_check'] == null ? null : SnakeCheckSettings.fromJson(_m('snake_check'));
+
+  /// Mirror pass and training prior for the classifier (absent for A3).
+  ClassifierSettings get classifier => raw['classifier'] == null
+      ? ClassifierSettings.none
+      : ClassifierSettings.fromJson(_m('classifier'));
+
   DecisionThresholds get thresholds =>
       DecisionThresholds.fromJson((_m('decision')['thresholds'] as Map).cast<String, dynamic>());
+
+  /// The thresholds frozen for the M5 test, kept beside the app's (null for A3).
+  DecisionThresholds? get frozenThresholds => _m('decision')['frozen_thresholds'] == null
+      ? null
+      : DecisionThresholds.fromJson((_m('decision')['frozen_thresholds'] as Map).cast<String, dynamic>());
+}
+
+const snakeCheckRule = 'snake_check';
+
+/// A JSON number, or "Infinity" / "-Infinity" (JSON has no infinity).
+double jsonDouble(Object? v) => v is String ? double.parse(v) : (v as num).toDouble();
+
+class SnakeCheckSettings {
+  const SnakeCheckSettings({
+    required this.file,
+    required this.inputSize,
+    required this.output,
+    required this.snakeIndex,
+    required this.cutoff,
+  });
+
+  factory SnakeCheckSettings.fromJson(Map<String, dynamic> j) => SnakeCheckSettings(
+        file: j['file'] as String,
+        inputSize: j['input_size'] as int,
+        output: j['output'] as String,
+        snakeIndex: j['snake_index'] as int,
+        cutoff: jsonDouble(j['cutoff']),
+      );
+
+  final String file, output;
+  final int inputSize, snakeIndex;
+  final double cutoff;
+
+  bool isSnake(List<double> probs) => probs[snakeIndex] >= cutoff;
+}
+
+class ClassifierSettings {
+  const ClassifierSettings({required this.flipTta, required this.priorTau, required this.logCounts});
+
+  factory ClassifierSettings.fromJson(Map<String, dynamic> j) => ClassifierSettings(
+        flipTta: j['flip_tta'] as bool,
+        priorTau: jsonDouble(j['prior_tau']),
+        logCounts: (j['log_counts'] as List).map(jsonDouble).toList(growable: false),
+      );
+
+  static const none = ClassifierSettings(flipTta: false, priorTau: 0, logCounts: []);
+
+  final bool flipTta;
+  final double priorTau;
+
+  /// log(training photos) per class, in class-id order.
+  final List<double> logCounts;
 }
 
 /// A3's calibrated decision thresholds (DR0).
@@ -67,7 +130,7 @@ class DecisionThresholds {
   });
 
   factory DecisionThresholds.fromJson(Map<String, dynamic> j) {
-    double d(String k) => (j[k] as num).toDouble();
+    double d(String k) => jsonDouble(j[k]);
     return DecisionThresholds(
       temperature: d('temperature'),
       temperatureWho: d('temperature_who'),

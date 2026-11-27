@@ -1,0 +1,321 @@
+{
+ "name": "distil_oi",
+ "photos": {
+  "calib": 7999,
+  "val": 17151,
+  "nonsnake_val": 600
+ },
+ "auroc_val": 0.9953779177113095,
+ "rules": [
+  {
+   "rule": "P(snake) >= cut",
+   "target": 0.99,
+   "cutoff": 0.20484977503483762,
+   "calibration_kept": 0.9901237654706838,
+   "false_snake_val": 0.051666666666666666,
+   "false_snake_val_ci": [
+    0.035,
+    0.07
+   ],
+   "false_snake_count": 31,
+   "nonsnake_photos": 600,
+   "snakes_kept_val": 0.991953821934581,
+   "snakes_kept_val_ci": [
+    0.9888450623126703,
+    0.9944859172533267
+   ],
+   "snake_photos": 17151,
+   "meets_g4_on_val": false,
+   "false_snake_by_category": {
+    "caecilian": {
+     "photos": 20,
+     "called_a_snake": 0.25
+    },
+    "cat": {
+     "photos": 40,
+     "called_a_snake": 0.0
+    },
+    "dog": {
+     "photos": 40,
+     "called_a_snake": 0.0
+    },
+    "earthworm": {
+     "photos": 20,
+     "called_a_snake": 0.0
+    },
+    "eel": {
+     "photos": 40,
+     "called_a_snake": 0.175
+    },
+    "hand_arm": {
+     "photos": 60,
+     "called_a_snake": 0.017
+    },
+    "legless_lizard": {
+     "photos": 20,
+     "called_a_snake": 0.15
+    },
+    "other_animal": {
+     "photos": 60,
+     "called_a_snake": 0.133
+    },
+    "person": {
+     "photos": 180,
+     "called_a_snake": 0.033
+    },
+    "rope_hose_belt": {
+     "photos": 60,
+     "called_a_snake": 0.017
+    },
+    "tshirt": {
+     "photos": 60,
+     "called_a_snake": 0.0
+    }
+   },
+   "false_snake_by_source": {
+    "Open Images": {
+     "photos": 500,
+     "called_a_snake": 0.032
+    },
+    "iNaturalist lookalikes": {
+     "photos": 100,
+     "called_a_snake": 0.15
+    }
+   },
+   "snakes_kept_by_group": {
+    "sea snakes and sea kraits": {
+     "photos": 715,
+     "kept": 0.979,
+     "ci": [
+      0.9658922110275986,
+      0.9891613525299674
+     ]
+    },
+    "blind snakes": {
+     "photos": 1672,
+     "kept": 0.9922,
+     "ci": [
+      0.9869068751153144,
+      0.9966045581422117
+     ]
+    },
+    "shieldtails": {
+     "photos": 91,
+     "kept": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "other water snakes": {
+     "photos": 318,
+     "kept": 0.9403,
+     "ci": [
+      0.8736247947454844,
+      0.9837172953661868
+     ]
+    },
+    "vine snakes and bronzebacks": {
+     "photos": 1959,
+     "kept": 0.9969,
+     "ci": [
+      0.9942555740914562,
+      0.999052648844134
+     ]
+    }
+   },
+   "most_missed_species": [
+    {
+     "species": "Python bivittatus",
+     "count": 468,
+     "mean": 0.9551282051282052,
+     "missed": 21
+    },
+    {
+     "species": "Ptyas mucosa",
+     "count": 956,
+     "mean": 0.9843096234309623,
+     "missed": 15
+    },
+    {
+     "species": "Indotyphlops braminus",
+     "count": 1621,
+     "mean": 0.9944478716841456,
+     "missed": 9
+    },
+    {
+     "species": "Laticauda colubrina",
+     "count": 328,
+     "mean": 0.9786585365853658,
+     "missed": 7
+    },
+    {
+     "species": "Enhydris enhydris",
+     "count": 106,
+     "mean": 0.9433962264150944,
+     "missed": 6
+    },
+    {
+     "species": "Gerarda prevostiana",
+     "count": 22,
+     "mean": 0.7272727272727273,
+     "missed": 6
+    },
+    {
+     "species": "Acrochordus granulatus",
+     "count": 54,
+     "mean": 0.9074074074074074,
+     "missed": 5
+    },
+    {
+     "species": "Psammodynastes pulverulentus",
+     "count": 728,
+     "mean": 0.9945054945054945,
+     "missed": 4
+    },
+    {
+     "species": "Pseudoxenodon macrops",
+     "count": 99,
+     "mean": 0.9696969696969697,
+     "missed": 3
+    },
+    {
+     "species": "Chrysopelea ornata",
+     "count": 510,
+     "mean": 0.9941176470588236,
+     "missed": 3
+    },
+    {
+     "species": "Dendrelaphis tristis",
+     "count": 151,
+     "mean": 0.9801324503311258,
+     "missed": 3
+    },
+    {
+     "species": "Grypotyphlops acutus",
+     "count": 37,
+     "mean": 0.918918918918919,
+     "missed": 3
+    }
+   ]
+  },
+  {
+   "rule": "control: random score",
+   "target": 0.99,
+   "cutoff": 0.010137569140699632,
+   "calibration_kept": 0.9901237654706838,
+   "false_snake_val": 0.9883333333333333,
+   "false_snake_val_ci": [
+    0.98,
+    0.995
+   ],
+   "false_snake_count": 593,
+   "nonsnake_photos": 600,
+   "snakes_kept_val": 0.9883388723689581,
+   "snakes_kept_val_ci": [
+    0.9866905389937114,
+    0.9898468287063518
+   ],
+   "snake_photos": 17151,
+   "meets_g4_on_val": false,
+   "false_snake_by_category": {
+    "caecilian": {
+     "photos": 20,
+     "called_a_snake": 1.0
+    },
+    "cat": {
+     "photos": 40,
+     "called_a_snake": 1.0
+    },
+    "dog": {
+     "photos": 40,
+     "called_a_snake": 1.0
+    },
+    "earthworm": {
+     "photos": 20,
+     "called_a_snake": 0.95
+    },
+    "eel": {
+     "photos": 40,
+     "called_a_snake": 1.0
+    },
+    "hand_arm": {
+     "photos": 60,
+     "called_a_snake": 0.967
+    },
+    "legless_lizard": {
+     "photos": 20,
+     "called_a_snake": 1.0
+    },
+    "other_animal": {
+     "photos": 60,
+     "called_a_snake": 1.0
+    },
+    "person": {
+     "photos": 180,
+     "called_a_snake": 0.978
+    },
+    "rope_hose_belt": {
+     "photos": 60,
+     "called_a_snake": 1.0
+    },
+    "tshirt": {
+     "photos": 60,
+     "called_a_snake": 1.0
+    }
+   },
+   "false_snake_by_source": {
+    "Open Images": {
+     "photos": 500,
+     "called_a_snake": 0.988
+    },
+    "iNaturalist lookalikes": {
+     "photos": 100,
+     "called_a_snake": 0.99
+    }
+   },
+   "snakes_kept_by_group": {
+    "sea snakes and sea kraits": {
+     "photos": 715,
+     "kept": 0.9874,
+     "ci": [
+      0.9790269644032272,
+      0.9948196518241272
+     ]
+    },
+    "blind snakes": {
+     "photos": 1672,
+     "kept": 0.9886,
+     "ci": [
+      0.9830297499856971,
+      0.9932329283110571
+     ]
+    },
+    "shieldtails": {
+     "photos": 91,
+     "kept": 0.989,
+     "ci": [
+      0.9555555555555556,
+      1.0
+     ]
+    },
+    "other water snakes": {
+     "photos": 318,
+     "kept": 0.9843,
+     "ci": [
+      0.9712622975255888,
+      0.9963238660848955
+     ]
+    },
+    "vine snakes and bronzebacks": {
+     "photos": 1959,
+     "kept": 0.9877,
+     "ci": [
+      0.9832051968352195,
+      0.992680471024697
+     ]
+    }
+   }
+  }
+ ]
+}

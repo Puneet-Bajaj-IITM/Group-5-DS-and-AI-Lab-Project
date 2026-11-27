@@ -58,6 +58,21 @@ class RgbImage {
     return RgbImage(w, h, out);
   }
 
+  /// The left-right mirror image (numpy's `rgb[:, ::-1]`).
+  RgbImage mirrored() {
+    final out = Uint8List(data.length);
+    for (var y = 0; y < height; y++) {
+      final row = y * width * 3;
+      for (var x = 0; x < width; x++) {
+        final src = row + x * 3, dst = row + (width - 1 - x) * 3;
+        out[dst] = data[src];
+        out[dst + 1] = data[src + 1];
+        out[dst + 2] = data[src + 2];
+      }
+    }
+    return RgbImage(width, height, out);
+  }
+
   /// Rotates clockwise by 0, 90, 180 or 270 degrees.
   RgbImage rotate(int degrees) {
     final d = ((degrees % 360) + 360) % 360;

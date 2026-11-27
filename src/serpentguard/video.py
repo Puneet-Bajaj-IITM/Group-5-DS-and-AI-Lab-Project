@@ -1,7 +1,7 @@
 """Synthetic clips by M1 section 3.4's recipe, and the live-video steps the app shares.
 
 The shared steps: the frame schedule, 4-of-6 voting, how long a label must stay on screen, and the
-lock rule that pools the last frames' probabilities (M4).
+lock rule that pools the frames of the last half second (M4, made time-based in M5).
 """
 import math
 import os
@@ -48,8 +48,15 @@ CENTRE_REGION = 0.5               # no usable mask: leaves cover a central ellip
 VOTE_K, VOTE_N = 4, 6
 VOTE = "vote_4_of_6"
 STABLE_SECONDS = 1.0
-POOL_FRAMES = 10                  # the lock pools the last 10 snake frames' probabilities
-SWITCH_SECONDS = 1.0              # another species must clearly lead this long to replace the lock
+POOL_FRAMES = 10                  # M4's frame-count window, kept for notebooks 24 and 25's record
+# The lock (M5): every time is in seconds of the clip, so it behaves the same at any phone speed;
+# the values are the M5 retune on dev clips at 0.1, 0.4 and 0.8 s a frame (results/m5/g5).
+LOCK_WINDOW_SECONDS = 0.5         # the lock pools the snake frames of the last half second
+LOCK_MARGIN = 0.05                # the pooled top species must lead the runner-up by this to lock
+SWITCH_SECONDS = 3.0              # another species must clearly lead this long to replace the lock
+LOCK_GATE_SHARE = 0.0             # share of the window's frames the gate must call a snake to lock
+LOCK_MIN_FRAMES = 1               # snake frames the pool must hold to lock (and pools at least)
+HOLD_SECONDS = 2.0                # with no snake frame for this long the lock is dropped
 TIME_EPSILON = 1e-9
 PART_NAMES = ("probs", "who", "genus", "family", "embedding")
 PERFECT_COSINE = 1.0              # the cosines when a frame has no embedding: no distance check
@@ -237,45 +244,79 @@ def pool_parts(window_parts):
     return pooled
 
 
-def pooled_lock(probs_seq, times, conf, margin, window=POOL_FRAMES, switch_seconds=SWITCH_SECONDS):
-    """Per frame: "checking" until the pooled probabilities are sure, then "locked" to one species.
+def lock_settings(**overrides):
+    """The lock's settings, the module defaults unless overridden (the Dart port reads the same names)."""
+    settings = {"window_seconds": LOCK_WINDOW_SECONDS, "margin": LOCK_MARGIN, "switch_seconds": SWITCH_SECONDS,
+                "gate_share": LOCK_GATE_SHARE, "min_frames": LOCK_MIN_FRAMES, "hold_seconds": HOLD_SECONDS}
+    unknown = set(overrides) - set(settings)
+    if unknown:
+        raise TypeError(f"unknown lock settings {sorted(unknown)}")
+    return settings | overrides
 
-    Each item is None (no snake: skipped) or a frame's outputs, a dict with the species
+
+def pooled_lock(probs_seq, times, conf, **settings):
+    """Per processed frame: "checking" until the pooled outputs are sure, then "locked" to one species.
+
+    Each item is None (the gate found no snake) or a frame's outputs: a dict with the species
     probabilities (`probs`) and optionally the WHO, genus and family head probabilities and the
-    embedding, or just the species probabilities. Every part is pooled over the last `window`
-    frames with a snake. It locks once a full window is pooled, its top species holds `conf` and
-    leads the runner-up by `margin`. A locked answer changes only when another species holds `conf`
-    and leads the locked one by more than `margin` on every frame for `switch_seconds`. A frame
-    with no snake repeats the previous step. A step holds `pooled` (species probabilities) and
-    `parts` (all the pooled parts).
+    embedding, or just the species probabilities. `times` are the seconds each result shows.
+
+    Every part is pooled over the snake frames of the last `window_seconds`, and never fewer than the
+    last `min_frames` snake frames (so a slow phone still pools several frames). It locks once the
+    current sighting has lasted `window_seconds`, the pool holds `min_frames` snake frames, at least
+    `gate_share` of the processed frames the pool spans passed the gate, and the pooled top species holds
+    `conf` and leads the runner-up by `margin`. A lock changes only when another species holds `conf`
+    and leads the locked one by more than `margin` on every snake frame for `switch_seconds`. With no
+    snake frame for `hold_seconds` the lock and the pool are dropped (the user panned away), so the
+    next snake starts afresh. A step holds `state`, `species` (the locked class or None), `event`
+    ("lock" or "switch" on the frame the lock is set or changed), `pooled` and `parts`.
     """
-    recent, steps = [], []
-    locked, rival, since = None, None, None
+    s = lock_settings(**settings)
+    window, eps = s["window_seconds"], TIME_EPSILON
+    keep = max(window, s["hold_seconds"])
+    seen, steps = [], []  # (time, parts or None) of the processed frames of the last `keep` seconds
+    locked = rival = since = sighting = last_snake = None
+    parts = None
     for item, now in zip(probs_seq, np.asarray(times, dtype=float)):
+        now = float(now)
+        event = None
+        seen = [(t, p) for t, p in seen if t > now - keep + eps]
+        if item is None:
+            seen.append((now, None))
+            if last_snake is not None and now - last_snake >= s["hold_seconds"] - eps:
+                locked = rival = since = sighting = last_snake = parts = None
+                seen = []
+        else:
+            seen.append((now, frame_parts(item)))
+            sighting = now if sighting is None else sighting
+            last_snake = now
         if item is not None:
-            recent = (recent + [frame_parts(item)])[-window:]
-            parts = pool_parts(recent)
+            snake = [(t, p) for t, p in seen if p is not None]
+            start = min(next((t for t, _ in snake if t > now - window + eps), now),
+                        snake[-s["min_frames"]][0] if len(snake) >= s["min_frames"] else snake[0][0])
+            spanned = [p for t, p in seen if t >= start - eps]
+            snake = [p for p in spanned if p is not None]
+            parts = pool_parts(snake)
             pooled = parts["probs"]
-            top = np.argsort(-pooled)[:2]
+            top = np.argsort(-pooled, kind="stable")[:2]
             lead = pooled[top[0]] - (pooled[top[1]] if len(pooled) > 1 else 0.0)
             if locked is None:
-                if len(recent) == window and pooled[top[0]] >= conf and lead >= margin:
-                    locked = int(top[0])
+                if (now - sighting >= window - eps and len(snake) >= s["min_frames"]
+                        and len(snake) / len(spanned) >= s["gate_share"] - eps
+                        and pooled[top[0]] >= conf and lead >= s["margin"]):
+                    locked, event = int(top[0]), "lock"
             else:
                 leads = (top[0] != locked and pooled[top[0]] >= conf
-                         and pooled[top[0]] - pooled[locked] > margin)
+                         and pooled[top[0]] - pooled[locked] > s["margin"])
                 if not leads:
                     rival = since = None
                 else:
                     if rival != top[0]:
                         rival, since = int(top[0]), now
-                    if now - since >= switch_seconds - TIME_EPSILON:
-                        locked, rival, since = rival, None, None
-            steps.append({"state": "checking" if locked is None else "locked", "species": locked,
-                          "pooled": pooled, "parts": parts})
-        else:
-            steps.append(dict(steps[-1]) if steps else
-                         {"state": "checking", "species": None, "pooled": None, "parts": None})
+                    if now - since >= s["switch_seconds"] - eps:
+                        locked, rival, since, event = rival, None, None, "switch"
+        steps.append({"state": "checking" if locked is None else "locked", "species": locked, "event": event,
+                      "pooled": None if parts is None else parts["probs"], "parts": parts})
     return steps
 
 
@@ -308,19 +349,26 @@ def frame_verdict(parts, thresholds, prototypes, tables):
 
 
 def lock_verdicts(steps, thresholds, prototypes, tables):
-    """Per step the verdict from DR0 on the pooled outputs, or None while still checking.
+    """Per step what the screen shows: (verdict, species), or None for "Checking...".
 
-    All of DR0's triggers run on the pooled species, WHO, genus and family probabilities and the
-    pooled embedding's distance to the prototypes. "dangerous" may show while checking;
-    "not_listed" and "unknown" only once locked.
+    Once locked the species is always the locked one, and the verdict is DR0's on the pooled outputs
+    of the frame the lock was set or switched, so neither changes without the switch rule. Safety
+    first: if DR0 on the current pool says "dangerous" while locked, the verdict turns "dangerous" and
+    stays so until the lock changes. While checking, "dangerous" from the pooled outputs shows with no
+    species named yet; "not_listed" and "unknown" only once locked.
     """
-    shown = []
+    shown, held = [], None
     for step in steps:
-        if step["parts"] is None:
-            shown.append(None)
+        label = None if step["parts"] is None else frame_verdict(step["parts"], thresholds, prototypes, tables)
+        if step["state"] == "checking":
+            held = None
+            shown.append(("dangerous", None) if label == "dangerous" else None)
             continue
-        label = frame_verdict(step["parts"], thresholds, prototypes, tables)
-        shown.append(label if step["state"] == "locked" or label == "dangerous" else None)
+        if step["event"] is not None or held is None:
+            held = label
+        elif label == "dangerous":
+            held = "dangerous"
+        shown.append((held, step["species"]))
     return shown
 
 

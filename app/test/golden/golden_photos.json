@@ -1,25 +1,27 @@
 {
- "tolerance": 0.01,
+ "tolerance": 0.001,
  "photos": [
   {
    "photo_id": "228115560",
    "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/228115560/medium.jpg",
-   "sha1": "28eb17f47bfaeb69792b5ba9e05a8b60f295c23d",
    "credit": "(c) Seema Merchant, some rights reserved (CC BY)",
    "licence": "cc-by",
+   "set": "demo",
+   "sha1": "28eb17f47bfaeb69792b5ba9e05a8b60f295c23d",
    "steps": {
     "height": 500,
     "width": 490,
     "mean_brightness": 104.3732843537415,
     "exposure_fixed": false,
-    "gate": {
-     "rule": "both",
-     "snake": true,
-     "box_conf": 0.4603417217731476,
-     "mask_area": 0.1878734693877551
+    "snake_check": {
+     "probs": [
+      0.9431913495063782,
+      0.019806059077382088,
+      0.03700258955359459
+     ],
+     "input_mean": -0.17171652615070343,
+     "input_std": 1.031840205192566
     },
-    "mask_pixels": 46029,
-    "cleaned_mask_pixels": 46006,
     "crop_window_top_bottom_left_right": [
      95,
      500,
@@ -31,82 +33,87 @@
     "top_species_logits": [
      {
       "class_id": 8,
-      "logit": 27.31844711303711
+      "logit": 31.706552892356672
      },
      {
       "class_id": 40,
-      "logit": 12.539560317993164
+      "logit": 19.93089952133272
      },
      {
-      "class_id": 150,
-      "logit": 12.120314598083496
+      "class_id": 2,
+      "logit": 16.968086811538335
+     },
+     {
+      "class_id": 29,
+      "logit": 15.962465529201223
      },
      {
       "class_id": 36,
-      "logit": 11.032083511352539
-     },
-     {
-      "class_id": 39,
-      "logit": 10.446346282958984
+      "logit": 15.801382745852168
      }
     ],
-    "best_cosine": 0.8917517386594864
+    "best_cosine": 0.8906161086433733
    },
    "answer": {
-    "gate": {
-     "rule": "both",
+    "snake_check": {
      "snake": true,
+     "snake_probability": 0.9431913495063782
+    },
+    "front_end": {
      "box_conf": 0.4603417217731476,
-     "mask_area": 0.1878734693877551
+     "mask_area": 0.1878734693877551,
+     "m4_gate_would_say_snake": true
     },
     "crop": "mask box",
     "top3": [
      {
       "species": "Naja naja",
-      "probability": 0.9976255393971313,
+      "probability": 0.9984883091769415,
       "who_category": "1"
      },
      {
       "species": "Naja kaouthia",
-      "probability": 0.00027632747564578414,
+      "probability": 0.0005931376805862412,
       "who_category": "1"
      },
      {
-      "species": "Naja oxiana",
-      "probability": 0.00021903024801139608,
-      "who_category": "2"
+      "species": "Ptyas mucosa",
+      "probability": 9.150203834975008e-05,
+      "who_category": "not_listed"
      }
     ],
     "verdict": "dangerous",
     "reason": [
      "who_listed_mass",
-     "who_head",
      "top_species_dangerous",
      "venomous_family_mass"
     ],
     "message": "dangerous: WHO Category 1",
-    "genus_fallback": null
+    "genus_fallback": null,
+    "frozen_verdict": "dangerous"
    }
   },
   {
    "photo_id": "557437621",
    "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/557437621/medium.jpg",
-   "sha1": "e2cf3fe4343cb4b767e9c82824222451cb6383c1",
    "credit": "(c) Seema Merchant, some rights reserved (CC BY)",
    "licence": "cc-by",
+   "set": "demo",
+   "sha1": "e2cf3fe4343cb4b767e9c82824222451cb6383c1",
    "steps": {
     "height": 396,
     "width": 500,
     "mean_brightness": 117.78999663299663,
     "exposure_fixed": false,
-    "gate": {
-     "rule": "both",
-     "snake": true,
-     "box_conf": 0.8356838226318359,
-     "mask_area": 0.07568181818181818
+    "snake_check": {
+     "probs": [
+      0.9789760708808899,
+      0.009825143031775951,
+      0.011198772117495537
+     ],
+     "input_mean": 0.04522765800356865,
+     "input_std": 0.5096313953399658
     },
-    "mask_pixels": 14985,
-    "cleaned_mask_pixels": 15008,
     "crop_window_top_bottom_left_right": [
      107,
      372,
@@ -118,77 +125,83 @@
     "top_species_logits": [
      {
       "class_id": 24,
-      "logit": 25.493831634521484
-     },
-     {
-      "class_id": 183,
-      "logit": 12.532757759094238
+      "logit": 28.130453111904895
      },
      {
       "class_id": 25,
-      "logit": 11.652278900146484
+      "logit": 17.652422878757747
      },
      {
-      "class_id": 178,
-      "logit": 11.651782989501953
+      "class_id": 38,
+      "logit": 15.217066783727397
      },
      {
-      "class_id": 109,
-      "logit": 11.455492973327637
+      "class_id": 54,
+      "logit": 13.840118991790943
+     },
+     {
+      "class_id": 10,
+      "logit": 13.825970736246823
      }
     ],
-    "best_cosine": 0.846345158989477
+    "best_cosine": 0.8130732310847073
    },
    "answer": {
-    "gate": {
-     "rule": "both",
+    "snake_check": {
      "snake": true,
+     "snake_probability": 0.9789760708808899
+    },
+    "front_end": {
      "box_conf": 0.8356838226318359,
-     "mask_area": 0.07568181818181818
+     "mask_area": 0.07568181818181818,
+     "m4_gate_would_say_snake": true
     },
     "crop": "mask box",
     "top3": [
      {
       "species": "Coelognathus helena",
-      "probability": 0.9953521021878966,
-      "who_category": "not_listed"
-     },
-     {
-      "species": "Platyceps josephi",
-      "probability": 0.0007551156438783738,
+      "probability": 0.9966980287843248,
       "who_category": "not_listed"
      },
      {
       "species": "Coelognathus radiatus",
-      "probability": 0.0004635177742703556,
+      "probability": 0.0013424163459819039,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Coelognathus flavolineatus",
+      "probability": 0.0002888486216060264,
       "who_category": "not_listed"
      }
     ],
     "verdict": "not_listed",
     "reason": [],
     "message": "not on the WHO list, still keep away",
-    "genus_fallback": null
+    "genus_fallback": null,
+    "frozen_verdict": "not_listed"
    }
   },
   {
    "photo_id": "462345804",
    "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/462345804/medium.jpg",
-   "sha1": "eb27723a15c9cb67c8999f065f63513c0d859a0d",
    "credit": "(c) Teja Yantrapalli, some rights reserved (CC BY)",
    "licence": "cc-by",
+   "set": "demo",
+   "sha1": "eb27723a15c9cb67c8999f065f63513c0d859a0d",
    "steps": {
     "height": 333,
     "width": 500,
     "mean_brightness": 5.793791791791792,
     "exposure_fixed": true,
-    "gate": {
-     "rule": "both",
-     "snake": true,
-     "box_conf": 0.5404959917068481,
-     "mask_area": 0.0938978978978979
+    "snake_check": {
+     "probs": [
+      0.9664525389671326,
+      0.021310055628418922,
+      0.012237335555255413
+     ],
+     "input_mean": -1.1362086534500122,
+     "input_std": 0.8593971729278564
     },
-    "mask_pixels": 15634,
-    "cleaned_mask_pixels": 14356,
     "crop_window_top_bottom_left_right": [
      83,
      205,
@@ -200,49 +213,52 @@
     "top_species_logits": [
      {
       "class_id": 11,
-      "logit": 20.219722747802734
-     },
-     {
-      "class_id": 20,
-      "logit": 17.61409568786621
+      "logit": 24.332024936303426
      },
      {
       "class_id": 2,
-      "logit": 17.437641143798828
+      "logit": 23.143866154189702
      },
      {
-      "class_id": 8,
-      "logit": 16.78232192993164
+      "class_id": 4,
+      "logit": 22.849145812204963
      },
      {
       "class_id": 0,
-      "logit": 16.76817512512207
+      "logit": 22.6062487964102
+     },
+     {
+      "class_id": 24,
+      "logit": 22.089857103604114
      }
     ],
-    "best_cosine": 0.7354887293890056
+    "best_cosine": 0.7984664277256979
    },
    "answer": {
-    "gate": {
-     "rule": "both",
+    "snake_check": {
      "snake": true,
+     "snake_probability": 0.9664525389671326
+    },
+    "front_end": {
      "box_conf": 0.5404959917068481,
-     "mask_area": 0.0938978978978979
+     "mask_area": 0.0938978978978979,
+     "m4_gate_would_say_snake": true
     },
     "crop": "mask box",
     "top3": [
      {
       "species": "Elaphe taeniura",
-      "probability": 0.26378128966831454,
-      "who_category": "not_listed"
-     },
-     {
-      "species": "Dendrelaphis tristis",
-      "probability": 0.062233289214323265,
+      "probability": 0.1832301500058848,
       "who_category": "not_listed"
      },
      {
       "species": "Ptyas mucosa",
-      "probability": 0.05643479832105755,
+      "probability": 0.08659162573945564,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Fowlea piscator",
+      "probability": 0.07190036055043046,
       "who_category": "not_listed"
      }
     ],
@@ -251,28 +267,31 @@
      "who_listed_mass"
     ],
     "message": "dangerous: could be a WHO-listed species: 11% combined probability",
-    "genus_fallback": null
+    "genus_fallback": null,
+    "frozen_verdict": "dangerous"
    }
   },
   {
    "photo_id": "22679235",
    "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/22679235/medium.jpg",
-   "sha1": "f4563c8d8847727320886beb519a0b92b73013b4",
    "credit": "(c) Nathan Earley, some rights reserved (CC BY)",
    "licence": "cc-by",
+   "set": "demo",
+   "sha1": "f4563c8d8847727320886beb519a0b92b73013b4",
    "steps": {
     "height": 500,
     "width": 375,
     "mean_brightness": 111.30793777777778,
     "exposure_fixed": false,
-    "gate": {
-     "rule": "both",
-     "snake": true,
-     "box_conf": 0.24452832341194153,
-     "mask_area": 0.045130666666666666
+    "snake_check": {
+     "probs": [
+      0.979750394821167,
+      0.007916415110230446,
+      0.012333237566053867
+     ],
+     "input_mean": -0.041274040937423706,
+     "input_std": 0.8506483435630798
     },
-    "mask_pixels": 8462,
-    "cleaned_mask_pixels": 8361,
     "crop_window_top_bottom_left_right": [
      124,
      207,
@@ -283,50 +302,719 @@
     "classifier_input_std": 0.5277289152145386,
     "top_species_logits": [
      {
-      "class_id": 31,
-      "logit": 29.006502151489258
+      "class_id": 1,
+      "logit": 31.182744590913316
      },
      {
-      "class_id": 1,
-      "logit": 28.85249900817871
+      "class_id": 31,
+      "logit": 29.379519973960186
      },
      {
       "class_id": 41,
-      "logit": 28.769163131713867
+      "logit": 28.273709386046505
      },
      {
       "class_id": 55,
-      "logit": 28.696067810058594
+      "logit": 27.928656059653978
      },
      {
-      "class_id": 65,
-      "logit": 26.676767349243164
+      "class_id": 21,
+      "logit": 26.0436815260001
      }
     ],
-    "best_cosine": 0.9685232796789249
+    "best_cosine": 0.9282183940587292
    },
    "answer": {
-    "gate": {
-     "rule": "both",
+    "snake_check": {
      "snake": true,
+     "snake_probability": 0.979750394821167
+    },
+    "front_end": {
      "box_conf": 0.24452832341194153,
-     "mask_area": 0.045130666666666666
+     "mask_area": 0.045130666666666666,
+     "m4_gate_would_say_snake": true
     },
     "crop": "mask box",
     "top3": [
      {
-      "species": "Ahaetulla oxyrhynca",
-      "probability": 0.2272035533615194,
+      "species": "Ahaetulla prasina",
+      "probability": 0.5771322256716792,
       "who_category": "not_listed"
      },
      {
-      "species": "Ahaetulla prasina",
-      "probability": 0.20861416634005886,
+      "species": "Ahaetulla oxyrhynca",
+      "probability": 0.18503082388070013,
       "who_category": "not_listed"
      },
      {
       "species": "Ahaetulla borealis",
-      "probability": 0.19919725731113744,
+      "probability": 0.0921051800051638,
+      "who_category": "not_listed"
+     }
+    ],
+    "verdict": "not_listed",
+    "reason": [],
+    "message": "not on the WHO list, still keep away",
+    "genus_fallback": null,
+    "frozen_verdict": "not_listed"
+   }
+  },
+  {
+   "photo_id": "640148271",
+   "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/640148271/medium.jpg",
+   "credit": "(c) Teja Yantrapalli, some rights reserved (CC BY)",
+   "licence": "cc-by",
+   "set": "demo",
+   "sha1": "ac55e19fefc8e7f9a810693acea49912adb309bf",
+   "steps": {
+    "height": 375,
+    "width": 500,
+    "mean_brightness": 124.45360177777778,
+    "exposure_fixed": false,
+    "snake_check": {
+     "probs": [
+      0.9627164006233215,
+      0.022333480417728424,
+      0.01495012640953064
+     ],
+     "input_mean": 0.1288735419511795,
+     "input_std": 0.8287755250930786
+    },
+    "crop_window_top_bottom_left_right": null,
+    "classifier_input_mean": 0.12888891994953156,
+    "classifier_input_std": 0.8348419070243835,
+    "top_species_logits": [
+     {
+      "class_id": 4,
+      "logit": 23.334592742136604
+     },
+     {
+      "class_id": 2,
+      "logit": 22.474474522109624
+     },
+     {
+      "class_id": 9,
+      "logit": 21.3522852541049
+     },
+     {
+      "class_id": 7,
+      "logit": 20.97024993159032
+     },
+     {
+      "class_id": 10,
+      "logit": 20.524353113871335
+     }
+    ],
+    "best_cosine": 0.7645323010722365
+   },
+   "answer": {
+    "snake_check": {
+     "snake": true,
+     "snake_probability": 0.9627164006233215
+    },
+    "front_end": {
+     "box_conf": 0.535597562789917,
+     "mask_area": 0.0,
+     "m4_gate_would_say_snake": false
+    },
+    "crop": "whole photo",
+    "top3": [
+     {
+      "species": "Fowlea piscator",
+      "probability": 0.277945151531687,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Ptyas mucosa",
+      "probability": 0.16155174676108552,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Ptyas korros",
+      "probability": 0.07959107085051129,
+      "who_category": "not_listed"
+     }
+    ],
+    "verdict": "dangerous",
+    "reason": [
+     "who_listed_mass"
+    ],
+    "message": "dangerous: could be a WHO-listed species: 9% combined probability",
+    "genus_fallback": null,
+    "frozen_verdict": "unknown"
+   }
+  },
+  {
+   "photo_id": "val_nonsnake_cdf060cec6f45e89",
+   "url": "https://open-images-dataset.s3.amazonaws.com/test/cdf060cec6f45e89.jpg",
+   "credit": "(c) Jacey O Samsel, CC BY 2.0",
+   "licence": "cc-by-2.0",
+   "set": "validation non-snake (person)",
+   "sha1": "8f356190d646c9bfdf4525d3f9f77cdd81b1a8ad",
+   "steps": {
+    "height": 601,
+    "width": 1024,
+    "mean_brightness": 109.79569965855518,
+    "exposure_fixed": false,
+    "snake_check": {
+     "probs": [
+      0.014203831553459167,
+      0.01878030225634575,
+      0.96701580286026
+     ],
+     "input_mean": -0.04882240295410156,
+     "input_std": 0.6277093291282654
+    }
+   },
+   "answer": {
+    "snake_check": {
+     "snake": false,
+     "snake_probability": 0.014203831553459167
+    },
+    "front_end": null,
+    "crop": null,
+    "top3": [],
+    "verdict": "unknown",
+    "reason": [
+     "no_snake"
+    ],
+    "message": "we don't know: no snake found",
+    "genus_fallback": null,
+    "frozen_verdict": "unknown"
+   }
+  },
+  {
+   "photo_id": "val_nonsnake_d3bf97879410e33a",
+   "url": "https://open-images-dataset.s3.amazonaws.com/test/d3bf97879410e33a.jpg",
+   "credit": "(c) Northern Ireland Office, CC BY 2.0",
+   "licence": "cc-by-2.0",
+   "set": "validation non-snake (rope_hose_belt)",
+   "sha1": "5bff02d363e5a1d56ab192a260d3ac47466d34b0",
+   "steps": {
+    "height": 683,
+    "width": 1024,
+    "mean_brightness": 160.51403695400197,
+    "exposure_fixed": false,
+    "snake_check": {
+     "probs": [
+      0.018309302628040314,
+      0.014683232642710209,
+      0.9670074582099915
+     ],
+     "input_mean": 0.5345719456672668,
+     "input_std": 1.0356873273849487
+    }
+   },
+   "answer": {
+    "snake_check": {
+     "snake": false,
+     "snake_probability": 0.018309302628040314
+    },
+    "front_end": null,
+    "crop": null,
+    "top3": [],
+    "verdict": "unknown",
+    "reason": [
+     "no_snake"
+    ],
+    "message": "we don't know: no snake found",
+    "genus_fallback": null,
+    "frozen_verdict": "unknown"
+   }
+  },
+  {
+   "photo_id": "val_nonsnake_4b961ac47fbd8694",
+   "url": "https://open-images-dataset.s3.amazonaws.com/test/4b961ac47fbd8694.jpg",
+   "credit": "(c) Tony Beeman, CC BY 2.0",
+   "licence": "cc-by-2.0",
+   "set": "validation non-snake (cat)",
+   "sha1": "3d5b6f1312e3ffd2a0222824ef697823f18cd714",
+   "steps": {
+    "height": 682,
+    "width": 1024,
+    "mean_brightness": 139.87907903378544,
+    "exposure_fixed": false,
+    "snake_check": {
+     "probs": [
+      0.010529479011893272,
+      0.019159749150276184,
+      0.9703107476234436
+     ],
+     "input_mean": 0.2934347093105316,
+     "input_std": 0.8415533304214478
+    }
+   },
+   "answer": {
+    "snake_check": {
+     "snake": false,
+     "snake_probability": 0.010529479011893272
+    },
+    "front_end": null,
+    "crop": null,
+    "top3": [],
+    "verdict": "unknown",
+    "reason": [
+     "no_snake"
+    ],
+    "message": "we don't know: no snake found",
+    "genus_fallback": null,
+    "frozen_verdict": "unknown"
+   }
+  },
+  {
+   "photo_id": "val_nonsnake_27028f72bf18f900",
+   "url": "https://open-images-dataset.s3.amazonaws.com/test/27028f72bf18f900.jpg",
+   "credit": "(c) Gyda Bj\u00f6rg El\u00edasd\u00f3ttir, CC BY 2.0",
+   "licence": "cc-by-2.0",
+   "set": "validation non-snake (dog)",
+   "sha1": "335ef61f0784fa10e46fae08b8a4f0c2bf55be02",
+   "steps": {
+    "height": 1024,
+    "width": 884,
+    "mean_brightness": 119.55094695630656,
+    "exposure_fixed": false,
+    "snake_check": {
+     "probs": [
+      0.011650776490569115,
+      0.020288623869419098,
+      0.9680606126785278
+     ],
+     "input_mean": 0.07595884054899216,
+     "input_std": 0.7407587170600891
+    }
+   },
+   "answer": {
+    "snake_check": {
+     "snake": false,
+     "snake_probability": 0.011650776490569115
+    },
+    "front_end": null,
+    "crop": null,
+    "top3": [],
+    "verdict": "unknown",
+    "reason": [
+     "no_snake"
+    ],
+    "message": "we don't know: no snake found",
+    "genus_fallback": null,
+    "frozen_verdict": "unknown"
+   }
+  },
+  {
+   "photo_id": "val_nonsnake_76367a8aae3925ea",
+   "url": "https://open-images-dataset.s3.amazonaws.com/test/76367a8aae3925ea.jpg",
+   "credit": "(c) John Liu, CC BY 2.0",
+   "licence": "cc-by-2.0",
+   "set": "validation non-snake (hand_arm)",
+   "sha1": "91df0dc0431bac42057591f292b402df5648896b",
+   "steps": {
+    "height": 680,
+    "width": 1024,
+    "mean_brightness": 105.15825721890319,
+    "exposure_fixed": false,
+    "snake_check": {
+     "probs": [
+      0.4560440480709076,
+      0.023391542956233025,
+      0.5205643773078918
+     ],
+     "input_mean": -0.10673012584447861,
+     "input_std": 0.9684281349182129
+    },
+    "crop_window_top_bottom_left_right": null,
+    "classifier_input_mean": -0.10646317899227142,
+    "classifier_input_std": 0.9677217602729797,
+    "top_species_logits": [
+     {
+      "class_id": 2,
+      "logit": 21.694807621474858
+     },
+     {
+      "class_id": 9,
+      "logit": 20.570958960159587
+     },
+     {
+      "class_id": 20,
+      "logit": 20.53505161131946
+     },
+     {
+      "class_id": 4,
+      "logit": 20.50422851484168
+     },
+     {
+      "class_id": 42,
+      "logit": 20.421100504975957
+     }
+    ],
+    "best_cosine": 0.7347100080285843
+   },
+   "answer": {
+    "snake_check": {
+     "snake": true,
+     "snake_probability": 0.4560440480709076
+    },
+    "front_end": {
+     "box_conf": 0.03193753957748413,
+     "mask_area": 0.0,
+     "m4_gate_would_say_snake": false
+    },
+    "crop": "whole photo",
+    "top3": [
+     {
+      "species": "Ptyas mucosa",
+      "probability": 0.1630962993016389,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Ptyas korros",
+      "probability": 0.08026794991858882,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Dendrelaphis tristis",
+      "probability": 0.07847017098792099,
+      "who_category": "not_listed"
+     }
+    ],
+    "verdict": "dangerous",
+    "reason": [
+     "who_listed_mass"
+    ],
+    "message": "dangerous: could be a WHO-listed species: 9% combined probability",
+    "genus_fallback": null,
+    "frozen_verdict": "unknown"
+   }
+  },
+  {
+   "photo_id": "val_nonsnake_58773227",
+   "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/58773227/medium.jpeg",
+   "credit": "no rights reserved",
+   "licence": "cc0",
+   "set": "validation non-snake (eel)",
+   "sha1": "00b0942db9f4289b86f7e0c3616428746527f3eb",
+   "steps": {
+    "height": 500,
+    "width": 375,
+    "mean_brightness": 189.46080533333333,
+    "exposure_fixed": false,
+    "snake_check": {
+     "probs": [
+      0.04688308387994766,
+      0.9375427961349487,
+      0.015574051067233086
+     ],
+     "input_mean": 0.9753994941711426,
+     "input_std": 0.8600526452064514
+    }
+   },
+   "answer": {
+    "snake_check": {
+     "snake": false,
+     "snake_probability": 0.04688308387994766
+    },
+    "front_end": null,
+    "crop": null,
+    "top3": [],
+    "verdict": "unknown",
+    "reason": [
+     "no_snake"
+    ],
+    "message": "we don't know: no snake found",
+    "genus_fallback": null,
+    "frozen_verdict": "unknown"
+   }
+  },
+  {
+   "photo_id": "val_nonsnake_721342637",
+   "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/721342637/medium.jpg",
+   "credit": "no rights reserved",
+   "licence": "cc0",
+   "set": "validation non-snake (legless_lizard)",
+   "sha1": "c95b5073f2ea265f85003ac56e28a29d1ae55443",
+   "steps": {
+    "height": 500,
+    "width": 281,
+    "mean_brightness": 132.09938790035588,
+    "exposure_fixed": false,
+    "snake_check": {
+     "probs": [
+      0.7917088866233826,
+      0.19359077513217926,
+      0.014700266532599926
+     ],
+     "input_mean": 0.17310692369937897,
+     "input_std": 0.5280901193618774
+    },
+    "crop_window_top_bottom_left_right": [
+     166,
+     337,
+     0,
+     262
+    ],
+    "classifier_input_mean": 0.11009135097265244,
+    "classifier_input_std": 0.6953325271606445,
+    "top_species_logits": [
+     {
+      "class_id": 0,
+      "logit": 20.438644349999066
+     },
+     {
+      "class_id": 52,
+      "logit": 19.07587717622033
+     },
+     {
+      "class_id": 44,
+      "logit": 18.65226928113161
+     },
+     {
+      "class_id": 114,
+      "logit": 18.644162323912663
+     },
+     {
+      "class_id": 121,
+      "logit": 16.362151176897545
+     }
+    ],
+    "best_cosine": 0.7448837440702205
+   },
+   "answer": {
+    "snake_check": {
+     "snake": true,
+     "snake_probability": 0.7917088866233826
+    },
+    "front_end": {
+     "box_conf": 0.8852967023849487,
+     "mask_area": 0.037743772241992886,
+     "m4_gate_would_say_snake": true
+    },
+    "crop": "mask box",
+    "top3": [
+     {
+      "species": "Indotyphlops braminus",
+      "probability": 0.42905360034509404,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Eryx johnii",
+      "probability": 0.18161548391365484,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Enhydris enhydris",
+      "probability": 0.13902618187868612,
+      "who_category": "not_listed"
+     }
+    ],
+    "verdict": "not_listed",
+    "reason": [],
+    "message": "not on the WHO list, still keep away",
+    "genus_fallback": null,
+    "frozen_verdict": "not_listed"
+   }
+  },
+  {
+   "photo_id": "val_nonsnake_53179163",
+   "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/53179163/medium.jpeg",
+   "credit": "(c) Ashwin Viswanathan, some rights reserved (CC BY)",
+   "licence": "cc-by",
+   "set": "validation non-snake (caecilian)",
+   "sha1": "bf690df7c22a197152e0cc552e94512667c9a3cc",
+   "steps": {
+    "height": 375,
+    "width": 500,
+    "mean_brightness": 81.6573991111111,
+    "exposure_fixed": false,
+    "snake_check": {
+     "probs": [
+      0.021752405911684036,
+      0.9580314755439758,
+      0.020216159522533417
+     ],
+     "input_mean": -0.426920086145401,
+     "input_std": 0.724928081035614
+    }
+   },
+   "answer": {
+    "snake_check": {
+     "snake": false,
+     "snake_probability": 0.021752405911684036
+    },
+    "front_end": null,
+    "crop": null,
+    "top3": [],
+    "verdict": "unknown",
+    "reason": [
+     "no_snake"
+    ],
+    "message": "we don't know: no snake found",
+    "genus_fallback": null,
+    "frozen_verdict": "unknown"
+   }
+  },
+  {
+   "photo_id": "val_nonsnake_806be9da35aca2bc",
+   "url": "https://open-images-dataset.s3.amazonaws.com/test/806be9da35aca2bc.jpg",
+   "credit": "(c) Nick Higgins, CC BY 2.0",
+   "licence": "cc-by-2.0",
+   "set": "validation non-snake (other_animal)",
+   "sha1": "ea42fca3413ac7cbd2061e7aa600582e4d317d8c",
+   "steps": {
+    "height": 681,
+    "width": 1024,
+    "mean_brightness": 113.45088363849119,
+    "exposure_fixed": false,
+    "snake_check": {
+     "probs": [
+      0.9675833582878113,
+      0.019425729289650917,
+      0.012990972958505154
+     ],
+     "input_mean": -0.012329526245594025,
+     "input_std": 0.7718679308891296
+    },
+    "crop_window_top_bottom_left_right": [
+     143,
+     681,
+     0,
+     820
+    ],
+    "classifier_input_mean": -0.003265596926212311,
+    "classifier_input_std": 0.7969192862510681,
+    "top_species_logits": [
+     {
+      "class_id": 4,
+      "logit": 21.285182875803596
+     },
+     {
+      "class_id": 7,
+      "logit": 20.88061026789403
+     },
+     {
+      "class_id": 33,
+      "logit": 20.003714930611412
+     },
+     {
+      "class_id": 76,
+      "logit": 19.195675304972877
+     },
+     {
+      "class_id": 47,
+      "logit": 18.952845763437082
+     }
+    ],
+    "best_cosine": 0.7278509197640536
+   },
+   "answer": {
+    "snake_check": {
+     "snake": true,
+     "snake_probability": 0.9675833582878113
+    },
+    "front_end": {
+     "box_conf": 0.43900173902511597,
+     "mask_area": 0.33072773265418504,
+     "m4_gate_would_say_snake": true
+    },
+    "crop": "mask box",
+    "top3": [
+     {
+      "species": "Fowlea piscator",
+      "probability": 0.290097865340127,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Malayopython reticulatus",
+      "probability": 0.2247519006993223,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Macrovipera lebetinus",
+      "probability": 0.12925861114475418,
+      "who_category": "2"
+     }
+    ],
+    "verdict": "dangerous",
+    "reason": [
+     "who_listed_mass",
+     "venomous_family_mass"
+    ],
+    "message": "dangerous: could be a WHO-listed species: Macrovipera lebetinus (Category 2)",
+    "genus_fallback": null,
+    "frozen_verdict": "dangerous"
+   }
+  },
+  {
+   "photo_id": "val_nonsnake_22679134",
+   "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/22679134/medium.jpg",
+   "credit": "(c) Nathan Earley, some rights reserved (CC BY)",
+   "licence": "cc-by",
+   "set": "validation non-snake (caecilian)",
+   "sha1": "27f6bc24fd9fd95382a004455d6a776ab5c56843",
+   "steps": {
+    "height": 500,
+    "width": 375,
+    "mean_brightness": 76.98713422222222,
+    "exposure_fixed": false,
+    "snake_check": {
+     "probs": [
+      0.9124575257301331,
+      0.0665191039443016,
+      0.021023349836468697
+     ],
+     "input_mean": -0.4873626232147217,
+     "input_std": 1.012885570526123
+    },
+    "crop_window_top_bottom_left_right": null,
+    "classifier_input_mean": -0.48736146092414856,
+    "classifier_input_std": 1.0170807838439941,
+    "top_species_logits": [
+     {
+      "class_id": 11,
+      "logit": 21.58057535134249
+     },
+     {
+      "class_id": 38,
+      "logit": 21.17146207791685
+     },
+     {
+      "class_id": 1,
+      "logit": 20.1105361863723
+     },
+     {
+      "class_id": 21,
+      "logit": 19.414607429320412
+     },
+     {
+      "class_id": 24,
+      "logit": 19.03212166048888
+     }
+    ],
+    "best_cosine": 0.6659862792109875
+   },
+   "answer": {
+    "snake_check": {
+     "snake": true,
+     "snake_probability": 0.9124575257301331
+    },
+    "front_end": {
+     "box_conf": 0.5306429266929626,
+     "mask_area": 0.013445333333333333,
+     "m4_gate_would_say_snake": true
+    },
+    "crop": "whole photo",
+    "top3": [
+     {
+      "species": "Elaphe taeniura",
+      "probability": 0.2506206045836875,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Coelognathus flavolineatus",
+      "probability": 0.19361170200066155,
+      "who_category": "not_listed"
+     },
+     {
+      "species": "Ahaetulla prasina",
+      "probability": 0.09914451229092962,
       "who_category": "not_listed"
      }
     ],
@@ -336,46 +1024,11 @@
     ],
     "message": "we don't know: unclear between species",
     "genus_fallback": {
-     "genus": "Ahaetulla",
-     "probability": 0.9459658669238186,
+     "genus": "Coelognathus",
+     "probability": 0.6299049300907321,
      "who_listed": false
-    }
-   }
-  },
-  {
-   "photo_id": "640148271",
-   "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/640148271/medium.jpg",
-   "sha1": "ac55e19fefc8e7f9a810693acea49912adb309bf",
-   "credit": "(c) Teja Yantrapalli, some rights reserved (CC BY)",
-   "licence": "cc-by",
-   "steps": {
-    "height": 375,
-    "width": 500,
-    "mean_brightness": 124.45360177777778,
-    "exposure_fixed": false,
-    "gate": {
-     "rule": "both",
-     "snake": false,
-     "box_conf": 0.535597562789917,
-     "mask_area": 0.0
     },
-    "mask_pixels": 0
-   },
-   "answer": {
-    "gate": {
-     "rule": "both",
-     "snake": false,
-     "box_conf": 0.535597562789917,
-     "mask_area": 0.0
-    },
-    "crop": null,
-    "top3": [],
-    "verdict": "unknown",
-    "reason": [
-     "no_snake"
-    ],
-    "message": "we don't know: no snake found",
-    "genus_fallback": null
+    "frozen_verdict": "unknown"
    }
   }
  ]

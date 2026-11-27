@@ -1,0 +1,89 @@
+clip,set,species,species_source,latency_s,frames,snake_frames,changes_after_first_answer,answered,first_answer_s,first_anything_s,final_shown,final_right,final_verdict,verdict_changes,final_pooled_verdict_no_latch,ever_dangerous,species_shown,locked_frames,expected_verdict
+ophiophagus_hannah_singapore_hunting.mp4,new_test,Ophiophagus hannah,stated,0.1,264,264,0,True,12.9,0.1,Psammodynastes pulverulentus,False,dangerous,0,dangerous,True,['Psammodynastes pulverulentus'],136,dangerous
+ophiophagus_hannah_singapore_hunting.mp4,new_test,Ophiophagus hannah,stated,0.25,106,106,0,True,3.25,0.25,Ptyas korros,False,dangerous,0,dangerous,True,['Ptyas korros'],94,dangerous
+ophiophagus_hannah_singapore_hunting.mp4,new_test,Ophiophagus hannah,stated,0.4,67,67,0,True,12.8,0.4,Psammodynastes pulverulentus,False,dangerous,0,dangerous,True,['Psammodynastes pulverulentus'],36,dangerous
+ophiophagus_hannah_singapore_hunting.mp4,new_test,Ophiophagus hannah,stated,0.8,34,34,0,True,4.8,0.8,Ptyas korros,False,dangerous,0,dangerous,True,['Ptyas korros'],29,dangerous
+ptyas_mucosa_india_drinking.mp4,new_test,Ptyas mucosa,inferred,0.1,301,300,0,True,1.2,0.1,Ptyas mucosa,True,dangerous,0,not_listed,True,['Ptyas mucosa'],290,not_listed
+ptyas_mucosa_india_drinking.mp4,new_test,Ptyas mucosa,inferred,0.25,121,120,0,True,1.5,0.25,Ptyas mucosa,True,dangerous,0,not_listed,True,['Ptyas mucosa'],116,not_listed
+ptyas_mucosa_india_drinking.mp4,new_test,Ptyas mucosa,inferred,0.4,76,76,0,True,1.6,0.4,Ptyas mucosa,True,dangerous,0,not_listed,True,['Ptyas mucosa'],73,not_listed
+ptyas_mucosa_india_drinking.mp4,new_test,Ptyas mucosa,inferred,0.8,39,39,0,True,1.6,0.8,Ptyas mucosa,True,dangerous,0,not_listed,True,['Ptyas mucosa'],38,not_listed
+bungarus_fasciatus_taiwan_night.mp4,new_test,Bungarus fasciatus,stated,0.1,301,301,0,True,0.6,0.1,Bungarus fasciatus,True,dangerous,0,dangerous,True,['Bungarus fasciatus'],296,dangerous
+bungarus_fasciatus_taiwan_night.mp4,new_test,Bungarus fasciatus,stated,0.25,121,121,0,True,0.75,0.25,Bungarus fasciatus,True,dangerous,0,dangerous,True,['Bungarus fasciatus'],119,dangerous
+bungarus_fasciatus_taiwan_night.mp4,new_test,Bungarus fasciatus,stated,0.4,76,76,0,True,1.2,0.4,Bungarus fasciatus,True,dangerous,0,dangerous,True,['Bungarus fasciatus'],74,dangerous
+bungarus_fasciatus_taiwan_night.mp4,new_test,Bungarus fasciatus,stated,0.8,39,39,1,True,3.2,0.8,Bungarus fasciatus,True,dangerous,2,dangerous,True,"['Bungarus fasciatus', 'Euprepiophis mandarinus']",36,dangerous
+bungarus_fasciatus_kerala_pond.mp4,new_test,Bungarus fasciatus,stated,0.1,301,301,0,True,0.6,0.1,Bungarus fasciatus,True,dangerous,0,dangerous,True,['Bungarus fasciatus'],296,dangerous
+bungarus_fasciatus_kerala_pond.mp4,new_test,Bungarus fasciatus,stated,0.25,121,121,0,True,0.75,0.25,Bungarus fasciatus,True,dangerous,0,dangerous,True,['Bungarus fasciatus'],119,dangerous
+bungarus_fasciatus_kerala_pond.mp4,new_test,Bungarus fasciatus,stated,0.4,76,76,0,True,1.2,0.4,Bungarus fasciatus,True,dangerous,0,dangerous,True,['Bungarus fasciatus'],74,dangerous
+bungarus_fasciatus_kerala_pond.mp4,new_test,Bungarus fasciatus,stated,0.8,39,39,0,True,1.6,0.8,Bungarus fasciatus,True,dangerous,0,dangerous,True,['Bungarus fasciatus'],38,dangerous
+ahaetulla_prasina_handled.mp4,new_test,Ahaetulla prasina,stated,0.1,205,63,0,False,,12.0,,False,dangerous,0,dangerous,True,[],0,not_listed
+ahaetulla_prasina_handled.mp4,new_test,Ahaetulla prasina,stated,0.25,83,28,0,True,20.75,11.75,Dendrelaphis tristis,False,dangerous,0,dangerous,True,['Dendrelaphis tristis'],1,not_listed
+ahaetulla_prasina_handled.mp4,new_test,Ahaetulla prasina,stated,0.4,52,16,0,True,20.8,12.0,Dendrelaphis tristis,False,dangerous,0,dangerous,True,['Dendrelaphis tristis'],1,not_listed
+ahaetulla_prasina_handled.mp4,new_test,Ahaetulla prasina,stated,0.8,27,8,0,True,21.6,13.6,Dendrelaphis tristis,False,dangerous,0,dangerous,True,['Dendrelaphis tristis'],1,not_listed
+elaphe_taeniura_taiwan_tree.mp4,new_test,Elaphe taeniura,stated,0.1,301,301,0,True,0.6,0.1,Elaphe taeniura,True,dangerous,0,dangerous,True,['Elaphe taeniura'],296,not_listed
+elaphe_taeniura_taiwan_tree.mp4,new_test,Elaphe taeniura,stated,0.25,121,121,0,True,1.25,0.25,Elaphe taeniura,True,dangerous,0,dangerous,True,['Elaphe taeniura'],117,not_listed
+elaphe_taeniura_taiwan_tree.mp4,new_test,Elaphe taeniura,stated,0.4,76,76,0,True,1.2,0.4,Elaphe taeniura,True,dangerous,0,dangerous,True,['Elaphe taeniura'],74,not_listed
+elaphe_taeniura_taiwan_tree.mp4,new_test,Elaphe taeniura,stated,0.8,39,39,0,True,1.6,0.8,Elaphe taeniura,True,dangerous,0,dangerous,True,['Elaphe taeniura'],38,not_listed
+chrysopelea_ornata_thailand_gecko.mp4,new_test,Chrysopelea ornata,stated,0.1,301,301,0,True,0.6,0.6,Chrysopelea ornata,True,dangerous,1,not_listed,True,['Chrysopelea ornata'],296,not_listed
+chrysopelea_ornata_thailand_gecko.mp4,new_test,Chrysopelea ornata,stated,0.25,121,121,0,True,0.75,0.75,Chrysopelea ornata,True,dangerous,1,not_listed,True,['Chrysopelea ornata'],119,not_listed
+chrysopelea_ornata_thailand_gecko.mp4,new_test,Chrysopelea ornata,stated,0.4,76,76,0,True,1.2,1.2,Chrysopelea ornata,True,dangerous,1,not_listed,True,['Chrysopelea ornata'],74,not_listed
+chrysopelea_ornata_thailand_gecko.mp4,new_test,Chrysopelea ornata,stated,0.8,39,39,0,True,1.6,1.6,Chrysopelea ornata,True,dangerous,1,not_listed,True,['Chrysopelea ornata'],38,not_listed
+cerberus_rynchops_eating_fish.mp4,new_test,Cerberus rynchops,stated,0.1,301,295,0,True,5.8,0.1,Echis carinatus,False,dangerous,0,dangerous,True,['Echis carinatus'],244,not_listed
+cerberus_rynchops_eating_fish.mp4,new_test,Cerberus rynchops,stated,0.25,121,119,0,True,5.0,0.25,Python molurus,False,dangerous,0,unknown,True,['Python molurus'],102,not_listed
+cerberus_rynchops_eating_fish.mp4,new_test,Cerberus rynchops,stated,0.4,76,75,0,True,8.4,0.4,Python molurus,False,dangerous,0,unknown,True,['Python molurus'],56,not_listed
+cerberus_rynchops_eating_fish.mp4,new_test,Cerberus rynchops,stated,0.8,39,39,0,True,1.6,0.8,Amphiesma stolatum,False,dangerous,2,dangerous,True,['Amphiesma stolatum'],38,not_listed
+oreocryptophis_porphyraceus_box.mp4,new_test,Oreocryptophis porphyraceus,stated,0.1,301,76,1,True,7.1,5.7,Oreocryptophis porphyraceus,True,dangerous,2,dangerous,True,"['Naja naja', 'Oreocryptophis porphyraceus']",85,not_listed
+oreocryptophis_porphyraceus_box.mp4,new_test,Oreocryptophis porphyraceus,stated,0.25,121,29,1,True,7.25,6.0,Oreocryptophis porphyraceus,True,dangerous,2,dangerous,True,"['Naja naja', 'Oreocryptophis porphyraceus']",34,not_listed
+oreocryptophis_porphyraceus_box.mp4,new_test,Oreocryptophis porphyraceus,stated,0.4,76,19,1,True,6.8,6.0,Oreocryptophis porphyraceus,True,dangerous,2,dangerous,True,"['Naja naja', 'Oreocryptophis porphyraceus']",22,not_listed
+oreocryptophis_porphyraceus_box.mp4,new_test,Oreocryptophis porphyraceus,stated,0.8,39,11,1,True,7.2,6.4,Oreocryptophis porphyraceus,True,dangerous,2,not_listed,True,"['Naja naja', 'Oreocryptophis porphyraceus']",12,not_listed
+indotyphlops_braminus_home.mp4,new_test,Indotyphlops braminus,stated,0.1,301,245,1,True,3.2,0.1,Indotyphlops braminus,True,dangerous,0,not_listed,True,"['Echis carinatus', 'Indotyphlops braminus']",239,not_listed
+indotyphlops_braminus_home.mp4,new_test,Indotyphlops braminus,stated,0.25,121,99,1,True,4.0,0.25,Indotyphlops braminus,True,dangerous,0,not_listed,True,"['Echis carinatus', 'Indotyphlops braminus']",93,not_listed
+indotyphlops_braminus_home.mp4,new_test,Indotyphlops braminus,stated,0.4,76,64,1,True,3.2,0.4,Indotyphlops braminus,True,dangerous,0,not_listed,True,"['Echis carinatus', 'Indotyphlops braminus']",60,not_listed
+indotyphlops_braminus_home.mp4,new_test,Indotyphlops braminus,stated,0.8,39,33,1,True,4.8,0.8,Indotyphlops braminus,True,dangerous,0,dangerous,True,"['Echis carinatus', 'Indotyphlops braminus']",30,not_listed
+indotyphlops_braminus_almeria.mp4,new_test,Indotyphlops braminus,stated,0.1,301,288,0,True,0.6,0.6,Indotyphlops braminus,True,dangerous,1,dangerous,True,['Indotyphlops braminus'],296,not_listed
+indotyphlops_braminus_almeria.mp4,new_test,Indotyphlops braminus,stated,0.25,121,116,0,True,0.75,0.75,Indotyphlops braminus,True,dangerous,1,dangerous,True,['Indotyphlops braminus'],119,not_listed
+indotyphlops_braminus_almeria.mp4,new_test,Indotyphlops braminus,stated,0.4,76,72,0,True,1.2,1.2,Indotyphlops braminus,True,dangerous,1,dangerous,True,['Indotyphlops braminus'],74,not_listed
+indotyphlops_braminus_almeria.mp4,new_test,Indotyphlops braminus,stated,0.8,39,36,2,True,1.6,1.6,,False,,4,,True,"['Dendrelaphis tristis', 'Indotyphlops braminus']",37,not_listed
+laticauda_colubrina_bali.mp4,new_test,Laticauda colubrina,stated,0.1,301,298,1,True,0.6,0.1,Laticauda colubrina,True,dangerous,0,dangerous,True,"['Laticauda colubrina', 'Laticauda laticaudata']",296,dangerous
+laticauda_colubrina_bali.mp4,new_test,Laticauda colubrina,stated,0.25,121,120,1,True,0.75,0.25,Laticauda colubrina,True,dangerous,0,dangerous,True,"['Laticauda colubrina', 'Laticauda laticaudata']",119,dangerous
+laticauda_colubrina_bali.mp4,new_test,Laticauda colubrina,stated,0.4,76,76,0,True,1.2,0.4,Laticauda colubrina,True,dangerous,0,dangerous,True,['Laticauda colubrina'],74,dangerous
+laticauda_colubrina_bali.mp4,new_test,Laticauda colubrina,stated,0.8,39,39,0,True,1.6,0.8,Laticauda colubrina,True,dangerous,0,dangerous,True,['Laticauda colubrina'],38,dangerous
+daboia_russelii_closeup.mp4,new_test,Daboia russelii,stated,0.1,121,121,0,True,0.6,0.1,Daboia russelii,True,dangerous,0,dangerous,True,['Daboia russelii'],116,dangerous
+daboia_russelii_closeup.mp4,new_test,Daboia russelii,stated,0.25,49,49,0,True,0.75,0.25,Daboia russelii,True,dangerous,0,dangerous,True,['Daboia russelii'],47,dangerous
+daboia_russelii_closeup.mp4,new_test,Daboia russelii,stated,0.4,31,31,0,True,1.2,0.4,Daboia russelii,True,dangerous,0,dangerous,True,['Daboia russelii'],29,dangerous
+daboia_russelii_closeup.mp4,new_test,Daboia russelii,stated,0.8,16,16,0,True,1.6,0.8,Daboia russelii,True,dangerous,0,dangerous,True,['Daboia russelii'],15,dangerous
+craspedocephalus_malabaricus_branch.mp4,new_test,Craspedocephalus malabaricus,stated,0.1,241,241,0,True,3.0,0.1,Craspedocephalus malabaricus,True,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],212,dangerous
+craspedocephalus_malabaricus_branch.mp4,new_test,Craspedocephalus malabaricus,stated,0.25,97,97,0,True,3.0,0.25,Craspedocephalus malabaricus,True,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],86,dangerous
+craspedocephalus_malabaricus_branch.mp4,new_test,Craspedocephalus malabaricus,stated,0.4,61,61,0,True,3.2,0.4,Craspedocephalus malabaricus,True,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],54,dangerous
+craspedocephalus_malabaricus_branch.mp4,new_test,Craspedocephalus malabaricus,stated,0.8,31,31,0,True,4.0,0.8,Craspedocephalus malabaricus,True,dangerous,0,dangerous,True,['Craspedocephalus malabaricus'],27,dangerous
+dendrelaphis_tristis_rock.mp4,new_test,Dendrelaphis tristis,inferred,0.1,288,286,0,True,0.6,0.6,Dendrelaphis tristis,True,dangerous,1,not_listed,True,['Dendrelaphis tristis'],283,not_listed
+dendrelaphis_tristis_rock.mp4,new_test,Dendrelaphis tristis,inferred,0.25,116,115,0,True,0.75,0.75,Dendrelaphis tristis,True,dangerous,1,not_listed,True,['Dendrelaphis tristis'],114,not_listed
+dendrelaphis_tristis_rock.mp4,new_test,Dendrelaphis tristis,inferred,0.4,73,72,0,True,1.2,1.2,Dendrelaphis tristis,True,dangerous,1,not_listed,True,['Dendrelaphis tristis'],71,not_listed
+dendrelaphis_tristis_rock.mp4,new_test,Dendrelaphis tristis,inferred,0.8,37,37,0,True,1.6,1.6,Dendrelaphis tristis,True,dangerous,1,not_listed,True,['Dendrelaphis tristis'],36,not_listed
+coelognathus_helena_floor.mp4,new_test,Coelognathus helena,stated,0.1,161,161,0,True,0.6,0.1,Dendrelaphis tristis,False,dangerous,0,dangerous,True,['Dendrelaphis tristis'],156,not_listed
+coelognathus_helena_floor.mp4,new_test,Coelognathus helena,stated,0.25,65,65,0,True,0.75,0.25,Dendrelaphis tristis,False,dangerous,0,dangerous,True,['Dendrelaphis tristis'],63,not_listed
+coelognathus_helena_floor.mp4,new_test,Coelognathus helena,stated,0.4,41,41,0,True,1.2,0.4,Dendrelaphis tristis,False,dangerous,0,dangerous,True,['Dendrelaphis tristis'],39,not_listed
+coelognathus_helena_floor.mp4,new_test,Coelognathus helena,stated,0.8,21,21,0,True,1.6,0.8,Dendrelaphis tristis,False,dangerous,2,dangerous,True,['Dendrelaphis tristis'],20,not_listed
+python_molurus_galibore.mp4,new_test,Python molurus,inferred,0.1,301,295,0,True,0.6,0.6,Python molurus,True,dangerous,1,not_listed,True,['Python molurus'],296,not_listed
+python_molurus_galibore.mp4,new_test,Python molurus,inferred,0.25,121,117,0,True,0.75,0.75,Python molurus,True,dangerous,1,not_listed,True,['Python molurus'],119,not_listed
+python_molurus_galibore.mp4,new_test,Python molurus,inferred,0.4,76,74,0,True,1.2,1.2,Python molurus,True,dangerous,1,not_listed,True,['Python molurus'],74,not_listed
+python_molurus_galibore.mp4,new_test,Python molurus,inferred,0.8,39,38,0,True,1.6,1.6,Python molurus,True,dangerous,1,not_listed,True,['Python molurus'],38,not_listed
+naja_kaouthia_baby_container.mp4,new_test,Naja kaouthia,stated,0.1,301,102,1,True,2.3,0.8,,False,dangerous,0,dangerous,True,"['Hydrophis platurus', 'Ptyas korros']",132,dangerous
+naja_kaouthia_baby_container.mp4,new_test,Naja kaouthia,stated,0.25,121,40,1,True,3.0,1.75,,False,dangerous,0,dangerous,True,"['Hydrophis platurus', 'Ptyas korros']",50,dangerous
+naja_kaouthia_baby_container.mp4,new_test,Naja kaouthia,stated,0.4,76,25,1,True,2.8,2.0,,False,dangerous,0,dangerous,True,"['Hydrophis platurus', 'Ptyas korros']",29,dangerous
+naja_kaouthia_baby_container.mp4,new_test,Naja kaouthia,stated,0.8,39,13,1,True,4.0,2.4,,False,dangerous,0,dangerous,True,"['Eryx johnii', 'Ptyas korros']",14,dangerous
+naja_kaouthia_captive_feeding.mp4,new_test,Naja kaouthia,stated,0.1,301,296,0,True,3.7,0.1,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],265,dangerous
+naja_kaouthia_captive_feeding.mp4,new_test,Naja kaouthia,stated,0.25,121,118,1,True,3.25,0.25,Naja naja,False,dangerous,0,dangerous,True,"['Lycodon fasciolatus', 'Naja naja']",109,dangerous
+naja_kaouthia_captive_feeding.mp4,new_test,Naja kaouthia,stated,0.4,76,75,0,True,4.0,0.4,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],67,dangerous
+naja_kaouthia_captive_feeding.mp4,new_test,Naja kaouthia,stated,0.8,39,38,0,True,4.8,0.8,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],34,dangerous
+naja_kaouthia_bangladesh_hood.mp4,new_test,Naja kaouthia,stated,0.1,301,301,0,True,0.6,0.1,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],296,dangerous
+naja_kaouthia_bangladesh_hood.mp4,new_test,Naja kaouthia,stated,0.25,121,121,0,True,0.75,0.25,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],119,dangerous
+naja_kaouthia_bangladesh_hood.mp4,new_test,Naja kaouthia,stated,0.4,76,76,0,True,1.2,0.4,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],74,dangerous
+naja_kaouthia_bangladesh_hood.mp4,new_test,Naja kaouthia,stated,0.8,39,39,0,True,1.6,0.8,Naja naja,False,dangerous,0,dangerous,True,['Naja naja'],38,dangerous
+fowlea_piscator_rock.mp4,new_test,Fowlea piscator,stated,0.1,301,301,0,True,0.6,0.6,Fowlea piscator,True,not_listed,0,not_listed,False,['Fowlea piscator'],296,not_listed
+fowlea_piscator_rock.mp4,new_test,Fowlea piscator,stated,0.25,121,121,0,True,0.75,0.75,Fowlea piscator,True,not_listed,0,not_listed,False,['Fowlea piscator'],119,not_listed
+fowlea_piscator_rock.mp4,new_test,Fowlea piscator,stated,0.4,76,76,0,True,1.2,1.2,Fowlea piscator,True,not_listed,0,not_listed,False,['Fowlea piscator'],74,not_listed
+fowlea_piscator_rock.mp4,new_test,Fowlea piscator,stated,0.8,39,39,0,True,1.6,1.6,Fowlea piscator,True,not_listed,0,not_listed,False,['Fowlea piscator'],38,not_listed
+lycodon_aulicus_baby.mp4,new_test,Lycodon aulicus,stated,0.1,301,301,0,True,0.6,0.1,Lycodon aulicus,True,dangerous,0,not_listed,True,['Lycodon aulicus'],296,not_listed
+lycodon_aulicus_baby.mp4,new_test,Lycodon aulicus,stated,0.25,121,121,0,True,0.75,0.25,Lycodon aulicus,True,dangerous,0,not_listed,True,['Lycodon aulicus'],119,not_listed
+lycodon_aulicus_baby.mp4,new_test,Lycodon aulicus,stated,0.4,76,76,0,True,1.2,0.4,Lycodon aulicus,True,dangerous,0,not_listed,True,['Lycodon aulicus'],74,not_listed
+lycodon_aulicus_baby.mp4,new_test,Lycodon aulicus,stated,0.8,39,39,1,True,4.8,0.8,Lycodon aulicus,True,dangerous,2,not_listed,True,"['Fowlea piscator', 'Lycodon aulicus']",34,not_listed

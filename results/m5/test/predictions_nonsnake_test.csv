@@ -1,0 +1,601 @@
+set,path,logit_snake,logit_lookalike,logit_other,p_snake,p_lookalike,p_other,category,owner,source,called_a_snake
+nonsnake_test,images/rope_hose_belt/openimages_1709d01669b8a4d9.jpg,-1.5140187,-1.0062579,2.6273787,0.015255015833046117,0.025347222451862918,0.959397761715091,rope_hose_belt,Rachel Kramer,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_6d4895de6e149840.jpg,-1.5218163,-1.2351688,2.8861578,0.011843441481360835,0.015774926558853628,0.9723816319597854,rope_hose_belt,dangersquirrel,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_1ac9f65cb0a2f36a.jpg,-1.3594544,-1.7568878,2.920391,0.013531558908306821,0.009093785373135125,0.9773746557185581,rope_hose_belt,Herb Neufeld,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_a2a7d03d6e8ce8ae.jpg,-1.8566161,-0.9927516,2.5215907,0.012038430484907414,0.028558898619559982,0.9594026708955325,rope_hose_belt,Kazue Asano,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_7efd9c3dba023ee9.jpg,-1.3204614,-1.1744102,2.8982477,0.014264730466877481,0.016507936904575273,0.9692273326285473,rope_hose_belt,beta.robot,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_8ad74911bc8c5828.jpg,-1.1567534,-1.6260824,2.8586438,0.01752211510588621,0.010958712515908492,0.9715191723782052,rope_hose_belt,Gustavo,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_fbbab14b88bee6fc.jpg,-1.3156282,-1.2846028,2.6181746,0.018820891126668706,0.019413969475947437,0.961765139397384,rope_hose_belt,NFGphoto,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_421a96b9538e6c53.jpg,-0.87764734,-1.736649,2.726692,0.026191053582840507,0.011094130960088084,0.9627148154570714,rope_hose_belt,Ben Sisto,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_b551b0cec74c06b6.jpg,-1.1457397,-1.461974,2.7561438,0.019521918006780818,0.014229304491598732,0.9662487775016204,rope_hose_belt,Paul Hudson,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_69197b77d9ced593.jpg,-1.716011,-0.64218175,2.6630685,0.011948695989981512,0.03496863092229972,0.9530826730877187,rope_hose_belt,Dan Zen,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_c52e54ebdf1c211a.jpg,-1.0952384,-1.4145184,2.8514695,0.01869461361075334,0.013584853245901274,0.9677205331433454,rope_hose_belt,Red Maxwell,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_0093327faea501b8.jpg,-1.4307116,-1.3265623,2.685693,0.01576091928561188,0.01749093441077921,0.966748146303609,rope_hose_belt,PoolSafely,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_49b6b07998e38fce.jpg,-1.3089317,-0.787364,1.8348464,0.03864586838654688,0.06510540495370008,0.896248726659753,rope_hose_belt,deargdoom57,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_89e8531a5558ff8e.jpg,-0.79768884,-1.8878813,2.7266734,0.02835409206351317,0.009531278849370299,0.9621146290871166,rope_hose_belt,Liga Eglite,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_09a08f15ec44fc7f.jpg,-1.6140239,-1.5373912,3.3544927,0.006854336493368314,0.007400253206345825,0.9857454103002858,rope_hose_belt,Anastasia,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_c46f2efdf6ae7db8.jpg,-1.4969428,-1.1132421,2.5384881,0.016939105090882554,0.024861627726503358,0.9581992671826141,rope_hose_belt,jfboisjoli,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_f83f43821a5b5eaa.jpg,-1.2812644,-1.3303101,2.8451767,0.015647207093359865,0.014898294459167368,0.9694544984474728,rope_hose_belt,illinigardner,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_71cde9c771a2aabb.jpg,-1.3175218,-1.0910826,3.0972052,0.011776704515263714,0.014769475526875173,0.9734538199578612,rope_hose_belt,"""G"" jewels g is for grandma",openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_5a500d095cdca299.jpg,-1.6534513,-1.109235,2.7934303,0.01135285138961652,0.019563884444668608,0.9690832641657148,rope_hose_belt,JAXPORT,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_a8b705a8aece2ebd.jpg,-1.4155244,-1.0744056,2.8878586,0.013096537006238508,0.01842054549361602,0.9684829175001456,rope_hose_belt,sydney g,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_ded49d6acfc2d666.jpg,-0.566158,-1.4884007,2.2255855,0.056474659289457656,0.022455808907703014,0.9210695318028393,rope_hose_belt,Pete Birkinshaw,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_b6932ce89ec54b22.jpg,-1.40165,-1.2554097,2.813788,0.014309980597710818,0.016563434713931652,0.9691265846883576,rope_hose_belt,Panagiotis Liberopoulos,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_c438b968b199aa2c.jpg,-1.5959108,-1.1285563,3.1339328,0.00863009263875689,0.013771617061973164,0.97759829029927,rope_hose_belt,Scazon,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_54e2ff91b82e4474.jpg,-1.4619896,-0.94705904,3.5092287,0.006808464999173929,0.011394117925738256,0.9817974170750878,rope_hose_belt,Cuncun Wijaya,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_e61dd9d39da46498.jpg,-1.1667743,-1.2670363,2.269639,0.030321498256075816,0.027428838895723975,0.9422496628482002,rope_hose_belt,Faruk Ateş,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_179c191aac94cdc8.jpg,-1.6732826,-0.6811391,3.010924,0.008934843182764694,0.02409735534043497,0.9669678014768003,rope_hose_belt,David Wilson,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_6bfaddfe83cfdba6.jpg,-1.4871655,-1.0438774,3.040408,0.01051617859541025,0.016382324675413715,0.973101496729176,rope_hose_belt,Imágenes Gratis Online,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_d36c940fa03d8777.jpg,-1.4954727,-1.4390079,2.822103,0.012976116648323226,0.013729891081670989,0.9732939922700059,rope_hose_belt,NY State IPM Program  at Cornell University,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_7dd5d975e0cbe896.jpg,-1.151552,-0.7530566,2.2530992,0.03068108121421702,0.04570197975046527,0.9236169390353177,rope_hose_belt,Andy Maguire,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_e70fe0300e57e87b.jpg,-1.3528702,-1.2610083,2.1710887,0.02776647361308248,0.0304379811271612,0.9417955452597563,rope_hose_belt,mbtrama,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_3e330c7f77737549.jpg,-1.20385,-1.3619405,2.9543223,0.015195651949453918,0.012973629937270609,0.9718307181132755,rope_hose_belt,Madison Scott-Clary,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_bf0a617ace1d9f18.jpg,-1.3653704,-0.98931277,2.5967867,0.018172852406827082,0.02646932418356665,0.9553578234096062,rope_hose_belt,Shiraz Contractor,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_13b1996078f70cdb.jpg,-0.71767664,-1.859192,2.8554668,0.027065249130240703,0.008642874507335113,0.9642918763624242,rope_hose_belt,Kazuhiro Keino,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_eea9b15b0199fd7e.jpg,-1.2240623,-1.4218124,2.742217,0.01831222369558786,0.015026550929688801,0.9666612253747233,rope_hose_belt,Line in the Sand Shooter,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_9b83356ba1532bee.jpg,-1.3037701,-1.3863564,2.8620265,0.015068244819312064,0.013873814816165042,0.971057940364523,rope_hose_belt,Irene Tobón,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_f8201505a39a4d1a.jpg,1.3600618,-1.9976987,0.21608199,0.738900676618324,0.025723449543977508,0.2353758738376985,rope_hose_belt,Cold War Warrior Follow Me on Ipernity,openimages,True
+nonsnake_test,images/rope_hose_belt/openimages_ff9ae29f4d729442.jpg,-0.72047025,-1.7268186,2.96613,0.024228041852374465,0.008856594887676253,0.9669153632599492,rope_hose_belt,Program Executive Office Soldier,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_b40b465dba2600c8.jpg,-1.8802843,-1.5610745,2.4769151,0.012435596961489947,0.017111878691344527,0.9704525243471654,rope_hose_belt,karen bunal,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_c0170da7d444c8ed.jpg,-1.1298181,-0.7765586,2.749616,0.019677091023701805,0.02801428523006686,0.9523086237462314,rope_hose_belt,Jonathan Youngblood,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_1db1b026e66aff5f.jpg,-1.641064,-1.4659928,2.5469515,0.014687904856577895,0.017498156914781165,0.9678139382286408,rope_hose_belt,ms.akr,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_451ce73e20ac6e2c.jpg,-1.5387428,-1.5892646,2.5354357,0.016460122857621287,0.015649185317354115,0.9678906918250245,rope_hose_belt,Laurence Grayson,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_868e829ce9a1cfee.jpg,-1.7784626,-1.5492007,2.785265,0.010183495065409307,0.01280749029229108,0.9770090146422996,rope_hose_belt,Jo,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_dc511381f1d31a57.jpg,0.88827705,-2.391961,1.3352565,0.38443773478343235,0.014462278655560842,0.6010999865610067,rope_hose_belt,allispossible.org.uk,openimages,True
+nonsnake_test,images/rope_hose_belt/openimages_d8b48e363a44b95c.jpg,-1.3048643,-1.8485187,2.579519,0.019913352482113848,0.011562141370190864,0.9685245061476953,rope_hose_belt,Salvadonica Borgo del Chianti,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_2fc76926b49dc165.jpg,-1.2119983,-1.0682304,2.3442442,0.02689188770096506,0.031049806257651108,0.9420583060413837,rope_hose_belt,Cognoscenti*,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_40f7feedebf14c29.jpg,-1.2979137,-1.0017049,2.352423,0.02449037155502081,0.03293344947184671,0.9425761789731324,rope_hose_belt,Axel Tregoning,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_f830f498eefc9b5f.jpg,-0.57298,-2.7253304,2.928131,0.02918133994890187,0.003391183793823579,0.9674274762572745,rope_hose_belt,Jesus,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_0a31e3f4898d25cd.jpg,-1.3443024,-1.4673538,2.598747,0.018705625099498652,0.01653985439060742,0.9647545205098939,rope_hose_belt,Steve Mullis,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_a21093132630d7a2.jpg,-1.5404453,-1.6638302,2.3685246,0.01933058160978137,0.017086752936644183,0.9635826654535744,rope_hose_belt,Toshihiro Gamo,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_5e741a243c8cd45f.jpg,-1.6555806,-1.2403325,2.4542892,0.015759564686442705,0.023871745492613915,0.9603686898209434,rope_hose_belt,clyyyde79,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_408e6a6f9f0ab7f3.jpg,-1.28821,-1.3755866,2.7389557,0.017236027627113015,0.01579392263406338,0.9669700497388237,rope_hose_belt,fervent-adepte-de-la-mode,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_f3c1154aa850c558.jpg,-1.5990602,-1.2181375,2.9148161,0.010667966487747935,0.015614003391919764,0.9737180301203323,rope_hose_belt,Tomas Cuba,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_949673e309b135a8.jpg,-1.4539095,-1.5838263,2.6261487,0.016386168048680132,0.014389816476769877,0.96922401547455,rope_hose_belt,Sexy Jean Store,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_849dadd2af10b041.jpg,-1.0721371,-1.1771386,2.6748939,0.022575734492151094,0.020325456890472018,0.9570988086173768,rope_hose_belt,Chad Kainz,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_adabb94d276b1872.jpg,0.46930596,-2.5690296,1.5057253,0.2585971100909202,0.012390570392046468,0.7290123195170334,rope_hose_belt,Jonas Gerding,openimages,True
+nonsnake_test,images/rope_hose_belt/openimages_8844e29411829543.jpg,-1.5262359,-1.2886323,2.6355984,0.015047241591728818,0.019083007730336533,0.9658697506779347,rope_hose_belt,Jack Berry,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_ac5f24272ec4945b.jpg,-1.1790587,-1.3770047,3.3201704,0.010897023586053406,0.008940072389804772,0.9801629040241419,rope_hose_belt,ddornerjr,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_dea4cab251264455.jpg,-1.3094369,-1.3794338,2.5610168,0.02004147013596762,0.018686600824978594,0.9612719290390537,rope_hose_belt,CuteKittenHorselover,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_564939642f96939b.jpg,-1.2119422,-1.8040355,3.0567443,0.01370221115423291,0.007579626453734498,0.9787181623920327,rope_hose_belt,lesliejm64,openimages,False
+nonsnake_test,images/rope_hose_belt/openimages_a85fb755c7cecd75.jpg,-1.8249797,-1.4794439,2.4942915,0.012895472308107893,0.018218035517267174,0.968886492174625,rope_hose_belt,AmazonCARES,openimages,False
+nonsnake_test,images/tshirt/openimages_ba3e7ad93e5c0d6b.jpg,-1.4309282,-1.1961194,2.8293912,0.013680401336426975,0.0173011513138374,0.9690184473497355,tshirt,Tatsuo Yamashita,openimages,False
+nonsnake_test,images/tshirt/openimages_8931d8e4ba89ed62.jpg,-1.5762869,-1.4760865,2.998915,0.010085421147825112,0.011148348054226724,0.9787662307979481,tshirt,Oli R,openimages,False
+nonsnake_test,images/tshirt/openimages_1376dfa7c2f908a8.jpg,-1.2670053,-1.3722179,2.8014493,0.016565432085215704,0.014911094297903936,0.9685234736168804,tshirt,Carrie A.,openimages,False
+nonsnake_test,images/tshirt/openimages_e0406dcb4c8d256b.jpg,-1.4565088,-1.2174394,3.4839597,0.007037009762487527,0.008937471599096516,0.9840255186384159,tshirt,Isaac Wedin,openimages,False
+nonsnake_test,images/tshirt/openimages_d35d97ee5d221edd.jpg,-1.5339313,-1.4703001,2.781559,0.013001193937360466,0.01385536323111088,0.9731434428315288,tshirt,Harrisburg NC,openimages,False
+nonsnake_test,images/tshirt/openimages_40700c4f2832b8a2.jpg,-1.6055206,-1.3226177,2.620786,0.014126114144399687,0.018745018767758113,0.9671288670878421,tshirt,Eoin Gardiner,openimages,False
+nonsnake_test,images/tshirt/openimages_341348c8d0886695.jpg,-0.74051917,-1.4938879,3.3421097,0.016454963114289716,0.0077466338787068705,0.9757984030070034,tshirt,Daniel_Afanador,openimages,False
+nonsnake_test,images/tshirt/openimages_f648beff6e0c9504.jpg,-1.1264232,-1.8347497,2.6969662,0.02116334522473331,0.010422262949480563,0.968414391825786,tshirt,Generation Bass,openimages,False
+nonsnake_test,images/tshirt/openimages_f02e5fa4cf9459c7.jpg,-0.10988265,-1.6393716,2.141565,0.09329988293882296,0.020213079667931,0.8864870373932461,tshirt,Robert Nunnally,openimages,False
+nonsnake_test,images/tshirt/openimages_69ed375b915c2993.jpg,-1.2293283,-1.3104744,2.5548563,0.021776132118017145,0.020078877924930516,0.9581449899570523,tshirt,JVCAmerica,openimages,False
+nonsnake_test,images/tshirt/openimages_2cca7da186ea7802.jpg,-1.5327482,-1.120098,2.8673449,0.01190911886387436,0.017992492683323147,0.9700983884528025,tshirt,Camp Pinewood,openimages,False
+nonsnake_test,images/tshirt/openimages_fa2b2c9f3650923c.jpg,-1.5235312,-0.98988867,2.7340941,0.013633792583924383,0.023247416083778553,0.963118791332297,tshirt,Konstantin Tilberg,openimages,False
+nonsnake_test,images/tshirt/openimages_a7b055449e1b92ca.jpg,-1.2771668,-1.2062324,2.834152,0.015847695299455688,0.017012672078882848,0.9671396326216616,tshirt,Spiegel,openimages,False
+nonsnake_test,images/tshirt/openimages_75c17c62fde91212.jpg,-1.2989584,-1.0089209,2.1281404,0.030189890616890456,0.04034811270675177,0.9294619966763578,tshirt,Lelê Breveglieri,openimages,False
+nonsnake_test,images/tshirt/openimages_7e5f69d26c5914c9.jpg,-1.3218178,-1.1511782,2.6768627,0.01763288452621508,0.020913715707396124,0.9614533997663889,tshirt,Instituto Municipal de Deportes del Ayuntamiento de Sevilla,openimages,False
+nonsnake_test,images/tshirt/openimages_5af5a83ed8d2bc4a.jpg,-1.195122,-1.4105586,2.7033052,0.019557607166065163,0.01576713521592442,0.9646752576180103,tshirt,叶宁,openimages,False
+nonsnake_test,images/tshirt/openimages_fb970adf0241d222.jpg,-1.8008956,-1.6881833,3.2661076,0.00621823501603907,0.006960131772548276,0.9868216332114126,tshirt,Steve Garner,openimages,False
+nonsnake_test,images/tshirt/openimages_c7553859c33240db.jpg,-1.3123056,-0.75567573,2.8870494,0.0144116900258087,0.025145263645914958,0.9604430463282763,tshirt,All about the clothes!,openimages,False
+nonsnake_test,images/tshirt/openimages_dd984424ac1b6a2d.jpg,-1.4119058,-0.9656376,2.7848454,0.01448593001537558,0.022633837805954914,0.9628802321786696,tshirt,Keith  Bacongco,openimages,False
+nonsnake_test,images/tshirt/openimages_0a0c1f65f19859c0.jpg,-1.6071779,-1.3044134,2.8576486,0.011203283549204525,0.015164715935361076,0.9736320005154345,tshirt,Courtney Boyd Myers,openimages,False
+nonsnake_test,images/tshirt/openimages_986e57417899d74f.jpg,-1.2709556,-1.7956465,2.7856581,0.016843505810699988,0.009966946524147823,0.9731895476651523,tshirt,Jordon B,openimages,False
+nonsnake_test,images/tshirt/openimages_a1901e461792144f.jpg,-1.4671768,-1.147537,2.9126818,0.012164950364552013,0.016746657666182083,0.9710883919692659,tshirt,Kana Natsuno,openimages,False
+nonsnake_test,images/tshirt/openimages_f95631875f8ccfad.jpg,-1.0759244,-1.0687349,2.2872849,0.032374038919842314,0.03260763077078789,0.9350183303093699,tshirt,Julie,openimages,False
+nonsnake_test,images/tshirt/openimages_91394ffc4414ba12.jpg,-1.3600969,-1.0352526,3.095198,0.011303861069029275,0.015642454417676567,0.9730536845132942,tshirt,Ray MacLean,openimages,False
+nonsnake_test,images/tshirt/openimages_4e85764cf3e947be.jpg,-1.3138701,-1.4611164,2.9584727,0.013595735688084169,0.011734226242193778,0.974670038069722,tshirt,Hannah Donovan,openimages,False
+nonsnake_test,images/tshirt/openimages_54b036d14624ffeb.jpg,-1.6174248,-1.2442815,2.854737,0.011111349697913097,0.016136929147014905,0.972751721155072,tshirt,SteelCityHobbies,openimages,False
+nonsnake_test,images/tshirt/openimages_45bf6f80b9b1ed9b.jpg,-1.318951,-1.3221334,2.7014341,0.017325202489787767,0.017270154404356863,0.9654046431058555,tshirt,Yandle,openimages,False
+nonsnake_test,images/tshirt/openimages_8671057cadc826e3.jpg,-1.3271232,-1.0999889,2.7045805,0.017061398307143708,0.021412027626849652,0.9615265740660065,tshirt,Trevor Owens,openimages,False
+nonsnake_test,images/tshirt/openimages_38e4a8d82eb4b34b.jpg,-1.5357888,-1.1596773,3.2807953,0.007936572791185075,0.011560487616197537,0.9805029395926175,tshirt,Juan Ángel San José Román,openimages,False
+nonsnake_test,images/tshirt/openimages_480eaf8859f62f4e.jpg,-1.6858969,-1.2664373,2.8224218,0.010719237304896427,0.016305453235389768,0.9729753094597139,tshirt,Steffen Voß,openimages,False
+nonsnake_test,images/tshirt/openimages_014ed3708b01f8d2.jpg,-1.301171,-1.6246486,2.4914262,0.02169427019296844,0.01569858497439607,0.9626071448326355,tshirt,caroenvoyage,openimages,False
+nonsnake_test,images/tshirt/openimages_f6a381b5d53c95da.jpg,-0.9866483,-1.5691968,3.0422478,0.01731382501805931,0.009669308686366137,0.9730168662955746,tshirt,Mirko Tobias Schäfer,openimages,False
+nonsnake_test,images/tshirt/openimages_d43a7f1c16186190.jpg,-0.9386811,-1.5270699,2.240985,0.03907173860702126,0.02169345512416916,0.9392348062688096,tshirt,trickofthelight,openimages,False
+nonsnake_test,images/tshirt/openimages_1bd45cd89a5178a8.jpg,-1.3357464,-1.3096588,2.594403,0.018888946642998568,0.019388197744973825,0.9617228556120276,tshirt,kyle post,openimages,False
+nonsnake_test,images/tshirt/openimages_ce9ef20038d5048c.jpg,-1.0692987,-1.0365157,3.2349348,0.013149971976415249,0.013588211665349867,0.9732618163582348,tshirt,Andrew  Kimmell,openimages,False
+nonsnake_test,images/tshirt/openimages_ed6845d0dad1b161.jpg,-0.6212999,-2.2396555,2.7385461,0.033352252869454736,0.006611230027374593,0.9600365171031706,tshirt,Jens karlsson,openimages,False
+nonsnake_test,images/tshirt/openimages_435a3edf6cbab131.jpg,-1.1050922,-1.1947956,2.8847303,0.017870067457013573,0.01633685672505152,0.9657930758179348,tshirt,gonsee,openimages,False
+nonsnake_test,images/tshirt/openimages_3e261705c7be71fb.jpg,-1.1430931,-1.432742,3.093558,0.014099534566930274,0.01055387285058817,0.9753465925824815,tshirt,Josiah Mackenzie,openimages,False
+nonsnake_test,images/tshirt/openimages_c7b8e7dad15e3d75.jpg,-0.80010575,-1.7103024,2.8183153,0.025852415363985283,0.010404177251142677,0.963743407384872,tshirt,Tucker Sherman,openimages,False
+nonsnake_test,images/tshirt/openimages_6756ebb86b81b738.jpg,-1.8545383,-1.2417195,2.7289948,0.009929977948014326,0.01832703069729441,0.9717429913546912,tshirt,jordan ford,openimages,False
+nonsnake_test,images/tshirt/openimages_12d1d6cb01a346b6.jpg,-1.4616914,-0.9897289,2.5422823,0.017415936358192757,0.02792013657984981,0.9546639270619575,tshirt,geo dee,openimages,False
+nonsnake_test,images/tshirt/openimages_86e8c6b4a3da6306.jpg,-1.3989143,-1.3785133,2.471847,0.020000196386393432,0.020412410890015054,0.9595873927235915,tshirt,Plusea,openimages,False
+nonsnake_test,images/tshirt/openimages_1e2a4eb4135aeb2e.jpg,-1.1384537,-1.2997414,2.508961,0.024859312974263584,0.021156448442287628,0.9539842385834488,tshirt,Lee Brimelow,openimages,False
+nonsnake_test,images/tshirt/openimages_c7e41abce0b72a95.jpg,-1.7397403,-1.016403,3.237394,0.006751310392235051,0.013916482349951626,0.9793322072578132,tshirt,Kate Ausburn,openimages,False
+nonsnake_test,images/tshirt/openimages_b97b4a9d2cdaca48.jpg,-1.6519859,-1.2335451,2.9186723,0.010088041731235387,0.015329690988497487,0.9745822672802671,tshirt,Culpeper County Sheriff's Office,openimages,False
+nonsnake_test,images/tshirt/openimages_d7795e9c39abeea1.jpg,-1.4991075,-1.470826,2.765476,0.013667929500641942,0.01405999704558416,0.9722720734537739,tshirt,aufgehts2013,openimages,False
+nonsnake_test,images/tshirt/openimages_0e885357f69f2431.jpg,-1.021891,-1.141127,3.1125622,0.01554169906586305,0.013794785714151972,0.970663515219985,tshirt,Shawn Rossi,openimages,False
+nonsnake_test,images/tshirt/openimages_6e766d2eb79d74dc.jpg,-1.4014698,-1.3072101,2.7700727,0.01494451152194371,0.01642170294293157,0.9686337855351247,tshirt,Larry Lamsa,openimages,False
+nonsnake_test,images/tshirt/openimages_ffd7361abccd432c.jpg,-1.610418,-1.3738185,3.5012615,0.00594474600080762,0.007531598506835978,0.9865236554923564,tshirt,Emmanuele Bedania,openimages,False
+nonsnake_test,images/tshirt/openimages_a197e4f2534b8940.jpg,-1.0948004,-1.7732986,3.0514495,0.015455009304132274,0.007841537913790721,0.976703452782077,tshirt,Brad Holt,openimages,False
+nonsnake_test,images/tshirt/openimages_7747f5bf7cdbe8ef.jpg,-1.4215167,-0.9696857,2.7687917,0.014574212503494744,0.022898804412631025,0.9625269830838742,tshirt,Stacey Huggins,openimages,False
+nonsnake_test,images/tshirt/openimages_4c6c9243171c2498.jpg,-1.3330297,-1.1507543,2.8836355,0.01428430040210043,0.01714036931976689,0.9685753302781327,tshirt,Jon Rawlinson,openimages,False
+nonsnake_test,images/tshirt/openimages_be4a57a0735c0b19.jpg,-1.1966513,-1.3388599,2.583115,0.021894657030723894,0.018992307634708227,0.9591130353345678,tshirt,KOMUnews,openimages,False
+nonsnake_test,images/tshirt/openimages_4ee72e1e300873f6.jpg,-1.6496879,-1.2236642,2.5727077,0.014138708529728072,0.021648583428767725,0.9642127080415043,tshirt,Winter Jefferson,openimages,False
+nonsnake_test,images/tshirt/openimages_cecf471d4cb36964.jpg,-1.6412045,-1.1591102,2.5191827,0.014988953503151044,0.024274048013890825,0.9607369984829581,tshirt,Robert Anthony Provost,openimages,False
+nonsnake_test,images/tshirt/openimages_7c727f45c526a98f.jpg,-1.3563187,-1.2676048,2.7931857,0.015268262260833266,0.016684667966616978,0.9680470697725497,tshirt,Eye to Eye National,openimages,False
+nonsnake_test,images/tshirt/openimages_123efd6a5d14e164.jpg,-1.4092288,-1.1373885,2.7799091,0.01464594712307716,0.01922100997522763,0.9661330429016951,tshirt,Sal Ami,openimages,False
+nonsnake_test,images/tshirt/openimages_dbe7ac1b73c4c207.jpg,-1.4129477,-1.4325923,2.5634508,0.01808148684200919,0.017729749447322297,0.9641887637106686,tshirt,AFS-USA Intercultural Programs,openimages,False
+nonsnake_test,images/tshirt/openimages_3248d0189a2f0f53.jpg,-1.4589876,-1.1696056,2.8828375,0.012628930657985446,0.016867222910278555,0.970503846431736,tshirt,amateur photography by michel,openimages,False
+nonsnake_test,images/tshirt/openimages_a320c0402e46ee80.jpg,-1.670702,-1.4275912,3.1265144,0.008100585859131914,0.010329947360718168,0.9815694667801499,tshirt,HERBALIFE ( Independent Distributor ),openimages,False
+nonsnake_test,images/other_animal/openimages_c1b6d342531b0c89.jpg,-1.6581106,-1.1249888,2.6709318,0.012726557953650509,0.021689164140127188,0.9655842779062223,other_animal,S.M.D.1,openimages,False
+nonsnake_test,images/other_animal/openimages_f700eefef47341de.jpg,-1.4199474,-1.4189177,2.4227107,0.020554841548168355,0.02057601776921685,0.9588691406826146,other_animal,Mara 1,openimages,False
+nonsnake_test,images/other_animal/openimages_fd6db789d0c99d7b.jpg,-1.4105608,-1.3082831,3.0822432,0.010931424708489356,0.012108641147416515,0.9769599341440941,other_animal,MelisaTG,openimages,False
+nonsnake_test,images/other_animal/openimages_eef6108b4d6ab116.jpg,-1.4210523,-1.044075,2.6143856,0.01694181385960862,0.02469898276121627,0.958359203379175,other_animal,Brian Flores,openimages,False
+nonsnake_test,images/other_animal/openimages_a76ff13fa2164a82.jpg,-1.7589233,-0.9571703,2.8506224,0.009646182298977546,0.02150563987255822,0.9688481778284643,other_animal,Martin Ely,openimages,False
+nonsnake_test,images/other_animal/openimages_d84394ff2a5e91f7.jpg,-1.56253,-1.1936706,2.5529566,0.01569166232194636,0.02269146605285692,0.9616168716251966,other_animal,Adam Axon,openimages,False
+nonsnake_test,images/other_animal/openimages_dbe4007fdd9e5148.jpg,-1.8338293,-1.0016888,3.1364539,0.006785829708427887,0.015595416726485525,0.9776187535650865,other_animal,Chris Miller,openimages,False
+nonsnake_test,images/other_animal/openimages_2759665ea086956a.jpg,-1.6414073,-1.1842166,2.8723745,0.010655761107513952,0.016832160887796047,0.97251207800469,other_animal,Charlie Marshall,openimages,False
+nonsnake_test,images/other_animal/openimages_2618ee6f2c570a14.jpg,-1.7617565,-0.7450816,2.4561942,0.013955138007403712,0.03857184693698353,0.9474730150556128,other_animal,Lara,openimages,False
+nonsnake_test,images/other_animal/openimages_ce05c78f65ee8ade.jpg,1.5888472,-1.6462976,-0.15537047,0.8236308395727654,0.03241358481366984,0.14395557561356465,other_animal,Mats Lindh,openimages,True
+nonsnake_test,images/other_animal/openimages_a4239a9b2b919b41.jpg,-1.6846737,-1.3971754,2.8347416,0.01062529819019726,0.014164460976676547,0.9752102408331262,other_animal,Hannah  Gilbert,openimages,False
+nonsnake_test,images/other_animal/openimages_2415f9c2b9b49131.jpg,-1.5976973,-1.1104927,3.2557795,0.007644497229834907,0.012443403867155534,0.9799120989030095,other_animal,Steph Lauren x,openimages,False
+nonsnake_test,images/other_animal/openimages_7c6795384114a1ef.jpg,-1.6901091,-1.0744398,3.4689832,0.005654275011686208,0.010465469286130367,0.9838802557021835,other_animal,Hallenser,openimages,False
+nonsnake_test,images/other_animal/openimages_0cbc45a87fb3aad0.jpg,-1.2995361,-1.2256162,3.4645176,0.008382450306090012,0.009025556560296313,0.9825919931336138,other_animal,janet farthing,openimages,False
+nonsnake_test,images/other_animal/openimages_ff7abc612e454eae.jpg,-1.4529337,-1.1844226,3.2611256,0.008786428539379798,0.01149278468332009,0.9797207867773,other_animal,Tino Jacobs,openimages,False
+nonsnake_test,images/other_animal/openimages_732dabb3a6571cd2.jpg,-1.6596379,-1.1351501,3.381448,0.0063561703575471026,0.010739342322615204,0.9829044873198377,other_animal,Josh Grenier,openimages,False
+nonsnake_test,images/other_animal/openimages_9957ae64534ad706.jpg,-1.2745047,-1.2754269,2.8795722,0.015222502642943935,0.015208470922027558,0.9695690264350285,other_animal,thenotoriouskcg,openimages,False
+nonsnake_test,images/other_animal/openimages_3499ac7b13331820.jpg,-1.1574044,-1.2899384,3.0767057,0.0141091242374008,0.012357803144758497,0.9735330726178406,other_animal,Shelley Panzarella,openimages,False
+nonsnake_test,images/other_animal/openimages_5f8752ecb6f5eb4c.jpg,-1.2706075,-1.3312469,3.1789048,0.01142512998551805,0.010752904606209377,0.9778219654082726,other_animal,H Dragon,openimages,False
+nonsnake_test,images/other_animal/openimages_9a8b69cffab97ee2.jpg,-1.1238015,-1.5453755,3.2656815,0.012157352304399951,0.007975386525985548,0.9798672611696144,other_animal,Karra Rothery,openimages,False
+nonsnake_test,images/other_animal/openimages_f88b1b035c47011b.jpg,-1.5197932,-0.96125317,2.8059533,0.012759974591557225,0.022305946824456406,0.9649340785839864,other_animal,Special Risks Bureau,openimages,False
+nonsnake_test,images/other_animal/openimages_e21ae77d42be54dc.jpg,-1.4806446,-1.0427154,3.0995593,0.009991629550458465,0.01548198202137739,0.9745263884281641,other_animal,Fisherga,openimages,False
+nonsnake_test,images/other_animal/openimages_a6c19dc19ef296cb.jpg,-1.4513997,-1.042913,2.980953,0.011542858381766484,0.017366683403135873,0.9710904582150977,other_animal,David McDermott,openimages,False
+nonsnake_test,images/other_animal/openimages_c06cf9413270051c.jpg,-1.2691274,-1.0456029,2.9198046,0.01466215623745847,0.018334678538303846,0.9670031652242377,other_animal,Charles Severance,openimages,False
+nonsnake_test,images/other_animal/openimages_ef4a4d09c1d1d4fd.jpg,-1.4623526,-1.1724406,2.9022634,0.012352463067762831,0.01650671853343087,0.9711408183988062,other_animal,kanegen,openimages,False
+nonsnake_test,images/other_animal/openimages_189f2b0b825a651d.jpg,-1.4587401,-1.3081074,2.9459538,0.011905235398368593,0.013840664372224728,0.9742541002294067,other_animal,Tinou Bao,openimages,False
+nonsnake_test,images/other_animal/openimages_dc1db4d83f525a17.jpg,-1.5697238,-1.2520756,2.986201,0.010249194457030389,0.014081294887430738,0.9756695106555389,other_animal,Sarah,openimages,False
+nonsnake_test,images/other_animal/openimages_373eb7cd1849a39d.jpg,-1.1454442,-1.3999547,3.1825347,0.0128922056339271,0.009995274330331875,0.977112520035741,other_animal,Ronnie Macdonald,openimages,False
+nonsnake_test,images/other_animal/openimages_59f9f4e9741794fc.jpg,-1.2573028,-0.87096703,2.9185038,0.014800803243288021,0.02178054679349471,0.9634186499632174,other_animal,GRILLO SOLITARIO,openimages,False
+nonsnake_test,images/other_animal/openimages_953fd99f8cb95904.jpg,-1.3543557,-1.2645018,2.8149266,0.01497834799052557,0.016386528936847545,0.9686351230726268,other_animal,(vincent desjardins),openimages,False
+nonsnake_test,images/other_animal/openimages_41030c5ad4da8e32.jpg,-1.14884,-0.9857586,3.0817547,0.014097364837684472,0.01659446637646613,0.9693081687858495,other_animal,Tilly Blye,openimages,False
+nonsnake_test,images/other_animal/openimages_3e28ffc80e2553c4.jpg,-1.4088984,-0.8627661,2.8745985,0.013294325642584563,0.022953480958918495,0.9637521933984969,other_animal,jbgeronimi,openimages,False
+nonsnake_test,images/other_animal/openimages_60e850b52a5b3cb6.jpg,-1.5436094,-1.5211167,2.6871245,0.014126203251136988,0.014447540021303405,0.9714262567275596,other_animal,Nagesh Jayaraman,openimages,False
+nonsnake_test,images/other_animal/openimages_481cc6885e90372d.jpg,-1.2483377,-0.8718912,2.378191,0.024975506112137166,0.03639174958066149,0.9386327443072012,other_animal,Mike Vondran,openimages,False
+nonsnake_test,images/other_animal/openimages_7ddcd1f8ceb56f86.jpg,-1.4277295,-1.6169971,2.8605978,0.013391885418879266,0.011082655933373873,0.9755254586477469,other_animal,Adam Bautz,openimages,False
+nonsnake_test,images/other_animal/openimages_4e27b883ed70c3eb.jpg,-1.2275127,-1.413204,2.501314,0.02300925920838162,0.0191098786699087,0.9578808621217096,other_animal,Bas Wallet,openimages,False
+nonsnake_test,images/other_animal/openimages_01203fe50f8dcab0.jpg,-1.6701281,-1.0016992,2.4466774,0.01554869611957647,0.030338140529248003,0.9541131633511755,other_animal,Stefan Munder,openimages,False
+nonsnake_test,images/other_animal/openimages_b647911cc7fef121.jpg,-0.8751282,-1.3571573,2.1902366,0.043365488357613335,0.026779450623882747,0.9298550610185039,other_animal,Lana Dyck,openimages,False
+nonsnake_test,images/other_animal/openimages_4de0687dd655c623.jpg,-1.5761989,-0.9586628,2.6922443,0.013465342011296436,0.024969503643066267,0.9615651543456374,other_animal,Jaakko Hakulinen,openimages,False
+nonsnake_test,images/other_animal/openimages_51ce23000e4180c7.jpg,-1.5245334,-1.6439636,2.735488,0.013755361628932034,0.012206864833479414,0.9740377735375885,other_animal,Randi Hogsden,openimages,False
+nonsnake_test,images/other_animal/openimages_8a74fcfc15244595.jpg,-1.3042912,-1.4332604,2.8682308,0.014979506948501586,0.01316700216186333,0.9718534908896351,other_animal,Marnee Pearce,openimages,False
+nonsnake_test,images/other_animal/openimages_9d19629529c1a41f.jpg,-1.2522682,-1.2875434,2.2279673,0.029042154635022285,0.02803554537154709,0.9429222999934307,other_animal,Michael,openimages,False
+nonsnake_test,images/other_animal/openimages_89fc0a1f7d6dba44.jpg,-1.6550211,0.70890224,0.7749338,0.04349536631174842,0.46246817827321773,0.49403645541503377,other_animal,Dawn Beattie,openimages,False
+nonsnake_test,images/other_animal/openimages_00e549dae08777d3.jpg,-1.6684268,-1.0943192,2.9326081,0.0097691672221508,0.01734559917143191,0.9728852336064172,other_animal,Greg Schechter,openimages,False
+nonsnake_test,images/other_animal/openimages_0c5e27b81c8feb32.jpg,2.1451695,-1.8990436,-0.094230995,0.8896434374915848,0.015589656514772319,0.09476690599364285,other_animal,Steve,openimages,True
+nonsnake_test,images/other_animal/openimages_98636db560b0216d.jpg,-1.911917,-1.2880306,2.6843278,0.009806075123110873,0.018299770231867334,0.9718941546450218,other_animal,Robert & Pat Rogers,openimages,False
+nonsnake_test,images/other_animal/openimages_b9bf033bd04af32d.jpg,-1.5529205,-1.0598912,2.6508446,0.014372947088612982,0.0235323734147579,0.9620946794966291,other_animal,Robert Ennals,openimages,False
+nonsnake_test,images/other_animal/openimages_196489de46bc6431.jpg,-1.5838289,-1.107027,2.5129964,0.01593373012969591,0.02566787356406445,0.9583983963062397,other_animal,Iain A Wanless,openimages,False
+nonsnake_test,images/other_animal/openimages_704701cf7e2fa8d6.jpg,-1.4843432,-1.6070757,3.2214499,0.008891223832280627,0.00786428956669517,0.9832444866010243,other_animal,Jennifer Morrow,openimages,False
+nonsnake_test,images/other_animal/openimages_a3870ce34f0ea860.jpg,-1.5313498,-1.6792142,2.859908,0.012105883814917742,0.010441906702412013,0.9774522094826702,other_animal,fRandi-Shooters,openimages,False
+nonsnake_test,images/other_animal/openimages_d818535d9a4cdd90.jpg,-2.0207608,-1.2199053,2.883527,0.007241430110079269,0.016129892312780777,0.97662867757714,other_animal,bkaree1,openimages,False
+nonsnake_test,images/other_animal/openimages_4966b3fe829d56c7.jpg,-1.5369296,-1.029813,2.8607352,0.011915914219360025,0.019786332786420988,0.968297752994219,other_animal,Squeezyboy,openimages,False
+nonsnake_test,images/other_animal/openimages_eab653962ff2e4ce.jpg,0.68735963,-2.3339286,1.5220581,0.29825305068703883,0.01453637399364189,0.6872105753193194,other_animal,Kyknoord,openimages,True
+nonsnake_test,images/other_animal/openimages_9785c7bcb0d9a6a7.jpg,0.122407675,-1.9895291,1.6091347,0.18038819086380767,0.02182758134992146,0.7977842277862709,other_animal,Anthony Masi,openimages,False
+nonsnake_test,images/other_animal/openimages_7d4f92fb05c695f7.jpg,-1.2658122,-1.8227143,3.381142,0.009448232071289964,0.005413660825735036,0.985138107102975,other_animal,Ninara,openimages,False
+nonsnake_test,images/other_animal/openimages_96d06b0e800c2683.jpg,-0.17618832,-1.4810247,2.2426136,0.0799768972235031,0.02169108677046043,0.8983320160060365,other_animal,Matthias Mueller,openimages,False
+nonsnake_test,images/other_animal/openimages_8f1e810825712bfa.jpg,1.4081229,-0.7097498,-0.54560393,0.7923728906828351,0.09531235091042012,0.11231475840674482,other_animal,Farhad Hussain,openimages,True
+nonsnake_test,images/other_animal/openimages_e254888765fd0d7e.jpg,1.4839041,-1.5294061,-0.3841391,0.8308723383041536,0.04081974697759041,0.12830791471825603,other_animal,Dan G,openimages,True
+nonsnake_test,images/other_animal/openimages_4dfe5cd60fb2f45a.jpg,-0.09620234,-1.4987421,1.5556108,0.15474125257056584,0.03806193204691799,0.8071968153825162,other_animal,Jon Connell,openimages,False
+nonsnake_test,images/other_animal/openimages_b80d4d9e784c2190.jpg,-1.9413006,-1.183824,3.2880933,0.0052683566535926,0.011236810979073569,0.9834948323673338,other_animal,Jenny Mealing,openimages,False
+nonsnake_test,images/cat/openimages_1638e87d5e6eec91.jpg,-1.6370808,-1.3624189,2.7232566,0.012407005082159877,0.016328681113433396,0.9712643138044067,cat,ismael villafranco,openimages,False
+nonsnake_test,images/cat/openimages_4710b2de9d1b7e37.jpg,-1.4000552,-1.6401843,2.6998641,0.01609737115746925,0.012661006001005894,0.9712416228415248,cat,Simon_sees,openimages,False
+nonsnake_test,images/cat/openimages_a61ff3ecdb8af95f.jpg,-1.7045593,-1.5113107,2.5935092,0.013197702430285415,0.01601124609273511,0.9707910514769795,cat,Still ePsiLoN,openimages,False
+nonsnake_test,images/cat/openimages_dd63a59e0078e28f.jpg,-1.5324978,-0.8452917,2.4832532,0.017107736329912866,0.034012798428464594,0.9488794652416225,cat,Agustin Sanchez,openimages,False
+nonsnake_test,images/cat/openimages_039beb511fd1e7f7.jpg,-1.5355868,-1.6428283,2.6017206,0.01549612676768499,0.013920305572916937,0.970583567659398,cat,Jérôme Decq,openimages,False
+nonsnake_test,images/cat/openimages_15d044562f3a5dd0.jpg,-1.6598891,-1.6246918,2.931203,0.009936616435929337,0.010292586346798843,0.9797707972172718,cat,Paola Galaz,openimages,False
+nonsnake_test,images/cat/openimages_066af2f8fe78235f.jpg,-1.627715,-1.2311875,2.6448514,0.013478528026475518,0.020037898444380746,0.9664835735291438,cat,Dave Catchpole,openimages,False
+nonsnake_test,images/cat/openimages_408f23e2f15b31d4.jpg,-1.3009402,-1.2173942,2.695996,0.01769339571364159,0.019235113683505143,0.9630714906028532,cat,Francis Victoria Gumapac,openimages,False
+nonsnake_test,images/cat/openimages_0d46532b8ab95063.jpg,-1.4193158,-1.3874581,2.6559665,0.016420504957631917,0.016952046366864832,0.9666274486755032,cat,agirlnamednee,openimages,False
+nonsnake_test,images/cat/openimages_51a0d12e084aeced.jpg,-1.4444145,-1.5450894,2.3866203,0.02082706119065131,0.018832390003065014,0.9603405488062836,cat,jaci  XIII,openimages,False
+nonsnake_test,images/cat/openimages_76596e4a364fd50e.jpg,-1.3395064,-1.5765822,2.8346283,0.014976221538417846,0.011815212694167306,0.9732085657674148,cat,Alex Brown,openimages,False
+nonsnake_test,images/cat/openimages_5e6aa33bf49c870b.jpg,-1.3310567,-1.5347984,2.6361554,0.018297359682189093,0.014924662855484659,0.9667779774623263,cat,paul quinn,openimages,False
+nonsnake_test,images/cat/openimages_6a50c7ec49daeb86.jpg,-1.276778,-1.1821392,2.6916983,0.018180786334608866,0.01998544264026485,0.9618337710251262,cat,david rappaport,openimages,False
+nonsnake_test,images/cat/openimages_b743814e3fbeca11.jpg,-1.5791031,-1.5103952,2.7272553,0.013116298341223473,0.014049172610046828,0.9728345290487296,cat,rimse.nefert,openimages,False
+nonsnake_test,images/cat/openimages_6119ed497b55ff2c.jpg,-1.676801,-1.1112463,2.878625,0.010213700920831622,0.01798044442535484,0.9718058546538135,cat,upjohn_freak,openimages,False
+nonsnake_test,images/cat/openimages_2061937fe90d4e71.jpg,-1.4872248,-1.3841392,2.7615821,0.013863778936391886,0.015369195395138927,0.9707670256684693,cat,Sergey Neznamov,openimages,False
+nonsnake_test,images/cat/openimages_d958bcedf6ed3ce3.jpg,-1.5944043,-1.7596174,2.6564844,0.01388590809429822,0.011771265324763143,0.9743428265809385,cat,shykatek (Slowly catching up),openimages,False
+nonsnake_test,images/cat/openimages_a32000a2c2374c6a.jpg,-1.6649789,-1.1553173,3.544119,0.005388114181688594,0.00896974322937921,0.9856421425889322,cat,Elizabeth Krumbach Joseph,openimages,False
+nonsnake_test,images/cat/openimages_6c3cdb32cbdc1d0e.jpg,-1.57056,-1.3942229,2.2574348,0.02076278042237898,0.02476667701883474,0.9544705425587863,cat,Alan Turkus,openimages,False
+nonsnake_test,images/cat/openimages_9543984b8ba4e8a4.jpg,-1.1449646,-1.8528337,2.7098308,0.02052897084840531,0.010114479394323155,0.9693565497572715,cat,Supernan,openimages,False
+nonsnake_test,images/cat/openimages_3e495bc26b434987.jpg,-1.2247809,-2.148952,2.8444226,0.016692484158185795,0.006624583273042478,0.9766829325687717,cat,Chika Watanabe,openimages,False
+nonsnake_test,images/cat/openimages_d00009ba1ee9ed27.jpg,-1.160121,-1.4763482,2.674019,0.020840920183227103,0.015190818063803294,0.9639682617529696,cat,Liza Chudnovsky,openimages,False
+nonsnake_test,images/cat/openimages_16afa69948a220ff.jpg,-1.1774496,-1.0309108,2.864289,0.016925328887318777,0.0195964818103389,0.9634781893023424,cat,su.bo,openimages,False
+nonsnake_test,images/cat/openimages_02530be4f2f64f16.jpg,-1.622588,-1.3347132,2.7079318,0.01276856065764174,0.01702802899757856,0.9702034103447797,cat,ghost of anja,openimages,False
+nonsnake_test,images/cat/openimages_16f7344738dda9b8.jpg,-1.5051394,-1.3758336,3.042825,0.010354324079829023,0.011783615126630403,0.9778620607935407,cat,kenichi nobusue,openimages,False
+nonsnake_test,images/cat/openimages_feefb6267d68e599.jpg,-1.3860081,-2.1620185,2.6682587,0.016919579910681576,0.007787042433823338,0.9752933776554951,cat,Egidio Maurizio,openimages,False
+nonsnake_test,images/cat/openimages_aa1be8fd267be339.jpg,-1.523316,-0.17353085,1.8376919,0.029695779521865234,0.11452464981712995,0.8557795706610047,cat,Ma1974,openimages,False
+nonsnake_test,images/cat/openimages_caef915343a92ba7.jpg,-1.4560037,-1.4249879,2.859108,0.013011772126012271,0.013421666388510028,0.9735665614854778,cat,Bonbon,openimages,False
+nonsnake_test,images/cat/openimages_acbbb23073d0acbd.jpg,-1.4988525,-1.0594752,2.5289948,0.017038193187412724,0.02643885694929661,0.9565229498632907,cat,diana,openimages,False
+nonsnake_test,images/cat/openimages_aa988796b28b8849.jpg,-1.1978751,-1.1574787,2.6044185,0.021346971609098122,0.022226967070811374,0.9564260613200904,cat,Irina Irina,openimages,False
+nonsnake_test,images/cat/openimages_1ed5e97f0e6252cd.jpg,-1.4567202,-1.579872,2.6271083,0.016324805716963778,0.014433241361534807,0.9692419529215014,cat,Joey,openimages,False
+nonsnake_test,images/cat/openimages_ba2d4b14bd4da247.jpg,-1.5824076,-1.6932989,2.7258432,0.013122424910783971,0.011745043149377108,0.975132531939839,cat,Ray Habens,openimages,False
+nonsnake_test,images/cat/openimages_8149f2aa3c6170dd.jpg,-1.6947967,-1.1774837,2.6090333,0.013044592282252685,0.021882487587408194,0.9650729201303392,cat,Diana Garcia,openimages,False
+nonsnake_test,images/cat/openimages_b394403fc7aaef3c.jpg,-1.5636642,-1.5150789,2.6795125,0.013951189619757545,0.014645748404305768,0.9714030619759366,cat,midorisyu,openimages,False
+nonsnake_test,images/cat/openimages_9f8fa46a93ebede1.jpg,-1.5354308,-1.3524232,2.624011,0.015097395246472156,0.018129307518668376,0.9667732972348595,cat,Danny Chapman,openimages,False
+nonsnake_test,images/cat/openimages_10214ca8b5a6aa93.jpg,-1.7066875,-1.0158077,2.6375005,0.012496105193769355,0.02493560772968856,0.962568287076542,cat,Claudio Gennari,openimages,False
+nonsnake_test,images/cat/openimages_9646d6d1e2f86d2e.jpg,-1.520076,-1.2092426,2.7396286,0.013669861419158633,0.018653371609384378,0.967676766971457,cat,Lori,openimages,False
+nonsnake_test,images/cat/openimages_458e1a8fc27f2461.jpg,-1.6126634,-1.1472409,2.7249408,0.01263956124135456,0.020130864331234337,0.967229574427411,cat,Ezio Longo,openimages,False
+nonsnake_test,images/cat/openimages_aee4b36360722b28.jpg,-1.821718,-1.0447885,2.7387044,0.010121596083208341,0.02201228853426339,0.9678661153825282,cat,Randen Pederson,openimages,False
+nonsnake_test,images/cat/openimages_db70814db30b043b.jpg,-1.433473,-0.7881906,2.734043,0.014823286318416095,0.02826097122556237,0.9569157424560216,cat,Jay Tamboli,openimages,False
+nonsnake_test,images/dog/openimages_3bd1bfe2c94711fb.jpg,-1.7706413,-1.6452302,2.8939476,0.00923740049858731,0.010471650095937384,0.9802909494054753,dog,msmornington,openimages,False
+nonsnake_test,images/dog/openimages_d1395c360ff83be2.jpg,-1.4544733,-1.5383111,2.691815,0.015356602782905134,0.014121630928825193,0.9705217662882697,dog,Mike Lewinski,openimages,False
+nonsnake_test,images/dog/openimages_2974868dd9aa50d4.jpg,-1.3937047,-1.3823853,2.4952967,0.019656617681550446,0.019880382854257497,0.9604629994641921,dog,Spider.Dog,openimages,False
+nonsnake_test,images/dog/openimages_ae8070453bbe5259.jpg,-1.4215848,-1.6045214,2.561544,0.018012318497870255,0.015001036291573244,0.9669866452105566,dog,decko André Filipe de Assunção e Brito,openimages,False
+nonsnake_test,images/dog/openimages_b86824c54b3eee4d.jpg,-1.8252705,-1.6504793,2.7795925,0.009788539777642194,0.0116581265053116,0.9785533337170461,dog,Kevin O'Connor,openimages,False
+nonsnake_test,images/dog/openimages_d1faaa394dfeed80.jpg,-1.3765583,-1.5999147,2.434326,0.021281027270798534,0.017021198491313037,0.9616977742378884,dog,Dimitri Razin,openimages,False
+nonsnake_test,images/dog/openimages_4a1d4b3eecbce073.jpg,-1.5316263,-1.2549987,2.644247,0.01483341944621782,0.01956046242819024,0.9656061181255919,dog,Vegan Feast Catering,openimages,False
+nonsnake_test,images/dog/openimages_ac0af25d3fa42c5d.jpg,-1.2320886,-1.5174534,2.806145,0.017100508469011632,0.012855135715818356,0.97004435581517,dog,La Sequencia,openimages,False
+nonsnake_test,images/dog/openimages_183b4f9d0298f301.jpg,-1.4673265,-1.2377859,2.919431,0.012101060141437492,0.015223399177905363,0.9726755406806572,dog,Hamdan Mesfer Al Amimi,openimages,False
+nonsnake_test,images/dog/openimages_364c778bf832d7a7.jpg,-1.5002288,-1.236315,2.5667098,0.01647989822568013,0.02145709047090848,0.9620630113034113,dog,Kasia Raj,openimages,False
+nonsnake_test,images/dog/openimages_dfa941b860678f2a.jpg,-1.6820828,-1.2120475,2.50606,0.014598468134144426,0.023358288777540512,0.9620432430883151,dog,Raffi Asdourian,openimages,False
+nonsnake_test,images/dog/openimages_abccc7f249f4859b.jpg,-1.5401056,-1.4596179,2.3259335,0.02006554120857523,0.021747344891355394,0.9581871139000693,dog,pastalane™,openimages,False
+nonsnake_test,images/dog/openimages_ab1c97dd51457e5c.jpg,-1.5135142,-1.3205973,2.811779,0.012853395443964428,0.015588366725181556,0.9715582378308542,dog,Kevin Phillips,openimages,False
+nonsnake_test,images/dog/openimages_3c8544ac34150776.jpg,-1.2646407,-1.1250741,2.719279,0.01789645370190191,0.02057690182369265,0.9615266444744054,dog,FierceLily,openimages,False
+nonsnake_test,images/dog/openimages_05659f0fd5e6ccaf.jpg,-0.30781898,-2.6875408,3.0185452,0.03456676338172098,0.0032000639836350566,0.9622331726346439,dog,deovolenti,openimages,False
+nonsnake_test,images/dog/openimages_5750000aaba7acee.jpg,-1.4159347,-1.086253,2.783277,0.014487649692547257,0.020145445662701794,0.965366904644751,dog,Pedro Ribeiro Simões,openimages,False
+nonsnake_test,images/dog/openimages_1e8f59208f75891f.jpg,-1.1796677,-1.6190726,2.6287024,0.021403501244269197,0.013792840017260534,0.9648036587384703,dog,erkan www,openimages,False
+nonsnake_test,images/dog/openimages_ff0194495344e81c.jpg,-1.1130531,-1.5902275,2.451808,0.027059879626958352,0.01679158342652593,0.9561485369465157,dog,Yasser Alghofily,openimages,False
+nonsnake_test,images/dog/openimages_d8fb5e90fd5b8ad4.jpg,-1.4272771,-1.1556795,2.5219216,0.018448201280429195,0.024205127095139525,0.9573466716244312,dog,Ricardo Junior,openimages,False
+nonsnake_test,images/dog/openimages_f38844a16f1d46c9.jpg,-1.6224506,-1.1931669,2.8479097,0.011120457226258748,0.01708276576773578,0.9717967770060054,dog,Sheila in Moonducks,openimages,False
+nonsnake_test,images/dog/openimages_efc891b50b541739.jpg,-1.0898969,-1.6589274,2.673977,0.022380777322307203,0.012669175727355039,0.9649500469503377,dog,recbahia,openimages,False
+nonsnake_test,images/dog/openimages_e9b4bd4fad373078.jpg,-1.0065058,-1.4369065,2.7536037,0.02241982680072118,0.014578458477160335,0.9630017147221186,dog,Chief Trent,openimages,False
+nonsnake_test,images/dog/openimages_5717554fa3df3464.jpg,-0.7365862,-2.0239995,2.7310956,0.029995518895895957,0.008278275720285227,0.9617262053838189,dog,Grey Wolf1,openimages,False
+nonsnake_test,images/dog/openimages_4de628c0f2c9ce45.jpg,-1.3522787,-1.5330974,2.3370152,0.023894195778475468,0.0199417769415989,0.9561640272799257,dog,GrooverFW,openimages,False
+nonsnake_test,images/dog/openimages_c49a9b44be526d64.jpg,-1.4530114,-1.2436689,2.6287615,0.016264582060452632,0.020052069471401434,0.9636833484681459,dog,Vera Yu and David Li,openimages,False
+nonsnake_test,images/dog/openimages_fe9f0ec0594be278.jpg,-1.5203941,-1.1952794,2.4696105,0.017718141688013077,0.02452526397249474,0.9577565943394922,dog,Anniina Rutanen,openimages,False
+nonsnake_test,images/dog/openimages_05e3fe9f579dbe93.jpg,-1.3561482,-1.2894707,2.487887,0.02049913591469037,0.021912565398079693,0.9575882986872298,dog,Conor Lawless,openimages,False
+nonsnake_test,images/dog/openimages_3e4db5b52b6e489f.jpg,-1.2704008,-1.3247616,2.5822086,0.020381983899861386,0.01930357995269577,0.9603144361474429,dog,Jakob Montrasio,openimages,False
+nonsnake_test,images/dog/openimages_2a6a72f816089dc6.jpg,-1.4930376,-1.1041859,2.4055002,0.01930295061716247,0.028477367982943265,0.9522196813998943,dog,Ian McDonnell,openimages,False
+nonsnake_test,images/dog/openimages_288e8d29e03d146e.jpg,-1.6421261,-1.65659,2.7713914,0.011828021127616717,0.011658173106295942,0.9765138057660874,dog,Epic Fireworks,openimages,False
+nonsnake_test,images/dog/openimages_9b306d3135232fae.jpg,-1.5110735,-1.628085,2.9360144,0.011459016074908077,0.010193653800766969,0.9783473301243248,dog,Surian Soosay,openimages,False
+nonsnake_test,images/dog/openimages_2f86f25526bd2f3e.jpg,-1.5364332,-1.4265342,2.818405,0.01250462783212672,0.013957232076621709,0.9735381400912516,dog,Doug,openimages,False
+nonsnake_test,images/dog/openimages_4d051ca89a139908.jpg,-1.1690513,-1.4611542,3.1017385,0.013637943638495048,0.010183339285079139,0.9761787170764258,dog,CWPitcher,openimages,False
+nonsnake_test,images/dog/openimages_2adf2ae7c736e410.jpg,-1.2489127,-1.6465245,2.6798713,0.019041440472478185,0.012794378331091469,0.9681641811964303,dog,Brandon Carson,openimages,False
+nonsnake_test,images/dog/openimages_61ff6023b35295fb.jpg,-1.1874717,-1.4264032,2.3550336,0.02751724583769665,0.021668973168335326,0.9508137809939681,dog,Barry Peters,openimages,False
+nonsnake_test,images/dog/openimages_f720d7112a813879.jpg,-1.3625913,-1.6458937,2.6694233,0.0172035135807876,0.012959268428469256,0.9698372179907431,dog,Jeff M for Short,openimages,False
+nonsnake_test,images/dog/openimages_23abc37e6f0f7cac.jpg,-1.5715654,-1.259911,2.29198,0.020000153470600638,0.027313862223023577,0.9526859843063757,dog,postman.pete,openimages,False
+nonsnake_test,images/dog/openimages_f8bf9a19cb9dea91.jpg,-1.4191312,-1.47202,2.6289837,0.0168811003926318,0.016011478578506193,0.967107421028862,dog,John Leslie,openimages,False
+nonsnake_test,images/dog/openimages_debf63ec21415073.jpg,-1.3731968,-1.7431239,2.6901379,0.016705996646955403,0.011540246664882448,0.9717537566881621,dog,Delwin Steven Campbell,openimages,False
+nonsnake_test,images/dog/openimages_5e2d04b1b0a20d2a.jpg,-1.5369673,-1.1664258,2.6730864,0.014324867067908855,0.020749838900818975,0.9649252940312721,dog,TonyParkin67,openimages,False
+nonsnake_test,images/hand_arm/openimages_67a861b04cc027be.jpg,-1.4095535,-1.1527348,2.7285326,0.015390404829049234,0.0198968803316297,0.9647127148393211,hand_arm,Mozilla in Europe,openimages,False
+nonsnake_test,images/hand_arm/openimages_a63ef3c64d29de53.jpg,-0.82009345,-1.6215088,2.730235,0.027568375096623864,0.012369749504115344,0.9600618753992608,hand_arm,John Patrick Robichaud,openimages,False
+nonsnake_test,images/hand_arm/openimages_0bda92d12a746b5e.jpg,-1.2553753,-1.7524736,2.4291325,0.024134879982570693,0.01468108302992651,0.9611840369875028,hand_arm,Paul Sableman,openimages,False
+nonsnake_test,images/hand_arm/openimages_41131630abcc1467.jpg,-1.3851305,-1.8256344,2.782898,0.015098509488596121,0.009719091330484032,0.97518239918092,hand_arm,AnneCN,openimages,False
+nonsnake_test,images/hand_arm/openimages_d2eb54485c70b747.jpg,-1.4768608,-1.7360615,2.643468,0.015785032007597854,0.012180806189802667,0.9720341618025994,hand_arm,UCFFool,openimages,False
+nonsnake_test,images/hand_arm/openimages_4901bc0a2bdf07b9.jpg,0.90302247,-1.9184128,0.29897028,0.6226213140848694,0.03705870294340195,0.34031998297172855,hand_arm,madebyWstudio,openimages,True
+nonsnake_test,images/hand_arm/openimages_cfe5d519337085bf.jpg,-1.1835527,-1.5655653,2.7633727,0.018706127804635566,0.012766678830124896,0.9685271933652395,hand_arm,|FAT| Arts and Fashion Week,openimages,False
+nonsnake_test,images/hand_arm/openimages_24505c2c802a0132.jpg,-1.532796,-1.3223747,2.608455,0.015357294790120008,0.018953941256444107,0.9656887639534358,hand_arm,Apetitu,openimages,False
+nonsnake_test,images/hand_arm/openimages_84b9022642c6f564.jpg,-1.7755299,-1.4266851,2.8860638,0.009240265568961946,0.013097422124722854,0.9776623123063153,hand_arm,British Province of Carmelites,openimages,False
+nonsnake_test,images/hand_arm/openimages_c1a0e921ff384779.jpg,-1.0966834,-1.5180767,3.076319,0.015022644137945792,0.009856837452518192,0.975120518409536,hand_arm,volcrano,openimages,False
+nonsnake_test,images/hand_arm/openimages_511477fc08657338.jpg,-1.0602793,-1.3418789,2.6512856,0.023434370529412083,0.017683007862999478,0.9588826216075885,hand_arm,Arnstein Rønning,openimages,False
+nonsnake_test,images/hand_arm/openimages_e24dc1a1c9dd79a3.jpg,-1.182219,-1.229757,2.5866904,0.022081706722840638,0.021056546631568928,0.9568617466455904,hand_arm,Homini:),openimages,False
+nonsnake_test,images/hand_arm/openimages_a2661d32d354303f.jpg,-1.3874,-1.0832397,2.942629,0.012771069900335054,0.01731101058167778,0.9699179195179871,hand_arm,Per Nikolaus,openimages,False
+nonsnake_test,images/hand_arm/openimages_45257c01ac658a16.jpg,-1.5853375,-1.3364402,2.7140641,0.013168582906620626,0.016890160101768685,0.9699412569916107,hand_arm,Trang Angels,openimages,False
+nonsnake_test,images/hand_arm/openimages_15b2b388f617c007.jpg,-1.4951304,-1.3629981,2.9272892,0.011704277678933967,0.013357615726109967,0.974938106594956,hand_arm,Tony Tseng,openimages,False
+nonsnake_test,images/hand_arm/openimages_8430b0f7907b354a.jpg,-1.4671897,-0.97054607,2.4763386,0.01843537538211734,0.030292950356623598,0.951271674261259,hand_arm,tsubasuke5,openimages,False
+nonsnake_test,images/hand_arm/openimages_61d6d44ed3bdced2.jpg,-1.1949695,-0.938473,2.3848667,0.02620540988414089,0.03386772085430798,0.9399268692615511,hand_arm,sassy mom,openimages,False
+nonsnake_test,images/hand_arm/openimages_1b03eba134d76885.jpg,-0.87349695,-1.3299522,2.1830218,0.04369299284075474,0.027680618976054415,0.9286263881831909,hand_arm,Robin,openimages,False
+nonsnake_test,images/hand_arm/openimages_3c2187da45aa238e.jpg,-1.2763314,-1.3371124,2.462379,0.022735144827811294,0.02139443748247501,0.9558704176897137,hand_arm,Rose Physical Therapy Group,openimages,False
+nonsnake_test,images/hand_arm/openimages_0943227e7ef8a53a.jpg,-1.2142096,-1.5993555,2.8622713,0.016496737024563942,0.011223577564234795,0.9722796854112014,hand_arm,Chico State School of the Arts,openimages,False
+nonsnake_test,images/hand_arm/openimages_957e3ed066e0bcb1.jpg,-0.87949055,-1.3649769,2.6968524,0.02676803762903044,0.016472992142799917,0.9567589702281696,hand_arm,zhelen,openimages,False
+nonsnake_test,images/hand_arm/openimages_fd6aa6e670a37b8c.jpg,-1.706611,-0.9247616,2.7245748,0.01146571875477099,0.025058447733721418,0.9634758335115077,hand_arm,Jed Record,openimages,False
+nonsnake_test,images/hand_arm/openimages_16e3af47788c1fcf.jpg,-1.4021562,-1.6960624,2.312155,0.023377779597789444,0.017424543901941,0.9591976765002695,hand_arm,manuelfloresv,openimages,False
+nonsnake_test,images/hand_arm/openimages_c1f4be9f9c2ab475.jpg,-1.5613607,-0.8873012,2.3027868,0.01975316079165888,0.03875938882177075,0.9414874503865704,hand_arm,Lordcolus,openimages,False
+nonsnake_test,images/hand_arm/openimages_999020c9b1720d9e.jpg,-1.5712576,-1.3293086,2.8983262,0.011161449005371074,0.014216663858109919,0.9746218871365191,hand_arm,The Wu's Photo Land,openimages,False
+nonsnake_test,images/hand_arm/openimages_c5e24349b62ff866.jpg,-1.5207623,-1.5955619,2.5473921,0.016562620572783383,0.01536894298051537,0.9680684364467012,hand_arm,Michael  Volek,openimages,False
+nonsnake_test,images/hand_arm/openimages_769faaf11d76c4b6.jpg,-1.3242464,-1.1294315,2.7460096,0.016450874744662145,0.0199892284659086,0.9635598967894292,hand_arm,Earl McGehee,openimages,False
+nonsnake_test,images/hand_arm/openimages_3ba112bd2a75b755.jpg,-1.0771363,-1.7124403,2.608843,0.024146461053062025,0.012792177216261006,0.9630613617306769,hand_arm,IvanWalsh.com,openimages,False
+nonsnake_test,images/hand_arm/openimages_4cc6594e5a81162a.jpg,-0.9205489,-1.7634991,2.5176628,0.03071095070443786,0.013219183783232662,0.9560698655123294,hand_arm,Pixel Addict,openimages,False
+nonsnake_test,images/hand_arm/openimages_a773ab3e32999934.jpg,-1.332063,-1.135407,3.3828788,0.008785829859878313,0.010695212168649944,0.9805189579714718,hand_arm,Mike Stenhouse,openimages,False
+nonsnake_test,images/hand_arm/openimages_f36bd1ee8a95b31c.jpg,-1.5416015,-1.3593171,2.8113658,0.012514287936014466,0.01501658754460177,0.9724691245193838,hand_arm,State Farm,openimages,False
+nonsnake_test,images/hand_arm/openimages_319305414bb65188.jpg,-1.6650454,-1.1753656,2.6813803,0.012526019734025033,0.02043987928604059,0.9670341009799344,hand_arm,Kris,openimages,False
+nonsnake_test,images/hand_arm/openimages_229e5a503233b470.jpg,-1.6461723,-1.0997558,2.8361216,0.01096919898419001,0.01894438824531469,0.9700864127704953,hand_arm,SebStanbury,openimages,False
+nonsnake_test,images/hand_arm/openimages_b16e6c00ac241189.jpg,0.1559229,-2.2719908,1.1678343,0.26047943468038603,0.02297967690557883,0.7165408884140352,hand_arm,Richard Jones,openimages,True
+nonsnake_test,images/hand_arm/openimages_150a2c9c7f6d43e7.jpg,-1.3161378,-1.3563104,2.5250685,0.020600608429251672,0.019789431068346883,0.9596099605024013,hand_arm,Jan-Christian Teller,openimages,False
+nonsnake_test,images/hand_arm/openimages_e6383745c637c156.jpg,-1.6287612,-1.1949753,2.5527,0.014704904028814606,0.022690967675634662,0.9626041282955506,hand_arm,Francisco Huguenin Uhlfelder,openimages,False
+nonsnake_test,images/hand_arm/openimages_aacf8cf20275a1b7.jpg,-1.6277094,-1.4674107,3.0086117,0.009493252139692194,0.01114376273183988,0.9793629851284679,hand_arm,Ninian  Reid,openimages,False
+nonsnake_test,images/hand_arm/openimages_4288701eb6e6628c.jpg,-1.3540868,-1.5936761,2.7553208,0.015949580334211736,0.012551538121499404,0.971498881544289,hand_arm,Atletica Live,openimages,False
+nonsnake_test,images/hand_arm/openimages_5678030035d51994.jpg,-1.5524079,-1.4631433,2.7676563,0.012938815817326773,0.014146912063429702,0.9729142721192434,hand_arm,aznviolaguy,openimages,False
+nonsnake_test,images/hand_arm/openimages_09f3fdec71611cf3.jpg,-1.5282917,-1.2166082,2.6359224,0.014990746552071822,0.020473197961442282,0.9645360554864859,hand_arm,Ross Harmes,openimages,False
+nonsnake_test,images/hand_arm/openimages_f074d587c40b22fd.jpg,-1.8035749,-1.3378837,2.7405932,0.010343909900272029,0.01647903770507996,0.9731770523946479,hand_arm,Pawel Loj,openimages,False
+nonsnake_test,images/hand_arm/openimages_8dc962a9012ecda8.jpg,-1.6008083,-0.42027122,2.056057,0.023258065396642998,0.07573111078038296,0.901010823822974,hand_arm,Alexander Lyubavin,openimages,False
+nonsnake_test,images/hand_arm/openimages_bcd6dcd8e54fb7fe.jpg,-1.5485873,-1.293757,2.7123468,0.013667475667298154,0.017634359998038387,0.9686981643346635,hand_arm,Ettore  Bechis,openimages,False
+nonsnake_test,images/hand_arm/openimages_eb0d941c5c5bf977.jpg,-1.0794142,-1.6377382,2.9690108,0.016983899177158493,0.009717630257124873,0.9732984705657167,hand_arm,Greg Dunlap,openimages,False
+nonsnake_test,images/hand_arm/openimages_813ca81a59e75e4b.jpg,-1.6416191,-1.3376558,2.803672,0.011418144711496754,0.015474090295910552,0.9731077649925927,hand_arm,Mid-Atlantic Center for the Arts & Humanities (MAC),openimages,False
+nonsnake_test,images/hand_arm/openimages_975de58dedc8b374.jpg,-1.2290426,-1.2736809,2.6681912,0.019522737699076306,0.018670439955786523,0.9618068223451371,hand_arm,Wheeler Cowperthwaite,openimages,False
+nonsnake_test,images/hand_arm/openimages_428904ac70ad4ac5.jpg,-1.3185507,-0.9345313,3.1288602,0.011379968175546328,0.01670777253105751,0.9719122592933962,hand_arm,Frankie Roberto,openimages,False
+nonsnake_test,images/hand_arm/openimages_5014cc45d81322b8.jpg,-1.5019916,-1.2541847,2.8277488,0.012786777613107342,0.01638257939153879,0.9708306429953539,hand_arm,WDPG share,openimages,False
+nonsnake_test,images/hand_arm/openimages_853bc9210aaa3ace.jpg,-1.5240186,-1.349512,2.628669,0.015198637046933016,0.018096387918937307,0.9667049750341298,hand_arm,Hannah Ferguson,openimages,False
+nonsnake_test,images/hand_arm/openimages_bd827df1b50b9149.jpg,-1.4343613,-1.2126225,2.9535775,0.012088592055300888,0.015089528139386596,0.9728218798053125,hand_arm,Gildardo Sánchez,openimages,False
+nonsnake_test,images/hand_arm/openimages_e4fcd173aad47454.jpg,0.091994494,-1.6671747,1.6127868,0.17397243339481017,0.02995594085225954,0.7960716257529303,hand_arm,Lydia,openimages,False
+nonsnake_test,images/hand_arm/openimages_3b67eacf3c6ac1e7.jpg,-1.674166,-1.5236764,2.7825243,0.011316808211359329,0.013154694260269212,0.9755284975283715,hand_arm,Jen,openimages,False
+nonsnake_test,images/hand_arm/openimages_88bcf1c971644e86.jpg,-1.8182323,-1.8318838,3.4957461,0.0048746412092133505,0.004808547212300799,0.990316811578486,hand_arm,Ministério da Defesa,openimages,False
+nonsnake_test,images/hand_arm/openimages_cc7c45f69d9d4201.jpg,-1.4150468,-1.6164119,2.3943243,0.021303943413538473,0.01741839954032061,0.961277657046141,hand_arm,Jenelle,openimages,False
+nonsnake_test,images/hand_arm/openimages_650c92efda0572a2.jpg,-0.79644936,-1.6412262,2.654945,0.030326925106878545,0.013030061295617516,0.9566430135975039,hand_arm,Cam Switzer,openimages,False
+nonsnake_test,images/hand_arm/openimages_fc333ad86474409b.jpg,-1.2725499,-1.5488303,2.7293198,0.017711990603488215,0.013436319427222041,0.9688516899692897,hand_arm,peagreengirl,openimages,False
+nonsnake_test,images/hand_arm/openimages_a70ee24159bd0965.jpg,-1.6086174,-1.5209165,2.8920283,0.010849877914747027,0.011844394620071561,0.9773057274651814,hand_arm,Hector Alejandro,openimages,False
+nonsnake_test,images/hand_arm/openimages_d01a7b09c2276f57.jpg,-1.167241,-1.1101621,2.6922767,0.02020152896157476,0.021388153472781966,0.9584103175656432,hand_arm,James Brooks,openimages,False
+nonsnake_test,images/hand_arm/openimages_ddbfd42413566fd2.jpg,-1.3569677,-1.5341539,2.7714972,0.015644513931604983,0.013104217278151213,0.9712512687902438,hand_arm,Jack Yan,openimages,False
+nonsnake_test,images/hand_arm/openimages_07330b2cfedc3bd1.jpg,-1.5559118,-1.5880767,2.8957963,0.01139709262516952,0.011036339181653539,0.9775665681931769,hand_arm,Hernan Irastorza,openimages,False
+nonsnake_test,images/person/openimages_62afac3cfa97ae30.jpg,-0.2962449,-1.9253733,2.2647042,0.07070035300208752,0.013864368973560836,0.9154352780243515,person,A Name Like Shields Can Make You Defensive,openimages,False
+nonsnake_test,images/person/openimages_624eea57141acd70.jpg,-1.713198,-1.286068,2.4957426,0.01432293919625724,0.021954944840172914,0.9637221159635698,person,Felipe Augusto Rodrigues dos Santos,openimages,False
+nonsnake_test,images/person/openimages_cb84f907b5c3383d.jpg,-1.6419479,-1.1743227,3.338315,0.0067517918662298865,0.010777203662488109,0.9824710044712819,person,Vellinge kommun,openimages,False
+nonsnake_test,images/person/openimages_220e93f1abe33b66.jpg,-1.4945995,-1.6322474,2.8419244,0.012769310403170605,0.011127246800630446,0.976103442796199,person,trec_lit,openimages,False
+nonsnake_test,images/person/openimages_846d2a3480e62396.jpg,-1.8514291,-1.1037381,2.6716397,0.0105008955047251,0.02217912518856643,0.9673199793067085,person,Jimmie,openimages,False
+nonsnake_test,images/person/openimages_6f223475e49946dd.jpg,-1.6431383,-1.3921908,2.9537241,0.009856304402222531,0.012667742368482183,0.9774759532292951,person,jwbreede,openimages,False
+nonsnake_test,images/person/openimages_a3e673e4aa30d9de.jpg,-1.5742695,-0.9011136,3.1807826,0.008394182772037294,0.016456077120443183,0.9751497401075196,person,North Carolina National Guard,openimages,False
+nonsnake_test,images/person/openimages_bfe375c4cc292e93.jpg,-1.3165637,-1.3605362,2.8145478,0.015575340850502493,0.014905293955827747,0.9695193651936698,person,Sira Nokyoongtong,openimages,False
+nonsnake_test,images/person/openimages_c176ce510c2d92ed.jpg,-1.4758637,-1.3207216,2.8078594,0.013390874171750847,0.015638182860707558,0.9709709429675416,person,Linux Screenshots,openimages,False
+nonsnake_test,images/person/openimages_cfa00c595d48757c.jpg,-1.4719344,-1.2744128,3.159165,0.009537870212987262,0.0116207444126441,0.9788413853743687,person,Benjamin Vander Steen,openimages,False
+nonsnake_test,images/person/openimages_1d411416ec25a863.jpg,-1.1191242,-1.0993947,2.8457928,0.018269572184785907,0.018633600953802034,0.963096826861412,person,Casa rural con encanto Ecologica Galicia Ultreia,openimages,False
+nonsnake_test,images/person/openimages_44d82e0720b942a6.jpg,-0.26303545,-1.7251519,2.782616,0.04493277801996098,0.010412959135092225,0.9446542628449468,person,baligraph,openimages,False
+nonsnake_test,images/person/openimages_546e97952eccb3df.jpg,-1.2934384,-1.1510894,2.9915142,0.013377553387462845,0.015424037698881357,0.9711984089136557,person,Fernando da Veiga Pessoa,openimages,False
+nonsnake_test,images/person/openimages_9d2bd16639644353.jpg,-0.8942469,-2.0834463,2.592916,0.0294139037544192,0.008955501886821288,0.9616305943587595,person,FairbanksMike,openimages,False
+nonsnake_test,images/person/openimages_9e7adf8ffb95e708.jpg,-1.0674611,-1.5131714,3.0407016,0.016006348186666654,0.01024997334627222,0.973743678467061,person,Paul Stevenson,openimages,False
+nonsnake_test,images/person/openimages_5ff7a5f679f64467.jpg,-1.1468884,-1.4152169,2.7571194,0.019468320902092263,0.014886579098473962,0.9656450999994337,person,sd98fw897r,openimages,False
+nonsnake_test,images/person/openimages_d048f43876bdcf46.jpg,-1.3077457,-0.9559722,2.3262124,0.02482376983976479,0.03528913603140419,0.939887094128831,person,Matthew Simantov,openimages,False
+nonsnake_test,images/person/openimages_cbde53689ac59c5a.jpg,-1.1104223,-1.1517712,2.621905,0.022864608364555287,0.021938461488481893,0.9551969301469629,person,Shane Pope,openimages,False
+nonsnake_test,images/person/openimages_2672a7ab928a2733.jpg,0.2819349,-1.8932582,2.0144577,0.14774347694167442,0.016781622787988885,0.8354749002703367,person,paulisson miura,openimages,False
+nonsnake_test,images/person/openimages_c2187555ad59d082.jpg,-1.4544722,-1.2533112,2.888423,0.012633797213115572,0.015448880504494365,0.97191732228239,person,OFFICIAL LEWEB PHOTOS,openimages,False
+nonsnake_test,images/person/openimages_ca0072612c256c79.jpg,-1.1918848,-1.4311739,2.7890337,0.018065737776173593,0.014221118866187966,0.9677131433576386,person,Iyyaka Nastain,openimages,False
+nonsnake_test,images/person/openimages_638d4334762fe254.jpg,-1.3782514,-1.4397473,2.6987936,0.01641731238229738,0.015438131356026535,0.968144556261676,person,David Hall,openimages,False
+nonsnake_test,images/person/openimages_385bc2f13c1c8d31.jpg,-1.2669367,-1.2519908,3.0062766,0.013556218555696943,0.01376035010759585,0.9726834313367071,person,Paul Long,openimages,False
+nonsnake_test,images/person/openimages_917622450b41081f.jpg,-0.7612274,-1.548004,2.6740642,0.030773233444846854,0.014011363348531782,0.9552154032066215,person,Chris Chan,openimages,False
+nonsnake_test,images/person/openimages_1bf81f2479f17f6d.jpg,-1.234643,-1.3265157,2.734025,0.01823944697642148,0.01663841144701645,0.9651221415765621,person,Ski China,openimages,False
+nonsnake_test,images/person/openimages_2abdbf13d03e3b87.jpg,-0.9512483,-2.0209084,2.9265845,0.020135913844517222,0.006909137971607128,0.9729549481838756,person,Nimbuzz,openimages,False
+nonsnake_test,images/person/openimages_f57d6543cc79e42c.jpg,-1.1507573,-1.3365302,2.5427353,0.023800788758821245,0.01976565471671585,0.9564335565244628,person,Bruce Fingerhood,openimages,False
+nonsnake_test,images/person/openimages_ecda3ddc1ad66066.jpg,-1.3088974,-1.3608768,2.6528711,0.01834878302159733,0.017419388229540544,0.9642318287488622,person,Andy Wright,openimages,False
+nonsnake_test,images/person/openimages_0801a96c85dab03c.jpg,-1.2186675,-1.4710873,2.9165127,0.01555747781675816,0.012086892627976496,0.9723556295552653,person,Forest Runner,openimages,False
+nonsnake_test,images/person/openimages_7cb7904d89eb759a.jpg,-1.3385034,-1.269953,2.6483161,0.017871760841778245,0.01913984447828774,0.962988394679934,person,Philip_Photography,openimages,False
+nonsnake_test,images/person/openimages_96ae3792e0aa95fb.jpg,-1.4901737,-1.0817723,3.5280468,0.00650844557890645,0.009791376539491074,0.9837001778816025,person,CircaSassy,openimages,False
+nonsnake_test,images/person/openimages_985e64cc8cd0dd1c.jpg,-1.5094184,-1.2362926,2.585129,0.01604460733413437,0.021083665662752066,0.9628717270031136,person,londonista_londonist,openimages,False
+nonsnake_test,images/person/openimages_5ae17e2ece920152.jpg,-1.381069,-1.2197766,2.8988447,0.0134391921614392,0.01579143376527648,0.9707693740732843,person,daveb_,openimages,False
+nonsnake_test,images/person/openimages_ae8e939b01fd2c2e.jpg,0.38878128,-1.8732153,1.4858891,0.2439243127321174,0.0254028507874357,0.7306728364804469,person,Hotlanta Voyeur,openimages,True
+nonsnake_test,images/person/openimages_8df731c0187c66f7.jpg,-1.1977069,-1.345208,2.913634,0.015900435965767748,0.013719873855925716,0.9703796901783066,person,Achilli Family | Journeys,openimages,False
+nonsnake_test,images/person/openimages_3168771e48f9e6ae.jpg,-0.6118905,-1.5650774,1.8504198,0.07623464926094946,0.029389256254931762,0.8943760944841188,person,Ron Merk,openimages,False
+nonsnake_test,images/person/openimages_98ec772337d5009e.jpg,-1.346183,-1.3531637,2.8498876,0.014616068432726519,0.014514393338370514,0.9708695382289031,person,Aaron Parecki,openimages,False
+nonsnake_test,images/person/openimages_ccc18570ba287be1.jpg,-1.2033731,-1.3727534,2.7321713,0.018855757935281037,0.01591780076557907,0.9652264412991398,person,Ernie & Katy Newton Lawley,openimages,False
+nonsnake_test,images/person/openimages_71ee8db94e7c6665.jpg,-1.5093513,-1.5306131,2.9455736,0.011359937811932192,0.011120954694690478,0.9775191074933772,person,Gabriel Flores Romero,openimages,False
+nonsnake_test,images/person/openimages_359221ef9b7e0514.jpg,-1.623302,-1.9328421,3.1188014,0.008590405495172107,0.006303505078633331,0.9851060894261946,person,PEP photo,openimages,False
+nonsnake_test,images/person/openimages_7b58e8db9789f843.jpg,-0.040840622,-2.3279822,2.2037845,0.0948907629288192,0.009636758415229051,0.8954724786559517,person,Stewardship - Transforming Generosity,openimages,False
+nonsnake_test,images/person/openimages_06aabc23f48f9eaa.jpg,-1.2583787,-1.1109086,2.9598038,0.014271678219723506,0.016539428382915455,0.9691888933973611,person,Ejército Argentino,openimages,False
+nonsnake_test,images/person/openimages_a1c974b649a14b7b.jpg,-1.1490432,-1.1127895,2.5485196,0.02359282645153992,0.024463847167035677,0.9519433263814243,person,Alan Dix,openimages,False
+nonsnake_test,images/person/openimages_ee4317061a03badb.jpg,-1.5724214,-0.9383376,2.8802228,0.011269008397677142,0.021245394408689715,0.967485597193633,person,PAUL KUXIKA BLAS,openimages,False
+nonsnake_test,images/person/openimages_d38e71d1f45c0f03.jpg,-1.5988464,-1.4593,2.7332168,0.012779407573424781,0.014693151371357833,0.9725274410552174,person,Badroe Zaman,openimages,False
+nonsnake_test,images/person/openimages_1db772d6e4983f9e.jpg,-1.2644509,-1.3765126,2.703081,0.018265537422015858,0.016329191300125584,0.9654052712778585,person,Mike Boening Photography,openimages,False
+nonsnake_test,images/person/openimages_7378b42dfb0ff01a.jpg,-1.1868767,-0.98806864,2.6227987,0.021116767336279558,0.02576135357306008,0.9531218790906604,person,Kevin Walsh,openimages,False
+nonsnake_test,images/person/openimages_5e8801ccbed4deef.jpg,-1.5222267,-1.4062667,2.9181778,0.011503218637222463,0.012917550333499624,0.9755792310292779,person,Chris Heard,openimages,False
+nonsnake_test,images/person/openimages_95ddfe9735eca8b2.jpg,-1.5186102,-0.98632056,2.5871885,0.015774357043758378,0.02686099648629334,0.9573646464699483,person,Robin Wendell,openimages,False
+nonsnake_test,images/person/openimages_c78b84fea308654b.jpg,-1.7455429,-1.3422607,2.6499171,0.011964778218292354,0.017908033039178307,0.9701271887425293,person,Carles Tomás Martí,openimages,False
+nonsnake_test,images/person/openimages_45187d19af958c77.jpg,-1.0338856,-1.1585807,2.8250349,0.020285248657258434,0.017907128159290027,0.9618076231834516,person,ronalfy,openimages,False
+nonsnake_test,images/person/openimages_dc367f22c2fcca0b.jpg,-1.3779854,-1.1603682,2.8925,0.013550232489838585,0.01684444459988716,0.9696053229102742,person,huk_flickr,openimages,False
+nonsnake_test,images/person/openimages_bd35cf987a9299cc.jpg,-1.1789355,-1.5515654,2.5104928,0.023974560105460667,0.01651655766432002,0.9595088822302192,person,George Showman,openimages,False
+nonsnake_test,images/person/openimages_58283abbab68f577.jpg,-1.3324965,-1.4846714,2.7441518,0.016445636792468594,0.0141241387461475,0.9694302244613838,person,evercool,openimages,False
+nonsnake_test,images/person/openimages_39c1df6947c9dd73.jpg,-1.2179611,-1.3617592,2.9245207,0.015426161204629387,0.01336002110265241,0.9712138176927182,person,Estação Ciência USP,openimages,False
+nonsnake_test,images/person/openimages_63246f1a5c8f572b.jpg,-1.232178,-1.7289101,2.696158,0.019072738796159405,0.011606066404835729,0.9693211947990048,person,Helsinki Hacklab Lab Camera,openimages,False
+nonsnake_test,images/person/openimages_166c696dc8512207.jpg,-1.3756596,-1.3081264,2.5833867,0.018356307559559224,0.019638785278550223,0.9620049071618905,person,Thomas Ricker,openimages,False
+nonsnake_test,images/person/openimages_91804cd0b3aa0a12.jpg,-1.232601,-1.1795737,2.5856311,0.021018067125200646,0.022162678092773315,0.956819254782026,person,Rob Rhyne,openimages,False
+nonsnake_test,images/person/openimages_0965d95ae9a60374.jpg,-1.4492183,-1.1435716,2.9854066,0.011536953797600493,0.015661444962543843,0.9728016012398557,person,Evan Guerra,openimages,False
+nonsnake_test,images/person/openimages_0b84a936f650bb8c.jpg,-1.566881,-1.2252337,3.0135834,0.010003305664711274,0.014077290622584513,0.9759194037127041,person,Jean van der Sluijs,openimages,False
+nonsnake_test,images/person/openimages_bc2260ec5b70b7e5.jpg,-1.6007739,-1.2579246,3.2279403,0.007845658678664783,0.011054191134578234,0.981100150186757,person,csaga,openimages,False
+nonsnake_test,images/person/openimages_c36437249ba1aaf6.jpg,-1.2501321,-0.85505694,2.663091,0.019031474372367862,0.028252143039533693,0.9527163825880984,person,Bodie Strain,openimages,False
+nonsnake_test,images/person/openimages_a7f12728bdf0e574.jpg,-1.6384029,-0.21542923,2.4357767,0.015636810523419857,0.06488402552569299,0.9194791639508872,person,Ministerio TIC Colombia,openimages,False
+nonsnake_test,images/person/openimages_35f80ab5f564b6e9.jpg,-1.547976,-1.1205144,2.8624895,0.01178673610307869,0.01807331317759953,0.9701399507193218,person,~Pawsitive~Candie_N,openimages,False
+nonsnake_test,images/person/openimages_b8a0fb549656e6dc.jpg,-1.4787233,-1.1495775,2.6894276,0.014928564325701584,0.020747427157079674,0.9643240085172187,person,Paul Skeie,openimages,False
+nonsnake_test,images/person/openimages_89b6d6100fd58a11.jpg,-1.5149919,-1.0879745,2.9578843,0.011093728541709221,0.017003128429755123,0.9719031430285355,person,Luiz Gustavo Leme,openimages,False
+nonsnake_test,images/person/openimages_fce34c8886e796fa.jpg,-1.4303547,-1.5525256,3.2565882,0.009057486143109375,0.008015849056639273,0.9829266648002514,person,4everMiku,openimages,False
+nonsnake_test,images/person/openimages_a5f894a913473286.jpg,-1.1786575,-1.2090026,2.7156951,0.019571635334276936,0.018986652669824484,0.9614417119958986,person,Shaw U,openimages,False
+nonsnake_test,images/person/openimages_940d7418b2f20b20.jpg,-1.1295755,-1.3104644,3.0125787,0.015438582688512037,0.012883930608622177,0.9716774867028657,person,Jason Graham,openimages,False
+nonsnake_test,images/person/openimages_bf0db2ddbde2cdbe.jpg,-1.4605469,-1.2678701,2.7986677,0.013704847635793533,0.01661700240209387,0.9696781499621127,person,Brock University,openimages,False
+nonsnake_test,images/person/openimages_6c391dfe777e43ec.jpg,-1.4709731,-1.3038164,2.7456133,0.014289065973282111,0.016888810930530896,0.9688221230961871,person,Simon Wright,openimages,False
+nonsnake_test,images/person/openimages_20b4ac46eebdde75.jpg,-1.4932072,-1.4490669,2.865072,0.012473849460001685,0.013036781515380527,0.9744893690246178,person,Brian Eager,openimages,False
+nonsnake_test,images/person/openimages_e6531a91951cea03.jpg,-1.1344798,-1.4767529,2.7151423,0.020540012479687852,0.014586576851502917,0.9648734106688092,person,Bill Brine,openimages,False
+nonsnake_test,images/person/openimages_1ead5312df1f0710.jpg,-1.5194123,-1.320344,2.7201157,0.013967384743379843,0.017043915034300864,0.9689887002223194,person,HelMet-kirjasto,openimages,False
+nonsnake_test,images/person/openimages_2b73450895d73099.jpg,-1.1943631,-1.7178763,2.7501714,0.01878120359013121,0.011126652547962667,0.9700921438619061,person,James Grimmelmann,openimages,False
+nonsnake_test,images/person/openimages_34534d417e9884fc.jpg,-1.1851913,-1.1189065,2.7918131,0.01804224030350411,0.019278692919692503,0.9626790667768034,person,Richard Riley,openimages,False
+nonsnake_test,images/person/openimages_478d929a2ec56e03.jpg,-1.4020778,-1.2932299,2.6335633,0.017037466024043824,0.018996651044862055,0.9639658829310941,person,Robin McConnell,openimages,False
+nonsnake_test,images/person/openimages_6d6adeb90d2ba250.jpg,-0.42982006,-1.6767001,2.5696628,0.04681088521464359,0.013453451980389539,0.9397356628049668,person,digital cat,openimages,False
+nonsnake_test,images/person/openimages_b533de7727c99e69.jpg,-1.5442623,-1.5326647,2.6681323,0.014382345119974126,0.014550116799656508,0.9710675380803694,person,Bahia Notícias,openimages,False
+nonsnake_test,images/person/openimages_06c3a9a0ebc0af5d.jpg,-1.2841525,-1.1812001,2.7355733,0.017302752374837423,0.019179039416872615,0.9635182082082899,person,Bob P. B.,openimages,False
+nonsnake_test,images/person/openimages_63ab6e7f0ea3de31.jpg,-1.1561782,-1.485866,2.6459072,0.02149906540770667,0.015461014543540987,0.9630399200487523,person,missbossy,openimages,False
+nonsnake_test,images/person/openimages_17f448148be12d79.jpg,-1.118645,-1.5141786,2.4385438,0.027219916300226445,0.01832773199401325,0.9544523517057604,person,ThoseGuys119,openimages,False
+nonsnake_test,images/person/openimages_2f63e5659bb9ed43.jpg,-0.15982193,-1.9422873,2.0157409,0.10024697290963426,0.01686383689145086,0.8828891901989149,person,U.S. Army Materiel Command,openimages,False
+nonsnake_test,images/person/openimages_00fed67de23e3b5c.jpg,-1.1708937,-1.5717514,2.6749256,0.020632699758276352,0.013818654907198087,0.9655486453345257,person,Liangtai Lin,openimages,False
+nonsnake_test,images/person/openimages_e82cb1cb39f8b6f6.jpg,-1.4272898,-1.3537188,2.4177723,0.02047588700675086,0.022039117667620865,0.9574849953256284,person,Star Tsao,openimages,False
+nonsnake_test,images/person/openimages_976c5f2ca5ea4598.jpg,-1.2212669,-1.393932,2.4859056,0.02348527331969467,0.019760963622767833,0.9567537630575375,person,Simon Fraser University -  University Communications,openimages,False
+nonsnake_test,images/person/openimages_0b72b821c0e1af25.jpg,-0.7883581,-1.8987999,2.7418237,0.028201119422426802,0.009289826465918348,0.9625090541116549,person,Montclair Film Festival,openimages,False
+nonsnake_test,images/person/openimages_0fa110bc03305ca9.jpg,-1.5838488,-2.1584747,2.4942613,0.016502545604695298,0.009289537325426228,0.9742079170698785,person,merec0,openimages,False
+nonsnake_test,images/person/openimages_b6c1afdbef2cb375.jpg,-1.4014293,-1.1092038,3.080778,0.01101697070549985,0.014756185861740698,0.9742268434327594,person,Thomas190,openimages,False
+nonsnake_test,images/person/openimages_ae99b78d6ef7c1ba.jpg,-1.2954898,-1.0007538,2.8654385,0.015043520989813295,0.020200016060636383,0.9647564629495502,person,Mathys Cresson,openimages,False
+nonsnake_test,images/person/openimages_37b792f97b841d39.jpg,-1.0643948,-1.2763598,2.8763726,0.018773325355338523,0.015187489021212452,0.9660391856234491,person,Peter Mulligan,openimages,False
+nonsnake_test,images/person/openimages_b41c4c3dfa1f0129.jpg,-1.6258992,-0.83221656,2.9728227,0.00974955616420298,0.02156139403516602,0.968689049800631,person,Traffic Mutants Photos,openimages,False
+nonsnake_test,images/person/openimages_5b91d0820a68ef3b.jpg,-1.2786027,-1.1947713,2.8683877,0.015306710852838152,0.01664521437298924,0.9680480747741728,person,biosfear,openimages,False
+nonsnake_test,images/person/openimages_eb47570abf8390dd.jpg,-1.8203154,-1.7667525,3.4754264,0.004961780082178863,0.005234793847485495,0.9898034260703356,person,Jonathan Riddell,openimages,False
+nonsnake_test,images/person/openimages_b902b6a36931039a.jpg,-1.3734741,-1.5981882,2.6301587,0.01766921827385762,0.014113191749253204,0.9682175899768891,person,Jon Feinstein,openimages,False
+nonsnake_test,images/person/openimages_50741be9d9ae4fd3.jpg,-1.3158352,-1.6033539,2.9071596,0.01428823332113305,0.010717925861649892,0.9749938408172171,person,J Marsh,openimages,False
+nonsnake_test,images/person/openimages_b7f10e8ea4b880ab.jpg,-1.2310162,-1.2731553,2.4226842,0.024645087417330826,0.02362814266080277,0.9517267699218664,person,Ian Hughes,openimages,False
+nonsnake_test,images/person/openimages_625039581f4e8e13.jpg,-1.6591982,-1.1617906,3.1703165,0.007825052902254447,0.012867929067894383,0.9793070180298512,person,popofatticus,openimages,False
+nonsnake_test,images/person/openimages_9f352072f3069833.jpg,-0.917753,-1.4882295,2.9304626,0.020629386231316108,0.011660884962857056,0.9677097288058267,person,John Hoey,openimages,False
+nonsnake_test,images/person/openimages_a669db5f92b39f3a.jpg,-1.8168303,-1.0019786,3.1848845,0.006582120774206063,0.014867962043280097,0.9785499171825138,person,U.S. Army Corps of Engineers,openimages,False
+nonsnake_test,images/person/openimages_44d04ee305388dc8.jpg,-1.5594513,-1.0723436,2.6605809,0.014151622227740362,0.02303320712212556,0.9628151706501341,person,Melissa Hillier,openimages,False
+nonsnake_test,images/person/openimages_4946625414db5390.jpg,-1.1831028,-1.4485784,2.736659,0.01917351344147878,0.014703039165674097,0.9661234473928471,person,Roddy Keetch,openimages,False
+nonsnake_test,images/person/openimages_30e13fc00b9c1732.jpg,-1.5355511,-0.9801698,2.990597,0.010510322735079188,0.018315344244935885,0.9711743330199848,person,Charley,openimages,False
+nonsnake_test,images/person/openimages_06fbbb29c945c066.jpg,-1.1781765,-1.3303816,2.8248284,0.01766120725515382,0.015167658850043826,0.9671711338948024,person,Leonardo Boiko,openimages,False
+nonsnake_test,images/person/openimages_09280c41852d7b14.jpg,-1.4946376,-1.3073105,2.6756725,0.014938406293775831,0.01801604230667335,0.9670455513995508,person,corleone713,openimages,False
+nonsnake_test,images/person/openimages_1607f91eb14aefc1.jpg,-1.5913794,-1.5846747,2.9355147,0.010584515423346647,0.010655719859359055,0.9787597647172943,person,Javier Aroche,openimages,False
+nonsnake_test,images/person/openimages_7817a54419096904.jpg,-2.3548667,-0.50907505,3.9556177,0.0017932569597175713,0.011356896119939461,0.9868498469203429,person,Rob and Stephanie Levy,openimages,False
+nonsnake_test,images/person/openimages_9dd7f1a00d2b03ab.jpg,-1.0590657,-1.1994648,2.6573365,0.023263814995250702,0.020216519129864722,0.9565196658748845,person,St Munchin's College,openimages,False
+nonsnake_test,images/person/openimages_d3729ac651653ed8.jpg,-1.8138928,-0.9220361,2.8702397,0.008956078661061597,0.021849743487174736,0.9691941778517638,person,Archangel12,openimages,False
+nonsnake_test,images/person/openimages_249b325c4faf4123.jpg,-1.8166388,-1.0403156,2.8090575,0.0095014324286236,0.020651041814512647,0.9698475257568638,person,Michael Newton,openimages,False
+nonsnake_test,images/person/openimages_7e4ca50f2f309c9b.jpg,-1.1700692,-1.3702242,2.9757273,0.01538780682194125,0.012596518055924301,0.9720156751221344,person,scott feldstein,openimages,False
+nonsnake_test,images/person/openimages_f66e1c9c355d9be7.jpg,-1.4497416,-1.5778817,2.7926674,0.013994824455620601,0.012311668602210302,0.973693506942169,person,SUPERADRIANME,openimages,False
+nonsnake_test,images/person/openimages_1a656e26cff1c3f1.jpg,-1.4123751,-1.5345868,2.7630813,0.014935517779108653,0.013217350785557521,0.9718471314353339,person,Ben Raigoza,openimages,False
+nonsnake_test,images/person/openimages_e7976049fda69bd6.jpg,-1.2759876,-1.3707283,3.1269383,0.011961845037810462,0.010880599097278844,0.9771575558649108,person,Smiles Are Free,openimages,False
+nonsnake_test,images/person/openimages_3f332b684d8c7363.jpg,-1.3911847,-1.3767054,2.7498097,0.015413096826844847,0.015637891184870405,0.9689490119882846,person,Meaghan O'Malley,openimages,False
+nonsnake_test,images/person/openimages_f850d752159b13ff.jpg,-1.8967156,-0.7759315,2.5506651,0.011176904190962683,0.03428245212429437,0.9545406436847429,person,Håkan Dahlström,openimages,False
+nonsnake_test,images/person/openimages_a7935166240eb68b.jpg,-1.3843778,-1.2536942,2.9191303,0.013140880558870976,0.014975441475832066,0.9718836779652968,person,The Unbiased Blog,openimages,False
+nonsnake_test,images/person/openimages_efe08b95dea92002.jpg,-1.0359468,-1.5496297,2.9538467,0.01797203026013626,0.010752451498469692,0.9712755182413941,person,MichelleWalz,openimages,False
+nonsnake_test,images/person/openimages_0c06c19b058067ef.jpg,-1.4250407,-1.2262782,2.6029193,0.01713321901691201,0.020900680361151835,0.9619661006219362,person,Zach Dischner,openimages,False
+nonsnake_test,images/person/openimages_79173e559d16009f.jpg,-1.3958274,-0.79286027,2.274893,0.023748610651075266,0.04340137661606259,0.9328500127328623,person,Ian Irving,openimages,False
+nonsnake_test,images/person/openimages_3e3a318a23753ea6.jpg,-1.4931967,-0.9156376,2.7139268,0.014296998431778361,0.025472736296534827,0.9602302652716869,person,Jan Kraus,openimages,False
+nonsnake_test,images/person/openimages_7aff58e036d03b98.jpg,-1.622522,-1.5251921,2.7434196,0.012372300073310052,0.013637045300567764,0.9739906546261223,person,Andreas Lehner,openimages,False
+nonsnake_test,images/person/openimages_c5f03faac790e8d6.jpg,-1.2902738,-1.5397106,2.9802911,0.013634884412746323,0.010624840883367577,0.975740274703886,person,Andrew,openimages,False
+nonsnake_test,images/person/openimages_93fed42f1602b37c.jpg,-1.7021911,-1.6878738,3.4530504,0.005702812209015039,0.00578504837744145,0.9885121394135434,person,Mislav Marohnić,openimages,False
+nonsnake_test,images/person/openimages_d0f6a0b34c046886.jpg,-1.4755816,-1.4956576,2.7827945,0.013759849665166333,0.013486361384281633,0.972753788950552,person,National Assembly for Wales,openimages,False
+nonsnake_test,images/person/openimages_02e4fdb29be94166.jpg,-0.9374515,-1.1647234,3.0028353,0.018786379448332703,0.014967186075161605,0.9662464344765056,person,xiquinhosilva,openimages,False
+nonsnake_test,images/person/openimages_d73dfd9b57832f27.jpg,-1.1909127,-0.9709511,3.0707014,0.013666728805235132,0.017029138815965843,0.9693041323787991,person,Castellers d'Esplugues,openimages,False
+nonsnake_test,images/person/openimages_d0e060c05598f066.jpg,-1.5202254,-1.5470251,3.1884148,0.008859372607134063,0.008625097353998431,0.9825155300388675,person,Stuart Seeger,openimages,False
+nonsnake_test,images/person/openimages_fb4a45c4f372de17.jpg,-1.6006246,-1.1014627,2.8685455,0.011119562497553429,0.018317700710549823,0.9705627367918968,person,basibanget,openimages,False
+nonsnake_test,images/person/openimages_9586c1b815b072d6.jpg,-1.5232854,-1.2468983,2.8219235,0.01259025611685399,0.016598466153951084,0.970811277729195,person,Nick Webb,openimages,False
+nonsnake_test,images/person/openimages_08c71a523c80c216.jpg,-1.4629074,-1.1849874,2.7850552,0.01383449137155016,0.018266793499605045,0.9678987151288447,person,Marc Levin,openimages,False
+nonsnake_test,images/person/openimages_6b7ce453d34f30ae.jpg,-1.5119549,-1.062321,2.6936877,0.014361333461471329,0.022514810086535268,0.9631238564519934,person,evan courtney,openimages,False
+nonsnake_test,images/person/openimages_751359260aab8906.jpg,-1.5465254,-1.2461184,2.560706,0.01584067520689339,0.02139137946592853,0.962767945327178,person,Kevin Shockey,openimages,False
+nonsnake_test,images/person/openimages_109c177ea7d37ab1.jpg,-0.8489152,-1.4238286,2.665408,0.028444696912108467,0.016007355621156072,0.9555479474667354,person,lori05871,openimages,False
+nonsnake_test,images/person/openimages_0ed1fc34936188cd.jpg,-1.1997564,-1.4540288,2.94288,0.015445424307451066,0.011977625864712805,0.9725769498278362,person,BUF Simrishamn,openimages,False
+nonsnake_test,images/person/openimages_0764be50b9ef5f25.jpg,-1.5072589,-0.9581951,3.4712093,0.0067575171744218175,0.01170152693671732,0.9815409558888609,person,Dannel Malloy,openimages,False
+nonsnake_test,images/person/openimages_cb4ac9b4381c530b.jpg,-1.0558558,-1.2332214,3.2326982,0.013387148101329368,0.011211382420929191,0.9754014694777414,person,johrling,openimages,False
+nonsnake_test,images/person/openimages_14eb9bf0d24a4be4.jpg,-1.6230732,-1.527127,2.4543583,0.016368099040466613,0.018016364072683557,0.9656155368868498,person,Brock Roseberry,openimages,False
+nonsnake_test,images/person/openimages_2fc9197a768fa521.jpg,3.103039,-1.8892221,-1.5119281,0.9835812718090988,0.006678805603607369,0.009739922587293824,person,Ruth Temple,openimages,True
+nonsnake_test,images/person/openimages_6563e737cbb82568.jpg,-1.0760834,-1.772784,2.6887712,0.022393579506680326,0.011157073469063509,0.9664493470242562,person,an iconoclast,openimages,False
+nonsnake_test,images/person/openimages_fdbe50eaa6ca25c5.jpg,-1.1417305,-1.4994739,2.5613484,0.02365672280912069,0.01654202209707289,0.9598012550938065,person,Jason Eppink,openimages,False
+nonsnake_test,images/person/openimages_220a29515fb612c8.jpg,-0.43047896,-1.5532864,2.0372102,0.0762164700519924,0.02479817698381231,0.8989853529641952,person,shizhao,openimages,False
+nonsnake_test,images/person/openimages_073656ee0dc47e82.jpg,-1.4580138,-1.2725401,2.6565611,0.015765418140463748,0.018978229681387397,0.965256352178149,person,Dani Nofal,openimages,False
+nonsnake_test,images/person/openimages_3c28a7ba8c0aca3f.jpg,-1.452976,-1.2091805,2.9974883,0.011371028414913633,0.014510379973070472,0.9741185916120159,person,UKBERRI.NET Uribe Kosta eta Erandioko agerkari digitala,openimages,False
+nonsnake_test,images/person/openimages_fd4e1247ad0aec8d.jpg,-1.5427034,-0.97576815,2.8938837,0.011461454342449853,0.02020489413976037,0.9683336515177897,person,e*v,openimages,False
+nonsnake_test,images/person/openimages_60f8c1e1bf00ef2f.jpg,-1.3284854,-0.94508696,2.60883,0.018605339793530237,0.02729891793136431,0.9540957422751054,person,Steve  Bowbrick,openimages,False
+nonsnake_test,images/person/openimages_7879087ddf03f155.jpg,-1.3958523,-1.4149541,2.5939183,0.01784963005075521,0.01751190582671375,0.964638464122531,person,Mark Guim,openimages,False
+nonsnake_test,images/person/openimages_dad3befc29dfeb6e.jpg,-1.4058778,-1.3614608,2.750454,0.015178573446853829,0.01586795698296258,0.9689534695701836,person,Jilles Gurp,openimages,False
+nonsnake_test,images/person/openimages_0cf3f07eb6c089c0.jpg,-1.5585207,-0.90008163,2.4876006,0.016636987573350345,0.03213891026161863,0.9512241021650311,person,Gabriela Avram,openimages,False
+nonsnake_test,images/person/openimages_6bb59abcf680e7c4.jpg,-0.90268105,-1.3728703,2.7690096,0.02442407588144937,0.0152622141792516,0.960313709939299,person,Nao Kitano,openimages,False
+nonsnake_test,images/person/openimages_565ef5f7dc87a8a3.jpg,-0.84849805,-1.4591424,2.624425,0.029608734154588597,0.016077568515503505,0.954313697329908,person,Gavin Jones,openimages,False
+nonsnake_test,images/person/openimages_c15aabbf57685315.jpg,-1.475798,-1.1815339,2.547296,0.01717745245914932,0.02305451710971806,0.9597680304311327,person,MIKI Yoshihito,openimages,False
+nonsnake_test,images/person/openimages_dd960838b9223025.jpg,-1.5563205,-1.3904816,3.3186283,0.007510449075672507,0.008865205860890766,0.9836243450634368,person,Talbot Troy,openimages,False
+nonsnake_test,images/person/openimages_575511683cfa522f.jpg,-1.7826726,-1.3556644,2.6393552,0.011655334391534308,0.017863725760419204,0.9704809398480465,person,The Conmunity -  Pop Culture Geek,openimages,False
+nonsnake_test,images/person/openimages_4c8cfad96ace11c5.jpg,-1.5230604,-1.1363782,2.8311074,0.012457311889652312,0.018338266659625492,0.9692044214507223,person,Trevor Cameron,openimages,False
+nonsnake_test,images/person/openimages_fc807e75fbb2f5e7.jpg,-1.159745,-1.7048235,2.5629587,0.02327968490137288,0.013497474415471635,0.9632228406831553,person,moggs oceanlane,openimages,False
+nonsnake_test,images/person/openimages_af8fe8f491807b09.jpg,-0.77872163,-2.204453,2.7337928,0.02875810187775895,0.006911510167276406,0.9643303879549645,person,Hong Phuc FOSSASIA,openimages,False
+nonsnake_test,images/person/openimages_b24bf4d161061372.jpg,-1.4653316,-1.2537307,2.2963681,0.022095959951447846,0.02730297537058187,0.9506010646779702,person,Tsutomu Takasu,openimages,False
+nonsnake_test,images/person/openimages_e322b3dd09a676c5.jpg,-1.224159,-1.108189,2.946213,0.014956068138917518,0.016795098922822504,0.9682488329382599,person,Eli  Watson,openimages,False
+nonsnake_test,images/person/openimages_79ac57ab75beac63.jpg,-1.3764815,-1.3570814,2.668346,0.016914485098503126,0.017245831485211874,0.965839683416285,person,U.S. Navy Seabee Museum,openimages,False
+nonsnake_test,images/person/openimages_86f946625835bcad.jpg,-0.6557572,-2.0697503,2.860871,0.02864190705835381,0.0069648622328049165,0.9643932307088413,person,Piotr Drabik,openimages,False
+nonsnake_test,images/person/openimages_377fdbd422a31fa8.jpg,-1.7393655,-1.4854888,3.1083915,0.007707532909451562,0.0099351090328631,0.9823573580576853,person,col.b,openimages,False
+nonsnake_test,images/person/openimages_de91aaa438c84e14.jpg,-1.4047548,-1.5382028,2.6779115,0.01634562421960643,0.014303613958329119,0.9693507618220644,person,David Sikes,openimages,False
+nonsnake_test,images/person/openimages_dadc8ea714a26ded.jpg,-0.689187,-1.903237,2.6457543,0.03404402842056744,0.010110804862856919,0.9558451667165756,person,liftconferencephotos,openimages,False
+nonsnake_test,images/person/openimages_216d5c5d16f74acd.jpg,-1.3219979,-0.95169103,3.1567035,0.011041385443597885,0.015989901968952534,0.9729687125874495,person,U.S. Army Alaska (USARAK),openimages,False
+nonsnake_test,images/person/openimages_f248e8187dc4abec.jpg,-1.0359603,-1.5473994,2.7676246,0.021523264547216057,0.012906038751170093,0.9655706967016139,person,Daniel,openimages,False
+nonsnake_test,images/person/openimages_13f20b706bfe7f41.jpg,-1.3498802,-0.9913299,2.7300897,0.016240372421704292,0.023244082112566167,0.9605155454657295,person,Yellowstone National Park,openimages,False
+nonsnake_test,images/person/openimages_0218cdd9e1e186e7.jpg,-1.3336533,-1.1535189,3.004527,0.012695920294498056,0.015201819204592919,0.9721022605009091,person,Ann Porteus,openimages,False
+nonsnake_test,images/person/openimages_a799ae387c44de1d.jpg,-1.1943839,-1.6158005,2.744684,0.018858383944456616,0.012373300758742179,0.9687683152968013,person,DoD News Features,openimages,False
+nonsnake_test,images/person/openimages_9b0f2213e269ebe4.jpg,-0.78134805,-1.9544376,2.4091418,0.03904764729596123,0.012081714073806562,0.9488706386302322,person,COD Newsroom,openimages,False
+nonsnake_test,images/person/openimages_b14fe01c2683832d.jpg,-1.1725699,-1.2672782,2.8520577,0.017280378194267094,0.01571889275957293,0.96700072904616,person,RecoilRick,openimages,False
+nonsnake_test,images/person/openimages_4792c9e84a7c8bb5.jpg,-1.3361773,-1.0641199,2.4345777,0.02186963917160652,0.02870745186046058,0.9494229089679329,person,Claudia Borralho,openimages,False
+nonsnake_test,images/person/openimages_3bca71a1ad79fd44.jpg,-1.2588056,-1.5191039,2.8225834,0.016393845319043785,0.012636730331726824,0.9709694243492294,person,Great Valley Center,openimages,False
+nonsnake_test,images/person/openimages_f2b33d15c7fe88eb.jpg,-1.5463378,-1.1897707,2.7949483,0.012620737269855704,0.01802768039032537,0.9693515823398188,person,RobertG NL,openimages,False
+nonsnake_test,images/person/openimages_9cf2c6cd590816c6.jpg,-1.4685093,-1.4073576,2.531747,0.01764440007172762,0.01875705890774391,0.9635985410205284,person,Cody Allison,openimages,False
+nonsnake_test,images/person/openimages_0d33741834b84fb4.jpg,-1.3046488,-1.0110223,2.5914521,0.0193980844605884,0.026018317834445862,0.9545835977049657,person,IMLS Digital Collections & Content,openimages,False
+nonsnake_test,images/person/openimages_f01fa87e26297ae6.jpg,-1.3837503,-1.4985429,2.903473,0.01339482548253378,0.011942170488003263,0.9746630040294629,person,Mountainbike Worldcup,openimages,False
+nonsnake_test,images/person/openimages_b0628f04120bafdf.jpg,-1.3173558,-1.8568099,3.1683843,0.01107104973307697,0.0064551577928697685,0.9824737924740533,person,Karen Kay,openimages,False
+nonsnake_test,images/person/openimages_90933aea042430bd.jpg,-1.3689754,-1.5223134,3.0991518,0.011229505765974642,0.00963311611546337,0.9791373781185619,person,Raoul Luoar,openimages,False
+nonsnake_test,images/person/openimages_33ad64092bce308a.jpg,-1.1854005,-1.625961,2.9643464,0.015370043938821595,0.009893321329309672,0.9747366347318687,person,Joaquín Martínez,openimages,False
+nonsnake_test,images/legless_lizard/inaturalist_526524998.jpg,-1.8353906,2.8134232,-1.6143112,0.009371331455597244,0.978938659094352,0.011690009450050779,legless_lizard,en57,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_676740821.jpg,-1.1478744,2.4313962,-2.143158,0.026869439339205423,0.9631991159524808,0.009931444708313756,legless_lizard,longshanksdude,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_17943946.jpg,-0.6319665,2.6195858,-1.8169136,0.036851187348560493,0.9518811068637552,0.011267705787684249,legless_lizard,j_indr,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_638668257.jpg,0.35369027,1.3151178,-2.4243057,0.2719171792961694,0.7111796442173276,0.016903176486503,legless_lizard,baarttek,inaturalist,True
+nonsnake_test,images/legless_lizard/inaturalist_697829666.jpg,-0.9967189,2.2384577,-2.1234818,0.037404236390070386,0.9504737746780582,0.012121988931871452,legless_lizard,barthoptera,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_342245752.jpg,-0.71274173,2.397132,-2.0903347,0.04224685984342867,0.9470991225847676,0.010654017571803811,legless_lizard,ruebezahl,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_333243363.jpg,-1.1723201,2.8062346,-1.6752298,0.018167115921639984,0.9708459864041199,0.010986897674240038,legless_lizard,packscout,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_234418301.jpg,-1.2193677,2.1976042,-0.9600903,0.030512939866674863,0.9299424956165303,0.039544564516794896,legless_lizard,kseniiamarianna,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_25581652.jpg,-1.1877804,2.6475966,-1.9027146,0.02092045487567319,0.968844750196606,0.01023479492772068,legless_lizard,fihu,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_430083741.jpg,-1.3464316,2.4371262,-1.6237065,0.02186745712303844,0.9615603749796631,0.01657216789729871,legless_lizard,cuaderno_de_fauna,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_652749010.jpg,0.84254193,1.1037114,-2.624951,0.4292503488606647,0.5573591259358025,0.013390525203532755,legless_lizard,bessiebo,inaturalist,True
+nonsnake_test,images/legless_lizard/inaturalist_343268432.jpg,-1.2648748,2.5423934,-1.4533883,0.021342232400120932,0.9609823586012266,0.017675408998652494,legless_lizard,kiteheights,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_661538553.jpg,-0.83342814,2.0789647,-1.5906827,0.050327814789653376,0.9260708487006405,0.023601336509706142,legless_lizard,alok,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_198665153.jpg,-1.5524738,2.539387,-1.3954531,0.016123524509201997,0.9650116320361898,0.01886484345460806,legless_lizard,pilmar,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_631403176.jpg,-1.468357,2.5410824,-1.1794907,0.017406174630353845,0.9593580924205198,0.02323573294912624,legless_lizard,liam0066,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_35489288.jpg,-0.38585052,1.9704527,-2.0081167,0.08511129373700882,0.8980834189461209,0.016805287316870452,legless_lizard,philpav,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_286191205.jpg,-0.74448633,2.6560407,-2.0931075,0.03201076161380972,0.9596793101192332,0.008309928266957029,legless_lizard,ilya_rudenko,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_148810298.jpg,-1.5328,2.6489284,-1.3714776,0.014781093557499932,0.9678501792427952,0.01736872719970488,legless_lizard,migru,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_549954627.jpg,-1.9701511,3.401236,-1.9171398,0.004603721921358209,0.990541922352966,0.004854355725675709,legless_lizard,viktor-n,inaturalist,False
+nonsnake_test,images/legless_lizard/inaturalist_205181095.jpg,-1.501597,2.5652652,-1.327125,0.016511424075858594,0.9638297870441815,0.019658788879959886,legless_lizard,axo01,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_254976175.jpg,-1.3940376,2.7663224,-1.5349965,0.015159986940922689,0.971673185289909,0.013166827769168273,caecilian,meaw101,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_187604373.jpg,1.6864259,-2.204645,-0.23686665,0.8572296763725191,0.017507598437582445,0.12526272518989842,caecilian,kevin-chaikelson,inaturalist,True
+nonsnake_test,images/caecilian/inaturalist_421857093.jpg,0.71396124,0.80613256,-2.1240752,0.4640170618513775,0.5088191468887613,0.027163791259861177,caecilian,demetztobias,inaturalist,True
+nonsnake_test,images/caecilian/inaturalist_519846664.jpg,-1.6468352,3.0079489,-1.2588389,0.009297088622336087,0.9769987765465669,0.013704134831097121,caecilian,chiragmunje,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_651499546.jpg,-1.7531147,2.7138357,-0.95365286,0.011072349362225736,0.9642989417106458,0.02462870892712839,caecilian,puffi_thebikingnaturalist,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_377085011.jpg,-1.705125,2.662201,-1.2254982,0.012277768889411877,0.967887846666065,0.01983438444452319,caecilian,miguelj_lengua,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_171553891.jpg,0.6281072,1.5568502,-2.1350412,0.2782091476314144,0.704237854387746,0.017552997980839414,caecilian,leonardobergamini,inaturalist,True
+nonsnake_test,images/caecilian/inaturalist_170240618.jpg,-1.2898598,2.6157274,-1.5986404,0.019450112311309123,0.966266855901444,0.014283031787246919,caecilian,lucero62,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_361436428.jpg,-1.339367,2.6854239,-1.272471,0.017230153330712584,0.9643476376338719,0.018422209035415558,caecilian,david_parra_puente,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_167348982.jpg,-1.0285814,2.5136418,-1.6532314,0.027716892933690125,0.9574421299274203,0.014840977138889686,caecilian,mariobarroso,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_204808561.jpg,0.8710538,1.7418047,-1.9145403,0.2898217820508123,0.6922984089124179,0.017879809036769723,caecilian,w_endo,inaturalist,True
+nonsnake_test,images/caecilian/inaturalist_693072495.jpg,-1.8511555,3.0006557,-1.3657776,0.007657158285288377,0.9799015759228858,0.01244126579182585,caecilian,gabrielfialho,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_562078238.jpg,1.1628333,0.8494525,-2.1824408,0.5661802239888976,0.4138616107781632,0.01995816523293927,caecilian,rafaelduarte,inaturalist,True
+nonsnake_test,images/caecilian/inaturalist_457137405.jpg,-1.4868902,2.4283228,-0.98718405,0.018936527900886502,0.9498515887153189,0.031211883383794617,caecilian,lucanus95,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_458454046.jpg,-0.081448555,2.1139166,-1.8810024,0.09853524013889017,0.8851697257261067,0.01629503413500308,caecilian,ecovore,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_99753025.jpg,-1.4739242,2.8973157,-1.2906239,0.01229363992082659,0.9729395463260869,0.014766813753086654,caecilian,josegjulioguzman,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_442851530.jpg,-1.8172382,3.4075449,-1.4505433,0.005311695067953219,0.9870237541352043,0.007664550796842404,caecilian,paulmathi,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_428062731.jpg,-0.8758132,2.5177553,-1.4995531,0.031940778558037036,0.950940997594005,0.017118223847958084,caecilian,ashwitshetty,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_59842626.jpg,-1.2913748,2.458228,-1.341302,0.022494407220626966,0.9561066929612086,0.021398899818164462,caecilian,nmoorhatch,inaturalist,False
+nonsnake_test,images/caecilian/inaturalist_595452219.jpg,0.7336869,1.0012437,-2.3844936,0.4253499307055257,0.5558336153568748,0.018816453937599543,caecilian,radrat,inaturalist,True
+nonsnake_test,images/eel/inaturalist_586369393.jpg,-1.7730129,2.9821486,-1.461453,0.008435403921723306,0.980045600048877,0.011518996029399656,eel,opisska,inaturalist,False
+nonsnake_test,images/eel/inaturalist_325710508.jpg,0.07486412,1.9435185,-1.195637,0.12886162173140556,0.8349680902498263,0.03617028801876799,eel,mikoikoi,inaturalist,False
+nonsnake_test,images/eel/inaturalist_176923705.jpg,3.2089462,-1.6299897,-1.3972944,0.9824101679549105,0.00777624059548042,0.009813591449609135,eel,alboertoalcala,inaturalist,True
+nonsnake_test,images/eel/inaturalist_730982171.jpg,-1.5809425,3.0848873,-1.3466649,0.009215085440498419,0.979137089609945,0.011647824949556481,eel,uma_dives,inaturalist,False
+nonsnake_test,images/eel/inaturalist_682326153.jpg,-1.7096068,2.227135,-0.5911987,0.018079481418079576,0.926597682522357,0.05532283605956345,eel,jenni_ly,inaturalist,False
+nonsnake_test,images/eel/inaturalist_356360644.jpg,-0.9513478,1.8758359,-1.1261737,0.05336917565902315,0.9018218945857326,0.044808929755244385,eel,coralreefdreams,inaturalist,False
+nonsnake_test,images/eel/inaturalist_13812372.jpg,-1.4784025,2.80748,-1.1752865,0.013329651101665847,0.9686210478683311,0.018049301030002945,eel,ciaodb,inaturalist,False
+nonsnake_test,images/eel/inaturalist_701258599.jpg,-0.5585003,2.175213,-0.8419143,0.058332383217986394,0.8977312051944243,0.04393641158758931,eel,toad-wife,inaturalist,False
+nonsnake_test,images/eel/inaturalist_572898306.jpg,-0.8013996,2.9250019,-1.5814778,0.02326243260739924,0.9660747623117475,0.010662805080853478,eel,richardlitt,inaturalist,False
+nonsnake_test,images/eel/inaturalist_31718227.jpg,1.3787742,-0.2754637,-1.7156408,0.8087086610192123,0.15465561864763927,0.036635720333148325,eel,rogerritt,inaturalist,True
+nonsnake_test,images/eel/inaturalist_379432450.jpg,-1.167845,2.6575792,-1.3257403,0.020961642187527055,0.9611383901724468,0.017899967640026108,eel,tomheijnen,inaturalist,False
+nonsnake_test,images/eel/inaturalist_747868253.jpg,-1.1197422,2.796795,-1.4279537,0.019245210598193535,0.9666141803899825,0.014140609011823967,eel,jpdandretta,inaturalist,False
+nonsnake_test,images/eel/inaturalist_428086971.jpg,-0.800471,2.2807326,-1.3358617,0.04278981536334037,0.9321592931429065,0.025050891493753377,eel,sh_kung,inaturalist,False
+nonsnake_test,images/eel/inaturalist_189547791.jpg,-1.733758,2.7505364,-0.9913209,0.010903288118751322,0.9661883611231031,0.022908350758145565,eel,joepdeligt,inaturalist,False
+nonsnake_test,images/eel/inaturalist_485448572.jpg,-1.2953151,2.6892393,-1.2744048,0.017926782470709356,0.9637676340397785,0.018305583489512105,eel,tiagolubiana,inaturalist,False
+nonsnake_test,images/eel/inaturalist_482995502.jpg,-1.5546356,2.496585,-0.88681716,0.01655148547572232,0.9511734706979065,0.032275043826371315,eel,frankashwood,inaturalist,False
+nonsnake_test,images/eel/inaturalist_278377798.jpg,-1.3791828,2.583749,-1.4109067,0.01832168927944677,0.9639287340769614,0.017749576643591766,eel,lucasmantelo,inaturalist,False
+nonsnake_test,images/eel/inaturalist_661030381.jpg,-1.2886494,2.8217068,-1.5782348,0.015944639060253982,0.9721196209006419,0.011935740039104118,eel,i-lung,inaturalist,False
+nonsnake_test,images/eel/inaturalist_548618156.jpg,1.7100779,-0.61970556,-1.9919107,0.8912725653503876,0.08673580984507855,0.021991624804533785,eel,zach63671,inaturalist,True
+nonsnake_test,images/eel/inaturalist_277197378.jpg,-1.8210902,2.440788,-0.7557187,0.013360942280197786,0.9478667142392286,0.0387723434805735,eel,gussoni,inaturalist,False
+nonsnake_test,images/eel/inaturalist_164902556.jpg,-0.28580353,2.3348324,-1.5655863,0.06656655488680437,0.9149214389656525,0.018512006147543163,eel,adithyan_a_saj,inaturalist,False
+nonsnake_test,images/eel/inaturalist_205626046.jpg,-1.2453095,2.2948725,-1.0676854,0.027272056123422334,0.9401548471868126,0.032573096689765074,eel,cowturtle,inaturalist,False
+nonsnake_test,images/eel/inaturalist_115952864.jpg,-0.7371329,1.1109716,-0.85273826,0.12137980760120383,0.7704918177584303,0.10812837464036587,eel,carancho,inaturalist,False
+nonsnake_test,images/eel/inaturalist_687731518.jpg,-1.1541958,2.8114793,-1.8995662,0.01843983119970212,0.9728093903334022,0.008750778466895879,eel,yu-chen,inaturalist,False
+nonsnake_test,images/eel/inaturalist_245922568.jpg,2.1373296,-0.7673335,-1.4761064,0.9244482682955611,0.05062947886131132,0.024922252843127414,eel,tandria,inaturalist,True
+nonsnake_test,images/eel/inaturalist_705146990.jpg,-0.6483944,1.9799511,-1.8846154,0.0660444635455503,0.9147709492808132,0.019184587173636667,eel,sabarnisarker,inaturalist,False
+nonsnake_test,images/eel/inaturalist_286530973.jpg,-0.7210473,2.5577247,-1.5150295,0.03572041078369697,0.9481324958517187,0.016147093364584402,eel,fchieffo,inaturalist,False
+nonsnake_test,images/eel/inaturalist_602744280.jpg,1.8857775,-0.7052686,-1.7304211,0.9075840847156573,0.06801580585298454,0.024400109431358064,eel,chobe_paz,inaturalist,True
+nonsnake_test,images/eel/inaturalist_32270385.jpg,-1.1926306,2.923694,-1.613811,0.01587561786049674,0.9737056634285183,0.010418718710984824,eel,jessm-c,inaturalist,False
+nonsnake_test,images/eel/inaturalist_63953413.jpg,-0.41221085,2.3055048,-1.564907,0.060747920357055944,0.9200688450588403,0.01918323458410373,eel,demianlescano,inaturalist,False
+nonsnake_test,images/eel/inaturalist_249651833.jpg,-1.5416133,2.5161252,-1.2039481,0.016598881961928654,0.9601349441471363,0.023266173890935105,eel,ceherzog,inaturalist,False
+nonsnake_test,images/eel/inaturalist_242020338.jpg,-0.8742689,2.356083,-1.6266713,0.03736950445391086,0.9450207480651782,0.017609747480910973,eel,sanya-copepoda,inaturalist,False
+nonsnake_test,images/eel/inaturalist_246252790.jpg,-1.2950374,2.4832053,-1.4480575,0.02193115972000511,0.9592494385642417,0.018819401715753106,eel,nicholasmohammed,inaturalist,False
+nonsnake_test,images/eel/inaturalist_345974293.jpg,-1.0573726,-1.464627,2.6092694,0.024518340937255505,0.016316339795835723,0.9591653192669087,eel,anna_mitroshenkova,inaturalist,False
+nonsnake_test,images/eel/inaturalist_345687235.jpg,-0.6692162,1.9525201,-1.9605987,0.06651375543219451,0.9152022461327965,0.01828399843500881,eel,facu-lamela,inaturalist,False
+nonsnake_test,images/eel/inaturalist_474731651.jpg,-2.4326591,1.9237561,-0.14393832,0.011256265150231419,0.8777309186528484,0.11101281619692041,eel,crusty,inaturalist,False
+nonsnake_test,images/eel/inaturalist_96702068.jpg,2.560895,-1.4229683,-1.4814397,0.9650925765208828,0.017963837888756558,0.016943585590360643,eel,navaneethsinigeorge,inaturalist,True
+nonsnake_test,images/eel/inaturalist_470379847.jpg,-1.1584028,2.826557,-1.5411326,0.018029347431658654,0.9696746890031842,0.012295963565157246,eel,hueyl,inaturalist,False
+nonsnake_test,images/eel/inaturalist_89034267.jpg,-1.2218517,2.8212297,-1.7095482,0.017060259138334477,0.9724640728919349,0.010475667969730536,eel,chiuluan,inaturalist,False
+nonsnake_test,images/eel/inaturalist_455175377.jpg,-0.8963706,2.260661,-1.6562691,0.040050549220837284,0.9412172523036128,0.018732198475550108,eel,jbb-bender,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_577591070.jpg,-0.96220005,2.2863135,-1.4490945,0.036540940664081846,0.9410034858843584,0.02245557345155984,earthworm,cameronfindlay,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_56178034.jpg,-0.8927798,2.4997547,-1.3364029,0.031864442823577734,0.9476879136864849,0.020447643489937377,earthworm,imasongster,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_441456500.jpg,0.9837569,-0.39898336,-0.85905886,0.7095917801395452,0.17802955701156034,0.11237866284889453,earthworm,sylvaingerard,inaturalist,True
+nonsnake_test,images/earthworm/inaturalist_636833123.jpg,1.150195,0.2503452,-1.7762097,0.6848282698647018,0.2784722200460709,0.03669951008922741,earthworm,hehetheorange,inaturalist,True
+nonsnake_test,images/earthworm/inaturalist_621211007.jpg,-1.3535923,2.7805884,-1.4038782,0.015530513370311631,0.9697006283544791,0.014768858275209311,earthworm,headlounge,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_300185687.jpg,-1.6742152,2.746041,-1.4228317,0.01170913838233185,0.9732352152426351,0.015055646375033037,earthworm,atachkin,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_17288017.jpg,-1.4982891,2.527596,-1.1374224,0.01710441098944703,0.958358076171518,0.024537512839034915,earthworm,akneidel,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_409117685.jpg,-0.80858254,2.4273353,-1.6117882,0.03720571349025712,0.9461301869591311,0.01666409955061181,earthworm,leecain,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_575216776.jpg,-1.2326187,2.9411423,-1.850812,0.01503799595819565,0.9768577690609996,0.008104234980804731,earthworm,jayjt,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_264777151.jpg,-1.4568574,2.598049,-1.4602526,0.016757050152618136,0.9665426967581868,0.01670025308919495,earthworm,l_kat,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_228495378.jpg,-1.2813348,2.9232388,-1.7892873,0.01457858716193843,0.9766490927519755,0.008772320086086019,earthworm,hanjohan,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_486516399.jpg,2.6947103,-1.4915996,-2.4722686,0.9795239837576802,0.014890997307582228,0.005585018934737494,earthworm,janek_s,inaturalist,True
+nonsnake_test,images/earthworm/inaturalist_584253838.jpg,-1.7328178,3.0635374,-1.7635157,0.008127563013618807,0.9839905824274094,0.007881854558971684,earthworm,liadan_dickie,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_29222370.jpg,1.3638387,-0.03337937,-1.9602778,0.7792481546780389,0.19269554967378363,0.028056295648177517,earthworm,tomegatherion,inaturalist,True
+nonsnake_test,images/earthworm/inaturalist_687098230.jpg,-1.396941,2.8256822,-1.570242,0.014274892188948337,0.9737215726509794,0.012003535160072265,earthworm,psmirnov,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_503346933.jpg,-1.3427023,2.7044024,-1.8751748,0.01700140565024518,0.9730161945137443,0.009982399836010429,earthworm,termeszet1,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_624318475.jpg,-1.4861524,2.940386,-1.69357,0.011702193808919707,0.9787876649408027,0.009510141250277436,earthworm,olmagon,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_638515786.jpg,-1.8748999,3.1602683,-1.4559947,0.006400174359940087,0.9838696647284921,0.009730160911567946,earthworm,cenaida,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_255012569.jpg,-1.4939332,2.6360557,-1.4798204,0.015578399743947565,0.9686217869645615,0.01579981329149095,earthworm,shroomsnjunk,inaturalist,False
+nonsnake_test,images/earthworm/inaturalist_602513224.jpg,-1.162936,2.766674,-1.7023613,0.019058432957512778,0.9698289139365623,0.011112653105924864,earthworm,duarte,inaturalist,False

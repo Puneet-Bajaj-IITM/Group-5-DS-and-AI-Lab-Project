@@ -11,19 +11,30 @@ import 'package:path_provider/path_provider.dart';
 
 import 'bundle.dart';
 import 'decision.dart';
+import 'flip_prior.dart';
 import 'image_ops.dart';
 
-/// Where the three fp32 models live in the app bundle. They are not in git
-/// (54 MB); copy them in from the model bundle before building (see README).
+/// Where the models live in the app bundle. They are not in git (65 MB);
+/// `tool/m5/build_assets.py` copies them in (see assets/models/README.md).
 const modelAssetDir = 'assets/models';
-const modelFiles = ['classifier.onnx', 'detector.onnx', 'segmenter.onnx'];
+const classifierFile = 'classifier.onnx', detectorFile = 'detector.onnx', segmenterFile = 'segmenter.onnx';
+const snakeCheckFile = 'snake_check_fp16.onnx';
+const modelFiles = [classifierFile, detectorFile, segmenterFile, snakeCheckFile];
+const _inputName = 'images';
+const _detectorOutput = 'output0', _segmenterOutput = 'probability';
+const _detectorRows = 5; // cx, cy, w, h and the snake score
 
-/// What the gate saw on one image.
+/// What the no-snake decision saw on one image. With the M5 snake check,
+/// [snake] is the check's call and [snakeProbability] its P(snake); the
+/// detector and U-Net then only find the crop and the box, and are not run
+/// at all when the check says no snake ([boxConf] null, [maskArea] 0).
 class GateResult {
-  const GateResult({required this.snake, required this.boxConf, required this.maskArea, this.box});
+  const GateResult(
+      {required this.snake, required this.boxConf, required this.maskArea, this.snakeProbability, this.box});
   final bool snake;
   final double? boxConf;
   final double maskArea;
+  final double? snakeProbability;
 
   /// The detector's most confident box in image pixels (drawn on screen).
   final PixelBox? box;
@@ -40,6 +51,7 @@ class PipelineResult {
     required this.answer,
     this.cropWindow,
     this.parts,
+    this.classifierOutputs,
     this.classifierInputMean,
     this.classifierInputStd,
     this.timingsMs = const {},
@@ -56,18 +68,26 @@ class PipelineResult {
   /// The probabilities and embedding the decision read; null when no snake.
   /// A video pools these over frames.
   final DecisionParts? parts;
+
+  /// The classifier answer the rules read (mirror-averaged, prior added).
+  final ModelOutputs? classifierOutputs;
   final double? classifierInputMean, classifierInputStd;
   final Map<String, int> timingsMs;
 
   int get totalMs => timingsMs.values.fold(0, (a, b) => a + b);
 }
-
-/// The detector, segmenter and classifier with the settings from
-/// `pipeline.json` and `tables.json`: a port of `reference_pipeline.py`'s
-/// `Pipeline` class.
+/// The snake check, detector, segmenter and classifier with the settings
+/// from `pipeline.json` and `tables.json`: a port of `tool/m5/reference_m5.py`
+/// (the M4 `reference_pipeline.py` plus the frozen M5 changes).
 class SnakePipeline {
-  SnakePipeline._(this.settings, this.tables, this._detector, this._segmenter, this._classifier, this._worker)
-      : rules = DecisionRules(settings.thresholds, tables);
+  SnakePipeline._(this.settings, this.tables, this._detector, this._segmenter, this._classifier, this._snakeCheck, this._worker)
+      : rules = DecisionRules(settings.thresholds, tables),
+        _classifierSettings = settings.classifier,
+        _check = settings.snakeCheck {
+    if (settings.usesSnakeCheck && _check == null) {
+      throw StateError('pipeline.json: the gate rule is ${settings.gateRule} but there is no snake_check block');
+    }
+  }
 
   final _PixelWorker _worker;
 
@@ -77,17 +97,18 @@ class SnakePipeline {
 
   RgbImage? _inlineRgb;
   _Prepared _prepareHere(RgbImage photo) {
-    final s = settings;
-    final rgb = fixExposure(photo, s.exposureBelow, s.exposureAbove, s.claheClip, s.claheTiles);
+    final rgb = fixExposure(photo, settings.exposureBelow, settings.exposureAbove, settings.claheClip, settings.claheTiles);
     _inlineRgb = rgb;
-    return _Prepared(-1, rgb.width, rgb.height, !identical(rgb, photo), detectorInput(rgb, s.inputSize, s.detectorPad),
-        normalise(letterbox(rgb, s.inputSize, s.padRgb), s.mean, s.std, s.scale));
+    return _prepared(-1, rgb, photo, settings);
   }
+
 
   final PipelineSettings settings;
   final ModelTables tables;
   final DecisionRules rules;
-  final OrtSession _detector, _segmenter, _classifier;
+  final OrtSession _detector, _segmenter, _classifier, _snakeCheck;
+  final ClassifierSettings _classifierSettings;
+  final SnakeCheckSettings? _check;
 
   /// True when the three model files are in the app bundle. Reads only the
   /// asset manifest, so it is quick.
@@ -107,8 +128,12 @@ class SnakePipeline {
         ModelTables.parse(await rootBundle.loadString('assets/model/tables.json')),
       );
 
-  /// Opens the three ONNX sessions. Throws if a model file is missing.
+  /// Opens the four ONNX sessions and the pixel worker. Throws if a model file is missing.
   static Future<SnakePipeline> load(PipelineSettings settings, ModelTables tables) async {
+    final check = settings.snakeCheck;
+    if (check != null && check.file != snakeCheckFile) {
+      throw StateError('pipeline.json names ${check.file}, the app bundles $snakeCheckFile');
+    }
     final ort = OnnxRuntime();
     final options = OrtSessionOptions(intraOpNumThreads: 2, interOpNumThreads: 1);
     Future<OrtSession> open(String name) async =>
@@ -125,8 +150,9 @@ class SnakePipeline {
       rethrow;
     }
     final worker = await _PixelWorker.start(settings);
-    return SnakePipeline._(settings, tables, opened[1], opened[2], opened[0], worker);
+    return SnakePipeline._(settings, tables, opened[1], opened[2], opened[0], opened[3], worker);
   }
+
 
   /// ONNX Runtime needs a file path. Copies the asset out once, and again
   /// only when its size changes (a new model build).
@@ -164,10 +190,11 @@ class SnakePipeline {
     return out;
   }
 
-  Future<List<double>> _run(OrtSession session, Float32List input, String output) async {
-    final value = await OrtValue.fromList(input, [1, 3, settings.inputSize, settings.inputSize]);
+  Future<List<double>> _run(OrtSession session, Float32List input, String output, [int? size]) async {
+    final side = size ?? settings.inputSize;
+    final value = await OrtValue.fromList(input, [1, 3, side, side]);
     try {
-      final outputs = await session.run({'images': value});
+      final outputs = await session.run({_inputName: value});
       try {
         final list = await outputs[output]!.asFlattenedList();
         return [for (final v in list) (v as num).toDouble()];
@@ -184,7 +211,7 @@ class SnakePipeline {
   Future<Map<String, List<double>>> _runAll(OrtSession session, Float32List input) async {
     final value = await OrtValue.fromList(input, [1, 3, settings.inputSize, settings.inputSize]);
     try {
-      final outputs = await session.run({'images': value});
+      final outputs = await session.run({_inputName: value});
       try {
         return {
           for (final e in outputs.entries)
@@ -200,14 +227,14 @@ class SnakePipeline {
     }
   }
 
+
   /// One photo (as decoded, before the exposure fix) to the app's answer.
   ///
-  /// The pixel work runs in background isolates so the screen keeps
-  /// drawing; only the three ONNX calls stay on this isolate (the plugin
+  /// The pixel work runs in a background isolate for big photos so the
+  /// screen keeps drawing; the ONNX calls stay on this isolate (the plugin
   /// needs it).
   Future<PipelineResult> run(RgbImage photo) async {
     final s = settings;
-    final size = s.inputSize;
     final times = <String, int>{};
     final clock = Stopwatch()..start();
     int lap() {
@@ -224,19 +251,40 @@ class SnakePipeline {
     final pre = inline ? _prepareHere(photo) : await _worker.prepare(photo);
     times['exposure'] = lap();
 
-    // Gate: detector box score and U-Net mask area.
-    final detected = await _run(_detector, pre.detectorInput, 'output0');
-    final anchors = detected.length ~/ 5; // rows cx, cy, w, h and the snake score
+    double? snakeProbability;
+    if (s.usesSnakeCheck) {
+      final check = _check!;
+      final probs = await _run(_snakeCheck, pre.snakeCheckInput!, check.output, check.inputSize);
+      snakeProbability = probs[check.snakeIndex];
+      times['snake_check'] = lap();
+      if (!check.isSnake(probs)) {
+        if (!inline) _worker.drop(pre.job);
+        return PipelineResult(
+          width: pre.width,
+          height: pre.height,
+          exposureFixed: pre.fixed,
+          gate: GateResult(snake: false, boxConf: null, maskArea: 0, snakeProbability: snakeProbability),
+          answer: ModelAnswer.noSnake,
+          timingsMs: times,
+        );
+      }
+    }
+
+    // Detector box score and U-Net mask: the crop and the box on screen, and
+    // the M4 gate when there is no snake check.
+    final detected = await _run(_detector, pre.detectorInput, _detectorOutput);
+    final anchors = detected.length ~/ _detectorRows;
     final conf = boxConf(detected, anchors, s.snakeClass, s.boxFloor);
-    final box = conf == null ? null : bestBox(detected, anchors, s.snakeClass, pre.width, pre.height, size);
+    final box = conf == null ? null : bestBox(detected, anchors, s.snakeClass, pre.width, pre.height, s.inputSize);
     times['detector'] = lap();
 
-    final probability = Float32List.fromList(await _run(_segmenter, pre.segmenterInput, 'probability'));
+    final probability = Float32List.fromList(await _run(_segmenter, pre.segmenterInput, _segmenterOutput));
     times['segmenter'] = lap();
     final post = inline ? afterGate(_inlineRgb!, probability, conf, s) : await _worker.afterGate(pre.job, probability, conf);
     times['crop'] = lap();
 
-    final gate = GateResult(snake: post.snake, boxConf: conf, maskArea: post.area, box: box);
+    final gate = GateResult(
+        snake: post.snake, boxConf: conf, maskArea: post.area, snakeProbability: snakeProbability, box: box);
     if (!post.snake) {
       return PipelineResult(
         width: pre.width,
@@ -248,16 +296,11 @@ class SnakePipeline {
       );
     }
 
-    final out = await _runAll(_classifier, post.classifierInput!);
+    final plain = _outputs(await _runAll(_classifier, post.classifierInput!));
+    final mirrored = post.mirroredInput == null ? null : _outputs(await _runAll(_classifier, post.mirroredInput!));
+    final outputs = classifierAnswer(plain, mirrored, _classifierSettings);
     times['classifier'] = lap();
 
-    final outputs = ModelOutputs(
-      embedding: out['embedding']!,
-      speciesLogits: out['species_logits']!,
-      whoLogits: out['who_logits']!,
-      genusLogits: out['genus_logits']!,
-      familyLogits: out['family_logits']!,
-    );
     final parts = DecisionParts.fromOutputs(outputs, s.thresholds);
     final answer = rules.verdict(parts);
     times['decision'] = lap();
@@ -269,14 +312,24 @@ class SnakePipeline {
       cropWindow: post.window,
       answer: answer,
       parts: parts,
+      classifierOutputs: outputs,
       classifierInputMean: post.mean,
       classifierInputStd: post.std,
       timingsMs: times,
     );
   }
 
+  static ModelOutputs _outputs(Map<String, List<double>> out) => ModelOutputs(
+        embedding: out['embedding']!,
+        speciesLogits: out['species_logits']!,
+        whoLogits: out['who_logits']!,
+        genusLogits: out['genus_logits']!,
+        familyLogits: out['family_logits']!,
+      );
+
   Future<void> close() async {
     _worker.close();
+    await _snakeCheck.close();
     await _detector.close();
     await _segmenter.close();
     await _classifier.close();
@@ -285,21 +338,40 @@ class SnakePipeline {
 
 // ------------------------------------------------- isolate steps (pure Dart)
 
-/// What the worker sends back after the first step. The photo itself stays
-/// in the worker (under [job]) for the second step.
+/// What the first step sends back. The photo itself stays in the worker
+/// (under [job]) for the second step.
 class _Prepared {
-  const _Prepared(this.job, this.width, this.height, this.fixed, this.detectorInput, this.segmenterInput);
+  const _Prepared(this.job, this.width, this.height, this.fixed, this.detectorInput, this.segmenterInput,
+      this.snakeCheckInput);
   final int job, width, height;
   final bool fixed;
   final Float32List detectorInput, segmenterInput;
+
+  /// The snake check's input; null when the gate is the M4 detector + U-Net.
+  final Float32List? snakeCheckInput;
+}
+
+/// The model inputs for one exposure-fixed photo.
+_Prepared _prepared(int job, RgbImage rgb, RgbImage photo, PipelineSettings s) {
+  final check = s.usesSnakeCheck ? s.snakeCheck : null;
+  return _Prepared(
+    job,
+    rgb.width,
+    rgb.height,
+    !identical(rgb, photo),
+    detectorInput(rgb, s.inputSize, s.detectorPad),
+    normalise(letterbox(rgb, s.inputSize, s.padRgb), s.mean, s.std, s.scale),
+    check == null ? null : normalise(letterbox(rgb, check.inputSize, s.padRgb), s.mean, s.std, s.scale),
+  );
 }
 
 class AfterGate {
-  const AfterGate({required this.snake, required this.area, this.window, this.classifierInput, this.mean, this.std});
+  const AfterGate(
+      {required this.snake, required this.area, this.window, this.classifierInput, this.mirroredInput, this.mean, this.std});
   final bool snake;
   final double area;
   final (int, int, int, int)? window;
-  final Float32List? classifierInput;
+  final Float32List? classifierInput, mirroredInput;
   final double? mean, std;
 }
 
@@ -350,6 +422,9 @@ class _PixelWorker {
   Future<AfterGate> afterGate(int job, Float32List probability, double? conf) =>
       _ask('after', [job, probability, conf]);
 
+  /// Forgets a job whose second step will not come (the snake check said no snake).
+  void drop(int job) => _commands.send((-1, 'drop', [job]));
+
   void close() {
     _replies.close();
     _isolate.kill(priority: Isolate.immediate);
@@ -380,30 +455,23 @@ Future<void> _workerMain((SendPort, Map<String, dynamic>) init) async {
         // A job whose second step never comes (an error between steps)
         // must not keep its photo forever.
         photos.removeWhere((k, _) => k < job - 8);
-        out.send((
-          id,
-          _Prepared(
-            job,
-            rgb.width,
-            rgb.height,
-            !identical(rgb, photo),
-            detectorInput(rgb, s.inputSize, s.detectorPad),
-            normalise(letterbox(rgb, s.inputSize, s.padRgb), s.mean, s.std, s.scale),
-          ),
-          null,
-        ));
+        out.send((id, _prepared(job, rgb, photo, s), null));
+      } else if (op == 'drop') {
+        photos.remove(args[0] as int);
       } else {
         final rgb = photos.remove(args[0] as int);
         if (rgb == null) throw StateError('photo for job ${args[0]} is gone');
         out.send((id, afterGate(rgb, args[1] as Float32List, args[2] as double?, s), null));
       }
     } catch (e) {
-      out.send((id, null, '$e'));
+      if (id >= 0) out.send((id, null, '$e'));
     }
   }
 }
 
-/// Mask and gate; for a snake, the mask cleanup, the crop and the classifier input.
+/// Mask and gate; for a snake, the mask cleanup, the crop and the classifier
+/// inputs (the crop and, with the mirror pass, its mirror image). With the
+/// snake check the photo already passed, so the mask only finds the crop.
 AfterGate afterGate(RgbImage rgb, Float32List probability, double? conf, PipelineSettings s) {
   final size = s.inputSize;
   final mask = unletterboxMask(probability, rgb.height, rgb.width, size, s.segmenterThreshold);
@@ -412,7 +480,7 @@ AfterGate afterGate(RgbImage rgb, Float32List probability, double? conf, Pipelin
     maskPixels += v;
   }
   final area = maskPixels / mask.length;
-  final snake = conf != null && conf >= s.gateBoxConf && area > 0 && area >= s.gateMaskArea;
+  final snake = s.usesSnakeCheck || (conf != null && conf >= s.gateBoxConf && area > 0 && area >= s.gateMaskArea);
   if (!snake) return AfterGate(snake: false, area: area);
   final cleaned = cleanMask(mask, rgb.width, rgb.height,
       connectivity: s.connectivity,
@@ -422,6 +490,8 @@ AfterGate afterGate(RgbImage rgb, Float32List probability, double? conf, Pipelin
   final window = cropWindow(cleaned, rgb.height, rgb.width, s.cropPadding);
   final crop = window == null ? rgb : rgb.crop(window.$1, window.$2, window.$3, window.$4);
   final clsIn = normalise(letterbox(crop, size, s.padRgb), s.mean, s.std, s.scale);
+  final mirrored =
+      s.classifier.flipTta ? normalise(letterbox(crop.mirrored(), size, s.padRgb), s.mean, s.std, s.scale) : null;
   var sum = 0.0, sq = 0.0;
   for (final v in clsIn) {
     sum += v;
@@ -434,6 +504,7 @@ AfterGate afterGate(RgbImage rgb, Float32List probability, double? conf, Pipelin
     area: area,
     window: window,
     classifierInput: clsIn,
+    mirroredInput: mirrored,
     mean: mean,
     std: math.sqrt(variance),
   );

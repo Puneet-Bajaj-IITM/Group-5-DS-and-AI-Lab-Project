@@ -1,0 +1,85 @@
+{
+ "job": {
+  "conditions": [
+   "blur_s1",
+   "blur_s2",
+   "blur_s3",
+   "noise_s1",
+   "noise_s2",
+   "noise_s3",
+   "jpeg_q30",
+   "jpeg_q10",
+   "rotate_15",
+   "rotate_30"
+  ],
+  "gradcam": true,
+  "compression": false,
+  "inputs_dataset": "jayeshbansal497/serpentguard-m5-extra-inputs",
+  "account": "jayeshbansal497"
+ },
+ "passed": [
+  "inputs",
+  "gate provider",
+  "condition clean",
+  "gradcam",
+  "condition blur_s1",
+  "condition blur_s2",
+  "condition blur_s3",
+  "condition noise_s1",
+  "condition noise_s2",
+  "condition noise_s3",
+  "condition jpeg_q30",
+  "condition jpeg_q10",
+  "condition rotate_15",
+  "condition rotate_30"
+ ],
+ "failed": {},
+ "checks": {
+  "inputs": {
+   "manifest_files": 634
+  },
+  "gate_provider": {
+   "gpu": true,
+   "val_photos": 300,
+   "call_agreement": 1.0,
+   "max_abs_mask_area_diff": 0.0005770735524257414
+  },
+  "clean_vs_locked_test_run": {
+   "photos": 600,
+   "m5_top1_agreement": 1.0,
+   "m5_flip_top1_agreement": 1.0,
+   "m5_max_abs_logit_diff": 0.0,
+   "box_presence_agreement": 1.0,
+   "mask_presence_agreement": 1.0,
+   "gate_call_agreement": 1.0,
+   "snake_max_abs_p_diff": 0.0,
+   "snake_flips_at_cut": 0
+  },
+  "gradcam_control_unchanged_parameters": [],
+  "gradcam_forward_vs_model": 0.0,
+  "gradcam": {
+   "photos": 16737,
+   "selected": 24,
+   "median_mass_in_mask_final": 0.025523433461785316,
+   "median_mask_share": 0.1310449242591858,
+   "median_control_mass_final": 0.06747505068778992
+  }
+ },
+ "seconds": {
+  "inputs": 72,
+  "gate provider": 11,
+  "condition clean": 1328,
+  "gradcam": 568,
+  "condition blur_s1": 1001,
+  "condition blur_s2": 999,
+  "condition blur_s3": 1008,
+  "condition noise_s1": 1092,
+  "condition noise_s2": 1094,
+  "condition noise_s3": 1087,
+  "condition jpeg_q30": 730,
+  "condition jpeg_q10": 725,
+  "condition rotate_15": 1030,
+  "condition rotate_30": 1028
+ },
+ "minutes": 197.1
+}

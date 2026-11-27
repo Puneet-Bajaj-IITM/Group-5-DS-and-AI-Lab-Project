@@ -1,0 +1,21 @@
+{
+ "photos_with_a_snake_label_excluded": 688,
+ "picked": 5296,
+ "dropped_owner_in_nb19_val_or_test": 354,
+ "download_failed": 0,
+ "near_copies_of_old": 1,
+ "near_copies_within_new": 1,
+ "kept": 4940,
+ "by_category": {
+  "person": 1685,
+  "everyday": 677,
+  "hand_arm": 634,
+  "other_animal": 524,
+  "plant_ground": 443,
+  "rope_hose_belt": 272,
+  "cat": 240,
+  "dog": 233,
+  "tshirt": 232
+ },
+ "owners": 3981
+}

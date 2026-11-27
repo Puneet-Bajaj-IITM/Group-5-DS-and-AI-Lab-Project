@@ -1,0 +1,71 @@
+{
+ "job": {
+  "conditions": [],
+  "gradcam": false,
+  "compression": true,
+  "inputs_dataset": "vikas25s/serpentguard-m5-extra-inputs",
+  "account": "vikas25s"
+ },
+ "passed": [
+  "inputs",
+  "gate provider",
+  "condition clean",
+  "compression"
+ ],
+ "failed": {},
+ "checks": {
+  "inputs": {
+   "manifest_files": 634
+  },
+  "gate_provider": {
+   "gpu": true,
+   "val_photos": 300,
+   "call_agreement": 1.0,
+   "max_abs_mask_area_diff": 0.0005770735524257414
+  },
+  "clean_vs_locked_test_run": {
+   "photos": 600,
+   "m5_top1_agreement": 1.0,
+   "m5_flip_top1_agreement": 1.0,
+   "m5_max_abs_logit_diff": 0.0,
+   "box_presence_agreement": 1.0,
+   "mask_presence_agreement": 1.0,
+   "gate_call_agreement": 1.0,
+   "snake_max_abs_p_diff": 0.0,
+   "snake_flips_at_cut": 0
+  },
+  "compression_frames": {
+   "calib": 500,
+   "parity": 64,
+   "g3_slice": 12203
+  },
+  "compression": {
+   "photos": {
+    "calibration_crops": 500,
+    "parity": 64,
+    "g3_slice": 12203
+   },
+   "not_produced": {},
+   "bytes": {
+    "classifier fp32": 20826597,
+    "classifier fp16": 10553548,
+    "classifier int8_dynamic": 5751579,
+    "classifier int8_static_minmax": 6168789,
+    "snake_check fp32": 16024818,
+    "snake_check fp16": 8064356,
+    "snake_check int8_dynamic": 4322710,
+    "snake_check int8_static_minmax": 4833844
+   },
+   "seconds_classifier_g3_slice": 20611,
+   "onnxruntime": "1.31.1",
+   "cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz"
+  }
+ },
+ "seconds": {
+  "inputs": 40,
+  "gate provider": 12,
+  "condition clean": 1322,
+  "compression": 26161
+ },
+ "minutes": 460.0
+}

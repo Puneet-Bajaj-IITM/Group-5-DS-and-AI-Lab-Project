@@ -1,0 +1,11 @@
+photo_id,url,licence,credit,category,val_p_snake
+val_nonsnake_cdf060cec6f45e89,https://open-images-dataset.s3.amazonaws.com/test/cdf060cec6f45e89.jpg,cc-by-2.0,"(c) Jacey O Samsel, CC BY 2.0",person,0.014
+val_nonsnake_d3bf97879410e33a,https://open-images-dataset.s3.amazonaws.com/test/d3bf97879410e33a.jpg,cc-by-2.0,"(c) Northern Ireland Office, CC BY 2.0",rope_hose_belt,0.0118
+val_nonsnake_4b961ac47fbd8694,https://open-images-dataset.s3.amazonaws.com/test/4b961ac47fbd8694.jpg,cc-by-2.0,"(c) Tony Beeman, CC BY 2.0",cat,0.0121
+val_nonsnake_27028f72bf18f900,https://open-images-dataset.s3.amazonaws.com/test/27028f72bf18f900.jpg,cc-by-2.0,"(c) Gyda Björg Elíasdóttir, CC BY 2.0",dog,0.0117
+val_nonsnake_76367a8aae3925ea,https://open-images-dataset.s3.amazonaws.com/test/76367a8aae3925ea.jpg,cc-by-2.0,"(c) John Liu, CC BY 2.0",hand_arm,0.1173
+val_nonsnake_58773227,https://inaturalist-open-data.s3.amazonaws.com/photos/58773227/medium.jpeg,cc0,no rights reserved,eel,0.0174
+val_nonsnake_721342637,https://inaturalist-open-data.s3.amazonaws.com/photos/721342637/medium.jpg,cc0,no rights reserved,legless_lizard,0.0134
+val_nonsnake_53179163,https://inaturalist-open-data.s3.amazonaws.com/photos/53179163/medium.jpeg,cc-by,"(c) Ashwin Viswanathan, some rights reserved (CC BY)",caecilian,0.0143
+val_nonsnake_806be9da35aca2bc,https://open-images-dataset.s3.amazonaws.com/test/806be9da35aca2bc.jpg,cc-by-2.0,"(c) Nick Higgins, CC BY 2.0",other_animal,0.8114
+val_nonsnake_22679134,https://inaturalist-open-data.s3.amazonaws.com/photos/22679134/medium.jpg,cc-by,"(c) Nathan Earley, some rights reserved (CC BY)",caecilian,0.5279

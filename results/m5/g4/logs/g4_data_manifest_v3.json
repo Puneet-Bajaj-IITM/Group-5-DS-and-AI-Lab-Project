@@ -1,0 +1,43 @@
+{
+ "snakes_train": 77068,
+ "snakes_train_observers": 6576,
+ "train_observers_in_calib_or_val": 0,
+ "snakes_score": {
+  "val": 17151,
+  "calib": 7999
+ },
+ "nonsnake_train": 18769,
+ "by_origin": {
+  "negatives_v1": 5922,
+  "openimages_v1": 4940,
+  "negatives_v2": 4791,
+  "nb19": 1799,
+  "hard_negatives": 1317
+ },
+ "by_group": {
+  "lookalike": 10150,
+  "other": 8619
+ },
+ "by_category": {
+  "eel": 4013,
+  "legless_lizard": 3159,
+  "person": 2225,
+  "earthworm": 1359,
+  "caecilian": 1022,
+  "other_reptile_india": 898,
+  "other_animal_india": 881,
+  "hand_arm": 814,
+  "other_animal": 704,
+  "everyday": 677,
+  "worm_lizard": 597,
+  "rope_hose_belt": 452,
+  "plant_ground": 443,
+  "tshirt": 412,
+  "pipefish_seahorse": 400,
+  "cat": 360,
+  "dog": 353
+ },
+ "owners_in_nb19_val_or_test": 0,
+ "within_8_bits_of_a_val_or_test_photo": 0,
+ "nonsnake_val_scored_only": 600
+}

@@ -1,0 +1,61 @@
+{
+ "shared_observers_by_split": {
+  "train": {
+   "observers": 0,
+   "heldout_photos_of_them": 0
+  },
+  "val": {
+   "observers": 0,
+   "heldout_photos_of_them": 0
+  },
+  "unknown_pool": {
+   "observers": 36,
+   "heldout_photos_of_them": 4124
+  }
+ },
+ "heldout_with_phash": 18533,
+ "train": {
+  "heldout_within_8_bits": 90,
+  "exact": 0,
+  "same_species": 5,
+  "same_species_pairs": [
+   [
+    "test/fowlea_piscator/inaturalist_738808134.jpg",
+    "train/fowlea_piscator/inaturalist_145357344.jpg",
+    6
+   ],
+   [
+    "test_extra/ptyas_mucosa/inaturalist_754572607.jpg",
+    "train/ptyas_mucosa/inaturalist_536702242.jpg",
+    8
+   ],
+   [
+    "test_extra/indotyphlops_braminus/inaturalist_46386301.jpg",
+    "train/indotyphlops_braminus/inaturalist_567797958.jpg",
+    8
+   ],
+   [
+    "test_extra/ahaetulla_prasina/inaturalist_11305676.jpg",
+    "train/ahaetulla_prasina/inaturalist_731988145.jpg",
+    8
+   ],
+   [
+    "test_extra/ahaetulla_prasina/inaturalist_627862017.jpg",
+    "train/ahaetulla_prasina/inaturalist_358762893.jpg",
+    8
+   ]
+  ]
+ },
+ "val": {
+  "heldout_within_8_bits": 15,
+  "exact": 0,
+  "same_species": 1,
+  "same_species_pairs": [
+   [
+    "test_extra/xenopeltis_unicolor/inaturalist_541110263.jpg",
+    "val/xenopeltis_unicolor/inaturalist_399391961.jpg",
+    6
+   ]
+  ]
+ }
+}

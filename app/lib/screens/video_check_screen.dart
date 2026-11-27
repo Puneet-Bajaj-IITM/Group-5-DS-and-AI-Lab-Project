@@ -162,7 +162,7 @@ class _VideoCheckScreenState extends State<VideoCheckScreen> {
           ? const Center(child: CircularProgressIndicator(color: Colors.white))
           : RawImage(image: f, fit: BoxFit.contain);
     }
-    final shown = step?.shown;
+    final shown = _snakeAnswer(step?.shown);
     final style = shown == null ? null : VerdictStyle.of(shown.verdict);
     final box = step?.frame.gate.box;
     final frameSize = step == null ? null : Size(step.frame.width.toDouble(), step.frame.height.toDouble());
@@ -233,7 +233,7 @@ class _VideoCheckScreenState extends State<VideoCheckScreen> {
         const Text('Still checking at the end: the frames never agreed on one snake, or there was no snake. '
             'Keep away anyway.')
       else ...[
-        VerdictBanner(verdict: finalId.verdict, reason: _reason(finalId)),
+        VerdictBanner(verdict: finalId.verdict, reason: _reason(finalId), snakeFound: finalId.snakeFound),
         const SizedBox(height: 12),
         if (finalId.verdict.escalate)
           EmergencyButton(
@@ -256,8 +256,9 @@ class _VideoCheckScreenState extends State<VideoCheckScreen> {
       ),
       const SizedBox(height: 12),
       Text(
-        'The answer pools the last 5 frames with a snake and settles on one species once it is sure; '
-        '"Dangerous" can show before that. SerpentGuard can be wrong. Keep away from any snake.',
+        'The answer pools the snake frames of the last half second and settles on one species once it clearly '
+        'leads; another species must lead for 3 seconds to replace it. "Dangerous" can show before that. '
+        'SerpentGuard can be wrong. Keep away from any snake.',
         style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12.5),
       ),
     ];
@@ -289,7 +290,7 @@ class _Hud extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = step;
     if (s == null) return const SizedBox.shrink();
-    final shown = s.shown;
+    final shown = _snakeAnswer(s.shown);
     final style = shown == null ? null : VerdictStyle.of(shown.verdict);
     final text = shown == null
         ? (s.frame.gate.snake ? 'Checking…' : 'Looking for a snake…')
@@ -362,7 +363,7 @@ class _Timeline extends StatelessWidget {
             for (var i = 0; i < analysis.steps.length; i++)
               () {
                 final s = analysis.steps[i];
-                if (s.shown == null) return const SizedBox.shrink();
+                if (_snakeAnswer(s.shown) == null) return const SizedBox.shrink();
                 final end = i + 1 < analysis.steps.length ? analysis.steps[i + 1].seconds : total;
                 return Positioned(
                   left: s.seconds / total * w,
@@ -387,3 +388,6 @@ class _Timeline extends StatelessWidget {
     });
   }
 }
+
+/// The answer to colour and name on screen: none while no snake was found.
+Identification? _snakeAnswer(Identification? shown) => shown != null && shown.snakeFound ? shown : null;
