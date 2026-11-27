@@ -58,4 +58,7 @@ flutter {
 
 dependencies {
     implementation("androidx.exifinterface:exifinterface:1.4.1")
+    // The live camera's own model lanes (LiveModels.kt). Same version as
+    // flutter_onnxruntime 1.9.0 uses, so both paths run the same runtime.
+    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.28.0")
 }
