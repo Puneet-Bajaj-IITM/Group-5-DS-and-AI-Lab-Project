@@ -753,7 +753,8 @@ measure the installed APK size.
 
 ### 7.6 What we did not test
 
-- On-device latency, fp16 on Android's CPU provider, and the app on a phone (section 9).
+- More than one phone. Latency, memory and the fp16 snake check on Android's CPU provider were measured on one
+  Samsung Galaxy S23 FE (sections 7.3 and 9), not on a mid-range phone, and battery use and heat were not measured.
 - The full app ONNX path on the test photos. The classifier ran in the kernel's PyTorch path, and only the gate call
   used the app's ONNX path. On validation the two paths differed by less than 0.001 in G3.
 - G5 with the snake check as the video gate, and G5 on a phone.
@@ -903,27 +904,24 @@ Most of those are still open and have an owner.
 | Full checkpoint states | `last.pt` holds the model, optimizer, scheduler, scaler and RNG states; resume was tested in the laptop dry run; hashes in FREEZE | `g3/README.md`; FREEZE |
 | Compress the 53.0 MB bundle toward 25 to 30 MB | Not reached. Adding the snake check made the app's model files 65.1 MB (classifier 20.8, segmenter 26.5, detector 9.7, snake check 8.1). Distillation and fp16 for all four models are checked (36.9 MB in fp16, with 3 of 1,000 top species changed by the fp16 front end); the app still ships fp32 for three of them. int8 breaks both models, so it is not used | section 9 |
 | A locked test evaluation with error and limitation analysis | Frozen, scored once, with instrument checks and negative controls; errors in section 5, limitations in section 7 | FREEZE, RESULTS; sections 2, 5, 7 |
-| A 3.5 GB Gemma model on the phone | See the to-do below | section 7.3 |
-
-> **To do (Manas Rastogi):** state what replaced the Gemma model (for example retrieval only, or a server call) and
-> its size on the phone.
+| A 3.5 GB Gemma model on the phone | The separate chat implementation uses a server API. The Flutter client bundles 0 MB of language-model weights. The default server model is Gemma 4 E2B; its deployed size remains to be confirmed. Chat integration with the M5 app is pending. | section 7.3; chat commit `fd60e37` |
 
 **App and team**
 
 | Feedback item | Status | Owner |
 |---|---|---|
-| Live camera detection | Open | Manas Rastogi, Jayesh Bansal |
+| Live camera detection | Done: two lanes on the M5 path, a box on every snake ([PR #37](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/37)); every snake named in PR #39 | Manas Rastogi, Jayesh Bansal |
 | Uploaded video at about 1 frame/s behind a blocking bar; stream the frames | Open | Jayesh Bansal |
 | Bounding boxes on images and video | Open | Jayesh Bansal |
 | A video lock that updates when panning across several snakes | The M5 lock can switch species after a new species has led for 3 s; not tested on multi-snake clips | Jayesh Bansal |
-| Test on a physical mid-range phone | Open; the latency and RAM in section 7.3 depend on it | Manas Rastogi |
+| Test on a physical mid-range phone | Done on a Samsung Galaxy S23 FE: latency, peak memory and app size in section 7.3, golden photos in section 9 | Manas Rastogi |
 | Readable location names instead of coordinates | Open | Jayesh Bansal |
-| Replace the green startup video | Open | Manas Rastogi |
+| Replace the green startup video | Kept as it is: Manas decided not to change the startup video in this milestone | Manas Rastogi |
 | Live camera demo video | Open | Manas Rastogi, Jayesh Bansal |
 | Rescuer and vet contact search and routing | Open | to be assigned |
 | Two-phone Bluetooth alert test | Open | to be assigned |
 | Regional names for 9 of 16 WHO-listed species | Open | to be assigned |
-| Manas's unpushed code | Open: push it and give the commit | Manas Rastogi |
+| Manas's unpushed code | Done: live camera merged in [PR #37](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/37) (`2010bcf`); chat on `feature/chat` (`fd60e37`), pending M5 integration | Manas Rastogi |
 | Report sign-offs (M4 and M5) and Appendix entries | Open; see Appendix A and the sign-off table | every member |
 | Pokedex mode for humans (M6 bonus) | Planned for Milestone 6 | team |
 

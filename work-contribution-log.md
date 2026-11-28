@@ -26,8 +26,12 @@ The course asks for this log to be updated every week with each member's contrib
 | App design | A field-guide look across the app: theme, bundled Barlow fonts, home screen, verdict cards, result photo, video and live-camera status ([`brand.dart`](app/lib/ui/brand.dart)). [PR #32](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/32) | Jayesh Bansal | 25 Nov 2026 | Jayesh Bansal |
 | App audit and fixes | Audited the app and fixed 13 of 14 findings, including a stale address in the SOS text, location not rechecked after Settings, Bluetooth alerts silently receiving nothing, out-of-memory on 4K video, lost camera photos, no-snake photos saved as sightings, the hospital list without a location, and image work freezing the screen; specialty hospitals listed after general ones. 52 tests pass; 5/5 golden photos still match on Android. [PR #32](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/32) | Jayesh Bansal | 25 Nov 2026 | Jayesh Bansal |
 | AniDex and saved sighting history | Added an animal guide with BioCLIP 2 species and breed matching, a local collection, and saved result details that can be reopened from sighting history and the map ([AniDex](app/lib/anidex/), [assets](app/assets/anidex/), history and result screens in `app/lib/screens/`). | Jayesh Bansal | 27 Nov 2026 | Jayesh Bansal |
+| Source-based chat | Built the Flutter chat client and server API with source retrieval, cited answers, first-aid routing for recognized bite emergencies, and retrieval, routing and end-to-end evaluations. The implementation is on `feature/chat` (`fd60e37`), pending M5 integration. | Manas Rastogi | 22 Nov 2026 | Manas Rastogi |
+| Live camera | A box lane runs the detector on as many camera frames as it can and tracks every box; a verdict lane runs the M5 path on the newest frame (snake check, mask crop, classifier on the crop and its mirror image with the prior, the M5 lock). Each lane has its own ONNX Runtime session (`LiveModels.kt`). The app now checks every model file by SHA-256, which caught that A3's and M5_KD's classifiers have the same size. [PR #37](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/37) | Manas Rastogi | 27 to 28 Nov 2026 | Manas Rastogi |
+| Phone measurements | The frozen M5 app on a Samsung Galaxy S23 FE: 2,470 ms per 1600 x 2133 photo with the mirror pass and 2,193 ms without, 631 MB peak memory, a 113.0 MB arm64 APK; `golden_photos_test.dart` gives the reference's snake call, verdict, top-3 species and crop on all 15 photos (sections 7.3 and 9). [PR #37](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/37) | Manas Rastogi | 28 Nov 2026 | Manas Rastogi |
+| M4 and M5 on new photos | Compared the M4 app model (A3 behind the M4 gate) with the M5 app model on 8 new photos (5 snakes, two of them species outside the 184 classes, and 3 snake-like objects), with the labels mapped to the 184 classes, on the laptop and on the Galaxy S23 FE (same answers on both). M5 turned down all 3 objects, M4 called toy snakes a snake; both called both cobras dangerous; both gave a safe-side false alarm on a common mock viper. A spot check, not a test-set result; the photos are third-party and not in git | Manas Rastogi | 28 Nov 2026 | Manas Rastogi |
 
-Vikas and Manas Rastogi add their own Week 6 rows.
+Vikas adds his Week 6 row.
 
 ### Member contribution summary
 
@@ -36,7 +40,7 @@ Vikas and Manas Rastogi add their own Week 6 rows.
 | Jayesh Bansal | | | |
 | Vikas | | | |
 | Puneet Bajaj | G3, G4 and G5 work on validation; the freeze, the locked test and its error analysis; robustness, Grad-CAM and compression; the M5 pipeline in the app; the Milestone 5 report | [M5 report](documentation/milestone%205/project-report.md), [results](results/m5/README.md) | |
-| Manas Rastogi | | | |
+| Manas Rastogi | Built the source-based chat client and server API. Built the two-lane live camera on the M5 path with model-file checks, and measured the M5 app on a real phone (time per photo, peak memory, app size, golden photos) | [PR #37](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/37); chat `fd60e37`; report sections 7.3 and 9 | |
 
 ## Week 5: 15 to 21 November 2026 (Milestone 4, community voting and app integration)
 
