@@ -168,16 +168,20 @@ void main() {
     expect(lock.add(null, 3).checking, isTrue);
   });
 
-  group('two snake frames in a row start a sighting (the app default)', () {
+  group('snakeRun snake frames in a row start a sighting (the app default)', () {
     test('a lone snake frame shows nothing, even a dangerous one', () {
-      final frames = [for (var i = 0; i < 20; i++) i.isEven ? sure(cobra) : null];
+      // Runs one short of snakeRun, then a miss.
+      final run1 = const LockSettings().snakeRun - 1;
+      final frames = [for (var i = 0; i < 20; i++) i % (run1 + 1) < run1 ? sure(cobra) : null];
       final steps = run(VideoLock(rules: rules), frames, 10);
       expect(steps.every((s) => s.shown == null), isTrue);
     });
 
-    test('dangerous shows on the second snake frame in a row', () {
-      final steps = run(VideoLock(rules: rules), [sure(cobra), sure(cobra)], 10);
-      expect(steps.first.shown, isNull);
+    test('dangerous shows on the snakeRun-th snake frame in a row', () {
+      final n = const LockSettings().snakeRun;
+      expect(n, 3);
+      final steps = run(VideoLock(rules: rules), List.filled(n, sure(cobra)), 10);
+      expect(steps.take(n - 1).every((s) => s.shown == null), isTrue);
       expect(steps.last.shown?.label, dangerousLabel);
     });
 
@@ -191,10 +195,10 @@ void main() {
       expect(species(after), vineSnake);
     });
 
-    test('it costs one frame: the lock comes one frame after the frozen rule\'s', () {
+    test('it costs snakeRun - 1 frames: the lock comes that much after the frozen rule\'s', () {
       final frames = List.filled(20, sure(vineSnake));
       expect(firstLock(run(VideoLock(rules: rules), frames, 10), 10),
-          closeTo(firstLock(run(VideoLock(rules: rules, settings: m5), frames, 10), 10)! + 0.1, 1e-9));
+          closeTo(firstLock(run(VideoLock(rules: rules, settings: m5), frames, 10), 10)! + 0.2, 1e-9));
     });
   });
 }

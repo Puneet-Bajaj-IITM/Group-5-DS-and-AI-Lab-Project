@@ -17,7 +17,7 @@ class LockSettings {
     this.gateShare = 0.0,
     this.minFrames = 1,
     this.holdSeconds = 2.0,
-    this.snakeRun = 2,
+    this.snakeRun = 3,
   });
 
   /// Snake frames of the last [windowSeconds] are pooled, and never fewer
@@ -42,7 +42,8 @@ class LockSettings {
   /// A sighting starts only after this many snake frames in a row, so one
   /// frame that scrapes past the snake check shows nothing. App only (M6):
   /// on a striped screen the live camera's snake check passed 13 of 852
-  /// frames, each shown at once as "Dangerous"; two in a row is far rarer.
+  /// frames, each shown at once as "Dangerous". Passes cluster on a still
+  /// scene: two in a row still came 6 times in 3,661 frames, three never.
   final int snakeRun;
 }
 

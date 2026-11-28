@@ -206,7 +206,7 @@ void main() {
   test('with several snakes in view and the whole frame a snake, each box is named', () async {
     twoBoxes = true;
     final live = session();
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 8; i++) { // the two tracks take turns, each needs snakeRun turns
       live.offer(splitFrame(i * 100));
       await pumpEventQueue();
     }
@@ -242,8 +242,10 @@ void main() {
     expect(checkCalls, 1, reason: 'the snake check decides, not the detector');
     expect(segmentCalls, 0, reason: 'lean: the detector box crop, no U-Net');
     expect(classifyCalls, leanClassifyPerFrame);
-    live.offer(frame(100)); // a sighting starts on the second snake frame in a row
-    await pumpEventQueue();
+    for (final ms in [100, 200]) {
+      live.offer(frame(ms)); // a sighting starts on the third snake frame in a row
+      await pumpEventQueue();
+    }
     expect(live.view!.skippedByGate, 0);
     expect(live.view!.identification!.verdict, Verdict.dangerous);
   });
@@ -270,8 +272,10 @@ void main() {
     final out = asOutputs(classifierOutputs(dangerousRow));
     final direct = rules.verdictFromOutputs(classifierAnswer(out, null, settings.classifier.withoutMirror));
     expect(direct.label, dangerousLabel);
-    live.offer(frame(100)); // a sighting starts on the second snake frame in a row
-    await pumpEventQueue();
+    for (final ms in [100, 200]) {
+      live.offer(frame(ms)); // a sighting starts on the third snake frame in a row
+      await pumpEventQueue();
+    }
     // "Dangerous" shows while the lock is still checking, as in identifyFrame.
     final shown = live.view!.identification!;
     expect(shown.verdict, Verdict.dangerous);
@@ -338,7 +342,7 @@ void main() {
 
   test('a failing lane keeps its error on every view and shows no stale verdict, until it works again', () async {
     final live = session();
-    for (final ms in [0, 50]) {
+    for (final ms in [0, 30, 60]) {
       live.offer(frame(ms));
       await pumpEventQueue();
     }
@@ -393,7 +397,7 @@ void main() {
 
   test('with the M4 gate, a frame turned down on the box score clears the main box', () async {
     final live = session(m4Settings);
-    for (final ms in [0, 50]) {
+    for (final ms in [0, 30, 60]) {
       live.offer(frame(ms));
       await pumpEventQueue();
     }
