@@ -901,18 +901,18 @@ Most of those are still open and have an owner.
 
 | Feedback item | Status | Owner |
 |---|---|---|
-| Live camera detection | Open | Manas Rastogi, Jayesh Bansal |
+| Live camera detection | Done: two lanes on the M5 path, a box on every snake ([PR #37](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/37)); every snake named in PR #39 | Manas Rastogi, Jayesh Bansal |
 | Uploaded video at about 1 frame/s behind a blocking bar; stream the frames | Open | Jayesh Bansal |
 | Bounding boxes on images and video | Open | Jayesh Bansal |
 | A video lock that updates when panning across several snakes | The M5 lock can switch species after a new species has led for 3 s; not tested on multi-snake clips | Jayesh Bansal |
-| Test on a physical mid-range phone | Open; the latency and RAM in section 7.3 depend on it | Manas Rastogi |
+| Test on a physical mid-range phone | Done on a Samsung Galaxy S23 FE: latency, peak memory and app size in section 7.3, golden photos in section 9 | Manas Rastogi |
 | Readable location names instead of coordinates | Open | Jayesh Bansal |
-| Replace the green startup video | Open | Manas Rastogi |
+| Replace the green startup video | Kept as it is: Manas decided not to change the startup video in this milestone | Manas Rastogi |
 | Live camera demo video | Open | Manas Rastogi, Jayesh Bansal |
 | Rescuer and vet contact search and routing | Open | to be assigned |
 | Two-phone Bluetooth alert test | Open | to be assigned |
 | Regional names for 9 of 16 WHO-listed species | Open | to be assigned |
-| Manas's unpushed code | Open: push it and give the commit | Manas Rastogi |
+| Manas's unpushed code | Done: live camera merged in [PR #37](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/37) (`2010bcf`); chat on `feature/chat` (`fd60e37`), pending M5 integration | Manas Rastogi |
 | Report sign-offs (M4 and M5) and Appendix entries | Open; see Appendix A and the sign-off table | every member |
 | Pokedex mode for humans (M6 bonus) | Planned for Milestone 6 | team |
 
