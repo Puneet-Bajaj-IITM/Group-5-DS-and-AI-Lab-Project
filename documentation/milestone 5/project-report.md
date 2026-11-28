@@ -17,8 +17,13 @@ to +0.008). It calls 5.00% of non-snakes a snake while keeping 99.31% of snakes.
 once per clip. It fails the goal that matters most to a user: the lower bound on recall of WHO-listed venomous
 snakes is **0.926**, against a mark of 0.95. Even the point value, 0.944, is under the mark. The error analysis says
 why. Most species errors go to a close relative. Indian photos score 18 points lower than photos from elsewhere. A
-blurred or partly covered snake hurts more than any other damage we tried. And putting the new snake check in front
-of the classifier, which the app on this branch already does, lifts the safety bound to 0.946 with no retraining.
+blurred or partly covered snake hurts more than any other damage we tried.
+
+**Which number is the app's.** The declared safety goal was scored behind the M4 gate, as in M4, so that M4 and M5
+compare on one front end. The app does not use that gate: it runs the snake check first. FREEZE.md (section 5,
+written before any test photo was opened) also declared safety behind the snake check, with the same frozen
+thresholds. That is the app's own number: **bound 0.946** (recall 0.960, 0.944 to 0.982), false alarms 22.3%. It is
+also under 0.95, so the safety goal fails either way.
 
 | Goal | Mark | Test result | Met |
 |---|---|---|---|
@@ -27,7 +32,8 @@ of the classifier, which the app on this branch already does, lifts the safety b
 | G3 against B1, on B1's 62 species | tie or beat, on top-1 and macro-F1 | top-1 -0.006 (-0.020 to +0.008), macro-F1 +0.006 (-0.017 to +0.028) | yes, tied |
 | G4 non-snakes called a snake / snakes kept | at most 5% / at least 99% | 5.00% / 99.31% | yes, exactly at the mark |
 | G5 changes of the shown species per clip | at most 1 | at most 1 at all four frame speeds | yes (tests the lock only) |
-| Safety: WHO recall lower bound | at least 0.95 | 0.926 | **no** |
+| Safety: WHO recall lower bound, behind the M4 gate (declared goal) | at least 0.95 | 0.926 | **no** |
+| Safety as the app runs it: behind the snake check (declared in FREEZE section 5) | at least 0.95 | 0.946 | **no** |
 
 **Where the numbers come from.** Every number in this report comes from a file in
 [`results/m5/`](../../results/m5/README.md), and paths below are relative to that folder. The folder README says
@@ -65,7 +71,7 @@ M4 also found that the crops the app feeds the classifier differ from the crops 
 | Average with the mirrored crop (flip), and add a training-frequency prior (tau 0.5, fitted on calibration only) | The weighted sampler flattened species frequencies, while validation and real use follow natural frequencies | M5_KD + flip + prior: G3 -0.012 and +0.002, both tied. No candidate passed G3 without the prior | `g3/README.md` |
 | A separate snake check, `distil_oi`: EfficientNet-B0, 3 classes, feature distillation from BioCLIP, extra non-snake photos | The M4 gate called 28.3% of non-snake test photos a snake | 5.17% false snakes and 99.20% of snakes kept, against 27.3% and 98.3% for the M4 gate | `g4/README.md` |
 | A video lock that works in seconds, expires, and always shows the locked species | The M4 lock counted frames and never expired. The app screen also showed a different species from the one scored: 21 changes on screen where notebook 24 scored 2 | Dev clips: at most 1 change at 0.1, 0.25, 0.4 and 0.8 s a frame | `g5/README.md` |
-| Safety thresholds refitted for the new classifier, behind the app's gate | Each new model's own thresholds gave a calibration bound of only 0.941 to 0.944 behind the gate | Calibration bound 0.954 behind the gate; validation recall 0.963 (0.950 to 0.973) | `g3/README.md`, `g3/refit_new.json` |
+| Safety thresholds refitted for the new classifier, behind the M4 gate | Each new model's own thresholds gave a calibration bound of only 0.941 to 0.944 behind the M4 gate | Calibration bound 0.954 behind the M4 gate; validation recall 0.963 (0.950 to 0.973) | `g3/README.md`, `g3/refit_new.json` |
 | Validation loss logged at every evaluation; `last.pt` saves the model, optimizer, scheduler, scaler and RNG states; `train(..., resume=True)` | The TA's M4 feedback | Per-epoch validation loss for M5_FT and M5_KD; resume tested in a laptop dry run | `g3/README.md`, `tests/test_distillation.py` |
 
 We tried two more things and left them out. The G4 retry `distil_oi_v2` gave 5.67% false snakes on validation,
@@ -90,8 +96,9 @@ A photo goes through these steps, in this order on the phone (`test/FREEZE.md`, 
    "dangerous", "not on the WHO list" or "we don't know".
 5. **In video**, the lock from `g5/results/chosen_settings.json` pools the frames and holds the answer.
 
-The frozen safety goal was scored behind the M4 gate, as in M4. Section 4.2 also gives the number behind the snake
-check.
+The frozen safety goal was scored behind the M4 gate, as in M4, so M4 and M5 compare on one front end. The app runs
+step 1, the snake check, instead of that gate; FREEZE section 5 declared safety behind the snake check too, and section
+4.2 gives it (bound 0.946).
 
 **Scope.** This report scores photos and recorded clips. It does not measure the app on a phone (section 7.3).
 
@@ -266,7 +273,7 @@ Table 1. Goals on validation and on test (`test/RESULTS.md`, "Goals"; `test/test
 | G4a non-snakes called a snake (at most 5%) | 5.17% (31 of 600), fail | 5.00% (30 of 600), 3.3% to 6.7% | **Pass, exactly at the mark** |
 | G4b snakes kept (at least 99%) | 99.20% (17,013 of 17,151) | 99.31% (18,405 of 18,533), 99.15% to 99.47% | **Pass** |
 | G5 at most 1 change per real test clip | dev clips: at most 1 | at most 1 on 22 new clips at all four frame speeds | **Pass** (tests the lock only, section 7.1) |
-| Safety: WHO recall lower bound behind the app's gate (at least 0.95) | recall 0.962 (0.950 to 0.973), bound 0.952 | recall 0.944 (0.923 to 0.973), **bound 0.926** | **FAIL** |
+| Safety: WHO recall lower bound behind the M4 gate (at least 0.95; the declared goal) | recall 0.962 (0.950 to 0.973), bound 0.952 | recall 0.944 (0.923 to 0.973), **bound 0.926** | **FAIL** |
 
 - **Safety fails**, and not narrowly: even the point value, 0.944, is under the mark (section 5.2).
 - **G3 is a tie on both measures.** The scorer labels the macro-F1 standing "higher" because the difference is
@@ -313,8 +320,9 @@ Table 4. The whole pipeline before and after, on the same test photos (`test/RES
 M5 is better on top-1, G3, safety and false snakes. It is worse on macro-F1 over all species, and it reaches 2 fewer
 species at F1 0.5. A3 also fails the safety bound on these photos (0.909), so the safety failure is not new in M5.
 
-**With the snake check in front instead of the gate**, which is how the app on this branch runs: WHO recall 0.960
-(0.944 to 0.982), bound 0.946, false alarms 22.3%. That is closer, and still under 0.95.
+**With the snake check in front instead of the gate**, which is how the app runs (declared in FREEZE section 5 before
+the test, same frozen thresholds): WHO recall 0.960 (0.944 to 0.982), bound 0.946, false alarms 22.3%. This is the
+safety number for the app as shipped. It is closer, and still under 0.95.
 
 ### 4.3 Configurations and settings we compared
 
