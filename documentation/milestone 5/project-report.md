@@ -745,7 +745,8 @@ measure the installed APK size.
 
 ### 7.6 What we did not test
 
-- On-device latency, fp16 on Android's CPU provider, and the app on a phone (section 9).
+- More than one phone. Latency, memory and the fp16 snake check on Android's CPU provider were measured on one
+  Samsung Galaxy S23 FE (sections 7.3 and 9), not on a mid-range phone, and battery use and heat were not measured.
 - The full app ONNX path on the test photos. The classifier ran in the kernel's PyTorch path, and only the gate call
   used the app's ONNX path. On validation the two paths differed by less than 0.001 in G3.
 - G5 with the snake check as the video gate, and G5 on a phone.
