@@ -1,0 +1,24 @@
+{
+ "settings": {
+  "min_frames": 1,
+  "hold_seconds": 2.0,
+  "window_seconds": 0.5,
+  "margin": 0.05,
+  "switch_seconds": 2.0,
+  "gate_share": 0.0
+ },
+ "conf": 0.2869610547177443,
+ "theta_conf": 0.2869610547177443,
+ "latencies": [
+  0.1,
+  0.4,
+  0.8
+ ],
+ "dev_clips": 50,
+ "tuning_negatives": [
+  "negative_chameleon_1915.mp4",
+  "negative_eagle_goa.ogv",
+  "negative_river_wyoming.webm"
+ ],
+ "rule": "no dev clip over 1 change at any latency, median first answer <= 3 s at every latency, fewest tuning negatives locked, most final right, fastest, shortest window, smallest margin, switch, gate share"
+}

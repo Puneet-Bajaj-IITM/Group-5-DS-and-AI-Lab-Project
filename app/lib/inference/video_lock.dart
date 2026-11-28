@@ -5,13 +5,15 @@ import 'decision.dart';
 
 /// The lock's settings, all in seconds of the clip so the lock behaves the
 /// same however fast the phone runs the model. The defaults are the M5
-/// retune (`results/m5/g5/chosen_settings.json`); the names match
+/// retune (`results/m5/g5/chosen_settings.json`), except the switch time: 2 s since M6
+/// (`results/m6/lock_switch/`, faster to move to a new snake, still at most 1
+/// change on every dev clip); the names match
 /// `lock_settings` in `src/serpentguard/video.py`.
 class LockSettings {
   const LockSettings({
     this.windowSeconds = 0.5,
     this.margin = 0.05,
-    this.switchSeconds = 3.0,
+    this.switchSeconds = 2.0,
     this.gateShare = 0.0,
     this.minFrames = 1,
     this.holdSeconds = 2.0,
