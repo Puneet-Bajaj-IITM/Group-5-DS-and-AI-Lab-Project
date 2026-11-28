@@ -139,6 +139,12 @@ class LiveSession {
   PipelineResult? _lastVerdictFrame;
   int _width = 0, _height = 0;
 
+  // With several snakes in view, each tracked snake is named on its own: its
+  // own box crop, snake check and lock, the verdict lane taking turns.
+  final Map<int, VideoLock> _trackLocks = {};
+  final Map<int, Identification> _trackNames = {};
+  final Map<int, double> _trackNamedAt = {};
+
   // Diagnostics.
   final LaneTimer boxTimer = LaneTimer(), verdictTimer = LaneTimer();
   int _skippedByGate = 0;
@@ -155,6 +161,7 @@ class LiveSession {
     _shown = null;
     _hasShown = false;
     _lastVerdictFrame = null;
+    _clearTracks();
     _skippedByGate = 0;
     boxTimer.clear();
     verdictTimer.clear();
@@ -238,7 +245,13 @@ class LiveSession {
           _noSnake(seconds, fixed, conf, rgb);
         }
       } else if (!_verdictBusy) {
-        unawaited(_verdictLane(fixed, !identical(fixed, rgb), conf, best, seconds, session));
+        final several = _namedTracks();
+        if (several.length >= 2) {
+          unawaited(_trackLane(fixed, !identical(fixed, rgb), several, seconds, session));
+        } else {
+          if (_trackNames.isNotEmpty) _clearTracks(); // back to one snake: the frozen path
+          unawaited(_verdictLane(fixed, !identical(fixed, rgb), conf, best, seconds, session));
+        }
       }
       _boxError = null;
       _publish();
@@ -378,6 +391,88 @@ class LiveSession {
     );
   }
 
+  /// The tracked snakes confident enough to name separately.
+  List<Track> _namedTracks() => [for (final t in _tracker.tracks) if (t.score >= snakeMinScore) t];
+
+  void _clearTracks() {
+    _trackLocks.clear();
+    _trackNames.clear();
+    _trackNamedAt.clear();
+  }
+
+  /// One turn of the verdict lane with several snakes in view: the snake named
+  /// longest ago, through the snake check, the classifier and its own lock.
+  Future<void> _trackLane(RgbImage rgb, bool exposureFixed, List<Track> tracks, double seconds, int session) async {
+    _verdictBusy = true;
+    final clock = Stopwatch()..start();
+    final s = _s;
+    final size = s.inputSize;
+    bool stale() => session != _session || _closed;
+    try {
+      final track = tracks.reduce((a, b) =>
+          (_trackNamedAt[a.id] ?? double.negativeInfinity) <= (_trackNamedAt[b.id] ?? double.negativeInfinity) ? a : b);
+      _trackNamedAt[track.id] = seconds;
+      final window = boxWindow(track.box, rgb.width, rgb.height, s.cropPadding);
+      if (window == null) return;
+      final crop = cropInputs(rgb, window, s, snakeCheck: s.usesSnakeCheck);
+      final lock = _trackLocks.putIfAbsent(track.id, () => VideoLock(rules: _rules));
+      final details = PipelineResult(
+          width: rgb.width,
+          height: rgb.height,
+          exposureFixed: exposureFixed,
+          gate: GateResult(snake: true, boxConf: track.score, maskArea: 0, box: track.box),
+          answer: ModelAnswer.noSnake);
+      if (crop.snakeCheckInput != null) {
+        final check = s.snakeCheck!;
+        final out = (await _verdict.invokeMapMethod<String, Float32List>(
+            'check', {'input': crop.snakeCheckInput, 'size': check.inputSize}))!;
+        if (stale()) return;
+        if (!check.isSnake(out[check.output]!)) {
+          lock.add(null, seconds);
+          _trackNames.remove(track.id);
+          return;
+        }
+      }
+      Future<ModelOutputs> classify(Float32List input) async {
+        final out = (await _verdict.invokeMapMethod<String, Float32List>('classify', {'input': input, 'size': size}))!;
+        return ModelOutputs(
+          embedding: out['embedding']!,
+          speciesLogits: out['species_logits']!,
+          whoLogits: out['who_logits']!,
+          genusLogits: out['genus_logits']!,
+          familyLogits: out['family_logits']!,
+        );
+      }
+
+      final plain = await classify(crop.classifierInput);
+      if (stale()) return;
+      final mirrored = crop.mirroredInput == null ? null : await classify(crop.mirroredInput!);
+      if (stale()) return;
+      final parts = DecisionParts.fromOutputs(classifierAnswer(plain, mirrored, s.classifier), s.thresholds);
+      final shown = lock.add(parts, seconds).shown;
+      if (shown == null) {
+        _trackNames.remove(track.id);
+      } else {
+        _trackNames[track.id] = _present(shown, details);
+      }
+      // The card shows the most dangerous named snake.
+      final named = [for (final t in tracks) if (_trackNames[t.id] != null) _trackNames[t.id]!];
+      _shown = named.isEmpty ? null : named.reduce((a, b) => b.verdict.severity > a.verdict.severity ? b : a);
+      _hasShown = true;
+      _lastVerdictFrame = details;
+      verdictTimer.add(clock.elapsedMilliseconds, seconds);
+      _verdictError = null;
+    } catch (e) {
+      if (session == _session && !_closed) {
+        _verdictError = e;
+        _failed();
+      }
+    } finally {
+      _verdictBusy = false;
+      if (session == _session) _publish();
+    }
+  }
+
   /// What [OnnxSnakeClassifier.identifyFrame] returns for this lock step.
   void _show(LockStep step, PipelineResult details, {required bool snake}) {
     if (!snake && step.pooled == null) {
@@ -391,6 +486,10 @@ class LiveSession {
 
   void _publish() {
     final tracks = _tracker.tracks;
+    final live = {for (final t in tracks) t.id};
+    for (final m in [_trackLocks, _trackNames, _trackNamedAt]) {
+      m.removeWhere((id, _) => !live.contains(id));
+    }
     final verdictBox = _lastVerdictFrame?.gate.snake == true ? _lastVerdictFrame!.gate.box : null;
     Track? main;
     if (verdictBox != null && tracks.isNotEmpty) {
@@ -412,6 +511,7 @@ class LiveSession {
       height: _height,
       tracks: shown,
       mainTrack: main?.id,
+      names: Map.unmodifiable(_trackNames),
       identification: _shown,
       answered: _hasShown,
       // The snake check (or the M4 gate) said snake on the last verdict
@@ -471,6 +571,7 @@ class LiveView {
     required this.verdictMs,
     required this.skippedByGate,
     required this.threads,
+    this.names = const {},
     this.error,
   });
 
@@ -482,6 +583,10 @@ class LiveView {
 
   /// The track the verdict is about, if the last verdict frame had a snake.
   final int? mainTrack;
+
+  /// With several snakes in view: each named track's own answer, by track id.
+  /// A tracked snake missing here is still being identified.
+  final Map<int, Identification> names;
 
   /// What [OnnxSnakeClassifier.identifyFrame] would show: null while
   /// checking (once [answered]); a no-snake answer when nothing is in view.
