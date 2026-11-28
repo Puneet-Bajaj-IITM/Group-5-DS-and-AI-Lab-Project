@@ -173,13 +173,14 @@ class OnnxSnakeClassifier implements LiveSnakeClassifier {
     return _rule.fromAnswer(r.answer, details: r);
   }
 
-  /// One frame through the pipeline, without the video lock.
+  /// One frame through the pipeline, without the video lock. Other snakes
+  /// get their boxes but are not named (too slow for every frame).
   Future<PipelineResult> runFrame(RgbImage frame) async {
     final model = await _ready;
     final sized = math.max(frame.width, frame.height) > frameMaxSide
         ? await Isolate.run(() => phoneSize(frame))
         : frame;
-    return model.run(sized);
+    return model.run(sized, nameOthers: false);
   }
 
   static RgbImage phoneSize(RgbImage img) {

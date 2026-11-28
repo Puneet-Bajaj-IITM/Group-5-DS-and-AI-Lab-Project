@@ -33,6 +33,10 @@ class VerdictStyle {
 }
 
 const noSnakeTitle = 'No snake found';
+
+/// Shown while a video or the live camera has not settled on an answer.
+const identifyingText = 'Identifying…';
+const snakeInViewIdentifying = 'Snake in view · identifying…';
 const noSnakeAdvice = 'This does not mean the area is safe. If you can see a snake, keep away and try another photo.';
 
 /// The verdict card: a coloured sign with the answer, its reason and what to do.

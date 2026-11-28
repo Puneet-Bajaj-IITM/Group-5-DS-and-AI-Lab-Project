@@ -70,6 +70,48 @@ void main() {
     });
   });
 
+  group('snakeBoxes', () {
+    // A 640 x 640 frame: the 320 px input at half scale, no letterbox bars.
+    List<Detection> boxes(List<(double, double, double, double, double)> b) =>
+        snakeBoxes(output(b), anchors, 0, 640, 640, size);
+
+    test('a head box inside the body box is one snake', () {
+      final body = (160.0, 160.0, 200.0, 100.0, 0.9), head = (90.0, 150.0, 40.0, 30.0, 0.7);
+      expect(detectAll(output([body, head]), anchors, 0, 640, 640, size, minScore: snakeMinScore), hasLength(2),
+          reason: 'NMS alone keeps both (IoU under 0.5)');
+      expect(boxes([body, head]).map((d) => d.score), [closeTo(0.9, 1e-6)]);
+    });
+
+    test('two separate snakes are two boxes, best first', () {
+      final found = boxes([(80, 80, 60, 60, 0.8), (240, 240, 60, 60, 0.9)]);
+      expect(found.map((d) => d.score), [closeTo(0.9, 1e-6), closeTo(0.8, 1e-6)]);
+    });
+
+    test('at most maxSnakes boxes', () {
+      final found = boxes([
+        (40, 40, 40, 40, 0.9),
+        (160, 40, 40, 40, 0.8),
+        (280, 40, 40, 40, 0.7),
+        (40, 280, 40, 40, 0.6),
+      ]);
+      expect(found, hasLength(maxSnakes));
+      expect(found.last.score, closeTo(0.7, 1e-6));
+    });
+
+    test('scores under snakeMinScore are no snake', () {
+      expect(boxes([(80, 80, 60, 60, 0.2), (240, 240, 60, 60, 0.1)]), isEmpty);
+    });
+
+    test('sameSnake: overlap or containment either way', () {
+      const big = PixelBox(0, 0, 100, 100), inside = PixelBox(10, 10, 40, 40), apart = PixelBox(200, 0, 260, 60);
+      expect(sameSnake(big, inside), isTrue);
+      expect(sameSnake(inside, big), isTrue);
+      expect(sameSnake(big, big), isTrue);
+      expect(sameSnake(big, apart), isFalse);
+      expect(containment(big, const PixelBox(80, 0, 180, 100)), closeTo(0.2, 1e-9));
+    });
+  });
+
   group('BoxTracker', () {
     PixelBox box(double x) => PixelBox(x, 100, x + 100, 200);
 

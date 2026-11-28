@@ -68,10 +68,6 @@ class LiveSession {
   final int owner;
   static int _lastOwner = 0;
 
-  /// Extra boxes (not the one the verdict is about) are drawn from this
-  /// detector score, Ultralytics' default confidence.
-  static const displayScore = 0.25;
-
   static const _detectorChannel = MethodChannel('serpentguard/live_detector');
   static const _verdictChannel = MethodChannel('serpentguard/live_verdict');
 
@@ -213,8 +209,7 @@ class LiveSession {
       final anchors = output.length ~/ 5; // rows cx, cy, w, h and the snake score
       final conf = boxConf(output, anchors, s.snakeClass, s.boxFloor);
       final best = conf == null ? null : bestBox(output, anchors, s.snakeClass, fixed.width, fixed.height, s.inputSize);
-      final found = detectAll(output, anchors, s.snakeClass, fixed.width, fixed.height, s.inputSize,
-          minScore: displayScore);
+      final found = snakeBoxes(output, anchors, s.snakeClass, fixed.width, fixed.height, s.inputSize);
       // The box the verdict is about is the most confident one, as on a
       // photo, so it is tracked even under the display score (it is drawn
       // only when the verdict lane names it). With the M4 gate only boxes
@@ -224,7 +219,7 @@ class LiveSession {
           best.width > 0 &&
           best.height > 0 &&
           (!boxDecides || conf! >= s.gateBoxConf) &&
-          (found.isEmpty || iou(found.first.box, best) < 0.5)) {
+          (found.isEmpty || iou(found.first.box, best) < nmsIou)) {
         found.insert(0, Detection(best, conf!));
       }
       _tracker.update(found, seconds);
@@ -410,7 +405,7 @@ class LiveSession {
     }
     final shown = [
       for (final t in tracks)
-        if (t.score >= displayScore || identical(t, main)) t,
+        if (t.score >= snakeMinScore || identical(t, main)) t,
     ];
     final view = LiveView(
       width: _width,

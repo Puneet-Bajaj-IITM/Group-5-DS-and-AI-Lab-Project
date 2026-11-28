@@ -13,13 +13,38 @@ class Detection {
   final double score;
 }
 
-double iou(PixelBox a, PixelBox b) {
+/// A box is drawn as a snake from this detector score (Ultralytics' default confidence).
+const snakeMinScore = 0.25;
+
+/// Non-maximum suppression drops a box overlapping a better one this much (IoU).
+const nmsIou = 0.5;
+
+/// A box this much inside a better one (intersection over the smaller box's
+/// area) is the same snake, e.g. a head box inside the body box.
+const containLimit = 0.6;
+
+/// At most this many snakes are boxed in one photo or frame.
+const maxSnakes = 3;
+
+double _intersection(PixelBox a, PixelBox b) {
   final w = math.min(a.right, b.right) - math.max(a.left, b.left);
   final h = math.min(a.bottom, b.bottom) - math.max(a.top, b.top);
-  if (w <= 0 || h <= 0) return 0;
-  final inter = w * h;
-  return inter / (a.width * a.height + b.width * b.height - inter);
+  return w <= 0 || h <= 0 ? 0 : w * h;
 }
+
+double iou(PixelBox a, PixelBox b) {
+  final inter = _intersection(a, b);
+  return inter == 0 ? 0 : inter / (a.width * a.height + b.width * b.height - inter);
+}
+
+/// The share of the smaller box that lies inside the other.
+double containment(PixelBox a, PixelBox b) {
+  final inter = _intersection(a, b);
+  return inter == 0 ? 0 : inter / math.min(a.width * a.height, b.width * b.height);
+}
+
+/// True when two boxes are taken for the same snake.
+bool sameSnake(PixelBox a, PixelBox b) => iou(a, b) >= nmsIou || containment(a, b) >= containLimit;
 
 /// The boxes scoring at least [minScore], mapped from the detector's
 /// letterboxed [size] x [size] input to the [width] x [height] image (the
@@ -27,7 +52,7 @@ double iou(PixelBox a, PixelBox b) {
 /// Highest score first. The output holds, per anchor, rows cx, cy, w, h and
 /// the score.
 List<Detection> detectAll(List<double> output, int anchors, int snakeClass, int width, int height, int size,
-    {required double minScore, double iouLimit = 0.5, int maxBoxes = 8}) {
+    {required double minScore, double iouLimit = nmsIou, int maxBoxes = 8}) {
   final row = 4 + snakeClass;
   final ratio = math.min(size / height, size / width);
   final nw = math.max(pyRound(width * ratio), 1), nh = math.max(pyRound(height * ratio), 1);
@@ -59,6 +84,20 @@ List<Detection> detectAll(List<double> output, int anchors, int snakeClass, int 
     if (kept.every((k) => iou(k.box, c.box) < iouLimit)) {
       kept.add(c);
       if (kept.length == maxBoxes) break;
+    }
+  }
+  return kept;
+}
+
+/// The snakes in one frame: [detectAll]'s boxes from [snakeMinScore], with a
+/// box mostly inside a better one dropped (the same snake), at most
+/// [maxSnakes]. Highest score first.
+List<Detection> snakeBoxes(List<double> output, int anchors, int snakeClass, int width, int height, int size) {
+  final kept = <Detection>[];
+  for (final d in detectAll(output, anchors, snakeClass, width, height, size, minScore: snakeMinScore)) {
+    if (kept.every((k) => containment(k.box, d.box) < containLimit)) {
+      kept.add(d);
+      if (kept.length == maxSnakes) break;
     }
   }
   return kept;

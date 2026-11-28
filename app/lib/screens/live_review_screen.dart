@@ -278,7 +278,7 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
               text: _classifier == null
                   ? 'Live model not connected in this build. Preview and evidence capture are available.'
                   : _identification == null
-                  ? (_lastFrame?.gate.snake == true ? 'Snake in view · checking…' : 'Looking for a snake…')
+                  ? (_lastFrame?.gate.snake == true ? snakeInViewIdentifying : 'Looking for a snake…')
                   : !_identification!.snakeFound
                   ? 'No snake detected. This does not mean the area is safe.'
                   : '${_identification!.verdict.title} · ${_identification!.topSpecies?.displayName ?? _identification!.reason}',
@@ -315,7 +315,7 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
                                     : Brand.venom,
                                 label: _identification?.snakeFound == true
                                     ? _identification!.topSpecies?.displayName
-                                    : 'Checking…',
+                                    : identifyingText,
                               )
                             : null,
                       ),
@@ -395,7 +395,7 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
   String _liveText(LiveView? v) {
     final id = v?.identification;
     if (v == null || !v.answered || id == null) {
-      return v?.snakeInView == true ? 'Snake in view · checking…' : 'Looking for a snake…';
+      return v?.snakeInView == true ? snakeInViewIdentifying : 'Looking for a snake…';
     }
     if (!id.snakeFound) return 'No snake detected. This does not mean the area is safe.';
     return '${id.verdict.title} · ${id.topSpecies?.displayName ?? id.reason}';
@@ -417,7 +417,7 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
             OverlayBox(
               t.box,
               verdict == null ? Brand.venom : VerdictStyle.of(verdict).background,
-              label: verdict == null ? 'Checking…' : v.identification!.topSpecies?.displayName ?? verdict.title,
+              label: verdict == null ? identifyingText : v.identification!.topSpecies?.displayName ?? verdict.title,
               main: true,
             )
           else
