@@ -53,7 +53,7 @@ POOL_FRAMES = 10                  # M4's frame-count window, kept for notebooks 
 # the values are the M5 retune on dev clips at 0.1, 0.4 and 0.8 s a frame (results/m5/g5).
 LOCK_WINDOW_SECONDS = 0.5         # the lock pools the snake frames of the last half second
 LOCK_MARGIN = 0.05                # the pooled top species must lead the runner-up by this to lock
-SWITCH_SECONDS = 3.0              # another species must clearly lead this long to replace the lock
+SWITCH_SECONDS = 2.0              # another species must clearly lead this long to replace the lock
 LOCK_GATE_SHARE = 0.0             # share of the window's frames the gate must call a snake to lock
 LOCK_MIN_FRAMES = 1               # snake frames the pool must hold to lock (and pools at least)
 HOLD_SECONDS = 2.0                # with no snake frame for this long the lock is dropped

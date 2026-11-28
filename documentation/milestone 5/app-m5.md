@@ -43,7 +43,7 @@ Tools in `app/tool/m5/` (Python 3.12 with `requirements-m3.txt`, run from the re
 | Mutation check: drop the head averaging, or scale the prior by 0.9 | | both fail the decision goldens |
 | Snake-check input built by Dart on the test host vs Python (`test/golden_photo_inputs_test.dart`, `GOLDEN_PHOTO_DIR` set) | 15 photos | mean and std within 4.2e-6 (tolerance 1e-4) |
 | fp16 vs fp32 snake check, Python | 15 photos | max P(snake) difference 6.0e-4, 0 calls flip |
-| Whole path on the device (`integration_test/golden_photos_test.dart`): P(snake) and top-3 probabilities within 1e-3, same snake call, verdict, frozen verdict, message, top-3 species and crop | 15 photos | **not run**, see "Not tested" |
+| Whole path on the device (`integration_test/golden_photos_test.dart`): P(snake) and top-3 probabilities within 1e-3, same snake call, verdict, frozen verdict, message, top-3 species and crop | 15 photos | Samsung Galaxy S23 FE ([PR #37](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/37)): same snake call, verdict, frozen verdict, message, top-3 species and crop on all 15; P(snake) within 0.0105 and top 3 within 0.0065, so the 1e-3 tolerance fails on 7 (fp16 snake check on ARM) |
 
 Golden photos (`test/golden/golden_photos.json`, downloaded by URL and checked by SHA-1, not in git): the five demo
 photos and ten non-snakes from notebook 19's **validation** split (one each of person, rope, cat, dog, hand/arm, eel,
@@ -74,7 +74,8 @@ differs from the validation scores (hand/arm 0.117 then, 0.456 now; legless liza
 `flutter test --no-pub` in `app/`: **81 passed, 3 skipped** (82 passed, 2 skipped with `GOLDEN_PHOTO_DIR` set);
 after merging PR #32 (Jayesh Bansal's boxes, addresses, live video and background pixel worker): **89 passed, 3 skipped**,
 and the snake-check input test still passes on the 15 golden photos;
-before these changes 69 passed, 2 skipped. Python `tests/test_video_lock.py`: 10 passed. `flutter analyze`: no issues.
+before these changes 69 passed, 2 skipped. With the live camera (PR #37): **127 passed, 3 skipped**.
+Python `tests/test_video_lock.py`: 10 passed. `flutter analyze`: no issues.
 `pubspec.yaml` and `pubspec.lock` are unchanged: a plain `flutter test` re-resolves the lock on this machine's
 Flutter SDK (it pins `test_api` 0.7.14 and adds `listen`), so the tests were run with `--no-pub` and the lock restored.
 
@@ -111,21 +112,18 @@ flutter test --no-pub integration_test/golden_photos_test.dart -d emulator-5554 
   --dart-define-from-file=build/golden_defines.json
 ```
 
+On Windows that command line is too long: run a temporary copy of the test with the JSON pasted in place of
+`String.fromEnvironment('GOLDEN_PHOTOS')`, then delete the copy.
+
 To rebuild the goldens: `python app/tool/m5/make_golden_m5.py --photos <folder of <photo_id>.jpg>`. The photos are
 listed with their URLs and SHA-1 in `test/golden/golden_photos.json`.
 
 ## Not tested
 
-- **The integration test on the emulator.** The emulator booted (`Medium_Phone_API_36.1`), but the first Android build
-  needs Gradle 9.3.1, which was not cached on the laptop, and its download from services.gradle.org timed out. So the
-  whole path in Dart (ONNX Runtime on Android, BitmapFactory decode, mirror pass, snake check) is untested against
-  the Python reference; only the decision rules, the mirror + prior step and the snake-check input are.
-- **fp16 on Android.** The snake check has fp16 weights with fp32 input and output; it matches fp32 on the laptop
-  (above) but has not run on ONNX Runtime for Android.
-- **On-device latency.** The mirror pass doubles the classifier's time per photo and per video frame; the snake check
-  adds one 256 px run but skips the other three models on most non-snake photos. Not measured.
+The whole path on a phone, fp16 on Android and on-device latency have since run on a Samsung Galaxy S23 FE
+(PR #37): the golden photos above, and the time per photo, memory and app size in section 7.3 of the report.
+
 - The video screens with the new lock and the frozen classifier, on a device.
-- The video screen still says the answer "pools the last 5 frames"; the lock now pools 0.5 s. Not changed here.
 
 ## Post-test safety change: stricter thresholds
 

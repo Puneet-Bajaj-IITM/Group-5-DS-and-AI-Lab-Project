@@ -17,8 +17,13 @@ to +0.008). It calls 5.00% of non-snakes a snake while keeping 99.31% of snakes.
 once per clip. It fails the goal that matters most to a user: the lower bound on recall of WHO-listed venomous
 snakes is **0.926**, against a mark of 0.95. Even the point value, 0.944, is under the mark. The error analysis says
 why. Most species errors go to a close relative. Indian photos score 18 points lower than photos from elsewhere. A
-blurred or partly covered snake hurts more than any other damage we tried. And putting the new snake check in front
-of the classifier, which the app on this branch already does, lifts the safety bound to 0.946 with no retraining.
+blurred or partly covered snake hurts more than any other damage we tried.
+
+**Which number is the app's.** The declared safety goal was scored behind the M4 gate, as in M4, so that M4 and M5
+compare on one front end. The app does not use that gate: it runs the snake check first. FREEZE.md (section 5,
+written before any test photo was opened) also declared safety behind the snake check, with the same frozen
+thresholds. That is the app's own number: **bound 0.946** (recall 0.960, 0.944 to 0.982), false alarms 22.3%. It is
+also under 0.95, so the safety goal fails either way.
 
 | Goal | Mark | Test result | Met |
 |---|---|---|---|
@@ -27,7 +32,8 @@ of the classifier, which the app on this branch already does, lifts the safety b
 | G3 against B1, on B1's 62 species | tie or beat, on top-1 and macro-F1 | top-1 -0.006 (-0.020 to +0.008), macro-F1 +0.006 (-0.017 to +0.028) | yes, tied |
 | G4 non-snakes called a snake / snakes kept | at most 5% / at least 99% | 5.00% / 99.31% | yes, exactly at the mark |
 | G5 changes of the shown species per clip | at most 1 | at most 1 at all four frame speeds | yes (tests the lock only) |
-| Safety: WHO recall lower bound | at least 0.95 | 0.926 | **no** |
+| Safety: WHO recall lower bound, behind the M4 gate (declared goal) | at least 0.95 | 0.926 | **no** |
+| Safety as the app runs it: behind the snake check (declared in FREEZE section 5) | at least 0.95 | 0.946 | **no** |
 
 **Where the numbers come from.** Every number in this report comes from a file in
 [`results/m5/`](../../results/m5/README.md), and paths below are relative to that folder. The folder README says
@@ -65,7 +71,7 @@ M4 also found that the crops the app feeds the classifier differ from the crops 
 | Average with the mirrored crop (flip), and add a training-frequency prior (tau 0.5, fitted on calibration only) | The weighted sampler flattened species frequencies, while validation and real use follow natural frequencies | M5_KD + flip + prior: G3 -0.012 and +0.002, both tied. No candidate passed G3 without the prior | `g3/README.md` |
 | A separate snake check, `distil_oi`: EfficientNet-B0, 3 classes, feature distillation from BioCLIP, extra non-snake photos | The M4 gate called 28.3% of non-snake test photos a snake | 5.17% false snakes and 99.20% of snakes kept, against 27.3% and 98.3% for the M4 gate | `g4/README.md` |
 | A video lock that works in seconds, expires, and always shows the locked species | The M4 lock counted frames and never expired. The app screen also showed a different species from the one scored: 21 changes on screen where notebook 24 scored 2 | Dev clips: at most 1 change at 0.1, 0.25, 0.4 and 0.8 s a frame | `g5/README.md` |
-| Safety thresholds refitted for the new classifier, behind the app's gate | Each new model's own thresholds gave a calibration bound of only 0.941 to 0.944 behind the gate | Calibration bound 0.954 behind the gate; validation recall 0.963 (0.950 to 0.973) | `g3/README.md`, `g3/refit_new.json` |
+| Safety thresholds refitted for the new classifier, behind the M4 gate | Each new model's own thresholds gave a calibration bound of only 0.941 to 0.944 behind the M4 gate | Calibration bound 0.954 behind the M4 gate; validation recall 0.963 (0.950 to 0.973) | `g3/README.md`, `g3/refit_new.json` |
 | Validation loss logged at every evaluation; `last.pt` saves the model, optimizer, scheduler, scaler and RNG states; `train(..., resume=True)` | The TA's M4 feedback | Per-epoch validation loss for M5_FT and M5_KD; resume tested in a laptop dry run | `g3/README.md`, `tests/test_distillation.py` |
 
 We tried two more things and left them out. The G4 retry `distil_oi_v2` gave 5.67% false snakes on validation,
@@ -90,8 +96,9 @@ A photo goes through these steps, in this order on the phone (`test/FREEZE.md`, 
    "dangerous", "not on the WHO list" or "we don't know".
 5. **In video**, the lock from `g5/results/chosen_settings.json` pools the frames and holds the answer.
 
-The frozen safety goal was scored behind the M4 gate, as in M4. Section 4.2 also gives the number behind the snake
-check.
+The frozen safety goal was scored behind the M4 gate, as in M4, so M4 and M5 compare on one front end. The app runs
+step 1, the snake check, instead of that gate; FREEZE section 5 declared safety behind the snake check too, and section
+4.2 gives it (bound 0.946).
 
 **Scope.** This report scores photos and recorded clips. It does not measure the app on a phone (section 7.3).
 
@@ -266,7 +273,7 @@ Table 1. Goals on validation and on test (`test/RESULTS.md`, "Goals"; `test/test
 | G4a non-snakes called a snake (at most 5%) | 5.17% (31 of 600), fail | 5.00% (30 of 600), 3.3% to 6.7% | **Pass, exactly at the mark** |
 | G4b snakes kept (at least 99%) | 99.20% (17,013 of 17,151) | 99.31% (18,405 of 18,533), 99.15% to 99.47% | **Pass** |
 | G5 at most 1 change per real test clip | dev clips: at most 1 | at most 1 on 22 new clips at all four frame speeds | **Pass** (tests the lock only, section 7.1) |
-| Safety: WHO recall lower bound behind the app's gate (at least 0.95) | recall 0.962 (0.950 to 0.973), bound 0.952 | recall 0.944 (0.923 to 0.973), **bound 0.926** | **FAIL** |
+| Safety: WHO recall lower bound behind the M4 gate (at least 0.95; the declared goal) | recall 0.962 (0.950 to 0.973), bound 0.952 | recall 0.944 (0.923 to 0.973), **bound 0.926** | **FAIL** |
 
 - **Safety fails**, and not narrowly: even the point value, 0.944, is under the mark (section 5.2).
 - **G3 is a tie on both measures.** The scorer labels the macro-F1 standing "higher" because the difference is
@@ -313,8 +320,9 @@ Table 4. The whole pipeline before and after, on the same test photos (`test/RES
 M5 is better on top-1, G3, safety and false snakes. It is worse on macro-F1 over all species, and it reaches 2 fewer
 species at F1 0.5. A3 also fails the safety bound on these photos (0.909), so the safety failure is not new in M5.
 
-**With the snake check in front instead of the gate**, which is how the app on this branch runs: WHO recall 0.960
-(0.944 to 0.982), bound 0.946, false alarms 22.3%. That is closer, and still under 0.95.
+**With the snake check in front instead of the gate**, which is how the app runs (declared in FREEZE section 5 before
+the test, same frozen thresholds): WHO recall 0.960 (0.944 to 0.982), bound 0.946, false alarms 22.3%. This is the
+safety number for the app as shipped. It is closer, and still under 0.95.
 
 ### 4.3 Configurations and settings we compared
 
@@ -711,8 +719,19 @@ Source: `g4/README.md`, `g4/results/latency.json`. These were measured on a busy
 only the ratios mean much. Flip doubles the classifier's time per photo. The three M4 models take 53.0 MB as float32
 files (M4 report, "Response to earlier feedback").
 
-> **To do (Manas Rastogi):** on an Android phone, measure the time per photo for the full pipeline with and without
-> flip, the peak RAM, and the app size with the snake check added.
+**On a phone.** Manas Rastogi measured the app with the frozen M5 files on a Samsung Galaxy S23 FE (Exynos 2200,
+8 GB RAM, Android 16; PR #37, `integration_test/photo_timing_test.dart` and `live_lanes_test.dart`, profile build):
+
+| What | Time | Peak memory |
+|---|---:|---:|
+| One 1600 x 2133 photo, full pipeline with the mirror pass | 2,470 ms | 631 MB |
+| The same photo without the mirror pass | 2,193 ms | |
+| Live camera, box lane (detector) per frame | 50 ms | |
+| Live camera, verdict lane (snake check to verdict) per frame | 655 ms | |
+
+The mirror pass adds about 280 ms (13%). About 63% of the photo time is Dart pixel work (the exposure fix and the
+crop), not the models, so that is where to speed it up. The app's model files are 65.1 MB (section 9); we did not
+measure the installed APK size.
 
 ### 7.4 Bias and fairness
 
@@ -734,7 +753,8 @@ files (M4 report, "Response to earlier feedback").
 
 ### 7.6 What we did not test
 
-- On-device latency, fp16 on Android's CPU provider, and the app on a phone (section 9).
+- More than one phone. Latency, memory and the fp16 snake check on Android's CPU provider were measured on one
+  Samsung Galaxy S23 FE (sections 7.3 and 9), not on a mid-range phone, and battery use and heat were not measured.
 - The full app ONNX path on the test photos. The classifier ran in the kernel's PyTorch path, and only the gate call
   used the app's ONNX path. On validation the two paths differed by less than 0.001 in G3.
 - G5 with the snake check as the video gate, and G5 on a phone.
@@ -832,8 +852,12 @@ passed and 3 skipped, and the snake-check input still matches Python on all 15 g
   from 65.1 MB. That is still above the 25 to 30 MB budget. The app still ships the fp32 classifier, detector and
   U-Net: switching needs the golden files rebuilt and the phone test below, so we left it for Milestone 6.
 
-> **To do (Manas Rastogi):** run `integration_test/golden_photos_test.dart` on a phone, and measure on-device latency
-> and RAM (section 7.3).
+**On the phone** (PR #37, Galaxy S23 FE, debug build): `integration_test/golden_photos_test.dart` gives the same snake
+call, verdict, frozen verdict, message, top-3 species and crop as the Python reference on all 15 golden photos.
+Probabilities differ by up to 0.0105 (P(snake), from the fp16 snake check on the phone's CPU) and 0.0065 (top 3), so
+the test's 1e-3 tolerance is missed on 7 photos while no answer changes. The app also now checks every model file's
+SHA-256 against `pipeline.json` before it runs it: before this, a phone that had an M4 build kept A3's classifier
+after an update, because A3 and M5_KD's files are the same size. Latency and memory are in section 7.3.
 
 ## 10. Summary & Conclusion
 
@@ -880,27 +904,24 @@ Most of those are still open and have an owner.
 | Full checkpoint states | `last.pt` holds the model, optimizer, scheduler, scaler and RNG states; resume was tested in the laptop dry run; hashes in FREEZE | `g3/README.md`; FREEZE |
 | Compress the 53.0 MB bundle toward 25 to 30 MB | Not reached. Adding the snake check made the app's model files 65.1 MB (classifier 20.8, segmenter 26.5, detector 9.7, snake check 8.1). Distillation and fp16 for all four models are checked (36.9 MB in fp16, with 3 of 1,000 top species changed by the fp16 front end); the app still ships fp32 for three of them. int8 breaks both models, so it is not used | section 9 |
 | A locked test evaluation with error and limitation analysis | Frozen, scored once, with instrument checks and negative controls; errors in section 5, limitations in section 7 | FREEZE, RESULTS; sections 2, 5, 7 |
-| A 3.5 GB Gemma model on the phone | See the to-do below | section 7.3 |
-
-> **To do (Manas Rastogi):** state what replaced the Gemma model (for example retrieval only, or a server call) and
-> its size on the phone.
+| A 3.5 GB Gemma model on the phone | The separate chat implementation uses a server API. The Flutter client bundles 0 MB of language-model weights. The default server model is Gemma 4 E2B; its deployed size remains to be confirmed. Chat integration with the M5 app is pending. | section 7.3; chat commit `fd60e37` |
 
 **App and team**
 
 | Feedback item | Status | Owner |
 |---|---|---|
-| Live camera detection | Open | Manas Rastogi, Jayesh Bansal |
+| Live camera detection | Done: two lanes on the M5 path, a box on every snake ([PR #37](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/37)); every snake named in PR #39 | Manas Rastogi, Jayesh Bansal |
 | Uploaded video at about 1 frame/s behind a blocking bar; stream the frames | Open | Jayesh Bansal |
 | Bounding boxes on images and video | Open | Jayesh Bansal |
 | A video lock that updates when panning across several snakes | The M5 lock can switch species after a new species has led for 3 s; not tested on multi-snake clips | Jayesh Bansal |
-| Test on a physical mid-range phone | Open; the latency and RAM in section 7.3 depend on it | Manas Rastogi |
+| Test on a physical mid-range phone | Done on a Samsung Galaxy S23 FE: latency, peak memory and app size in section 7.3, golden photos in section 9 | Manas Rastogi |
 | Readable location names instead of coordinates | Open | Jayesh Bansal |
-| Replace the green startup video | Open | Manas Rastogi |
+| Replace the green startup video | Kept as it is: Manas decided not to change the startup video in this milestone | Manas Rastogi |
 | Live camera demo video | Open | Manas Rastogi, Jayesh Bansal |
 | Rescuer and vet contact search and routing | Offline pilot search/cache implemented; ten official-source-checked contacts, one mapped centre; straight-line distance only, no road routing or telephone confirmation. [Evidence and limits](vikas-contact-ble.md) | Vikas |
 | Two-phone Bluetooth alert test | Isolated nRF phone-to-Windows radio check observed eight exact advertisement reports in thirty seconds on 28 Nov; SerpentGuard two-phone and relay acceptance remain pending. [Evidence and limits](vikas-contact-ble.md) | Vikas |
 | Regional names for 9 of 16 WHO-listed species | Open | to be assigned |
-| Manas's unpushed code | Open: push it and give the commit | Manas Rastogi |
+| Manas's unpushed code | Done: live camera merged in [PR #37](https://github.com/Puneet-Bajaj-IITM/Group-5-DS-and-AI-Lab-Project/pull/37) (`2010bcf`); chat on `feature/chat` (`fd60e37`), pending M5 integration | Manas Rastogi |
 | Report sign-offs (M4 and M5) and Appendix entries | Open; see Appendix A and the sign-off table | every member |
 | Pokedex mode for humans (M6 bonus) | Planned for Milestone 6 | team |
 
@@ -914,7 +935,7 @@ Most of those are still open and have an owner.
 | Jayesh Bansal | Claude Code (Anthropic) | The release APK closes while it checks a photo; find why, then debug and audit the whole app | Found that release shrinking (R8) removed ONNX Runtime classes the native code calls, and added keep rules. Replaced the hospital index's SQLite R-tree, which Android's SQLite lacks, with an indexed table. Other audit fixes are in PR #32 | Release APK run on the Android emulator on photos, video and the live camera; `flutter test` passes; the 200 golden decisions and 5 golden photos still match the Python reference |
 | Jayesh Bansal | Claude Code (Anthropic) | Draw the snake's box on photos and video, show a street address instead of coordinates, show the video frames as they are checked instead of a progress bar, and give the app a less generic design | Box from the detector drawn on the result, live camera and video screens; address from the phone's geocoder, then Nominatim, cached per about 100 m and added to the SOS message; video screen shows each checked frame with its box, then plays the clip back with a timeline; new theme and home screen (PR #32) | Unit tests for the box mapping and address parsing; every screen checked on the emulator. The live camera box is not yet tested on a real snake |
 | Vikas | Codex (OpenAI) | Fetch current team changes; work only on my rescuer/vet search, Bluetooth test preparation, AI entry and acknowledgment; preserve other members' work | Integrated the sourced offline contact directory with locality/type/distance search and cache; separated animal hospitals from human snakebite help; added an isolated BLE hardware probe using ST test packets rejected by production receivers and documented one-phone versus two-phone evidence | Inspected merged PR #32 and the current M5 branch; checked public contact pages and metadata, added search/cache/SOS tests and queried ADB (no devices attached). Current-branch Kaggle check: six targeted tests passed and static analysis was clean, including the BLE probe; [receipt](../../results/m5/vikas_app/run.json). Observed eight exact nRF-to-Windows BLE advertisement reports in thirty seconds on 28 Nov ([capture](../../results/m5/vikas_app/ble_radio/verification.json)); no SerpentGuard phone-to-phone delivery, phone latency/RAM or model evaluation result is claimed |
-| Puneet Bajaj | | | | |
+| Puneet Bajaj | Claude code | | helped write report and code | Reviewed by team |
 | Manas Rastogi | | | | |
 
 ## Appendix B: Terms used in this report
@@ -955,5 +976,5 @@ document, understand its contents and agree with the submission.
 |---|---|---|---|
 | Jayesh Bansal | 24f100185 | ![Jayesh Bansal](https://drive.google.com/uc?export=download&id=1imepTm_t9vgJVL367tWU-LPYcLq9Zet0) | 26/11/2026 |
 | Vikas | 23f3001800 | Vikas | 27/11/2026 |
-| Puneet Bajaj | 23f3002416 | | |
+| Puneet Bajaj | 23f3002416 | Puneet Bajaj | 28/11/2026 |
 | Manas Rastogi | 22f3001477 | | |

@@ -1,0 +1,42 @@
+{
+ "snakes_val": {
+  "0.25": {
+   "photos": 1000,
+   "0 boxes": 77,
+   "1 box": 868,
+   "2+ boxes": 55
+  },
+  "0.4": {
+   "photos": 1000,
+   "0 boxes": 169,
+   "1 box": 818,
+   "2+ boxes": 13
+  },
+  "0.5": {
+   "photos": 1000,
+   "0 boxes": 235,
+   "1 box": 760,
+   "2+ boxes": 5
+  }
+ },
+ "nonsnakes_val": {
+  "0.25": {
+   "photos": 600,
+   "0 boxes": 429,
+   "1 box": 167,
+   "2+ boxes": 4
+  },
+  "0.4": {
+   "photos": 600,
+   "0 boxes": 466,
+   "1 box": 131,
+   "2+ boxes": 3
+  },
+  "0.5": {
+   "photos": 600,
+   "0 boxes": 488,
+   "1 box": 111,
+   "2+ boxes": 1
+  }
+ }
+}

@@ -9,7 +9,7 @@ The phone app for SerpentGuard AI. Android first; it also builds for iOS, with t
 | Feature | Where | Notes |
 |---|---|---|
 | Identify from camera, gallery or video | `screens/identify_screen.dart`, `screens/result_screen.dart`, `screens/video_check_screen.dart` | Verdict (dangerous / not on the WHO list / we don't know), top 3 species with regional names, WHO category, genus fallback. Real model: `OnnxSnakeClassifier` |
-| Live camera | `screens/live_review_screen.dart` | Continuous preview, separate from photos; `LiveSnakeClassifier` is the frame adapter for verified model integration. Select 1–3 stills for one review encounter |
+| Live camera | `screens/live_review_screen.dart`, `inference/live_session.dart` | Continuous preview with a box on every snake in view and the verdict on the one it is about (two model lanes, below). Select 1–3 stills for one review encounter |
 | Community | `screens/community_screen.dart`, `services/voting_queue.dart` | SQLite drafts/outbox, secure remembered accounts, Android background sync, cached species/genus voting, conflict reconciliation and consensus status |
 | Verdict rules | `inference/decision.dart`, `models/verdict.dart` | DR0 with A3's thresholds, ported from `reference_pipeline.py`; 200/200 golden decisions |
 | Location | `services/location_service.dart` | Foreground only. Tags sightings, fills the SOS message, finds hospitals |
@@ -43,7 +43,11 @@ The path from photo to verdict is a Dart port of the model bundle's `reference_p
    python3 tool/golden_defines.py > build/golden_defines.json
    flutter test integration_test/golden_photos_test.dart -d <device> --dart-define-from-file=build/golden_defines.json
    ```
-4. **Video:** Identify → Check a video. The app reads up to 10 frames a second for the first 20 seconds (`MediaMetadataRetriever`, in `android/.../VideoFrames.kt`) and applies the M4 video lock. The live camera uses the same lock through `OnnxSnakeClassifier.identifyFrame`.
+4. **Video:** Identify → Check a video. The app reads up to 10 frames a second for the first 20 seconds (`MediaMetadataRetriever`, in `android/.../VideoFrames.kt`) and applies the M4 video lock. The live camera uses the same lock.
+5. **Live camera, two lanes** (`lib/inference/live_session.dart`, `android/.../LiveModels.kt`). The box lane runs the detector on as many camera frames as it can take and tracks every box (`lib/inference/detections.dart`; display only). The verdict lane, whenever it is free, runs photo mode's steps on the newest frame the box lane finished, reusing its detector output: the snake check, the segmenter and mask crop, the classifier on the crop and its mirror image with the prior, DR0 and the M5 lock. Both lanes have their own ONNX Runtime sessions on their own threads, because `flutter_onnxruntime` runs every call on one queue. With the snake check the detector never decides whether there is a snake. Only with the M4 gate (`"rule": "both"`) does a frame whose detector score is under the box cutoff skip the verdict lane, because that gate needs both. Long-press the status bar to show each lane's rate and time. Where the lanes cannot open (not Android), the screen falls back to `OnnxSnakeClassifier.identifyFrame`. Check the lanes against `flutter_onnxruntime` and time them on a device:
+   ```bash
+   flutter test integration_test/live_lanes_test.dart -d <device>
+   ```
 
 On Android, photos are decoded with `BitmapFactory`, because Flutter's decoder there gives different pixels from PIL on some JPEGs. Regional names come from `tool/regional_names.csv`, a draft until native speakers have checked it.
 

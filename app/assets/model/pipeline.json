@@ -106,6 +106,17 @@
   "segmenter.pt": "b881c338356bdf44aa0b45e0306f59d7b38252d04316da2455c40055aef656ec",
   "distil_oi model.pt": "88fd518c550a4f1502c86e7da1d8a3a8bd9c332b5377a8cc5d7f65f8144b7cfd"
  },
+ "model_sha256": {
+  "detector.onnx": "1d2da244575a39c23ebab6ee2f4f04b1c672794031a56fab9d49dc5176f4f9ba",
+  "segmenter.onnx": "da5d59baca34eda5993d837673449b99ccd178c98bbd6755a6b20bbea6f99269",
+  "snake_check_fp16.onnx": "fb5b5bda5e0dbdb1895448ae1c70e56e93042ef322f9e5595cfcd6e0b8ec9fc3",
+  "classifier.onnx": "fddf692861af4187cec1d1372d355a70fc4e497c2ea78203bcf60a5be6aa01d6"
+ },
+ "model_sha256_refused": {
+  "classifier.onnx": {
+   "355a975449e48b0b2dd7d633641132cf90c68d5d79a8974849b01b6c4651252e": "A3, the M4 classifier: same size as M5_KD, wrong for these settings"
+  }
+ },
  "snake_check": {
   "file": "snake_check_fp16.onnx",
   "input_size": 256,
