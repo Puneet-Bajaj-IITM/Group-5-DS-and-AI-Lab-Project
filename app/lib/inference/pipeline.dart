@@ -5,6 +5,8 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:crypto/crypto.dart' as crypto;
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/services.dart' show AssetManifest, MethodChannel, rootBundle;
 import 'package:flutter_onnxruntime/flutter_onnxruntime.dart';
 import 'package:path_provider/path_provider.dart';
@@ -23,6 +25,17 @@ const modelFiles = [classifierFile, detectorFile, segmenterFile, snakeCheckFile]
 const _inputName = 'images';
 const _detectorOutput = 'output0', _segmenterOutput = 'probability';
 const _detectorRows = 5; // cx, cy, w, h and the snake score
+
+/// A bundled model file whose contents are not the ones `pipeline.json`
+/// names: an old or wrong model, which must not run with these settings.
+class ModelMismatch implements Exception {
+  const ModelMismatch(this.file, {required this.expected, required this.actual});
+  final String file, expected, actual;
+
+  @override
+  String toString() => '$file is not the model pipeline.json names (SHA-256 $actual, expected $expected). '
+      'Copy the right files into assets/models (see its README).';
+}
 
 /// What the no-snake decision saw on one image. With the M5 snake check,
 /// [snake] is the check's call and [snakeProbability] its P(snake); the
@@ -137,7 +150,10 @@ class SnakePipeline {
     final ort = OnnxRuntime();
     final options = OrtSessionOptions(intraOpNumThreads: 2, interOpNumThreads: 1);
     Future<OrtSession> open(String name) async =>
-        ort.createSession(await _extract(name), options: options);
+        ort.createSession(
+            await extractModel(name,
+                sha256: settings.modelSha256[name], refused: settings.refusedModelSha256[name] ?? const {}),
+            options: options);
     final opened = <OrtSession>[];
     try {
       for (final f in modelFiles) {
@@ -154,17 +170,53 @@ class SnakePipeline {
   }
 
 
-  /// ONNX Runtime needs a file path. Copies the asset out once, and again
-  /// only when its size changes (a new model build).
-  static Future<String> _extract(String name) async {
+  /// ONNX Runtime needs a file path. Copies the asset out, and again whenever
+  /// its contents change. The copy's SHA-256 is kept beside it: two model
+  /// builds can have the same size (A3 and M5_KD's classifier.onnx do), so
+  /// a size check would keep the old model after an update.
+  ///
+  /// With [sha256] (from `pipeline.json` `model_sha256`), a bundled file with
+  /// other contents is refused, so the wrong model never runs with these
+  /// settings. The hash runs off the UI isolate.
+  static Future<String> extractModel(String name, {String? sha256, Map<String, String> refused = const {}}) =>
+      // The bundled assets cannot change while the app runs: check each
+      // (file, expectation) once per process, so opening the live camera
+      // again does not re-read and re-hash 65 MB.
+      _extracted['$name|$sha256|${(refused.keys.toList()..sort()).join(',')}'] ??=
+          _extract(name, sha256: sha256, refused: refused)..ignore();
+
+  static final _extracted = <String, Future<String>>{};
+
+  static Future<String> _extract(String name, {String? sha256, Map<String, String> refused = const {}}) async {
     final data = await rootBundle.load('$modelAssetDir/$name');
     final dir = Directory('${(await getApplicationSupportDirectory()).path}/models');
     await dir.create(recursive: true);
-    final file = File('${dir.path}/$name');
-    if (!await file.exists() || await file.length() != data.lengthInBytes) {
+    return copyModel(data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes), File('${dir.path}/$name'),
+        sha256: sha256, refused: refused);
+  }
+
+  /// [extractModel]'s check and copy, for a model's [bytes] and its place on
+  /// disk. Returns the file's path.
+  @visibleForTesting
+  static Future<String> copyModel(Uint8List bytes, File file,
+      {String? sha256, Map<String, String> refused = const {}}) async {
+    final name = file.uri.pathSegments.last;
+    final digest = await Isolate.run(() => crypto.sha256.convert(bytes).toString());
+    if (sha256 != null && digest != sha256) throw ModelMismatch(name, expected: sha256, actual: digest);
+    final why = refused[digest];
+    if (why != null) throw ModelMismatch(name, expected: 'not $digest ($why)', actual: digest);
+    final stamp = File('${file.path}.sha256');
+    // The stamp is trusted only with a copy of the right length (a copy cut
+    // short by a full disk or a crash is copied again).
+    final copied = await file.exists() && await stamp.exists() && await file.length() == bytes.length
+        ? (await stamp.readAsString()).trim()
+        : null;
+    if (copied != digest) {
+      if (await stamp.exists()) await stamp.delete();
       final tmp = File('${file.path}.part');
-      await tmp.writeAsBytes(data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes), flush: true);
+      await tmp.writeAsBytes(bytes, flush: true);
       await tmp.rename(file.path);
+      await stamp.writeAsString(digest, flush: true);
     }
     return file.path;
   }
@@ -280,7 +332,7 @@ class SnakePipeline {
 
     final probability = Float32List.fromList(await _run(_segmenter, pre.segmenterInput, _segmenterOutput));
     times['segmenter'] = lap();
-    final post = inline ? _afterGate(_inlineRgb!, probability, conf, s) : await _worker.afterGate(pre.job, probability, conf);
+    final post = inline ? afterGate(_inlineRgb!, probability, conf, s) : await _worker.afterGate(pre.job, probability, conf);
     times['crop'] = lap();
 
     final gate = GateResult(
@@ -365,8 +417,8 @@ _Prepared _prepared(int job, RgbImage rgb, RgbImage photo, PipelineSettings s) {
   );
 }
 
-class _AfterGate {
-  const _AfterGate(
+class AfterGate {
+  const AfterGate(
       {required this.snake, required this.area, this.window, this.classifierInput, this.mirroredInput, this.mean, this.std});
   final bool snake;
   final double area;
@@ -419,7 +471,7 @@ class _PixelWorker {
 
   Future<_Prepared> prepare(RgbImage photo) => _ask('prepare', [photo]);
 
-  Future<_AfterGate> afterGate(int job, Float32List probability, double? conf) =>
+  Future<AfterGate> afterGate(int job, Float32List probability, double? conf) =>
       _ask('after', [job, probability, conf]);
 
   /// Forgets a job whose second step will not come (the snake check said no snake).
@@ -461,7 +513,7 @@ Future<void> _workerMain((SendPort, Map<String, dynamic>) init) async {
       } else {
         final rgb = photos.remove(args[0] as int);
         if (rgb == null) throw StateError('photo for job ${args[0]} is gone');
-        out.send((id, _afterGate(rgb, args[1] as Float32List, args[2] as double?, s), null));
+        out.send((id, afterGate(rgb, args[1] as Float32List, args[2] as double?, s), null));
       }
     } catch (e) {
       if (id >= 0) out.send((id, null, '$e'));
@@ -472,7 +524,7 @@ Future<void> _workerMain((SendPort, Map<String, dynamic>) init) async {
 /// Mask and gate; for a snake, the mask cleanup, the crop and the classifier
 /// inputs (the crop and, with the mirror pass, its mirror image). With the
 /// snake check the photo already passed, so the mask only finds the crop.
-_AfterGate _afterGate(RgbImage rgb, Float32List probability, double? conf, PipelineSettings s) {
+AfterGate afterGate(RgbImage rgb, Float32List probability, double? conf, PipelineSettings s) {
   final size = s.inputSize;
   final mask = unletterboxMask(probability, rgb.height, rgb.width, size, s.segmenterThreshold);
   var maskPixels = 0;
@@ -481,7 +533,7 @@ _AfterGate _afterGate(RgbImage rgb, Float32List probability, double? conf, Pipel
   }
   final area = maskPixels / mask.length;
   final snake = s.usesSnakeCheck || (conf != null && conf >= s.gateBoxConf && area > 0 && area >= s.gateMaskArea);
-  if (!snake) return _AfterGate(snake: false, area: area);
+  if (!snake) return AfterGate(snake: false, area: area);
   final cleaned = cleanMask(mask, rgb.width, rgb.height,
       connectivity: s.connectivity,
       minLargestShare: s.minLargestShare,
@@ -499,7 +551,7 @@ _AfterGate _afterGate(RgbImage rgb, Float32List probability, double? conf, Pipel
   }
   final mean = sum / clsIn.length;
   final variance = (sq / clsIn.length - mean * mean).clamp(0, double.infinity).toDouble();
-  return _AfterGate(
+  return AfterGate(
     snake: true,
     area: area,
     window: window,

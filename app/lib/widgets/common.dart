@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:material_ui/material_ui.dart';
 
 import '../inference/image_ops.dart' show PixelBox;
@@ -262,55 +264,103 @@ class SnakeBoxOverlay extends StatelessWidget {
   final BoxFit fit;
 
   @override
+  Widget build(BuildContext context) => SnakeBoxesOverlay(
+    boxes: [OverlayBox(box, color, label: label, main: true)],
+    imageSize: imageSize,
+    fit: fit,
+  );
+}
+
+/// One box to draw. The [main] box gets the shade around it and the bold
+/// frame; the others a thinner frame.
+class OverlayBox {
+  const OverlayBox(this.box, this.color, {this.label, this.main = false});
+  final PixelBox box;
+  final Color color;
+  final String? label;
+  final bool main;
+
+  @override
+  bool operator ==(Object other) =>
+      other is OverlayBox &&
+      other.color == color &&
+      other.label == label &&
+      other.main == main &&
+      other.box.left == box.left &&
+      other.box.top == box.top &&
+      other.box.right == box.right &&
+      other.box.bottom == box.bottom;
+
+  @override
+  int get hashCode => Object.hash(box.left, box.top, box.right, box.bottom, color, label, main);
+}
+
+/// Draws several detector boxes (the live camera draws every snake it sees).
+class SnakeBoxesOverlay extends StatelessWidget {
+  const SnakeBoxesOverlay({super.key, required this.boxes, required this.imageSize, this.fit = BoxFit.contain});
+  final List<OverlayBox> boxes;
+  final Size imageSize;
+  final BoxFit fit;
+
+  @override
   Widget build(BuildContext context) => IgnorePointer(
-        child: CustomPaint(
-          size: Size.infinite,
-          painter: _BoxPainter(box, imageSize, color, label, fit),
-        ),
-      );
+    child: CustomPaint(size: Size.infinite, painter: _BoxPainter(boxes, imageSize, fit)),
+  );
 }
 
 class _BoxPainter extends CustomPainter {
-  _BoxPainter(this.box, this.imageSize, this.color, this.label, this.fit);
-  final PixelBox box;
+  _BoxPainter(this.boxes, this.imageSize, this.fit);
+  final List<OverlayBox> boxes;
   final Size imageSize;
-  final Color color;
-  final String? label;
   final BoxFit fit;
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (imageSize.isEmpty) return;
+    if (imageSize.isEmpty || boxes.isEmpty) return;
     final fitted = applyBoxFit(fit, imageSize, size);
     final dest = Alignment.center.inscribe(fitted.destination, Offset.zero & size);
     final sx = dest.width / imageSize.width, sy = dest.height / imageSize.height;
-    final r = Rect.fromLTRB(
-      dest.left + box.left * sx,
-      dest.top + box.top * sy,
-      dest.left + box.right * sx,
-      dest.top + box.bottom * sy,
+    Rect place(PixelBox b) => Rect.fromLTRB(
+      dest.left + b.left * sx,
+      dest.top + b.top * sy,
+      dest.left + b.right * sx,
+      dest.top + b.bottom * sy,
     ).intersect(Offset.zero & size);
-    if (r.isEmpty) return;
     canvas.save();
     canvas.clipRect(Offset.zero & size);
-    // Soft shade outside the box, then a bold frame with corner ticks.
-    final shade = Path()
-      ..fillType = PathFillType.evenOdd
-      ..addRect(Offset.zero & size)
-      ..addRRect(RRect.fromRectAndRadius(r, const Radius.circular(10)));
-    canvas.drawPath(shade, Paint()..color = Colors.black.withValues(alpha: 0.22));
+    // Soft shade outside the main box.
+    for (final b in boxes.where((b) => b.main)) {
+      final r = place(b.box);
+      if (r.isEmpty) continue;
+      final shade = Path()
+        ..fillType = PathFillType.evenOdd
+        ..addRect(Offset.zero & size)
+        ..addRRect(RRect.fromRectAndRadius(r, const Radius.circular(10)));
+      canvas.drawPath(shade, Paint()..color = Colors.black.withValues(alpha: 0.22));
+    }
+    // The others first, so the main box and its label are on top.
+    for (final b in [...boxes.where((b) => !b.main), ...boxes.where((b) => b.main)]) {
+      final r = place(b.box);
+      if (r.isEmpty) continue;
+      _frame(canvas, r, b);
+      if (b.label != null) _label(canvas, size, r, b);
+    }
+    canvas.restore();
+  }
+
+  void _frame(Canvas canvas, Rect r, OverlayBox b) {
     canvas.drawRRect(
       RRect.fromRectAndRadius(r, const Radius.circular(10)),
       Paint()
-        ..color = color
+        ..color = b.color
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 3,
+        ..strokeWidth = b.main ? 3 : 2,
     );
     final tick = (r.shortestSide * 0.18).clamp(10.0, 28.0);
     final p = Paint()
-      ..color = Colors.white
+      ..color = Colors.white.withValues(alpha: b.main ? 1 : 0.7)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 4
+      ..strokeWidth = b.main ? 4 : 2.5
       ..strokeCap = StrokeCap.round;
     for (final (o, dx, dy) in [
       (r.topLeft, 1.0, 1.0),
@@ -321,31 +371,49 @@ class _BoxPainter extends CustomPainter {
       canvas.drawLine(o, o + Offset(tick * dx, 0), p);
       canvas.drawLine(o, o + Offset(0, tick * dy), p);
     }
-    if (label != null) {
-      final tp = TextPainter(
-        text: TextSpan(
-          text: label,
-          style: const TextStyle(fontFamily: Brand.display, fontWeight: FontWeight.w800, fontSize: 15, color: Colors.white, letterSpacing: 0.4),
+  }
+
+  void _label(Canvas canvas, Size size, Rect r, OverlayBox b) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: b.label,
+        style: TextStyle(
+          fontFamily: Brand.display,
+          fontWeight: FontWeight.w800,
+          fontSize: b.main ? 15 : 13,
+          color: Colors.white,
+          letterSpacing: 0.4,
         ),
-        textDirection: TextDirection.ltr,
-        maxLines: 1,
-        ellipsis: '…',
-      )..layout(maxWidth: size.width - 16);
-      final pad = const EdgeInsets.symmetric(horizontal: 8, vertical: 4);
-      var top = r.top - tp.height - pad.vertical - 4;
-      if (top < 4) top = r.top + 6;
-      final left = r.left.clamp(4.0, size.width - tp.width - pad.horizontal - 4);
-      final bg = RRect.fromRectAndRadius(
-        Rect.fromLTWH(left, top, tp.width + pad.horizontal, tp.height + pad.vertical),
-        const Radius.circular(8),
-      );
-      canvas.drawRRect(bg, Paint()..color = color);
-      tp.paint(canvas, Offset(left + pad.left, top + pad.top));
-    }
-    canvas.restore();
+      ),
+      textDirection: TextDirection.ltr,
+      maxLines: 1,
+      ellipsis: '…',
+    );
+    const pad = EdgeInsets.symmetric(horizontal: 8, vertical: 4);
+    // Room for the label inside the view, margins included; nothing to draw
+    // in a view narrower than the padding.
+    final room = size.width - pad.horizontal - 8;
+    if (room <= 0) return;
+    tp.layout(maxWidth: room);
+    var top = r.top - tp.height - pad.vertical - 4;
+    if (top < 4) top = r.top + 6;
+    final left = r.left.clamp(4.0, math.max(4.0, size.width - tp.width - pad.horizontal - 4)).toDouble();
+    final bg = RRect.fromRectAndRadius(
+      Rect.fromLTWH(left, top, tp.width + pad.horizontal, tp.height + pad.vertical),
+      const Radius.circular(8),
+    );
+    canvas.drawRRect(bg, Paint()..color = b.color);
+    tp.paint(canvas, Offset(left + pad.left, top + pad.top));
   }
 
   @override
-  bool shouldRepaint(_BoxPainter old) =>
-      old.box != box || old.color != color || old.label != label || old.imageSize != imageSize;
+  bool shouldRepaint(_BoxPainter old) => old.imageSize != imageSize || old.fit != fit || !_same(old.boxes, boxes);
+
+  static bool _same(List<OverlayBox> a, List<OverlayBox> b) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) return false;
+    }
+    return true;
+  }
 }
