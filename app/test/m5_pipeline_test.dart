@@ -85,4 +85,33 @@ void main() {
     expect(() => classifierAnswer(outputs(1), null, short), throwsArgumentError);
     expect(classifierAnswer(outputs(1), null, ClassifierSettings.none).speciesLogits, [1, 2]);
   });
+
+  test('other snakes: the main crop is unchanged and each box is cropped with the main padding rule', () {
+    final rnd = math.Random(3);
+    const w = 160, h = 120;
+    final rgb = RgbImage(w, h, Uint8List.fromList([for (var i = 0; i < w * h * 3; i++) rnd.nextInt(256)]));
+    final size = settings.inputSize;
+    final probability = Float32List(size * size);
+    for (var y = size ~/ 4; y < size ~/ 2; y++) {
+      probability.fillRange(y * size + size ~/ 4, y * size + size ~/ 2, 1);
+    }
+    const box = PixelBox(100, 20, 150, 90), tooSmall = PixelBox(5, 5, 5.5, 5.5);
+    final alone = afterGate(rgb, probability, 0.9, settings);
+    final both = afterGate(rgb, probability, 0.9, settings, others: [box, tooSmall]);
+    expect(alone.others, isEmpty);
+    expect(both.window, alone.window);
+    expect(both.classifierInput, alone.classifierInput);
+    expect(both.mirroredInput, alone.mirroredInput);
+
+    final padX = (49 * settings.cropPadding).toInt(), padY = (69 * settings.cropPadding).toInt();
+    final window = boxWindow(box, w, h, settings.cropPadding);
+    expect(window, (math.max(0, 20 - padY), math.min(h, 90 + padY), math.max(0, 100 - padX), math.min(w, 150 + padX)));
+    final crop = both.others.first!;
+    final expected = cropInputs(rgb, window, settings, snakeCheck: true);
+    expect(crop.classifierInput, expected.classifierInput);
+    expect(crop.mirroredInput, expected.mirroredInput);
+    expect(crop.snakeCheckInput, expected.snakeCheckInput);
+    expect(crop.snakeCheckInput, isNotNull);
+    expect(both.others[1], isNull);
+  });
 }
