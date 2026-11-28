@@ -9,6 +9,7 @@ import '../services/voting_queue.dart';
 import '../services/classifier.dart';
 import '../widgets/common.dart';
 import '../ui/brand.dart';
+import '../inference/detections.dart' show Track;
 import '../inference/live_session.dart';
 import '../inference/pipeline.dart';
 import '../models/verdict.dart';
@@ -412,8 +413,11 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
       imageSize: Size(v.width.toDouble(), v.height.toDouble()),
       fit: BoxFit.fill,
       boxes: [
-        for (final t in v.tracks)
-          if (t.id == v.mainTrack)
+        if (v.names.isNotEmpty || v.tracks.length >= 2)
+          for (final t in v.tracks) _namedBox(t, v.names[t.id])
+        else
+          for (final t in v.tracks)
+            if (t.id == v.mainTrack)
             OverlayBox(
               t.box,
               verdict == null ? Brand.venom : VerdictStyle.of(verdict).background,
@@ -423,6 +427,18 @@ class _LiveReviewScreenState extends State<LiveReviewScreen>
           else
             OverlayBox(t.box, Brand.venom.withValues(alpha: 0.85), label: 'Snake?'),
       ],
+    );
+  }
+
+  /// A snake named on its own (several in view): its own colour and name,
+  /// "Identifying…" until its own lock settles.
+  OverlayBox _namedBox(Track t, Identification? id) {
+    final named = id != null && id.snakeFound;
+    return OverlayBox(
+      t.box,
+      named ? VerdictStyle.of(id.verdict).background : Brand.venom,
+      label: named ? id.topSpecies?.displayName ?? id.verdict.title : identifyingText,
+      main: named,
     );
   }
 
