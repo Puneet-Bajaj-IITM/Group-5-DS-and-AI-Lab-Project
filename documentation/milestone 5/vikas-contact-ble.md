@@ -48,7 +48,9 @@ and `results/m5/check_numbers.py` passed without changing the report's model res
 ## Device availability and evidence status
 
 The owner currently has **one phone**. ADB enumeration on 27 November found
-**no connected devices**. No physical BLE result is claimed. One phone can check
+**no connected devices**. The USB/Flutter hardware probe remains unrun. A separate
+nRF Connect phone-to-Windows radio check was observed on 28 November (below).
+One phone can check
 local scan and advertiser startup. It cannot establish inter-phone delivery,
 relay behaviour, loss rate or range. The app's existing "Simulate an alert"
 button is UI simulation; it never establishes RF delivery.
@@ -101,7 +103,8 @@ relay chain or justify a measured-range claim without a separate experiment.
 | Check | Current result | Needed evidence |
 |---|---|---|
 | Directory source review | Website checked 25 Nov; not called | Call-check coverage, availability and capability |
-| One-phone local BLE startup | Not run; no device connected | Hardware probe receipt and device details |
+| SerpentGuard Flutter hardware probe | Not run through ADB | Hardware probe receipt and device details |
+| Isolated nRF phone → Windows radio | Observed 28 Nov: eight exact matching reports in a thirty-second window | [Verified capture](../../results/m5/vikas_app/ble_radio/verification.json); not app/two-phone acceptance |
 | A → B and B → A radio delivery | Not run; second phone unavailable | Paired ST probe receipts |
 | Production app alert delivery | Not run | Screens/recording from both phones, matching alert and commit |
 | Offline directory on physical phone | Not run | Airplane-mode search, denied GPS, saved contact after restart, dialler |
@@ -117,3 +120,31 @@ including the BLE probe. All 63 recorded app source/config hashes matched.
 [New receipt](../../results/m5/vikas_app/main_merge/run.json); the earlier receipt
 above remains the historical 27 November run. The same cloud fixture limitations
 apply. Report-number checks also passed. No physical Bluetooth result is added.
+
+## Observed radio check — 28 November 2026
+
+The user installed nRF Connect for Mobile normally on the Android phone and
+enabled a manufacturer-data advertisement. No USB or wireless ADB was used.
+A Windows receiver observed **eight matching advertisement reports** during
+a **thirty-second** listening window. Each matched company ID **0xFFFF** and
+the complete twenty-byte payload `535401B0280001FF020000000000000000000000`.
+The observed RSSI values ranged from **−73 to −61 dBm**. The user left extended
+advertising enabled; the Windows watcher allowed extended advertisements and
+used active scanning. The watcher was stopped at the end of the window.
+
+[Raw capture](../../results/m5/vikas_app/ble_radio/phone_to_windows.json),
+[receiver source as executed](../../results/m5/vikas_app/ble_radio/receiver.cs),
+and [verified counts/hashes and limitations](../../results/m5/vikas_app/ble_radio/verification.json)
+preserve the evidence. Execution used Windows PowerShell 5.1 with `-Mta` and
+the built-in .NET compiler/Windows Runtime metadata; no local Python packages
+were installed. The earlier zero-match attempts do not form a performance
+baseline: receiver execution/settings and phone configuration changed.
+
+This proves reception of the isolated test advertisement over a real radio link
+under the observed conditions. It does **not** prove eight unique messages,
+delivery ratio, latency, range, an Android receiving path, SerpentGuard alert
+delivery, or relaying. There is no sent-packet denominator. Distance and Android
+version were not recorded. The ST payload is rejected by production SG decoders,
+and the test creates no sighting, warning or real location. The required
+two-phone SerpentGuard test remains **pending**. The user was asked to stop the
+advertisement after the capture; a phone-side stop was not independently observed.
