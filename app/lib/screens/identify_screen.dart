@@ -303,7 +303,12 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Card(
-                            child: Padding(
+                            clipBehavior: Clip.antiAlias,
+                            child: InkWell(
+                              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => ResultScreen.saved(x, s.catalog),
+                              )),
+                              child: Padding(
                               padding: const EdgeInsets.all(10),
                               child: Row(children: [
                                 ClipRRect(
@@ -334,7 +339,9 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                                     ]),
                                   ]),
                                 ),
+                                Icon(Icons.chevron_right_rounded, color: scheme.onSurfaceVariant),
                               ]),
+                            ),
                             ),
                           ),
                         );

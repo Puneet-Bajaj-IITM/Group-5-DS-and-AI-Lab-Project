@@ -108,3 +108,12 @@ relay chain or justify a measured-range claim without a separate experiment.
 
 No scan/advertise receipt, delivery result or another member's signature is
 filled in ahead of the actual test.
+
+## Integration with current main — 28 November 2026
+
+Merged `main` at `ee9c49c`, preserving AniDex and the team report updates.
+Kaggle version 2 passed six targeted contact/SOS tests and clean Flutter analysis,
+including the BLE probe. All 63 recorded app source/config hashes matched.
+[New receipt](../../results/m5/vikas_app/main_merge/run.json); the earlier receipt
+above remains the historical 27 November run. The same cloud fixture limitations
+apply. Report-number checks also passed. No physical Bluetooth result is added.
