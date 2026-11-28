@@ -138,4 +138,81 @@ void main() {
       expect(tracks.map((x) => x.id).toSet(), hasLength(2));
     });
   });
+
+  group('second look on two halves', () {
+    // A 2000 x 700 frame: halves x 0-1200 and x 800-2000, each 1200 x 700.
+    const width = 2000, height = 700, offset = 800;
+    final ratio = math.min(size / height, size / 1200);
+    final top = pyRound((size - pyRound(height * ratio)) / 2 - 0.1);
+
+    /// A half's detector output with boxes given in that half's pixels.
+    Float32List half(List<(double left, double top, double right, double bottom, double score)> boxes) => output([
+          for (final (l, t, r, b, s) in boxes)
+            ((l + r) / 2 * ratio, (t + b) / 2 * ratio + top, (r - l) * ratio, (b - t) * ratio, s)
+        ]);
+
+    test('the halves are the long side\'s first and last 60 percent', () {
+      expect(splitTiles(2000, 700), [
+        (left: 0, top: 0, width: 1200, height: 700),
+        (left: 800, top: 0, width: 1200, height: 700),
+      ]);
+      expect(splitTiles(700, 2000).last, (left: 0, top: 800, width: 700, height: 1200));
+    });
+
+    test('only an unsure top box gets a second look', () {
+      const box = PixelBox(0, 0, 10, 10);
+      expect(needsSplit([const Detection(box, 0.3)], 0.3), isTrue);
+      expect(needsSplit([const Detection(box, 0.8)], 0.8), isFalse, reason: 'a sure box stands');
+      expect(needsSplit(const [], 0.24), isTrue, reason: 'a box spanning two snakes can score under 0.25');
+      expect(needsSplit(const [], 0.05), isFalse, reason: 'an empty scene costs one detector run');
+      expect(needsSplit(const [], null), isFalse);
+    });
+
+    test('a snake in each half: two snakes in frame pixels, best first', () {
+      final found = splitSnakes([
+        half([(100, 100, 500, 600, 0.8)]),
+        half([(500, 150, 1100, 450, 0.85)]),
+      ], 0, width, height, size)!;
+      expect(found, hasLength(2));
+      expect(found.first.score, closeTo(0.85, 1e-6));
+      expect(found.first.box.left, closeTo(500 + offset, 1));
+      expect(found.last.box.right, closeTo(500, 1));
+    });
+
+    test('one snake across the cut is not two snakes', () {
+      expect(
+          splitSnakes([
+            // A long snake: each half sees a piece cut off at its inner edge,
+            // too little overlapping the other piece to merge as one box.
+            half([(300, 100, 1198, 600, 0.8)]),
+            half([(2, 100, 900, 600, 0.8)]),
+          ], 0, width, height, size),
+          isNull);
+    });
+
+    test('one snake in the overlap, seen by both halves, is one snake', () {
+      expect(
+          splitSnakes([
+            half([(900, 100, 1100, 600, 0.8)]),
+            half([(100, 100, 300, 600, 0.75)]),
+          ], 0, width, height, size),
+          isNull);
+    });
+
+    test('on a photo the main box is the split box the mask crop overlaps most', () {
+      const rat = PixelBox(1456, 179, 2231, 444), cobra = PixelBox(450, 110, 1027, 700);
+      const maskCrop = PixelBox(420, 90, 1060, 700);
+      expect(closestBox([rat, cobra], maskCrop), 1);
+      expect(closestBox([cobra, rat], maskCrop), 0);
+    });
+
+    test('boxes under splitTileScore do not count', () {
+      expect(
+          splitSnakes([
+            half([(100, 100, 500, 600, splitTileScore - 0.05)]),
+            half([(500, 150, 1100, 450, 0.9)]),
+          ], 0, width, height, size),
+          isNull);
+    });
+  });
 }

@@ -353,13 +353,28 @@ class SnakePipeline {
     final detected = await _run(_detector, pre.detectorInput, _detectorOutput);
     final anchors = detected.length ~/ _detectorRows;
     final conf = boxConf(detected, anchors, s.snakeClass, s.boxFloor);
-    final box = conf == null ? null : bestBox(detected, anchors, s.snakeClass, pre.width, pre.height, s.inputSize);
-    final otherBoxes = box == null
-        ? const <PixelBox>[]
-        : [
-            for (final d in snakeBoxes(detected, anchors, s.snakeClass, pre.width, pre.height, s.inputSize))
-              if (!sameSnake(d.box, box)) d.box
-          ].take(maxSnakes - 1).toList();
+    var box = conf == null ? null : bestBox(detected, anchors, s.snakeClass, pre.width, pre.height, s.inputSize);
+    var snakes = snakeBoxes(detected, anchors, s.snakeClass, pre.width, pre.height, s.inputSize);
+    List<Detection>? split;
+    if (needsSplit(snakes, splitTop(detected, anchors, s.snakeClass, pre.width, pre.height, s.inputSize))) {
+      final inputs = inline ? splitInputs(_inlineRgb!, s.inputSize, s.detectorPad) : await _worker.splitInputs(pre.job);
+      final outputs = [for (final input in inputs) await _run(_detector, input, _detectorOutput)];
+      split = splitSnakes(outputs, s.snakeClass, pre.width, pre.height, s.inputSize);
+      if (split != null) {
+        snakes = split;
+        box = split.first.box; // the main snake's own box, not one spanning both
+      }
+      times['split'] = lap();
+    }
+    // With the U-Net crop the main answer is about the mask's snake, which is
+    // known only after the mask: every split box is cropped, and the one the
+    // mask's crop overlaps most becomes the main box below.
+    final mainFromMask = split != null && !leanPath;
+    var otherBoxes = box == null
+        ? <PixelBox>[]
+        : mainFromMask
+            ? [for (final d in snakes) d.box]
+            : [for (final d in snakes) if (!sameSnake(d.box, box)) d.box].take(maxSnakes - 1).toList();
     final cropBoxes = nameOthers ? otherBoxes : const <PixelBox>[];
     times['detector'] = lap();
 
@@ -374,6 +389,16 @@ class SnakePipeline {
           : await _worker.afterGate(pre.job, probability, conf, cropBoxes);
     }
     times['crop'] = lap();
+    var otherCrops = post.others;
+    if (mainFromMask) {
+      final w = post.window;
+      final main = w == null
+          ? 0
+          : closestBox(otherBoxes, PixelBox(w.$3.toDouble(), w.$1.toDouble(), w.$4.toDouble(), w.$2.toDouble()));
+      box = otherBoxes[main];
+      otherBoxes = [...otherBoxes]..removeAt(main);
+      if (otherCrops.isNotEmpty) otherCrops = [...otherCrops]..removeAt(main);
+    }
 
     final gate = GateResult(
         snake: post.snake, boxConf: conf, maskArea: post.area, snakeProbability: snakeProbability, box: box);
@@ -399,7 +424,7 @@ class SnakePipeline {
     final others = <OtherSnake>[];
     for (var i = 0; i < otherBoxes.length; i++) {
       final other =
-          nameOthers ? await _nameOther(otherBoxes[i], post.others[i], classifier) : OtherSnake(otherBoxes[i]);
+          nameOthers ? await _nameOther(otherBoxes[i], otherCrops[i], classifier) : OtherSnake(otherBoxes[i]);
       if (other != null) others.add(other);
     }
     times['others'] = lap();
@@ -585,6 +610,9 @@ class _PixelWorker {
 
   Future<_Prepared> prepare(RgbImage photo) => _ask('prepare', [photo]);
 
+  /// The detector inputs of the job's two halves ([splitInputs]); the photo stays for its next step.
+  Future<List<Float32List>> splitInputs(int job) => _ask('split', [job]);
+
   Future<AfterGate> afterGate(int job, Float32List probability, double? conf, List<PixelBox> others) =>
       _ask('after', [job, probability, conf, others]);
 
@@ -624,6 +652,10 @@ Future<void> _workerMain((SendPort, Map<String, dynamic>) init) async {
         out.send((id, _prepared(job, rgb, photo, s), null));
       } else if (op == 'drop') {
         photos.remove(args[0] as int);
+      } else if (op == 'split') {
+        final rgb = photos[args[0] as int];
+        if (rgb == null) throw StateError('photo for job ${args[0]} is gone');
+        out.send((id, splitInputs(rgb, s.inputSize, s.detectorPad), null));
       } else {
         final rgb = photos.remove(args[0] as int);
         if (rgb == null) throw StateError('photo for job ${args[0]} is gone');
