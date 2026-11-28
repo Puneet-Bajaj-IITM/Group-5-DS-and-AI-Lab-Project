@@ -8,9 +8,12 @@ import 'package:serpentguard/inference/decision.dart';
 import 'package:serpentguard/inference/image_ops.dart';
 import 'package:serpentguard/inference/pipeline.dart';
 import 'package:serpentguard/models/verdict.dart';
+import 'package:serpentguard/inference/video_lock.dart';
 import 'package:serpentguard/screens/result_screen.dart';
+import 'package:serpentguard/screens/video_check_screen.dart';
 import 'package:serpentguard/services/classifier.dart';
 import 'package:serpentguard/services/store.dart';
+import 'package:serpentguard/services/video_analyzer.dart';
 import 'package:serpentguard/state/app_state.dart';
 import 'package:serpentguard/widgets/common.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -118,5 +121,31 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text(cobra.displayName), findsOneWidget);
     expect(find.text('10%'), findsOneWidget);
+  });
+
+  group('video HUD', () {
+    final frame = PipelineResult(
+      width: 100,
+      height: 80,
+      exposureFixed: false,
+      gate: const GateResult(snake: true, boxConf: 0.9, maskArea: 0.2, box: mainBox),
+      answer: dangerous,
+    );
+    Future<void> pumpHud(WidgetTester tester, Identification? shown) => tester.pumpWidget(MaterialApp(
+        home: VideoHud(
+            step: VideoStep(
+                seconds: 0.3, frame: frame, lock: const LockStep(checking: true, pooled: null, shown: null), shown: shown))));
+
+    testWidgets('says "Identifying…" before the lock, with no species', (tester) async {
+      await pumpHud(tester, null);
+      expect(find.text('Identifying…'), findsOneWidget);
+      expect(find.textContaining(krait.displayName), findsNothing);
+    });
+
+    testWidgets('an early dangerous pool still shows without a species', (tester) async {
+      await pumpHud(tester, rule.fromAnswer(ModelAnswer(
+          label: dangerousLabel, reasons: const ['who_head'], message: 'dangerous: WHO Category 1', top3: const [])));
+      expect(find.text('Dangerous · WHO Category 1'), findsOneWidget);
+    });
   });
 }
