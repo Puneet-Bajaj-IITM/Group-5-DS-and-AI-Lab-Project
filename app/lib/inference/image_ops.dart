@@ -802,3 +802,25 @@ Uint8List clahe(Uint8List src, int w, int h, double clipLimit, (int, int) tiles)
   }
   return out;
 }
+
+/// How sharp [img] is: the mean squared Laplacian of its grey values on a
+/// grid every [step] pixels. Higher is sharper; motion blur and missed focus
+/// drive it down, which is what the live camera uses it for.
+double sharpness(RgbImage img, {int step = 4}) {
+  final w = img.width, h = img.height, d = img.data;
+  double grey(int x, int y) {
+    final i = (y * w + x) * 3;
+    return 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+  }
+
+  var sum = 0.0;
+  var n = 0;
+  for (var y = step; y < h - step; y += step) {
+    for (var x = step; x < w - step; x += step) {
+      final lap = grey(x - step, y) + grey(x + step, y) + grey(x, y - step) + grey(x, y + step) - 4 * grey(x, y);
+      sum += lap * lap;
+      n++;
+    }
+  }
+  return n == 0 ? 0 : sum / n;
+}

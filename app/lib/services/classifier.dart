@@ -7,6 +7,7 @@ import 'package:crypto/crypto.dart';
 import '../inference/decision.dart';
 import '../inference/image_ops.dart';
 import '../inference/pipeline.dart';
+import '../inference/snake_tracks.dart';
 import '../inference/video_lock.dart';
 import '../models/species.dart';
 import '../models/verdict.dart';
@@ -173,14 +174,15 @@ class OnnxSnakeClassifier implements LiveSnakeClassifier {
     return _rule.fromAnswer(r.answer, details: r);
   }
 
-  /// One frame through the pipeline, without the video lock. Other snakes
-  /// get their boxes but are not named (too slow for every frame).
-  Future<PipelineResult> runFrame(RgbImage frame) async {
+  /// One video or live frame through the lean pipeline (detector box crop, no
+  /// mirror pass), without the video lock. Other snakes get their boxes, and
+  /// are named too with [nameOthers].
+  Future<PipelineResult> runFrame(RgbImage frame, {bool nameOthers = false}) async {
     final model = await _ready;
     final sized = math.max(frame.width, frame.height) > frameMaxSide
         ? await Isolate.run(() => phoneSize(frame))
         : frame;
-    return model.run(sized, nameOthers: false);
+    return model.run(sized, nameOthers: nameOthers, lean: true);
   }
 
   static RgbImage phoneSize(RgbImage img) {
@@ -224,6 +226,9 @@ class OnnxSnakeClassifier implements LiveSnakeClassifier {
 
   /// A new video lock for analysing a clip.
   VideoLock newLock() => VideoLock(rules: _rules);
+
+  /// New per-snake tracks for a clip: every snake named by its own lock.
+  SnakeTracks newTracks() => SnakeTracks(_rules);
 
   Identification fromAnswer(ModelAnswer a, {PipelineResult? details}) =>
       _rule.fromAnswer(a, details: details);

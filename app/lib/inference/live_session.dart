@@ -145,6 +145,11 @@ class LiveSession {
   final Map<int, Identification> _trackNames = {};
   final Map<int, double> _trackNamedAt = {};
 
+  // The sharpest frame since the verdict lane last started, which it takes
+  // next instead of whatever frame is newest: motion blur costs more accuracy
+  // than anything else measured (M5 report, section 6.3).
+  _Candidate? _sharpest;
+
   // Diagnostics.
   final LaneTimer boxTimer = LaneTimer(), verdictTimer = LaneTimer();
   int _skippedByGate = 0;
@@ -162,6 +167,7 @@ class LiveSession {
     _hasShown = false;
     _lastVerdictFrame = null;
     _clearTracks();
+    _sharpest = null;
     _skippedByGate = 0;
     boxTimer.clear();
     verdictTimer.clear();
@@ -215,8 +221,21 @@ class LiveSession {
 
       final anchors = output.length ~/ 5; // rows cx, cy, w, h and the snake score
       final conf = boxConf(output, anchors, s.snakeClass, s.boxFloor);
-      final best = conf == null ? null : bestBox(output, anchors, s.snakeClass, fixed.width, fixed.height, s.inputSize);
-      final found = snakeBoxes(output, anchors, s.snakeClass, fixed.width, fixed.height, s.inputSize);
+      var best = conf == null ? null : bestBox(output, anchors, s.snakeClass, fixed.width, fixed.height, s.inputSize);
+      var found = snakeBoxes(output, anchors, s.snakeClass, fixed.width, fixed.height, s.inputSize);
+      if (needsSplit(found, splitTop(output, anchors, s.snakeClass, fixed.width, fixed.height, s.inputSize))) {
+        // A second look at the two halves, as on a photo (detections.dart).
+        final outputs = <List<double>>[];
+        for (final input in splitInputs(fixed, s.inputSize, s.detectorPad)) {
+          outputs.add((await _detector.invokeMethod<Float32List>('run', {'input': input, 'size': s.inputSize}))!);
+        }
+        if (session != _session || _closed) return;
+        final split = splitSnakes(outputs, s.snakeClass, fixed.width, fixed.height, s.inputSize);
+        if (split != null) {
+          found = split;
+          best = split.first.box;
+        }
+      }
       // The box the verdict is about is the most confident one, as on a
       // photo, so it is tracked even under the display score (it is drawn
       // only when the verdict lane names it). With the M4 gate only boxes
@@ -244,13 +263,20 @@ class LiveSession {
           _skippedByGate++;
           _noSnake(seconds, fixed, conf, rgb);
         }
-      } else if (!_verdictBusy) {
-        final several = _namedTracks();
-        if (several.length >= 2) {
-          unawaited(_trackLane(fixed, !identical(fixed, rgb), several, seconds, session));
-        } else {
-          if (_trackNames.isNotEmpty) _clearTracks(); // back to one snake: the frozen path
-          unawaited(_verdictLane(fixed, !identical(fixed, rgb), conf, best, seconds, session));
+      } else {
+        final now = _Candidate(fixed, !identical(fixed, rgb), conf, best, seconds, sharpness(fixed));
+        if (_sharpest == null || now.sharpness >= _sharpest!.sharpness) _sharpest = now;
+        if (!_verdictBusy) {
+          final several = _namedTracks();
+          if (several.length >= 2) {
+            // Boxes of several snakes belong to the newest frame.
+            unawaited(_trackLane(fixed, now.exposureFixed, several, seconds, session));
+          } else {
+            if (_trackNames.isNotEmpty) _clearTracks(); // back to one snake
+            final c = _sharpest!;
+            unawaited(_verdictLane(c.rgb, c.exposureFixed, c.conf, c.box, c.seconds, session));
+          }
+          _sharpest = null;
         }
       }
       _boxError = null;
@@ -336,23 +362,28 @@ class LiveSession {
     double? snakeProbability;
     if (s.usesSnakeCheck) {
       final check = s.snakeCheck!;
-      final checkIn = normalise(letterbox(rgb, check.inputSize, s.padRgb), s.mean, s.std, s.scale);
-      final out = (await _verdict.invokeMapMethod<String, Float32List>(
-          'check', {'input': checkIn, 'size': check.inputSize}))!;
+      final probs = await _checkFrame(rgb, stale);
       times['snake_check'] = lap();
-      if (stale()) return null;
-      final probs = out[check.output]!;
+      if (probs == null) return null;
       snakeProbability = probs[check.snakeIndex];
       if (!check.isSnake(probs)) {
         return noSnake(GateResult(snake: false, boxConf: null, maskArea: 0, snakeProbability: snakeProbability));
       }
     }
 
-    final segIn = normalise(letterbox(rgb, size, s.padRgb), s.mean, s.std, s.scale);
-    final probability = (await _verdict.invokeMethod<Float32List>('segment', {'input': segIn, 'size': size}))!;
-    times['segmenter'] = lap();
-    if (stale()) return null;
-    final post = afterGate(rgb, probability, conf, s);
+    // With the snake check as the gate, the lean path: the detector box crop and
+    // no mirror pass, half the model calls at the same validation accuracy.
+    final lean = s.usesSnakeCheck;
+    final AfterGate post;
+    if (lean) {
+      post = boxCrops(rgb, box, s);
+    } else {
+      final segIn = normalise(letterbox(rgb, size, s.padRgb), s.mean, s.std, s.scale);
+      final probability = (await _verdict.invokeMethod<Float32List>('segment', {'input': segIn, 'size': size}))!;
+      times['segmenter'] = lap();
+      if (stale()) return null;
+      post = afterGate(rgb, probability, conf, s);
+    }
     times['crop'] = lap();
     final gate = GateResult(
         snake: post.snake, boxConf: conf, maskArea: post.area, snakeProbability: snakeProbability, box: box);
@@ -373,7 +404,7 @@ class LiveSession {
     if (stale()) return null;
     final mirrored = post.mirroredInput == null ? null : await classify(post.mirroredInput!);
     if (stale()) return null;
-    final outputs = classifierAnswer(plain, mirrored, s.classifier);
+    final outputs = classifierAnswer(plain, mirrored, lean ? s.classifier.withoutMirror : s.classifier);
     times['classifier'] = lap();
     final parts = DecisionParts.fromOutputs(outputs, s.thresholds);
     return PipelineResult(
@@ -391,6 +422,15 @@ class LiveSession {
     );
   }
 
+  /// The snake check on the whole frame, as on a photo ([SnakePipeline.run]):
+  /// its probabilities, or null when a reset or close ended the frame.
+  Future<Float32List?> _checkFrame(RgbImage rgb, bool Function() stale) async {
+    final s = _s, check = s.snakeCheck!;
+    final input = normalise(letterbox(rgb, check.inputSize, s.padRgb), s.mean, s.std, s.scale);
+    final out = (await _verdict.invokeMapMethod<String, Float32List>('check', {'input': input, 'size': check.inputSize}))!;
+    return stale() ? null : out[check.output]!;
+  }
+
   /// The tracked snakes confident enough to name separately.
   List<Track> _namedTracks() => [for (final t in _tracker.tracks) if (t.score >= snakeMinScore) t];
 
@@ -400,66 +440,91 @@ class LiveSession {
     _trackNamedAt.clear();
   }
 
-  /// One turn of the verdict lane with several snakes in view: the snake named
-  /// longest ago, through the snake check, the classifier and its own lock.
+  /// One turn of the verdict lane with several snakes in view, with a photo's
+  /// checks: the snake check on the whole frame first, then the snake named
+  /// longest ago through its own crop's snake check, the classifier and its
+  /// own lock. A tight crop of a striped object can come close to the cutoff
+  /// that the whole frame is far below, so the crop alone never names a snake.
   Future<void> _trackLane(RgbImage rgb, bool exposureFixed, List<Track> tracks, double seconds, int session) async {
     _verdictBusy = true;
     final clock = Stopwatch()..start();
     final s = _s;
     final size = s.inputSize;
     bool stale() => session != _session || _closed;
+    PipelineResult details({required bool snake, PixelBox? box, double? conf}) => PipelineResult(
+        width: rgb.width,
+        height: rgb.height,
+        exposureFixed: exposureFixed,
+        gate: GateResult(snake: snake, boxConf: conf, maskArea: 0, box: box),
+        answer: ModelAnswer.noSnake);
     try {
+      if (s.usesSnakeCheck) {
+        final probs = await _checkFrame(rgb, stale);
+        if (probs == null) return;
+        if (!s.snakeCheck!.isSnake(probs)) {
+          // No snake in the frame: no track is named, and the card says so.
+          for (final t in tracks) {
+            _trackLocks[t.id]?.add(null, seconds);
+          }
+          _trackNames.clear();
+          final none = details(snake: false);
+          _shown = _present(ModelAnswer.noSnake, none);
+          _hasShown = true;
+          _lastVerdictFrame = none;
+          verdictTimer.add(clock.elapsedMilliseconds, seconds);
+          _verdictError = null;
+          return;
+        }
+      }
       final track = tracks.reduce((a, b) =>
           (_trackNamedAt[a.id] ?? double.negativeInfinity) <= (_trackNamedAt[b.id] ?? double.negativeInfinity) ? a : b);
       _trackNamedAt[track.id] = seconds;
       final window = boxWindow(track.box, rgb.width, rgb.height, s.cropPadding);
       if (window == null) return;
-      final crop = cropInputs(rgb, window, s, snakeCheck: s.usesSnakeCheck);
+      final crop = cropInputs(rgb, window, s, snakeCheck: s.usesSnakeCheck, mirror: false);
       final lock = _trackLocks.putIfAbsent(track.id, () => VideoLock(rules: _rules));
-      final details = PipelineResult(
-          width: rgb.width,
-          height: rgb.height,
-          exposureFixed: exposureFixed,
-          gate: GateResult(snake: true, boxConf: track.score, maskArea: 0, box: track.box),
-          answer: ModelAnswer.noSnake);
+      final seen = details(snake: true, box: track.box, conf: track.score);
+      var named = false;
       if (crop.snakeCheckInput != null) {
         final check = s.snakeCheck!;
         final out = (await _verdict.invokeMapMethod<String, Float32List>(
             'check', {'input': crop.snakeCheckInput, 'size': check.inputSize}))!;
         if (stale()) return;
-        if (!check.isSnake(out[check.output]!)) {
-          lock.add(null, seconds);
-          _trackNames.remove(track.id);
-          return;
-        }
+        named = check.isSnake(out[check.output]!);
+      } else {
+        named = true;
       }
-      Future<ModelOutputs> classify(Float32List input) async {
-        final out = (await _verdict.invokeMapMethod<String, Float32List>('classify', {'input': input, 'size': size}))!;
-        return ModelOutputs(
-          embedding: out['embedding']!,
-          speciesLogits: out['species_logits']!,
-          whoLogits: out['who_logits']!,
-          genusLogits: out['genus_logits']!,
-          familyLogits: out['family_logits']!,
-        );
-      }
-
-      final plain = await classify(crop.classifierInput);
-      if (stale()) return;
-      final mirrored = crop.mirroredInput == null ? null : await classify(crop.mirroredInput!);
-      if (stale()) return;
-      final parts = DecisionParts.fromOutputs(classifierAnswer(plain, mirrored, s.classifier), s.thresholds);
-      final shown = lock.add(parts, seconds).shown;
-      if (shown == null) {
+      if (!named) {
+        lock.add(null, seconds);
         _trackNames.remove(track.id);
       } else {
-        _trackNames[track.id] = _present(shown, details);
+        Future<ModelOutputs> classify(Float32List input) async {
+          final out = (await _verdict.invokeMapMethod<String, Float32List>('classify', {'input': input, 'size': size}))!;
+          return ModelOutputs(
+            embedding: out['embedding']!,
+            speciesLogits: out['species_logits']!,
+            whoLogits: out['who_logits']!,
+            genusLogits: out['genus_logits']!,
+            familyLogits: out['family_logits']!,
+          );
+        }
+
+        final outputs = await classify(crop.classifierInput);
+        if (stale()) return;
+        final parts = DecisionParts.fromOutputs(classifierAnswer(outputs, null, s.classifier.withoutMirror), s.thresholds);
+        final shown = lock.add(parts, seconds).shown;
+        if (shown == null) {
+          _trackNames.remove(track.id);
+        } else {
+          _trackNames[track.id] = _present(shown, seen);
+        }
       }
-      // The card shows the most dangerous named snake.
-      final named = [for (final t in tracks) if (_trackNames[t.id] != null) _trackNames[t.id]!];
-      _shown = named.isEmpty ? null : named.reduce((a, b) => b.verdict.severity > a.verdict.severity ? b : a);
+      // The card shows the most dangerous named snake, recomputed every turn so
+      // a name that was just dropped does not linger.
+      final names = [for (final t in tracks) if (_trackNames[t.id] != null) _trackNames[t.id]!];
+      _shown = names.isEmpty ? null : names.reduce((a, b) => b.verdict.severity > a.verdict.severity ? b : a);
       _hasShown = true;
-      _lastVerdictFrame = details;
+      _lastVerdictFrame = seen;
       verdictTimer.add(clock.elapsedMilliseconds, seconds);
       _verdictError = null;
     } catch (e) {
@@ -622,4 +687,14 @@ class LaneTimer {
   }
 
   double get meanMs => _recent.isEmpty ? 0 : _recent.map((e) => e.$2).reduce((a, b) => a + b) / _recent.length;
+}
+
+/// A frame the verdict lane may take, with how sharp it is.
+class _Candidate {
+  const _Candidate(this.rgb, this.exposureFixed, this.conf, this.box, this.seconds, this.sharpness);
+  final RgbImage rgb;
+  final bool exposureFixed;
+  final double? conf;
+  final PixelBox? box;
+  final double seconds, sharpness;
 }

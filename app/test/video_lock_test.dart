@@ -15,6 +15,8 @@ void main() {
   final settings = PipelineSettings.parse(File('assets/model/pipeline.json').readAsStringSync());
   final tables = ModelTables.parse(File('assets/model/tables.json').readAsStringSync());
   final rules = DecisionRules(settings.thresholds, tables);
+  // The frozen M5 lock (Python parity): a single snake frame starts a sighting.
+  const m5 = LockSettings(snakeRun: 1);
 
   /// Parts of a frame sure of [species]: heads consistent with the species
   /// probabilities, a non-venomous family, the species' prototype.
@@ -44,11 +46,11 @@ void main() {
   }
 
   test('checks until a full window, then locks and names the species', () {
-    final lock = VideoLock(rules: rules);
+    final lock = VideoLock(rules: rules, settings: m5);
     final steps = run(lock, List.filled(20, sure(vineSnake)), 10);
     expect(steps.first.checking, isTrue);
     expect(steps.first.shown, isNull);
-    expect(firstLock(steps, 10), closeTo(const LockSettings().windowSeconds, 1e-9));
+    expect(firstLock(steps, 10), closeTo(m5.windowSeconds, 1e-9));
     expect(steps.last.lockedClass, vineSnake);
     expect(species(steps.last), vineSnake);
     expect(steps.firstWhere((s) => !s.checking).event, 'lock');
@@ -56,7 +58,7 @@ void main() {
 
   test('the window is in seconds: a slow phone locks at the same time', () {
     for (final fps in [10.0, 2.5, 1.25]) {
-      final steps = run(VideoLock(rules: rules, settings: const LockSettings(windowSeconds: 1.0)),
+      final steps = run(VideoLock(rules: rules, settings: const LockSettings(windowSeconds: 1.0, snakeRun: 1)),
           List.filled((6 * fps).round(), sure(vineSnake)), fps);
       expect(firstLock(steps, fps), closeTo(1.0, 0.8 + 1e-9), reason: '$fps fps');
       expect(firstLock(steps, fps)! >= 1.0 - 1e-9, isTrue, reason: '$fps fps');
@@ -64,16 +66,16 @@ void main() {
   });
 
   test('a slow phone still pools min frames: at 0.8 s a frame a 0.5 s window locks on the 2nd or 3rd frame', () {
-    final two = run(VideoLock(rules: rules, settings: const LockSettings(windowSeconds: 0.5, minFrames: 2)),
+    final two = run(VideoLock(rules: rules, settings: const LockSettings(windowSeconds: 0.5, minFrames: 2, snakeRun: 1)),
         List.filled(6, sure(vineSnake)), 1 / 0.8);
     expect(firstLock(two, 1 / 0.8), closeTo(0.8, 1e-9));
-    final three = run(VideoLock(rules: rules, settings: const LockSettings(windowSeconds: 0.5, minFrames: 3)),
+    final three = run(VideoLock(rules: rules, settings: const LockSettings(windowSeconds: 0.5, minFrames: 3, snakeRun: 1)),
         List.filled(6, sure(vineSnake)), 1 / 0.8);
     expect(firstLock(three, 1 / 0.8), closeTo(1.6, 1e-9));
   });
 
   test('the shown species is the locked one, even while the pool briefly prefers another', () {
-    final lock = VideoLock(rules: rules);
+    final lock = VideoLock(rules: rules, settings: m5);
     final frames = [
       ...List.filled(15, sure(vineSnake)),
       ...List.filled(5, sure(blindSnake, p: 0.95)), // 0.5 s: shorter than the switch time
@@ -87,7 +89,7 @@ void main() {
   });
 
   test('a rival leading for the switch time replaces the lock once', () {
-    final lock = VideoLock(rules: rules);
+    final lock = VideoLock(rules: rules, settings: m5);
     final steps = run(lock, [...List.filled(20, sure(vineSnake)), ...List.filled(40, sure(blindSnake))], 10);
     final named = steps.map(species).whereType<int>().toList();
     var changes = 0;
@@ -100,8 +102,8 @@ void main() {
   });
 
   test('panning away for the hold time drops the lock; the next snake starts afresh', () {
-    final lock = VideoLock(rules: rules);
-    final hold = const LockSettings().holdSeconds;
+    final lock = VideoLock(rules: rules, settings: m5);
+    final hold = m5.holdSeconds;
     final frames = [
       ...List.filled(20, sure(vineSnake)),
       ...List<DecisionParts?>.filled((hold * 10).round() + 2, null),
@@ -119,27 +121,27 @@ void main() {
   });
 
   test('a short gap with no snake keeps showing the lock', () {
-    final lock = VideoLock(rules: rules);
+    final lock = VideoLock(rules: rules, settings: m5);
     final steps = run(lock, [...List.filled(20, sure(vineSnake)), null, null, null, ...List.filled(5, sure(vineSnake))], 10);
     expect(steps.skip(15).every((s) => s.lockedClass == vineSnake), isTrue);
   });
 
   test('gate share: a snake on every other frame never locks at 0.8', () {
-    final lock = VideoLock(rules: rules, settings: const LockSettings(gateShare: 0.8));
+    final lock = VideoLock(rules: rules, settings: const LockSettings(gateShare: 0.8, snakeRun: 1));
     final frames = [for (var i = 0; i < 60; i++) i.isEven ? sure(vineSnake) : null];
     expect(run(lock, frames, 10).every((s) => s.checking), isTrue);
-    final open = run(VideoLock(rules: rules), frames, 10);
+    final open = run(VideoLock(rules: rules, settings: m5), frames, 10);
     expect(open.last.checking, isFalse, reason: 'with no gate share the same frames lock');
   });
 
   test('not sure enough never locks', () {
-    final steps = run(VideoLock(rules: rules), List.filled(40, sure(vineSnake, p: 0.2)), 10);
+    final steps = run(VideoLock(rules: rules, settings: m5), List.filled(40, sure(vineSnake, p: 0.2)), 10);
     expect(steps.every((s) => s.checking && s.lockedClass == null), isTrue);
     expect(steps.every((s) => s.shown == null || s.shown!.top3.isEmpty), isTrue, reason: 'no species is named');
   });
 
   test('dangerous shows while checking, with no species named', () {
-    final steps = run(VideoLock(rules: rules), List.filled(5, sure(cobra)), 10);
+    final steps = run(VideoLock(rules: rules, settings: m5), List.filled(5, sure(cobra)), 10);
     final first = steps.first;
     expect(first.checking, isTrue);
     expect(first.shown?.label, dangerousLabel);
@@ -147,7 +149,7 @@ void main() {
   });
 
   test('dangerous on the pool turns a locked safe answer dangerous, the species stays', () {
-    final lock = VideoLock(rules: rules);
+    final lock = VideoLock(rules: rules, settings: m5);
     final frames = [...List.filled(15, sure(vineSnake)), ...List.filled(5, sure(cobra, p: 0.95))];
     final steps = run(lock, frames, 10);
     expect(steps[14].shown!.label, isNot(dangerousLabel));
@@ -158,11 +160,45 @@ void main() {
   });
 
   test('reset clears the lock', () {
-    final lock = VideoLock(rules: rules);
+    final lock = VideoLock(rules: rules, settings: m5);
     run(lock, List.filled(20, sure(vineSnake)), 10);
     expect(lock.lockedClass, vineSnake);
     lock.reset();
     expect(lock.lockedClass, isNull);
     expect(lock.add(null, 3).checking, isTrue);
+  });
+
+  group('snakeRun snake frames in a row start a sighting (the app default)', () {
+    test('a lone snake frame shows nothing, even a dangerous one', () {
+      // Runs one short of snakeRun, then a miss.
+      final run1 = const LockSettings().snakeRun - 1;
+      final frames = [for (var i = 0; i < 20; i++) i % (run1 + 1) < run1 ? sure(cobra) : null];
+      final steps = run(VideoLock(rules: rules), frames, 10);
+      expect(steps.every((s) => s.shown == null), isTrue);
+    });
+
+    test('dangerous shows on the snakeRun-th snake frame in a row', () {
+      final n = const LockSettings().snakeRun;
+      expect(n, 3);
+      final steps = run(VideoLock(rules: rules), List.filled(n, sure(cobra)), 10);
+      expect(steps.take(n - 1).every((s) => s.shown == null), isTrue);
+      expect(steps.last.shown?.label, dangerousLabel);
+    });
+
+    test('once a sighting has started, one missed frame does not restart it', () {
+      final lock = VideoLock(rules: rules);
+      run(lock, List.filled(20, sure(vineSnake)), 10);
+      expect(lock.lockedClass, vineSnake);
+      lock.add(null, 2.0);
+      final after = lock.add(sure(vineSnake), 2.1);
+      expect(after.lockedClass, vineSnake);
+      expect(species(after), vineSnake);
+    });
+
+    test('it costs snakeRun - 1 frames: the lock comes that much after the frozen rule\'s', () {
+      final frames = List.filled(20, sure(vineSnake));
+      expect(firstLock(run(VideoLock(rules: rules), frames, 10), 10),
+          closeTo(firstLock(run(VideoLock(rules: rules, settings: m5), frames, 10), 10)! + 0.2, 1e-9));
+    });
   });
 }

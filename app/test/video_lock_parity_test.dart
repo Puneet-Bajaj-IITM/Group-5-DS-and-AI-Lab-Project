@@ -40,6 +40,7 @@ void main() {
           gateShare: (s['gate_share'] as num).toDouble(),
           minFrames: (s['min_frames'] as num).toInt(),
           holdSeconds: (s['hold_seconds'] as num).toDouble(),
+          snakeRun: 1, // the frozen M5 rule; the app's two-in-a-row start is in video_lock_test
         ),
       );
       final times = (seq['times'] as List).map((t) => (t as num).toDouble()).toList();

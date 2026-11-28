@@ -45,8 +45,19 @@ void main() {
   late double score; // the detector's snake score for the next frames
   late double boxCy, boxH; // the box's centre y and height (letterboxed 320 px)
   late double snakeProbability; // the snake check's answer for the next frames
+  // With the snake check the live verdict is the lean path: box crop, one classify.
+  const leanClassifyPerFrame = 1;
   late int detectorCalls, checkCalls, segmentCalls, classifyCalls;
-  Completer<void>? holdSegment;
+  Completer<void>? holdVerdict;
+  // Two snakes side by side (left one more confident) instead of one box.
+  late bool twoBoxes;
+  // The snake check says snake only on a close crop of the bright left half
+  // of [splitFrame], as on the checkerboard: far under the cutoff on the whole
+  // frame, near or over it on a tight crop.
+  late bool snakeOnlyInCrop;
+  // Two snakes side by side as the 320 px detector sees them: one unsure box
+  // spanning both on the whole frame, one sure snake in each half.
+  late bool sideBySide;
 
   /// The golden row's outputs as the native lane returns them (float32).
   Map<String, Float32List> classifierOutputs(Map<String, dynamic> row) => {
@@ -68,10 +79,31 @@ void main() {
     boxH = 80;
     snakeProbability = 0.9;
     detectorCalls = checkCalls = segmentCalls = classifyCalls = 0;
-    holdSegment = null;
+    holdVerdict = null;
+    twoBoxes = snakeOnlyInCrop = sideBySide = false;
     messenger.setMockMethodCallHandler(detector, (call) async {
       detectorCalls++;
       final out = Float32List(5 * anchors);
+      if (sideBySide) {
+        // Calls come in threes: the whole frame, then its two halves.
+        final (cx, w, s) = [(160.0, 300.0, 0.3), (100.0, 60.0, 0.8), (220.0, 60.0, 0.8)][(detectorCalls - 1) % 3];
+        out[0] = cx;
+        out[anchors] = 160;
+        out[2 * anchors] = w;
+        out[3 * anchors] = 200;
+        out[4 * anchors] = s;
+        return out;
+      }
+      if (twoBoxes) {
+        for (final (i, cx, s) in [(0, 80.0, 0.9), (1, 240.0, 0.8)]) {
+          out[i] = cx;
+          out[anchors + i] = 160;
+          out[2 * anchors + i] = 140;
+          out[3 * anchors + i] = 200;
+          out[4 * anchors + i] = s;
+        }
+        return out;
+      }
       out[0] = 160;
       out[anchors] = boxCy;
       out[2 * anchors] = 120;
@@ -83,14 +115,21 @@ void main() {
       switch (call.method) {
         case 'check':
           checkCalls++;
+          await holdVerdict?.future;
           expect((call.arguments as Map)['size'], check.inputSize);
           final probs = Float32List(2);
-          probs[check.snakeIndex] = snakeProbability;
+          var p = snakeProbability;
+          if (snakeOnlyInCrop) {
+            final input = (call.arguments as Map)['input'] as Float32List;
+            final mean = input.fold<double>(0, (a, v) => a + v) / input.length;
+            p = mean > 1 ? check.cutoff + 0.05 : check.cutoff / 5; // bright crop vs whole frame
+          }
+          probs[check.snakeIndex] = p;
           probs[1 - check.snakeIndex] = 1 - snakeProbability;
           return {check.output: probs};
         case 'segment':
           segmentCalls++;
-          await holdSegment?.future;
+          await holdVerdict?.future; // the first verdict-lane call with the M4 gate
           return Float32List(320 * 320)..fillRange(0, 320 * 320, 1.0); // the whole frame is snake
         default:
           classifyCalls++;
@@ -118,6 +157,77 @@ void main() {
         frontFacing: false,
       );
 
+  /// A frame whose left half is bright and right half dark.
+  LiveCameraFrame splitFrame(int ms) {
+    final bytes = Uint8List(64 * 48 * 4);
+    for (var y = 0; y < 48; y++) {
+      for (var x = 0; x < 64; x++) {
+        bytes.fillRange((y * 64 + x) * 4, (y * 64 + x) * 4 + 4, x < 32 ? 250 : 10);
+      }
+    }
+    return LiveCameraFrame(
+      width: 64,
+      height: 48,
+      format: 'bgra8888',
+      planes: [LiveCameraPlane(bytes, 64 * 4, 4)],
+      offsetMs: ms,
+      sensorOrientation: 0,
+      deviceOrientation: 'portraitUp',
+      frontFacing: false,
+    );
+  }
+
+  test('with several snakes in view, no box is named when the whole frame fails the snake check', () async {
+    twoBoxes = snakeOnlyInCrop = true;
+    final live = session();
+    for (var i = 0; i < 4; i++) {
+      live.offer(splitFrame(i * 100));
+      await pumpEventQueue();
+    }
+    expect(live.view!.tracks, hasLength(2), reason: 'both boxes are tracked');
+    expect(checkCalls, greaterThan(0));
+    expect(classifyCalls, 0, reason: 'a close crop alone never names a snake, as on a photo');
+    expect(live.view!.names, isEmpty);
+    expect(live.view!.identification!.snakeFound, isFalse);
+  });
+
+  test('two snakes the detector sees as one unsure box are boxed one by one after a look at each half', () async {
+    sideBySide = true;
+    final live = session();
+    live.offer(frame(0));
+    await pumpEventQueue();
+    expect(detectorCalls, 3, reason: 'the frame, then its two halves');
+    expect(live.view!.tracks, hasLength(2));
+    final lefts = [for (final t in live.view!.tracks) t.box.left]..sort();
+    expect(lefts.first, lessThan(32));
+    expect(lefts.last, greaterThan(32));
+  });
+
+  test('with several snakes in view and the whole frame a snake, each box is named', () async {
+    twoBoxes = true;
+    final live = session();
+    for (var i = 0; i < 8; i++) { // the two tracks take turns, each needs snakeRun turns
+      live.offer(splitFrame(i * 100));
+      await pumpEventQueue();
+    }
+    expect(classifyCalls, greaterThan(0));
+    expect(live.view!.names, isNotEmpty);
+    expect(live.view!.identification!.verdict, Verdict.dangerous);
+  });
+
+  test('a snake check that passes only on single frames never shows a verdict (the striped-screen false alarm)', () async {
+    final live = session();
+    final shown = <Verdict?>[];
+    for (var i = 0; i < 12; i++) {
+      snakeProbability = i % 3 == 0 ? 0.9 : check.cutoff / 2; // one passing frame in three
+      live.offer(frame(i * 100));
+      await pumpEventQueue();
+      shown.add(live.view!.identification?.snakeFound == true ? live.view!.identification!.verdict : null);
+    }
+    expect(classifyCalls, greaterThan(0), reason: 'the passing frames were classified');
+    expect(shown.where((v) => v != null), isEmpty);
+  });
+
   test('the shipped bundle uses the snake check and the mirror pass', () {
     expect(settings.usesSnakeCheck, isTrue);
     expect(settings.classifier.flipTta, isTrue);
@@ -130,8 +240,12 @@ void main() {
     live.offer(frame(0));
     await pumpEventQueue();
     expect(checkCalls, 1, reason: 'the snake check decides, not the detector');
-    expect(segmentCalls, 1);
-    expect(classifyCalls, classifyPerFrame);
+    expect(segmentCalls, 0, reason: 'lean: the detector box crop, no U-Net');
+    expect(classifyCalls, leanClassifyPerFrame);
+    for (final ms in [100, 200]) {
+      live.offer(frame(ms)); // a sighting starts on the third snake frame in a row
+      await pumpEventQueue();
+    }
     expect(live.view!.skippedByGate, 0);
     expect(live.view!.identification!.verdict, Verdict.dangerous);
   });
@@ -149,16 +263,19 @@ void main() {
     expect(live.view!.snakeInView, isFalse);
   });
 
-  test('the verdict lane gives the direct path\'s answer: mirror pass and prior included', () async {
+  test('the verdict lane gives the lean path\'s answer: box crop and prior, no mirror pass', () async {
     final live = session();
     live.offer(frame(0));
     await pumpEventQueue();
-    expect(segmentCalls, 1);
-    expect(classifyCalls, classifyPerFrame, reason: 'the crop and its mirror image');
+    expect(segmentCalls, 0);
+    expect(classifyCalls, leanClassifyPerFrame, reason: 'the box crop only, no mirror image');
     final out = asOutputs(classifierOutputs(dangerousRow));
-    final direct = rules.verdictFromOutputs(
-        classifierAnswer(out, settings.classifier.flipTta ? out : null, settings.classifier));
+    final direct = rules.verdictFromOutputs(classifierAnswer(out, null, settings.classifier.withoutMirror));
     expect(direct.label, dangerousLabel);
+    for (final ms in [100, 200]) {
+      live.offer(frame(ms)); // a sighting starts on the third snake frame in a row
+      await pumpEventQueue();
+    }
     // "Dangerous" shows while the lock is still checking, as in identifyFrame.
     final shown = live.view!.identification!;
     expect(shown.verdict, Verdict.dangerous);
@@ -191,42 +308,44 @@ void main() {
   });
 
   test('while the verdict lane works, newer frames feed only the boxes', () async {
-    holdSegment = Completer<void>();
+    holdVerdict = Completer<void>();
     final live = session();
     for (var i = 0; i < 6; i++) {
       live.offer(frame(i * 33));
       await pumpEventQueue();
     }
-    expect(segmentCalls, 1, reason: 'one verdict at a time');
+    expect(checkCalls, 1, reason: 'one verdict at a time');
     expect(detectorCalls, 6, reason: 'the box lane kept up');
-    holdSegment!.complete();
+    holdVerdict!.complete();
     await pumpEventQueue();
-    expect(classifyCalls, classifyPerFrame);
+    expect(classifyCalls, leanClassifyPerFrame);
     live.offer(frame(300));
     await pumpEventQueue();
-    expect(segmentCalls, 2, reason: 'the lane is free again');
+    expect(checkCalls, 2, reason: 'the lane is free again');
   });
 
   test('a verdict still running at a reset is dropped, and the lane works again', () async {
-    holdSegment = Completer<void>();
+    holdVerdict = Completer<void>();
     final live = session();
     live.offer(frame(0));
     await pumpEventQueue();
     live.reset();
-    holdSegment!.complete();
+    holdVerdict!.complete();
     await pumpEventQueue();
     expect(classifyCalls, 0, reason: 'the old frame stops after the reset');
-    holdSegment = null;
+    holdVerdict = null;
     live.offer(frame(100));
     await pumpEventQueue();
-    expect(segmentCalls, 2);
-    expect(classifyCalls, classifyPerFrame);
+    expect(checkCalls, 2);
+    expect(classifyCalls, leanClassifyPerFrame);
   });
 
   test('a failing lane keeps its error on every view and shows no stale verdict, until it works again', () async {
     final live = session();
-    live.offer(frame(0));
-    await pumpEventQueue();
+    for (final ms in [0, 30, 60]) {
+      live.offer(frame(ms));
+      await pumpEventQueue();
+    }
     expect(live.view!.identification, isNotNull);
     expect(live.view!.error, isNull);
     final working = messenger;
@@ -278,8 +397,10 @@ void main() {
 
   test('with the M4 gate, a frame turned down on the box score clears the main box', () async {
     final live = session(m4Settings);
-    live.offer(frame(0));
-    await pumpEventQueue();
+    for (final ms in [0, 30, 60]) {
+      live.offer(frame(ms));
+      await pumpEventQueue();
+    }
     expect(live.view!.snakeInView, isTrue);
     score = m4Settings.gateBoxConf / 2; // the earlier track is still held, but no longer the snake
     live.offer(frame(100));
@@ -333,7 +454,7 @@ void main() {
   });
 
   test('with the M4 gate, turned-down frames reach the lock only while the verdict lane is free', () async {
-    holdSegment = Completer<void>();
+    holdVerdict = Completer<void>();
     final live = session(m4Settings);
     live.offer(frame(0)); // a snake frame: the verdict lane starts and waits
     await pumpEventQueue();
@@ -343,7 +464,7 @@ void main() {
       await pumpEventQueue();
     }
     expect(live.view!.skippedByGate, 0);
-    holdSegment!.complete();
+    holdVerdict!.complete();
     await pumpEventQueue();
     live.offer(frame(300)); // the lane is free again: this one is counted
     await pumpEventQueue();

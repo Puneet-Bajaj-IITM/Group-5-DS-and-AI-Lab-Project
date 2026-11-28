@@ -17,6 +17,7 @@ class LockSettings {
     this.gateShare = 0.0,
     this.minFrames = 1,
     this.holdSeconds = 2.0,
+    this.snakeRun = 3,
   });
 
   /// Snake frames of the last [windowSeconds] are pooled, and never fewer
@@ -37,6 +38,13 @@ class LockSettings {
 
   /// With no snake frame for this long the lock and the pool are dropped.
   final double holdSeconds;
+
+  /// A sighting starts only after this many snake frames in a row, so one
+  /// frame that scrapes past the snake check shows nothing. App only (M6):
+  /// on a striped screen the live camera's snake check passed 13 of 852
+  /// frames, each shown at once as "Dangerous". Passes cluster on a still
+  /// scene: two in a row still came 6 times in 3,661 frames, three never.
+  final int snakeRun;
 }
 
 const _timeEpsilon = 1e-9;
@@ -65,6 +73,7 @@ class VideoLock {
   final List<(double, DecisionParts?)> _seen = [];
   int? _locked, _rival;
   double? _since, _sighting, _lastSnake;
+  int _run = 0; // snake frames in a row
   ModelAnswer? _held;
   LockStep? _last;
 
@@ -74,6 +83,7 @@ class VideoLock {
     _seen.clear();
     _locked = _rival = null;
     _since = _sighting = _lastSnake = null;
+    _run = 0;
     _held = null;
     _last = null;
   }
@@ -86,6 +96,7 @@ class VideoLock {
     final keep = math.max(s.windowSeconds, s.holdSeconds);
     _seen.removeWhere((e) => e.$1 <= seconds - keep + _timeEpsilon);
     if (parts == null) {
+      _run = 0;
       _seen.add((seconds, null));
       if (_lastSnake != null && seconds - _lastSnake! >= s.holdSeconds - _timeEpsilon) {
         reset();
@@ -94,6 +105,10 @@ class VideoLock {
       return _last = _last?.repeated ?? const LockStep(checking: true, pooled: null, shown: null);
     }
     _seen.add((seconds, parts));
+    _run++;
+    if (_sighting == null && _run < s.snakeRun) {
+      return _last = const LockStep(checking: true, pooled: null, shown: null);
+    }
     _sighting ??= seconds;
     _lastSnake = seconds;
     // The window's snake frames, and never fewer than the last minFrames.

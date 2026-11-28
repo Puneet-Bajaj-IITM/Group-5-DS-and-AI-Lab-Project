@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:typed_data';
 
 import 'image_ops.dart';
 
@@ -89,18 +90,109 @@ List<Detection> detectAll(List<double> output, int anchors, int snakeClass, int 
   return kept;
 }
 
-/// The snakes in one frame: [detectAll]'s boxes from [snakeMinScore], with a
-/// box mostly inside a better one dropped (the same snake), at most
-/// [maxSnakes]. Highest score first.
-List<Detection> snakeBoxes(List<double> output, int anchors, int snakeClass, int width, int height, int size) {
+/// [boxes] without repeats of the same snake ([sameSnake]), at most
+/// [maxSnakes], highest score first.
+List<Detection> distinctSnakes(Iterable<Detection> boxes) {
   final kept = <Detection>[];
-  for (final d in detectAll(output, anchors, snakeClass, width, height, size, minScore: snakeMinScore)) {
-    if (kept.every((k) => containment(k.box, d.box) < containLimit)) {
+  for (final d in boxes.toList()..sort((a, b) => b.score.compareTo(a.score))) {
+    if (kept.every((k) => !sameSnake(k.box, d.box))) {
       kept.add(d);
       if (kept.length == maxSnakes) break;
     }
   }
   return kept;
+}
+
+/// The snakes in one frame: [detectAll]'s boxes from [snakeMinScore], with a
+/// box mostly inside a better one dropped (the same snake), at most
+/// [maxSnakes]. Highest score first.
+List<Detection> snakeBoxes(List<double> output, int anchors, int snakeClass, int width, int height, int size) =>
+    distinctSnakes(detectAll(output, anchors, snakeClass, width, height, size, minScore: snakeMinScore));
+
+// Two snakes side by side often come back from the 320 px detector as one
+// low box spanning both (0.24-0.30), while each half of the frame on its own
+// scores each snake 0.73-0.85. So when the top box is unsure, the detector
+// takes a second look at two overlapping halves along the long side. On
+// validation (m5-results/multi_snake/split_pass.py) both snakes of a pair were
+// found in 90 of 300 pairs instead of 42, with second boxes on one-snake
+// photos unchanged (1 in 1,000) and none on 600 non-snakes.
+
+/// A second look is taken when the best box ([snakeBoxes]) scores under this...
+const splitBelow = 0.6;
+
+/// ...and the detector's top score is at least this (an empty scene costs one run).
+const splitAbove = 0.1;
+
+/// A box from a half counts from this score.
+const splitTileScore = 0.6;
+
+/// Each half covers this share of the long side, so the two overlap.
+const splitTileShare = 0.6;
+
+/// A half's box this close to the cut (share of the long side) is a cut-off
+/// piece of a snake that crosses it, not a snake of its own.
+const splitSeamGap = 0.02;
+
+/// One half of a frame for the second look, in frame pixels.
+typedef SplitTile = ({int left, int top, int width, int height});
+
+/// The detector's highest score among boxes inside the frame, when at least
+/// [splitAbove] (an anchor in the letterbox padding does not count).
+double? splitTop(List<double> output, int anchors, int snakeClass, int width, int height, int size) {
+  final top = detectAll(output, anchors, snakeClass, width, height, size, minScore: splitAbove, maxBoxes: 1);
+  return top.isEmpty ? null : top.first.score;
+}
+
+/// True when [found] (from [snakeBoxes]) is unsure enough for a second look;
+/// [top] is [splitTop].
+bool needsSplit(List<Detection> found, double? top) =>
+    top != null && top >= splitAbove && (found.isEmpty || found.first.score < splitBelow);
+
+/// The two overlapping halves of a [width] x [height] frame along its long side.
+List<SplitTile> splitTiles(int width, int height) {
+  if (width >= height) {
+    final cut = pyRound(width * splitTileShare);
+    return [(left: 0, top: 0, width: cut, height: height), (left: width - cut, top: 0, width: cut, height: height)];
+  }
+  final cut = pyRound(height * splitTileShare);
+  return [(left: 0, top: 0, width: width, height: cut), (left: 0, top: height - cut, width: width, height: cut)];
+}
+
+/// The detector inputs of [rgb]'s two halves ([splitTiles]).
+List<Float32List> splitInputs(RgbImage rgb, int size, int padValue) => [
+      for (final t in splitTiles(rgb.width, rgb.height))
+        detectorInput(rgb.crop(t.top, t.top + t.height, t.left, t.left + t.width), size, padValue)
+    ];
+
+/// The snakes the halves' detector [outputs] find in a [width] x [height]
+/// frame, or null when they do not find two (the first look stands).
+List<Detection>? splitSnakes(List<List<double>> outputs, int snakeClass, int width, int height, int size) {
+  final tiles = splitTiles(width, height);
+  final wide = width >= height;
+  final seam = splitSeamGap * math.max(width, height);
+  final found = <Detection>[];
+  for (var i = 0; i < tiles.length; i++) {
+    final t = tiles[i];
+    final out = outputs[i];
+    for (final d in detectAll(out, out.length ~/ 5, snakeClass, t.width, t.height, size, minScore: splitTileScore)) {
+      final b = d.box;
+      final gap = wide ? (i == 0 ? t.width - b.right : b.left) : (i == 0 ? t.height - b.bottom : b.top);
+      if (gap < seam) continue;
+      found.add(Detection(PixelBox(b.left + t.left, b.top + t.top, b.right + t.left, b.bottom + t.top), d.score));
+    }
+  }
+  final kept = distinctSnakes(found);
+  return kept.length >= 2 ? kept : null;
+}
+
+/// The index of the box in [boxes] that overlaps [target] most (IoU); the
+/// first on a tie.
+int closestBox(List<PixelBox> boxes, PixelBox target) {
+  var best = 0;
+  for (var i = 1; i < boxes.length; i++) {
+    if (iou(boxes[i], target) > iou(boxes[best], target)) best = i;
+  }
+  return best;
 }
 
 /// A box followed across frames.
