@@ -8,6 +8,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 HERE = Path(__file__).resolve().parent
+# The working folder that holds the M4 reference pipeline, the app tools and the validation photos.
 WORK = HERE.parents[1]
 sys.path.insert(0, str(WORK / "m4-final/for-jayesh"))
 import reference_pipeline as ref

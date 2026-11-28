@@ -7,6 +7,7 @@ import json, random, sys
 from pathlib import Path
 import numpy as np
 HERE = Path(__file__).resolve().parent
+# The working folder that holds the M4 reference pipeline, the app tools and the validation photos.
 WORK = HERE.parents[1]
 sys.path.insert(0, str(WORK / "m5-app/app/tool/m5"))
 import reference_m5 as m5
