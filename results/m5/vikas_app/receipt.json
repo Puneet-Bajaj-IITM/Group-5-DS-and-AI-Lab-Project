@@ -1,0 +1,68 @@
+{
+  "sdk_url": "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.47.2-stable.tar.xz",
+  "sdk_sha256": "447878859d01ca9bfdb99a85f245af07ed8a15fedcd9d189c4749e8e92d1f185",
+  "source_files": 56,
+  "asset_fixtures": "32px artwork and empty video; no device/video verification",
+  "commands": [
+    {
+      "command": [
+        "git",
+        "config",
+        "--global",
+        "--add",
+        "safe.directory",
+        "/kaggle/tmp/m5-app-check/flutter"
+      ],
+      "exit_code": 0,
+      "log": "command_00.log"
+    },
+    {
+      "command": [
+        "flutter",
+        "--version"
+      ],
+      "exit_code": 0,
+      "log": "command_01.log"
+    },
+    {
+      "command": [
+        "flutter",
+        "config",
+        "--no-analytics"
+      ],
+      "exit_code": 0,
+      "log": "command_02.log"
+    },
+    {
+      "command": [
+        "flutter",
+        "pub",
+        "get",
+        "--enforce-lockfile"
+      ],
+      "exit_code": 0,
+      "log": "command_03.log"
+    },
+    {
+      "command": [
+        "flutter",
+        "analyze",
+        "--no-pub"
+      ],
+      "exit_code": 0,
+      "log": "command_04.log"
+    },
+    {
+      "command": [
+        "flutter",
+        "test",
+        "--no-pub",
+        "--reporter",
+        "expanded"
+      ],
+      "exit_code": 0,
+      "log": "command_05.log"
+    }
+  ],
+  "all_passed": true
+}

@@ -5,6 +5,7 @@ import '../models/records.dart';
 import '../services/sos_service.dart';
 import '../state/app_state.dart';
 import '../widgets/common.dart';
+import '../widgets/contact_directory_panel.dart';
 
 class ContactsScreen extends StatelessWidget {
   const ContactsScreen({super.key});
@@ -66,12 +67,14 @@ class ContactsScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 4, 16, 160),
           children: [
+            const ContactDirectoryPanel(),
             group(ContactKind.emergency, 'Emergency contacts',
                 'Family or friends who get your location by SMS when you press SOS.'),
             group(ContactKind.rescuer, 'Snake rescuers',
                 'A local snake rescuer can move a snake safely. Ask your panchayat or forest office.'),
             group(ContactKind.forest, 'Forest and wildlife offices', 'Your district forest or wildlife office.'),
             group(ContactKind.doctor, 'Doctors and clinics', 'A nearby doctor or clinic.'),
+            group(ContactKind.veterinarian, 'Veterinarians', 'Animal hospitals and vets you saved.'),
             const SectionTitle('National numbers'),
             ...nationalNumbers.map((n) => Card(
                   margin: const EdgeInsets.only(bottom: 8),
@@ -125,16 +128,12 @@ class _ContactFormState extends State<_ContactForm> {
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Text('Add contact', style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 16),
-          SegmentedButton<ContactKind>(
-            segments: const [
-              ButtonSegment(value: ContactKind.emergency, label: Text('Emergency')),
-              ButtonSegment(value: ContactKind.rescuer, label: Text('Rescuer')),
-              ButtonSegment(value: ContactKind.forest, label: Text('Forest')),
-              ButtonSegment(value: ContactKind.doctor, label: Text('Doctor')),
-            ],
-            selected: {_kind},
-            showSelectedIcon: false,
-            onSelectionChanged: (v) => setState(() => _kind = v.first),
+          DropdownButtonFormField<ContactKind>(
+            initialValue: _kind,
+            decoration: const InputDecoration(labelText: 'Contact type'),
+            items: [for (final kind in ContactKind.values)
+              DropdownMenuItem(value: kind, child: Text(kind.label))],
+            onChanged: (v) { if (v != null) setState(() => _kind = v); },
           ),
           const SizedBox(height: 16),
           TextFormField(

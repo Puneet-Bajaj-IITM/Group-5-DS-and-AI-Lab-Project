@@ -7,7 +7,8 @@ enum ContactKind {
   emergency('Emergency contact'),
   rescuer('Snake rescuer'),
   forest('Forest / wildlife office'),
-  doctor('Doctor / clinic');
+  doctor('Doctor / clinic'),
+  veterinarian('Veterinarian / animal hospital');
 
   const ContactKind(this.label);
   final String label;

@@ -186,7 +186,8 @@ class SosScreen extends StatelessWidget {
               ),
             ),
             ...s.contacts
-                .where((c) => c.kind != ContactKind.emergency)
+                .where((c) => c.kind != ContactKind.emergency &&
+                    (!bitten || c.kind != ContactKind.veterinarian))
                 .map(
                   (c) => Padding(
                     padding: const EdgeInsets.only(top: 8),

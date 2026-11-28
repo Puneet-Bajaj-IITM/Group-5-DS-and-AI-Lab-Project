@@ -1,0 +1,11 @@
+{
+  "notebook": "https://www.kaggle.com/code/vikas25s/sg-m5-vikas-assigned-checks",
+  "version": 2,
+  "date": "2026-11-28",
+  "tested_main_commit": "ee9c49c4e47a67c11c8e355d5c454d2dc1b95d8f",
+  "source_files_verified": 63,
+  "targeted_tests_passed": 6,
+  "analysis": "No issues found",
+  "scope": "Targeted contact/SOS tests and static analysis including BLE probe; artwork/video fixtures and fonts omitted in cloud harness; no release build or physical BLE verification",
+  "log_format": "Trailing whitespace removed from analysis log; original retained in Kaggle outputs"
+}

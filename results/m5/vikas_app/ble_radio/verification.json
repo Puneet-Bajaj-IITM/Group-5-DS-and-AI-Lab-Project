@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-28",
+  "scope": "Isolated nRF Connect Android phone transmitter to Windows receiver; not SerpentGuard end-to-end, two-phone, or relay acceptance",
+  "matched_reports": 8,
+  "listen_seconds": 30,
+  "manufacturer_id": "0xFFFF",
+  "payload_bytes": 20,
+  "payload_hex": "535401B0280001FF020000000000000000000000",
+  "rssi_min_dbm": -73,
+  "rssi_max_dbm": -61,
+  "execution": "Windows PowerShell 5.1 -Mta; built-in .NET Framework compiler and Windows Runtime BLE APIs; active scan with extended advertisements enabled",
+  "phone_model": "vivo T4x 5G shown by earlier Windows device inventory; not read through ADB",
+  "phone_android_version": "not recorded",
+  "distance": "phone near laptop; distance not measured",
+  "limitations": [
+    "Reports may repeat the same advertisement; not eight unique messages",
+    "No sent-packet count, loss ratio, measured range or latency",
+    "No Android receiver, SerpentGuard app verdict, saved sighting, or relay path tested",
+    "ST magic is deliberately rejected by production SG receivers",
+    "No Bluetooth MAC, device identifier or real location is stored"
+  ],
+  "artifact_sha256": {
+    "phone_to_windows.json": "c7fcacf86153898aa34f4211e2b67c83478e6266fd4f4719d49a1f84483eb169",
+    "receiver.cs": "f8c209615ef2569e3806c4f037ed50d04d6f48428bf4c1f7a361b1fa27a968fa"
+  }
+}
