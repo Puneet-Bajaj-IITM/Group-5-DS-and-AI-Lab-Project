@@ -45,8 +45,10 @@ void main() {
   late double score; // the detector's snake score for the next frames
   late double boxCy, boxH; // the box's centre y and height (letterboxed 320 px)
   late double snakeProbability; // the snake check's answer for the next frames
+  // With the snake check the live verdict is the lean path: box crop, one classify.
+  const leanClassifyPerFrame = 1;
   late int detectorCalls, checkCalls, segmentCalls, classifyCalls;
-  Completer<void>? holdSegment;
+  Completer<void>? holdVerdict;
 
   /// The golden row's outputs as the native lane returns them (float32).
   Map<String, Float32List> classifierOutputs(Map<String, dynamic> row) => {
@@ -68,7 +70,7 @@ void main() {
     boxH = 80;
     snakeProbability = 0.9;
     detectorCalls = checkCalls = segmentCalls = classifyCalls = 0;
-    holdSegment = null;
+    holdVerdict = null;
     messenger.setMockMethodCallHandler(detector, (call) async {
       detectorCalls++;
       final out = Float32List(5 * anchors);
@@ -83,6 +85,7 @@ void main() {
       switch (call.method) {
         case 'check':
           checkCalls++;
+          await holdVerdict?.future;
           expect((call.arguments as Map)['size'], check.inputSize);
           final probs = Float32List(2);
           probs[check.snakeIndex] = snakeProbability;
@@ -90,7 +93,7 @@ void main() {
           return {check.output: probs};
         case 'segment':
           segmentCalls++;
-          await holdSegment?.future;
+          await holdVerdict?.future; // the first verdict-lane call with the M4 gate
           return Float32List(320 * 320)..fillRange(0, 320 * 320, 1.0); // the whole frame is snake
         default:
           classifyCalls++;
@@ -130,8 +133,8 @@ void main() {
     live.offer(frame(0));
     await pumpEventQueue();
     expect(checkCalls, 1, reason: 'the snake check decides, not the detector');
-    expect(segmentCalls, 1);
-    expect(classifyCalls, classifyPerFrame);
+    expect(segmentCalls, 0, reason: 'lean: the detector box crop, no U-Net');
+    expect(classifyCalls, leanClassifyPerFrame);
     expect(live.view!.skippedByGate, 0);
     expect(live.view!.identification!.verdict, Verdict.dangerous);
   });
@@ -149,15 +152,14 @@ void main() {
     expect(live.view!.snakeInView, isFalse);
   });
 
-  test('the verdict lane gives the direct path\'s answer: mirror pass and prior included', () async {
+  test('the verdict lane gives the lean path\'s answer: box crop and prior, no mirror pass', () async {
     final live = session();
     live.offer(frame(0));
     await pumpEventQueue();
-    expect(segmentCalls, 1);
-    expect(classifyCalls, classifyPerFrame, reason: 'the crop and its mirror image');
+    expect(segmentCalls, 0);
+    expect(classifyCalls, leanClassifyPerFrame, reason: 'the box crop only, no mirror image');
     final out = asOutputs(classifierOutputs(dangerousRow));
-    final direct = rules.verdictFromOutputs(
-        classifierAnswer(out, settings.classifier.flipTta ? out : null, settings.classifier));
+    final direct = rules.verdictFromOutputs(classifierAnswer(out, null, settings.classifier.withoutMirror));
     expect(direct.label, dangerousLabel);
     // "Dangerous" shows while the lock is still checking, as in identifyFrame.
     final shown = live.view!.identification!;
@@ -191,36 +193,36 @@ void main() {
   });
 
   test('while the verdict lane works, newer frames feed only the boxes', () async {
-    holdSegment = Completer<void>();
+    holdVerdict = Completer<void>();
     final live = session();
     for (var i = 0; i < 6; i++) {
       live.offer(frame(i * 33));
       await pumpEventQueue();
     }
-    expect(segmentCalls, 1, reason: 'one verdict at a time');
+    expect(checkCalls, 1, reason: 'one verdict at a time');
     expect(detectorCalls, 6, reason: 'the box lane kept up');
-    holdSegment!.complete();
+    holdVerdict!.complete();
     await pumpEventQueue();
-    expect(classifyCalls, classifyPerFrame);
+    expect(classifyCalls, leanClassifyPerFrame);
     live.offer(frame(300));
     await pumpEventQueue();
-    expect(segmentCalls, 2, reason: 'the lane is free again');
+    expect(checkCalls, 2, reason: 'the lane is free again');
   });
 
   test('a verdict still running at a reset is dropped, and the lane works again', () async {
-    holdSegment = Completer<void>();
+    holdVerdict = Completer<void>();
     final live = session();
     live.offer(frame(0));
     await pumpEventQueue();
     live.reset();
-    holdSegment!.complete();
+    holdVerdict!.complete();
     await pumpEventQueue();
     expect(classifyCalls, 0, reason: 'the old frame stops after the reset');
-    holdSegment = null;
+    holdVerdict = null;
     live.offer(frame(100));
     await pumpEventQueue();
-    expect(segmentCalls, 2);
-    expect(classifyCalls, classifyPerFrame);
+    expect(checkCalls, 2);
+    expect(classifyCalls, leanClassifyPerFrame);
   });
 
   test('a failing lane keeps its error on every view and shows no stale verdict, until it works again', () async {
@@ -333,7 +335,7 @@ void main() {
   });
 
   test('with the M4 gate, turned-down frames reach the lock only while the verdict lane is free', () async {
-    holdSegment = Completer<void>();
+    holdVerdict = Completer<void>();
     final live = session(m4Settings);
     live.offer(frame(0)); // a snake frame: the verdict lane starts and waits
     await pumpEventQueue();
@@ -343,7 +345,7 @@ void main() {
       await pumpEventQueue();
     }
     expect(live.view!.skippedByGate, 0);
-    holdSegment!.complete();
+    holdVerdict!.complete();
     await pumpEventQueue();
     live.offer(frame(300)); // the lane is free again: this one is counted
     await pumpEventQueue();

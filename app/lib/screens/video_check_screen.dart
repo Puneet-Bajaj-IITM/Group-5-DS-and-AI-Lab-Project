@@ -175,13 +175,14 @@ class _VideoCheckScreenState extends State<VideoCheckScreen> {
           aspectRatio: aspect.clamp(0.5, 2.2).toDouble(),
           child: Stack(fit: StackFit.expand, children: [
             media,
-            if (frameSize != null && step!.frame.gate.snake)
+            if (frameSize != null && step!.snakes.length >= 2)
+              SnakeBoxesOverlay(imageSize: frameSize, boxes: [for (final s in step.snakes) _snakeBox(s)])
+            else if (frameSize != null && step!.frame.gate.snake)
               SnakeBoxesOverlay(
                 imageSize: frameSize,
                 boxes: [
                   // The banner above already names the species.
                   if (box != null) OverlayBox(box, style?.background ?? Brand.venom, main: true),
-                  for (final o in step.frame.others) OverlayBox(o.box, Brand.venom.withValues(alpha: 0.85), label: 'Snake'),
                 ],
               ),
             Positioned(left: 10, right: 10, top: 10, child: VideoHud(step: step)),
@@ -391,3 +392,14 @@ class _Timeline extends StatelessWidget {
 
 /// The answer to colour and name on screen: none while no snake was found.
 Identification? _snakeAnswer(Identification? shown) => shown != null && shown.snakeFound ? shown : null;
+
+/// A snake with several in view: its own colour and name, "Identifying…" until its own lock settles.
+OverlayBox _snakeBox(SnakeLabel s) {
+  final id = _snakeAnswer(s.id);
+  return OverlayBox(
+    s.box,
+    id == null ? Brand.venom : VerdictStyle.of(id.verdict).background,
+    label: id == null ? identifyingText : id.topSpecies?.displayName ?? id.verdict.title,
+    main: id != null,
+  );
+}

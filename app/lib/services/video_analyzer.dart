@@ -4,13 +4,22 @@ import 'package:flutter/services.dart';
 
 import '../inference/image_ops.dart';
 import '../inference/pipeline.dart';
+import '../inference/snake_tracks.dart';
 import '../inference/video_lock.dart';
 import '../models/verdict.dart';
 import 'classifier.dart';
 
 /// One processed frame of a clip.
+/// One tracked snake on a frame: its box and its own settled answer (null
+/// while it is still being identified).
+typedef SnakeLabel = ({PixelBox box, Identification? id});
+
 class VideoStep {
-  const VideoStep({required this.seconds, required this.frame, required this.lock, required this.shown});
+  const VideoStep(
+      {required this.seconds, required this.frame, required this.lock, required this.shown, this.snakes = const []});
+
+  /// Every tracked snake on this frame, each named by its own lock.
+  final List<SnakeLabel> snakes;
 
   /// Where the frame sits in the clip.
   final double seconds;
@@ -102,15 +111,23 @@ class VideoAnalyzer {
       final frameCount = info['frameCount'] as int?;
       final seconds = math.min(duration, maxSeconds);
       final lock = classifier.newLock();
+      final tracks = classifier.newTracks();
       final steps = <VideoStep>[];
 
       Future<VideoStep> process(RgbImage frame, double t) async {
-        final r = await classifier.runFrame(frame);
+        final r = await classifier.runFrame(frame, nameOthers: true);
         final step = lock.add(r.parts, t);
         final shown = !r.gate.snake && step.pooled == null
             ? null
             : (step.shown == null ? null : classifier.fromAnswer(step.shown!, details: r));
-        return VideoStep(seconds: t, frame: r, lock: step, shown: shown);
+        final named = tracks.update([
+          if (r.gate.snake && r.gate.box != null) FrameSnake(r.gate.box!, r.parts),
+          for (final o in r.others) FrameSnake(o.box, o.parts),
+        ], t);
+        return VideoStep(seconds: t, frame: r, lock: step, shown: shown, snakes: [
+          for (final n in named)
+            (box: n.box, id: n.answer == null ? null : classifier.fromAnswer(n.answer!, details: r)),
+        ]);
       }
 
       if (frameCount != null && frameCount > 0 && duration > 0) {

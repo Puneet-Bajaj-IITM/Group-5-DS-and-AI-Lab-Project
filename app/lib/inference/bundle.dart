@@ -127,6 +127,9 @@ class ClassifierSettings {
 
   /// log(training photos) per class, in class-id order.
   final List<double> logCounts;
+
+  /// The same prior with no mirror pass (the lean path).
+  ClassifierSettings get withoutMirror => ClassifierSettings(flipTta: false, priorTau: priorTau, logCounts: logCounts);
 }
 
 /// A3's calibrated decision thresholds (DR0).

@@ -145,6 +145,11 @@ class LiveSession {
   final Map<int, Identification> _trackNames = {};
   final Map<int, double> _trackNamedAt = {};
 
+  // The sharpest frame since the verdict lane last started, which it takes
+  // next instead of whatever frame is newest: motion blur costs more accuracy
+  // than anything else measured (M5 report, section 6.3).
+  _Candidate? _sharpest;
+
   // Diagnostics.
   final LaneTimer boxTimer = LaneTimer(), verdictTimer = LaneTimer();
   int _skippedByGate = 0;
@@ -162,6 +167,7 @@ class LiveSession {
     _hasShown = false;
     _lastVerdictFrame = null;
     _clearTracks();
+    _sharpest = null;
     _skippedByGate = 0;
     boxTimer.clear();
     verdictTimer.clear();
@@ -244,13 +250,20 @@ class LiveSession {
           _skippedByGate++;
           _noSnake(seconds, fixed, conf, rgb);
         }
-      } else if (!_verdictBusy) {
-        final several = _namedTracks();
-        if (several.length >= 2) {
-          unawaited(_trackLane(fixed, !identical(fixed, rgb), several, seconds, session));
-        } else {
-          if (_trackNames.isNotEmpty) _clearTracks(); // back to one snake: the frozen path
-          unawaited(_verdictLane(fixed, !identical(fixed, rgb), conf, best, seconds, session));
+      } else {
+        final now = _Candidate(fixed, !identical(fixed, rgb), conf, best, seconds, sharpness(fixed));
+        if (_sharpest == null || now.sharpness >= _sharpest!.sharpness) _sharpest = now;
+        if (!_verdictBusy) {
+          final several = _namedTracks();
+          if (several.length >= 2) {
+            // Boxes of several snakes belong to the newest frame.
+            unawaited(_trackLane(fixed, now.exposureFixed, several, seconds, session));
+          } else {
+            if (_trackNames.isNotEmpty) _clearTracks(); // back to one snake
+            final c = _sharpest!;
+            unawaited(_verdictLane(c.rgb, c.exposureFixed, c.conf, c.box, c.seconds, session));
+          }
+          _sharpest = null;
         }
       }
       _boxError = null;
@@ -348,11 +361,19 @@ class LiveSession {
       }
     }
 
-    final segIn = normalise(letterbox(rgb, size, s.padRgb), s.mean, s.std, s.scale);
-    final probability = (await _verdict.invokeMethod<Float32List>('segment', {'input': segIn, 'size': size}))!;
-    times['segmenter'] = lap();
-    if (stale()) return null;
-    final post = afterGate(rgb, probability, conf, s);
+    // With the snake check as the gate, the lean path: the detector box crop and
+    // no mirror pass, half the model calls at the same validation accuracy.
+    final lean = s.usesSnakeCheck;
+    final AfterGate post;
+    if (lean) {
+      post = boxCrops(rgb, box, s);
+    } else {
+      final segIn = normalise(letterbox(rgb, size, s.padRgb), s.mean, s.std, s.scale);
+      final probability = (await _verdict.invokeMethod<Float32List>('segment', {'input': segIn, 'size': size}))!;
+      times['segmenter'] = lap();
+      if (stale()) return null;
+      post = afterGate(rgb, probability, conf, s);
+    }
     times['crop'] = lap();
     final gate = GateResult(
         snake: post.snake, boxConf: conf, maskArea: post.area, snakeProbability: snakeProbability, box: box);
@@ -373,7 +394,7 @@ class LiveSession {
     if (stale()) return null;
     final mirrored = post.mirroredInput == null ? null : await classify(post.mirroredInput!);
     if (stale()) return null;
-    final outputs = classifierAnswer(plain, mirrored, s.classifier);
+    final outputs = classifierAnswer(plain, mirrored, lean ? s.classifier.withoutMirror : s.classifier);
     times['classifier'] = lap();
     final parts = DecisionParts.fromOutputs(outputs, s.thresholds);
     return PipelineResult(
@@ -414,7 +435,7 @@ class LiveSession {
       _trackNamedAt[track.id] = seconds;
       final window = boxWindow(track.box, rgb.width, rgb.height, s.cropPadding);
       if (window == null) return;
-      final crop = cropInputs(rgb, window, s, snakeCheck: s.usesSnakeCheck);
+      final crop = cropInputs(rgb, window, s, snakeCheck: s.usesSnakeCheck, mirror: false);
       final lock = _trackLocks.putIfAbsent(track.id, () => VideoLock(rules: _rules));
       final details = PipelineResult(
           width: rgb.width,
@@ -448,7 +469,7 @@ class LiveSession {
       if (stale()) return;
       final mirrored = crop.mirroredInput == null ? null : await classify(crop.mirroredInput!);
       if (stale()) return;
-      final parts = DecisionParts.fromOutputs(classifierAnswer(plain, mirrored, s.classifier), s.thresholds);
+      final parts = DecisionParts.fromOutputs(classifierAnswer(plain, mirrored, s.classifier.withoutMirror), s.thresholds);
       final shown = lock.add(parts, seconds).shown;
       if (shown == null) {
         _trackNames.remove(track.id);
@@ -622,4 +643,14 @@ class LaneTimer {
   }
 
   double get meanMs => _recent.isEmpty ? 0 : _recent.map((e) => e.$2).reduce((a, b) => a + b) / _recent.length;
+}
+
+/// A frame the verdict lane may take, with how sharp it is.
+class _Candidate {
+  const _Candidate(this.rgb, this.exposureFixed, this.conf, this.box, this.seconds, this.sharpness);
+  final RgbImage rgb;
+  final bool exposureFixed;
+  final double? conf;
+  final PixelBox? box;
+  final double seconds, sharpness;
 }

@@ -306,7 +306,12 @@ class SnakePipeline {
   /// Other snakes in the photo are named too ([PipelineResult.others]);
   /// without [nameOthers] only their boxes are given, as classifying more
   /// crops on every video or live frame is too slow.
-  Future<PipelineResult> run(RgbImage photo, {bool nameOthers = true}) async {
+  ///
+  /// With [lean] (video and live frames), the crop is the detector's box
+  /// instead of the U-Net mask's and there is no mirror pass: half the model
+  /// calls, at the same accuracy on validation (results/m5/lean). Only with
+  /// the snake check as the gate, which then decides "snake" on its own.
+  Future<PipelineResult> run(RgbImage photo, {bool nameOthers = true, bool lean = false}) async {
     final s = settings;
     final times = <String, int>{};
     final clock = Stopwatch()..start();
@@ -323,6 +328,7 @@ class SnakePipeline {
     final inline = photo.width * photo.height <= inlinePixelLimit;
     final pre = inline ? _prepareHere(photo) : await _worker.prepare(photo);
     times['exposure'] = lap();
+    final leanPath = lean && inline && s.usesSnakeCheck;
 
     double? snakeProbability;
     if (s.usesSnakeCheck) {
@@ -357,11 +363,16 @@ class SnakePipeline {
     final cropBoxes = nameOthers ? otherBoxes : const <PixelBox>[];
     times['detector'] = lap();
 
-    final probability = Float32List.fromList(await _run(_segmenter, pre.segmenterInput, _segmenterOutput));
-    times['segmenter'] = lap();
-    final post = inline
-        ? afterGate(_inlineRgb!, probability, conf, s, others: cropBoxes)
-        : await _worker.afterGate(pre.job, probability, conf, cropBoxes);
+    final AfterGate post;
+    if (leanPath) {
+      post = boxCrops(_inlineRgb!, box, s, others: cropBoxes);
+    } else {
+      final probability = Float32List.fromList(await _run(_segmenter, pre.segmenterInput, _segmenterOutput));
+      times['segmenter'] = lap();
+      post = inline
+          ? afterGate(_inlineRgb!, probability, conf, s, others: cropBoxes)
+          : await _worker.afterGate(pre.job, probability, conf, cropBoxes);
+    }
     times['crop'] = lap();
 
     final gate = GateResult(
@@ -377,7 +388,8 @@ class SnakePipeline {
       );
     }
 
-    final outputs = await _classify(post.classifierInput!, post.mirroredInput);
+    final classifier = leanPath ? _classifierSettings.withoutMirror : _classifierSettings;
+    final outputs = await _classify(post.classifierInput!, post.mirroredInput, classifier);
     times['classifier'] = lap();
 
     final parts = DecisionParts.fromOutputs(outputs, s.thresholds);
@@ -386,7 +398,8 @@ class SnakePipeline {
 
     final others = <OtherSnake>[];
     for (var i = 0; i < otherBoxes.length; i++) {
-      final other = nameOthers ? await _nameOther(otherBoxes[i], post.others[i]) : OtherSnake(otherBoxes[i]);
+      final other =
+          nameOthers ? await _nameOther(otherBoxes[i], post.others[i], classifier) : OtherSnake(otherBoxes[i]);
       if (other != null) others.add(other);
     }
     times['others'] = lap();
@@ -410,14 +423,13 @@ class SnakePipeline {
       _run(_snakeCheck, input, _check!.output, _check.inputSize);
 
   /// The frozen classifier answer for a crop and its mirror image.
-  Future<ModelOutputs> _classify(Float32List plain, Float32List? mirrored) async => classifierAnswer(
-      _outputs(await _runAll(_classifier, plain)),
-      mirrored == null ? null : _outputs(await _runAll(_classifier, mirrored)),
-      _classifierSettings);
+  Future<ModelOutputs> _classify(Float32List plain, Float32List? mirrored, ClassifierSettings classifier) async =>
+      classifierAnswer(_outputs(await _runAll(_classifier, plain)),
+          mirrored == null ? null : _outputs(await _runAll(_classifier, mirrored)), classifier);
 
   /// Another snake's crop through the snake check (when on), the classifier
   /// and the rules; null when there is no crop or the check says no snake.
-  Future<OtherSnake?> _nameOther(PixelBox box, CropInputs? crop) async {
+  Future<OtherSnake?> _nameOther(PixelBox box, CropInputs? crop, ClassifierSettings classifier) async {
     if (crop == null) return null;
     double? snakeProbability;
     if (crop.snakeCheckInput != null) {
@@ -425,7 +437,8 @@ class SnakePipeline {
       if (!_check!.isSnake(probs)) return null;
       snakeProbability = probs[_check.snakeIndex];
     }
-    final parts = DecisionParts.fromOutputs(await _classify(crop.classifierInput, crop.mirroredInput), settings.thresholds);
+    final parts =
+        DecisionParts.fromOutputs(await _classify(crop.classifierInput, crop.mirroredInput, classifier), settings.thresholds);
     return OtherSnake(box, answer: rules.verdict(parts), parts: parts, snakeProbability: snakeProbability);
   }
 
@@ -504,13 +517,14 @@ class CropInputs {
   final Float32List? mirroredInput, snakeCheckInput;
 }
 
-CropInputs cropInputs(RgbImage rgb, (int, int, int, int)? window, PipelineSettings s, {bool snakeCheck = false}) {
+CropInputs cropInputs(RgbImage rgb, (int, int, int, int)? window, PipelineSettings s,
+    {bool snakeCheck = false, bool? mirror}) {
   final crop = window == null ? rgb : rgb.crop(window.$1, window.$2, window.$3, window.$4);
   Float32List input(RgbImage img, int size) => normalise(letterbox(img, size, s.padRgb), s.mean, s.std, s.scale);
   final check = snakeCheck ? s.snakeCheck : null;
   return CropInputs(
     input(crop, s.inputSize),
-    s.classifier.flipTta ? input(crop.mirrored(), s.inputSize) : null,
+    (mirror ?? s.classifier.flipTta) ? input(crop.mirrored(), s.inputSize) : null,
     check == null ? null : input(crop, check.inputSize),
   );
 }
@@ -642,7 +656,19 @@ AfterGate afterGate(RgbImage rgb, Float32List probability, double? conf, Pipelin
       keepShareOfLargest: s.keepShareOfLargest,
       keepShareOfPhoto: s.keepShareOfPhoto);
   final window = cropWindow(cleaned, rgb.height, rgb.width, s.cropPadding);
-  final main = cropInputs(rgb, window, s);
+  return _crops(rgb, window, area, s, others: others);
+}
+
+/// The lean path's crops: the main snake cropped to the detector's [box] (the
+/// whole photo when there is none) and no mirror image, as [afterGate] would
+/// with the mask; validated as just as accurate (results/m5/lean).
+AfterGate boxCrops(RgbImage rgb, PixelBox? box, PipelineSettings s, {List<PixelBox> others = const []}) =>
+    _crops(rgb, box == null ? null : boxWindow(box, rgb.width, rgb.height, s.cropPadding), 0, s,
+        others: others, mirror: false);
+
+AfterGate _crops(RgbImage rgb, (int, int, int, int)? window, double area, PipelineSettings s,
+    {required List<PixelBox> others, bool? mirror}) {
+  final main = cropInputs(rgb, window, s, mirror: mirror);
   final clsIn = main.classifierInput;
   var sum = 0.0, sq = 0.0;
   for (final v in clsIn) {
@@ -663,7 +689,7 @@ AfterGate afterGate(RgbImage rgb, Float32List probability, double? conf, Pipelin
       for (final b in others)
         switch (boxWindow(b, rgb.width, rgb.height, s.cropPadding)) {
           null => null,
-          final w => cropInputs(rgb, w, s, snakeCheck: s.usesSnakeCheck),
+          final w => cropInputs(rgb, w, s, snakeCheck: s.usesSnakeCheck, mirror: mirror),
         }
     ],
   );
