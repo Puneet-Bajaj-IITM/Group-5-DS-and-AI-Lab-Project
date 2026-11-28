@@ -711,8 +711,19 @@ Source: `g4/README.md`, `g4/results/latency.json`. These were measured on a busy
 only the ratios mean much. Flip doubles the classifier's time per photo. The three M4 models take 53.0 MB as float32
 files (M4 report, "Response to earlier feedback").
 
-> **To do (Manas Rastogi):** on an Android phone, measure the time per photo for the full pipeline with and without
-> flip, the peak RAM, and the app size with the snake check added.
+**On a phone.** Manas Rastogi measured the app with the frozen M5 files on a Samsung Galaxy S23 FE (Exynos 2200,
+8 GB RAM, Android 16; PR #37, `integration_test/photo_timing_test.dart` and `live_lanes_test.dart`, profile build):
+
+| What | Time | Peak memory |
+|---|---:|---:|
+| One 1600 x 2133 photo, full pipeline with the mirror pass | 2,470 ms | 631 MB |
+| The same photo without the mirror pass | 2,193 ms | |
+| Live camera, box lane (detector) per frame | 50 ms | |
+| Live camera, verdict lane (snake check to verdict) per frame | 655 ms | |
+
+The mirror pass adds about 280 ms (13%). About 63% of the photo time is Dart pixel work (the exposure fix and the
+crop), not the models, so that is where to speed it up. The app's model files are 65.1 MB (section 9); we did not
+measure the installed APK size.
 
 ### 7.4 Bias and fairness
 
@@ -832,8 +843,12 @@ passed and 3 skipped, and the snake-check input still matches Python on all 15 g
   from 65.1 MB. That is still above the 25 to 30 MB budget. The app still ships the fp32 classifier, detector and
   U-Net: switching needs the golden files rebuilt and the phone test below, so we left it for Milestone 6.
 
-> **To do (Manas Rastogi):** run `integration_test/golden_photos_test.dart` on a phone, and measure on-device latency
-> and RAM (section 7.3).
+**On the phone** (PR #37, Galaxy S23 FE, debug build): `integration_test/golden_photos_test.dart` gives the same snake
+call, verdict, frozen verdict, message, top-3 species and crop as the Python reference on all 15 golden photos.
+Probabilities differ by up to 0.0105 (P(snake), from the fp16 snake check on the phone's CPU) and 0.0065 (top 3), so
+the test's 1e-3 tolerance is missed on 7 photos while no answer changes. The app also now checks every model file's
+SHA-256 against `pipeline.json` before it runs it: before this, a phone that had an M4 build kept A3's classifier
+after an update, because A3 and M5_KD's files are the same size. Latency and memory are in section 7.3.
 
 ## 10. Summary & Conclusion
 

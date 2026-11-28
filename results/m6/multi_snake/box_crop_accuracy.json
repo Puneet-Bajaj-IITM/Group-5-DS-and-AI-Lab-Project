@@ -1,0 +1,6 @@
+{
+ "photos": 600,
+ "top1_mask_crop": 0.73,
+ "top1_box_crop": 0.7466666666666667,
+ "same_right_or_wrong": 0.92
+}

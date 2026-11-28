@@ -46,6 +46,7 @@ FROZEN = {
     SNAKE_RUN / "model.pt": "88fd518c550a4f1502c86e7da1d8a3a8bd9c332b5377a8cc5d7f65f8144b7cfd",
     SNAKE_RUN / SNAKE_FILE: "fb5b5bda5e0dbdb1895448ae1c70e56e93042ef322f9e5595cfcd6e0b8ec9fc3",
 }
+A3_CLASSIFIER_SHA = "355a975449e48b0b2dd7d633641132cf90c68d5d79a8974849b01b6c4651252e"  # the M4 bundle's SHA256SUMS
 LOG_COUNTS_SHA = "d6cb68339c75b59af12f18a6a3a1601c18cfd42bb2a1f12a3459a32a286f4425"
 MODEL_SOURCES = {
     "classifier.onnx": G3 / "app_models_KD/classifier.onnx",
@@ -53,6 +54,12 @@ MODEL_SOURCES = {
     "segmenter.onnx": M4_MODELS / "segmenter.onnx",
     SNAKE_FILE: SNAKE_RUN / SNAKE_FILE,
 }
+
+
+def require(ok, message):
+    """A check that also runs under python -O (assert would be stripped)."""
+    if not ok:
+        raise ValueError(message)
 
 
 def sha256(path):
@@ -80,14 +87,14 @@ def thresholds(raw):
 
 def main():
     for path, want in FROZEN.items():
-        assert sha256(path) == want, f"{path} is not the frozen file"
+        require(sha256(path) == want, f"{path} is not the frozen file")
     counts = prior.log_counts()
-    assert hashlib.sha256(np.ascontiguousarray(counts).tobytes()).hexdigest() == LOG_COUNTS_SHA
+    require(hashlib.sha256(np.ascontiguousarray(counts).tobytes()).hexdigest() == LOG_COUNTS_SHA, "the training counts differ from FREEZE.md")
 
     frozen = json.loads((G3 / "refit_new.json").read_text())["KD flip + prior"]
-    assert frozen["tau"] == TAU
+    require(frozen["tau"] == TAU, "the refit tau is not the frozen one")
     strict = json.loads(STRICT.read_text())
-    assert strict["frozen"]["thresholds"] == frozen["chosen"]["thresholds"]
+    require(strict["frozen"]["thresholds"] == frozen["chosen"]["thresholds"], "refit_strict.json was made from other frozen thresholds")
 
     settings = committed("assets/model/pipeline.json")
     settings["gate"]["rule"] = "snake_check"
@@ -110,15 +117,22 @@ def main():
         "detector.pt": settings["source_weights_sha256"]["detector.pt"],
         "segmenter.pt": settings["source_weights_sha256"]["segmenter.pt"],
         "distil_oi model.pt": FROZEN[SNAKE_RUN / "model.pt"]}
+    # The app refuses an ONNX file whose SHA-256 differs from this (pipeline.dart extractModel). The classifier is
+    # checked against A3's file here: both are MobileViT-S exports of the same byte size.
+    settings["model_sha256"] = {name: sha256(source) for name, source in MODEL_SOURCES.items()}
+    require(settings["model_sha256"]["classifier.onnx"] != A3_CLASSIFIER_SHA, "classifier.onnx is A3, not M5_KD")
+    settings["model_sha256_refused"] = {"classifier.onnx": {
+        A3_CLASSIFIER_SHA: "A3, the M4 classifier: same size as M5_KD, wrong for these settings"}}
+    settings.pop("model_sha256_missing", None)  # every file is pinned now
     (APP / "assets/model/pipeline.json").write_text(json.dumps(settings, indent=1) + "\n")
 
     tables = committed("assets/model/tables.json")
     prototypes = np.load(KD_RUN / "prototypes.npz")["plain"]
-    assert np.asarray(tables["prototypes"]).shape == prototypes.shape
+    require(np.asarray(tables["prototypes"]).shape == prototypes.shape, "the prototypes have another shape")
     tables["prototypes"] = prototypes.tolist()
     (APP / "assets/model/tables.json").write_text(json.dumps(tables) + "\n")
     reference = json.loads((REPO / "results/m5/test/g5/tables_frozen.json").read_text())
-    assert reference == tables, "tables differ from the frozen G5 tables"
+    require(reference == tables, "tables differ from the frozen G5 tables")
 
     target = APP / "assets/models"
     for name, source in MODEL_SOURCES.items():

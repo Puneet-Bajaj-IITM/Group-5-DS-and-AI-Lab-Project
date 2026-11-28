@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../app.dart';
+import '../inference/image_ops.dart' show PixelBox;
 import '../models/records.dart';
 import '../models/species.dart';
 import '../models/verdict.dart';
@@ -103,6 +104,8 @@ class _ResultScreenState extends State<ResultScreen> {
         .toList();
 
     final sighting = widget.sighting;
+    final worst = _id.mostSevere;
+    final named = _id.verdict != Verdict.unknown;
     return Scaffold(
       appBar: AppBar(title: Text(_saved ? 'Saved result' : 'Result')),
       body: SafeArea(
@@ -137,17 +140,18 @@ class _ResultScreenState extends State<ResultScreen> {
             ],
             const SizedBox(height: 14),
             if (_id.isDemo) ...[const DemoBadge(), const SizedBox(height: 12)],
-            VerdictBanner(verdict: _id.verdict, reason: _id.reason, snakeFound: _id.snakeFound),
+            VerdictBanner(verdict: worst.verdict, reason: worst.reason, snakeFound: _id.snakeFound),
+            if (_id.others.isNotEmpty) ...[const SizedBox(height: 12), _SnakeList(id: _id)],
             const SizedBox(height: 16),
-            if (_id.verdict.escalate) ...[
+            if (worst.verdict.escalate) ...[
               EmergencyButton(
                 label: 'Someone was bitten: get help',
                 onPressed: () =>
-                    openSos(context, bitten: true, identification: _id),
+                    openSos(context, bitten: true, identification: worst),
               ),
               const SizedBox(height: 10),
             ],
-            if (_id.verdict == Verdict.notListed && rescuers.isNotEmpty)
+            if (worst.verdict == Verdict.notListed && rescuers.isNotEmpty)
               ...rescuers.map(
                 (c) => Padding(
                   padding: const EdgeInsets.only(bottom: 10),
@@ -164,7 +168,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   ),
                 ),
               ),
-            if (_id.verdict == Verdict.notListed && rescuers.isEmpty)
+            if (worst.verdict == Verdict.notListed && rescuers.isEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Text(
@@ -209,7 +213,21 @@ class _ResultScreenState extends State<ResultScreen> {
                   style: text.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                 ),
               ),
-            ..._id.top.map((t) => _SpeciesRow(score: t)),
+            if (!named && _id.snakeFound)
+              Text(
+                'Not sure which species this is. Treat it as venomous.',
+                style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+              ),
+            if (named && _id.top.isNotEmpty) ...[
+              _SpeciesRow(score: _id.top.first),
+              if (_id.top.length > 1)
+                ExpansionTile(
+                  title: const Text('Other possibilities'),
+                  tilePadding: EdgeInsets.zero,
+                  childrenPadding: EdgeInsets.zero,
+                  children: [for (final t in _id.top.skip(1)) _SpeciesRow(score: t)],
+                ),
+            ],
             const SectionTitle('First aid'),
             OutlinedButton.icon(
               onPressed: () => Navigator.of(
@@ -251,6 +269,49 @@ class _ResultScreenState extends State<ResultScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// What a snake's box says: its top species and percentage, or no species
+/// when the verdict is "could be dangerous".
+String _snakeLabel(Identification id) {
+  if (id.verdict == Verdict.unknown) return 'Snake · not sure';
+  final top = id.top.firstOrNull;
+  if (top == null) return 'Snake';
+  return top.probability.isNaN
+      ? top.species.displayName
+      : '${top.species.displayName} · ${(top.probability * 100).round()}%';
+}
+
+/// "N snakes in this photo", one row per snake with its label and verdict.
+class _SnakeList extends StatelessWidget {
+  const _SnakeList({required this.id});
+  final Identification id;
+
+  @override
+  Widget build(BuildContext context) {
+    final text = Theme.of(context).textTheme;
+    final all = [id, for (final o in id.others) o.identification];
+    return Card(
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text('${all.length} snakes in this photo', style: text.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+          const SizedBox(height: 4),
+          for (final snake in all)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(children: [
+                Icon(Icons.crop_square_rounded, size: 18, color: VerdictStyle.of(snake.verdict).background),
+                const SizedBox(width: 8),
+                Expanded(child: Text(_snakeLabel(snake))),
+                Text(snake.verdict.title, style: const TextStyle(fontWeight: FontWeight.w700)),
+              ]),
+            ),
+        ]),
       ),
     );
   }
@@ -428,7 +489,7 @@ class _SpeciesPickerState extends State<_SpeciesPicker> {
 }
 
 
-/// The photo with the detector's box and the top species drawn on it.
+/// The photo with every snake's box, each labelled with its own answer.
 class _PhotoWithBox extends StatelessWidget {
   const _PhotoWithBox({required this.path, required this.id, this.saved});
   final String path;
@@ -444,8 +505,8 @@ class _PhotoWithBox extends StatelessWidget {
     final w = d?.width ?? saved?.imageWidth, h = d?.height ?? saved?.imageHeight;
     final size = w == null || h == null ? null : Size(w.toDouble(), h.toDouble());
     final aspect = size == null ? 4 / 3 : (size.width / size.height).clamp(0.6, 1.9);
-    final style = VerdictStyle.of(id.verdict);
-    final top = id.top.isEmpty ? null : id.top.first;
+    OverlayBox overlay(PixelBox b, Identification snake, {bool main = false}) =>
+        OverlayBox(b, VerdictStyle.of(snake.verdict).background, label: _snakeLabel(snake), main: main);
     return ClipRRect(
       borderRadius: BorderRadius.circular(22),
       child: ColoredBox(
@@ -454,16 +515,13 @@ class _PhotoWithBox extends StatelessWidget {
           aspectRatio: aspect.toDouble(),
           child: Stack(fit: StackFit.expand, children: [
             Image.file(File(path), fit: BoxFit.contain, cacheWidth: 1400),
-            if (box != null && size != null && id.snakeFound)
-              SnakeBoxOverlay(
-                box: box,
+            if (size != null && id.snakeFound)
+              SnakeBoxesOverlay(
                 imageSize: size,
-                color: style.background,
-                label: top == null
-                    ? 'Snake'
-                    : top.probability.isNaN
-                        ? top.species.displayName
-                        : '${top.species.displayName} · ${(top.probability * 100).round()}%',
+                boxes: [
+                  if (box != null) overlay(box, id, main: true),
+                  for (final o in id.others) overlay(o.box, o.identification),
+                ],
               ),
             if (!id.snakeFound)
               Align(

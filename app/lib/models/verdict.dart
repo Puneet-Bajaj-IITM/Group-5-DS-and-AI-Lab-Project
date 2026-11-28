@@ -1,4 +1,5 @@
 import '../inference/decision.dart';
+import '../inference/image_ops.dart' show PixelBox;
 import '../inference/pipeline.dart';
 import 'species.dart';
 
@@ -22,6 +23,13 @@ enum Verdict {
   /// Dangerous and unknown both get the urgent warning style.
   bool get warns => escalate;
 
+  /// Higher is more severe: dangerous, then "could be dangerous", then not listed.
+  int get severity => switch (this) {
+        Verdict.dangerous => 2,
+        Verdict.unknown => 1,
+        Verdict.notListed => 0,
+      };
+
   /// Stable wire code for Bluetooth alerts. Never reorder.
   int get code => index;
   static Verdict fromCode(int code) =>
@@ -32,6 +40,13 @@ class SpeciesScore {
   const SpeciesScore(this.species, this.probability);
   final Species species;
   final double probability;
+}
+
+/// Another snake in the photo: its box and its own answer.
+class IdentifiedSnake {
+  const IdentifiedSnake(this.box, this.identification);
+  final PixelBox box;
+  final Identification identification;
 }
 
 /// What the classifier produced for one photo, plus the verdict.
@@ -46,6 +61,7 @@ class Identification {
     this.reasons = const [],
     this.genusFallback,
     this.details,
+    this.others = const [],
   });
 
   final Verdict verdict;
@@ -74,7 +90,15 @@ class Identification {
   /// model produced this.
   final PipelineResult? details;
 
+  /// The other snakes in the photo, most confident first.
+  final List<IdentifiedSnake> others;
+
   Species? get topSpecies => top.isEmpty ? null : top.first.species;
+
+  /// The answer with the most severe verdict among every snake (this one on a tie).
+  Identification get mostSevere => others
+      .map((o) => o.identification)
+      .fold(this, (worst, o) => o.verdict.severity > worst.verdict.severity ? o : worst);
 }
 
 /// The decision rules: DR0 with A3's calibrated thresholds, ported from the
@@ -122,6 +146,10 @@ class DecisionRule {
       reasons: a.reasons,
       genusFallback: a.genusFallback,
       details: details,
+      others: [
+        for (final o in details?.others ?? const <OtherSnake>[])
+          if (o.answer != null) IdentifiedSnake(o.box, fromAnswer(o.answer!, isDemo: isDemo)),
+      ],
     );
   }
 

@@ -175,15 +175,16 @@ class _VideoCheckScreenState extends State<VideoCheckScreen> {
           aspectRatio: aspect.clamp(0.5, 2.2).toDouble(),
           child: Stack(fit: StackFit.expand, children: [
             media,
-            if (box != null && frameSize != null && step!.frame.gate.snake)
-              SnakeBoxOverlay(
-                box: box,
+            if (frameSize != null && step!.frame.gate.snake)
+              SnakeBoxesOverlay(
                 imageSize: frameSize,
-                color: style?.background ?? Brand.venom,
-                // The banner above already names the species.
-                label: null,
+                boxes: [
+                  // The banner above already names the species.
+                  if (box != null) OverlayBox(box, style?.background ?? Brand.venom, main: true),
+                  for (final o in step.frame.others) OverlayBox(o.box, Brand.venom.withValues(alpha: 0.85), label: 'Snake'),
+                ],
               ),
-            Positioned(left: 10, right: 10, top: 10, child: _Hud(step: step, analysing: a == null)),
+            Positioned(left: 10, right: 10, top: 10, child: VideoHud(step: step)),
             if (a == null)
               Positioned(
                 right: 10,
@@ -230,7 +231,7 @@ class _VideoCheckScreenState extends State<VideoCheckScreen> {
         ),
       const SectionTitle('Answer at the end of the clip'),
       if (finalId == null)
-        const Text('Still checking at the end: the frames never agreed on one snake, or there was no snake. '
+        const Text('Still identifying at the end: the frames never agreed on one snake, or there was no snake. '
             'Keep away anyway.')
       else ...[
         VerdictBanner(verdict: finalId.verdict, reason: _reason(finalId), snakeFound: finalId.snakeFound),
@@ -281,10 +282,9 @@ Widget _chip(String text, Color bg, Color fg) => Container(
     );
 
 /// The answer banner over the video, like a camera HUD.
-class _Hud extends StatelessWidget {
-  const _Hud({required this.step, required this.analysing});
+class VideoHud extends StatelessWidget {
+  const VideoHud({super.key, required this.step});
   final VideoStep? step;
-  final bool analysing;
 
   @override
   Widget build(BuildContext context) {
@@ -293,7 +293,7 @@ class _Hud extends StatelessWidget {
     final shown = _snakeAnswer(s.shown);
     final style = shown == null ? null : VerdictStyle.of(shown.verdict);
     final text = shown == null
-        ? (s.frame.gate.snake ? 'Checking…' : 'Looking for a snake…')
+        ? (s.frame.gate.snake ? identifyingText : 'Looking for a snake…')
         : '${shown.verdict.title} · ${shown.topSpecies?.displayName ?? shown.reason}';
     return Align(
       alignment: Alignment.topLeft,
